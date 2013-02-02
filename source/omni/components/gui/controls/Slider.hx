@@ -363,6 +363,13 @@ class SliderBaseStyle extends OBackgroundStyle
 	{
 		super();
 		styleID = styleString;
+		
+		defaultType = 0;
+		
+		defaultStep = 10;
+		defaultValue = 0;
+		defaultMax = 100;
+		defaultMin = 0;
 	}
 
 	override public function initStyle(value:IOComponent):Void
@@ -370,6 +377,7 @@ class SliderBaseStyle extends OBackgroundStyle
 		super.initStyle(value);
 		
 		var styleAs = cast (value, Slider);
+		//todo
 		styleAs._type = defaultType;
 		styleAs.step = defaultStep;
 		styleAs._value = defaultValue;
