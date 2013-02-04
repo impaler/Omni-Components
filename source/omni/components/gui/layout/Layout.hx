@@ -8,7 +8,6 @@ import nme.display.Sprite;
 
 class Layout extends OComponent
 {
-	//todo layout logic is kind of crude and has a bugs with padding when nested
 	public var direction(default, setDirection):Int;
 	public var _direction:Int = 0;
 
@@ -69,8 +68,7 @@ class Layout extends OComponent
 		for(i in 0...components.length)
 		{
 			var current = cast (components[i], IOComponent);
-			last = current.x + current.width + padding + current.padding;
-			widths.push(current.width + current.padding * 2);
+			widths.push(current.width + (current.padding * 2) + (padding *2));
 		}
 		
 		if(_direction == VERTICALLY)
@@ -80,7 +78,14 @@ class Layout extends OComponent
 				if(widths[i] > last)
 					last = Std.int(widths[i]);
 			}
-			last = Std.int(last + padding * 2);
+		}
+		
+		if(_direction == HORIZONTALLY)
+		{
+			for(i in 0...widths.length)
+			{
+					last += Std.int(widths[i]);
+			}
 		}
 		
 		return set_Width(last);
@@ -132,9 +137,6 @@ class Layout extends OComponent
 	}
 }
 
-/**
-* LayoutStyle
-*/
 class LayoutStyle extends OBackgroundStyle
 {
 
