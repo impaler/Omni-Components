@@ -1,5 +1,6 @@
 package omni.components.style;
 
+import nme.Assets;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 
@@ -49,15 +50,15 @@ class OBaseStyle implements IStyle
 	{
 		if(value._width == 0)
 			value._width = defaultWidth;
-		
+
 		if(value._height == 0)
 			value._height = defaultHeight;
-		
+
 		if(value._state == null)
 			value._state = defaultState;
-		
+
 		if(value._padding == 0)
-				value._padding = defaultPadding;
+			value._padding = defaultPadding;
 	}
 
 	public function update(value:IOComponent):Void
@@ -67,6 +68,13 @@ class OBaseStyle implements IStyle
 	public function destroy():Void
 	{
 
+	}
+
+	public function setMinSizeBitmap(path:String):Void
+	{
+		var bitmap = Assets.getBitmapData(path);
+		minWidth = bitmap.width;
+		minHeight = bitmap.height;
 	}
 
 }
