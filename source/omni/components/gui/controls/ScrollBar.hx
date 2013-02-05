@@ -23,7 +23,7 @@ class ScrollBar extends Slider
 
 	override public function handleMouseMove(?e:OSignalMouse):Void
 	{
-		super.onMouseMove(e);
+		super.handleMouseMove(e);
 	}
 
 	override public function handleMouseUp(?e:OSignalMouse):Void

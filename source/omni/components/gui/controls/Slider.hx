@@ -43,10 +43,10 @@ class Slider extends OComponent
 
 	private var buttonClick:Bool = false;
 
-	private var mouseMove:OSignalMouse;
-	private var mouseWheel:OSignalMouse;
-	private var mouseDown:OSignalMouse;
-	private var mouseUp:OSignalMouse;
+	public var mouseMove:OSignalMouse;
+	public var mouseWheel:OSignalMouse;
+	public var mouseDown:OSignalMouse;
+	public var mouseUp:OSignalMouse;
 
 	public var onChange(default, null):OSignal<Int -> Void>;
 
@@ -65,85 +65,88 @@ class Slider extends OComponent
 
 		button = new OButtonBase();
 		add(button);
-		
+
 		sprite.buttonMode = true;
 	}
 
 	override public function enableSignals():Void
 	{
-		button.mouseDown.add(onButtonDown);
-		mouseWheel.add(onMouseWheel);
+		button.mouseDown.add(handleButtonDown);
+		mouseWheel.add(handleMouseWheel);
 		mouseDown.add(onMouseDown);
 	}
 
 	override public function disableSignals():Void
 	{
-		button.mouseDown.remove(onButtonDown);
+		button.mouseDown.remove(handleButtonDown);
 		mouseDown.remove(onMouseDown);
-		mouseWheel.remove(onMouseWheel);
+		mouseWheel.remove(handleMouseWheel);
 	}
-	
-	public function onMouseMove(?e:OSignalMouse):Void
+
+	public function handleMouseMove(?e:OSignalMouse):Void
 	{
 		updateValueOnMouseMove();
 
 		e.updateAfterEvent();
 	}
-	
+
 	public function onMouseDown(?e:OSignalMouse):Void
 	{
-		button.onMouseDown(e);
+		button.handleMouseDown(e);
 
 		updateButtonLocationFromDown();
 		updateValueFromButtonLocation();
 
 		button.startDrag(false, _rect);
 
-		mouseMove.add(onMouseMove);
-		mouseUp.add(onMouseUp);
+		mouseMove.add(handleMouseMove);
+		mouseUp.add(handleMouseUp);
 	}
 
-	public function onButtonDown(e:OSignalMouse):Void
+	public function handleButtonDown(e:OSignalMouse):Void
 	{
 		buttonClick = true;
-		OCore.instance.onStageMouseLeave.add(onLeftStage);
+		OCore.instance.onStageMouseLeave.add(handleLeftStage);
 	}
 
-	public function onMouseUp(?e:OSignalMouse):Void
+	public function handleMouseUp(?e:OSignalMouse):Void
 	{
-		button.onMouseUp(e);
+		button.handleMouseUp(e);
 		button.stopDrag();
 
-		mouseUp.remove(onMouseUp);
-		mouseMove.remove(onMouseMove);
+		mouseUp.remove(handleMouseUp);
+		mouseMove.remove(handleMouseMove);
 
 		updateValueFromButtonLocation();
-		
+
 		onChange.dispatch(value);
 	}
 
-	public function onMouseWheel(?e:OSignalMouse):Void
+	public function handleMouseWheel(?e:OSignalMouse):Void
 	{
 		value += (e.delta > 0 ? step : - step);
 		e.updateAfterEvent();
 	}
-	
-	public function onLeftStage(e:OCoreEvent):Void
+
+	public function handleLeftStage(e:OCoreEvent):Void
 	{
-		onMouseUp();
+		handleMouseUp();
 	}
 
 	public function updateButtonLocationFromDown():Void
 	{
-		if ( buttonClick == false ) {
-			if (_type == HORIZONTALLY) {
-				var maxlocation = Math.min( this.width - button.width, this.mouseX - button.width / 2 );
-				button.x = ComponentUtils.clamp( (this.mouseX - button.width / 2), 0, maxlocation );
+		if(buttonClick == false)
+		{
+			if(_type == HORIZONTALLY)
+			{
+				var maxlocation = Math.min(this.width - button.width, this.mouseX - button.width / 2);
+				button.x = ComponentUtils.clamp((this.mouseX - button.width / 2), 0, maxlocation);
 			}
-			
-			if(_type == VERTICALLY) {
-				var maxlocation = Math.min( this.height - button.height , this.mouseY - button.height / 2 );
-				button.y = ComponentUtils.clamp( (this.mouseY - button.height / 2), 0, maxlocation );
+
+			if(_type == VERTICALLY)
+			{
+				var maxlocation = Math.min(this.height - button.height, this.mouseY - button.height / 2);
+				button.y = ComponentUtils.clamp((this.mouseY - button.height / 2), 0, maxlocation);
 			}
 		}
 		buttonClick = false;
@@ -152,7 +155,7 @@ class Slider extends OComponent
 	public function updateValueOnMouseMove():Void
 	{
 		var valueChange = _value;
-		
+
 		if(_type == Slider.HORIZONTALLY)
 		{
 			valueChange = clamp(Std.int(button.x / (_width - _height) * (_max - _min) + _min));
@@ -204,25 +207,27 @@ class Slider extends OComponent
 			_value = clamp(Std.int((_height - (Std.int(_width) >> 1) - this.mouseY) / (_height - _width) * (_max - _min) + _min));
 		}
 	}
-	
-	private function clampValue( ):Void
+
+	private function clampValue():Void
 	{
 		_value = clamp(_value);
 	}
-	
-	private function clamp( value:Int ):Int
+
+	private function clamp(value:Int):Int
 	{
-		if ( _max > _min ) {
-			if ( value > Std.int(_max) )value = Std.int(_max);
-			if ( value < Std.int(_min) )value = Std.int(_min);
-		} else {
+		if(_max > _min)
+		{
+			if(value > Std.int(_max))value = Std.int(_max);
+			if(value < Std.int(_min))value = Std.int(_min);
+		}
+		else
+		{
 			value = Std.int(_max);
 			_min = _max;
 		}
 		return value;
 	}
-	
-	
+
 	public function get_mouseWheelTarget():Sprite
 	{
 		return _mouseWheelTarget;
@@ -324,9 +329,9 @@ class Slider extends OComponent
 		mouseWheel.destroy();
 		mouseDown.destroy();
 		mouseUp.destroy();
-		
-		button.mouseDown.remove(onButtonDown);
-		OCore.instance.onStageMouseLeave.remove(onLeftStage);
+
+		button.mouseDown.remove(handleButtonDown);
+		OCore.instance.onStageMouseLeave.remove(handleLeftStage);
 		super.destroy();
 	}
 
@@ -353,7 +358,7 @@ class SliderBaseStyle extends OBackgroundStyle
 	public var defaultHWidth:Float;
 
 	public var defaultType:Int;
-	
+
 	public var defaultStep:Int;
 	public var defaultValue:Int;
 	private var defaultMax:Float;
@@ -363,9 +368,8 @@ class SliderBaseStyle extends OBackgroundStyle
 	{
 		super();
 		styleID = styleString;
-		
+
 		defaultType = 0;
-		
 		defaultStep = 10;
 		defaultValue = 0;
 		defaultMax = 100;
@@ -375,7 +379,7 @@ class SliderBaseStyle extends OBackgroundStyle
 	override public function initStyle(value:IOComponent):Void
 	{
 		super.initStyle(value);
-		
+
 		var styleAs = cast (value, Slider);
 		//todo
 		styleAs._type = defaultType;
@@ -383,7 +387,7 @@ class SliderBaseStyle extends OBackgroundStyle
 		styleAs._value = defaultValue;
 		styleAs._max = defaultMax;
 		styleAs._min = defaultMin;
-		
+
 		if(value._width == defaultWidth && value._height == defaultHeight)
 		{
 			if(defaultType == Slider.VERTICALLY)
