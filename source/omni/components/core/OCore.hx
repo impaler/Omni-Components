@@ -27,6 +27,13 @@ class OCore
 		#end
 	}
 
+	private var id:Int = 0;
+	public var getNextID(getID, null):Int;
+	public function getID():Int
+	{
+		return id++;
+	}
+	
 	public static var instance(getInstance, null):OCore;
 
 	private static function getInstance():OCore
@@ -43,10 +50,9 @@ class OCore
 	//todo managers
 	//	public var timer:TimerManager;
 	//	public var inputs:InputManager;
-	//	public var enterframe:FlashSignal;
-	//	public var onStageDraw:FlashSignal<Event>;
-	//	public var onStageResize:FlashSignal<Event>;
 	//	public var onStageMouseDown:FlashSignal<MouseEvent>;
+	public var onStageResize:OCoreEvent;
+	public var enterframe:OCoreEvent;
 	public var onStageMouseMove:OSignalMouse;
 	public var onStageMouseLeave:OCoreEvent;
 	public var onStageMouseUp:OSignalMouse;
@@ -56,6 +62,9 @@ class OCore
 	public var onThemeChange:OSignal<Void -> Void>;
 
 	public var defaultTheme:OTheme;
+	
+	//todo put theme id per component
+	public var storedThemes:Hash<OTheme>;
 
 	public function init(theme:Class<OTheme>, trackTheme:Bool = true):Void
 	{
@@ -66,6 +75,9 @@ class OCore
 		onStageMouseMove = new OSignalMouse(OSignalMouse.MOVE, stage);
 		onStageMouseUp = new OSignalMouse(OSignalMouse.UP, stage);
 		onStageMouseLeave = new OCoreEvent(OCoreEvent.MOUSE_LEAVE, stage);
+		enterframe = new OCoreEvent(OCoreEvent.ENTER_FRAME, stage);
+		onStageResize = new OCoreEvent(OCoreEvent.RESIZE, stage);
+		
 	}
 
 	public function changeTheme(theme:Class<OTheme>):Void
@@ -77,6 +89,18 @@ class OCore
 		System.gc();
 	}
 
+	public function addTheme(theme:Class<OTheme>):Void
+	{
+		var themeInstance = Type.createInstance(theme, []);
+		storedThemes.set("test", themeInstance);
+	}
+	
+	public function getTheme(id:String):OTheme
+	{
+		var themeInstance = storedThemes.get(id);
+		return themeInstance;
+	}
+	
 	public static function addChild(component:Dynamic):Void
 	{
 		Lib.current.stage.addChild(component.sprite);
