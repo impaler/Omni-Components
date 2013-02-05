@@ -1,11 +1,10 @@
 package omni.components.gui.controls;
 
-import omni.components.core.interfaces.IStyle;
-import omni.components.gui.controls.Slider.SliderBaseStyle;
 import omni.components.core.signals.OSignalMouse;
+import omni.components.core.interfaces.IStyle;
 import omni.components.gui.layout.Layout;
-
 import nme.geom.Rectangle;
+import omni.components.gui.controls.Slider.SliderBaseStyle;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 
@@ -21,20 +20,13 @@ class ScrollBar extends Slider
 
 	public var _working:Bool = true;
 
+	//***********************************************************
+	//                  Event Handlers
+	//***********************************************************
+
 	override public function handleMouseMove(?e:OSignalMouse):Void
 	{
 		super.handleMouseMove(e);
-	}
-
-	override public function handleMouseUp(?e:OSignalMouse):Void
-	{
-		button.handleMouseUp(e);
-		button.stopDrag();
-
-		updateValueOnMouseMove();
-
-		mouseUp.remove(handleMouseUp);
-		mouseMove.remove(handleMouseMove);
 	}
 
 	override public function handleMouseDown(?e:OSignalMouse):Void
@@ -49,6 +41,17 @@ class ScrollBar extends Slider
 		mouseUp.add(handleMouseUp);
 	}
 
+	override public function handleMouseUp(?e:OSignalMouse):Void
+	{
+		button.handleMouseUp(e);
+		button.stopDrag();
+
+		updateValueOnMouseMove();
+
+		mouseUp.remove(handleMouseUp);
+		mouseMove.remove(handleMouseMove);
+	}
+
 	override public function handleMouseWheel(?e:OSignalMouse):Void
 	{
 		if(_type == Layout.HORIZONTALLY)
@@ -61,6 +64,10 @@ class ScrollBar extends Slider
 		}
 		e.updateAfterEvent();
 	}
+
+	//***********************************************************
+	//                  Component Methods
+	//***********************************************************
 
 	override public function refreshButton():Void
 	{
@@ -192,6 +199,10 @@ class ScrollBar extends Slider
 	{
 		return _minSize;
 	}
+
+	//***********************************************************
+	//                  Component Style
+	//***********************************************************
 
 	override public function getStyleId():String
 	{

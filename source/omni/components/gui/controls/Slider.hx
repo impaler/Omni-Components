@@ -53,6 +53,10 @@ class Slider extends OComponent
 	//todo broken in html5
 	private var _mouseWheelTarget(default, setMouseWheelTarget):Sprite;
 
+	//***********************************************************
+	//                  Component Core
+	//***********************************************************
+
 	override public function createMembers():Void
 	{
 		_rect = new Rectangle();
@@ -63,7 +67,8 @@ class Slider extends OComponent
 		mouseUp = OCore.instance.onStageMouseUp;
 		mouseMove = OCore.instance.onStageMouseMove;
 
-		button = new OButtonBase();
+		var thisStyle = cast(_style, SliderBaseStyle);
+		button = new OButtonBase(thisStyle.buttonStyle);
 		add(button);
 
 		sprite.buttonMode = true;
@@ -73,15 +78,31 @@ class Slider extends OComponent
 	{
 		button.mouseDown.add(handleButtonDown);
 		mouseWheel.add(handleMouseWheel);
-		mouseDown.add(onMouseDown);
+		mouseDown.add(handleMouseDown);
 	}
 
 	override public function disableSignals():Void
 	{
 		button.mouseDown.remove(handleButtonDown);
-		mouseDown.remove(onMouseDown);
+		mouseDown.remove(handleMouseDown);
 		mouseWheel.remove(handleMouseWheel);
 	}
+
+	override public function destroy():Void
+	{
+		mouseMove.destroy();
+		mouseWheel.destroy();
+		mouseDown.destroy();
+		mouseUp.destroy();
+
+		button.mouseDown.remove(handleButtonDown);
+		OCore.instance.onStageMouseLeave.remove(handleLeftStage);
+		super.destroy();
+	}
+
+	//***********************************************************
+	//                  Event Handlers
+	//***********************************************************
 
 	public function handleMouseMove(?e:OSignalMouse):Void
 	{
@@ -90,7 +111,7 @@ class Slider extends OComponent
 		e.updateAfterEvent();
 	}
 
-	public function onMouseDown(?e:OSignalMouse):Void
+	public function handleMouseDown(?e:OSignalMouse):Void
 	{
 		button.handleMouseDown(e);
 
@@ -132,6 +153,10 @@ class Slider extends OComponent
 	{
 		handleMouseUp();
 	}
+
+	//***********************************************************
+	//                  Component Methods
+	//***********************************************************
 
 	public function updateButtonLocationFromDown():Void
 	{
@@ -228,6 +253,10 @@ class Slider extends OComponent
 		return value;
 	}
 
+	//***********************************************************
+	//                  Properties
+	//***********************************************************
+
 	public function get_mouseWheelTarget():Sprite
 	{
 		return _mouseWheelTarget;
@@ -323,17 +352,9 @@ class Slider extends OComponent
 		return _type;
 	}
 
-	override public function destroy():Void
-	{
-		mouseMove.destroy();
-		mouseWheel.destroy();
-		mouseDown.destroy();
-		mouseUp.destroy();
-
-		button.mouseDown.remove(handleButtonDown);
-		OCore.instance.onStageMouseLeave.remove(handleLeftStage);
-		super.destroy();
-	}
+	//***********************************************************
+	//                  Component Style
+	//***********************************************************
 
 	override public function getStyleId():String
 	{
@@ -342,9 +363,6 @@ class Slider extends OComponent
 
 }
 
-/**
-* SliderBaseStyle to setup unique id
-*/
 class SliderBaseStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "SliderBaseStyle";
