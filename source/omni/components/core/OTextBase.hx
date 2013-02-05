@@ -38,7 +38,7 @@ class OTextBase extends OComponent {
 	public var wordWrap(getWordWrap, setWordWrap):Bool;
 	public var _wordWrap:Bool;
 
-	#if ( flash || js)
+	#if ( flash || js )
 	public var restrict(getRestrict, setRestrict):String;
 	public var _restrict:String;
 	#end
@@ -49,31 +49,34 @@ class OTextBase extends OComponent {
 	public var align(getAlign, setAlign):String;
 	public var _align:String;
 
-//	public var autoSize(getAutoSize, setAutoSize):String;
-//	public var _autoSize:String;
-
 	public var fontColor(getFontColor, setFontColor):Int;
 	public var _fontColor:Int;
 
-	override public function createMembers( ):Void
+	public var fontBold(getFontBold, setFontBold):Bool;
+	public var _fontBold:Bool;
+	
+	public var fontItalic(getFontItalic, setFontItalic):Bool;
+	public var _fontItalic:Bool;
+	
+	public var fontUnderline(getFontUnderline, setFontUnderline):Bool;
+	public var _fontUnderline:Bool;
+	
+	override public function destroy():Void
 	{
+		super.destroy();
+		
+		textField = null;
+		_format = null;
+	}
+
+	override public function createComponentMembers():Void
+	{
+		super.createComponentMembers();
+		
 		textField = new TextField();
-//		textField.width = 230;
-//		textField.height = 20;
-		textField.autoSize = TextFieldAutoSize.LEFT;
 		textField.border = true;
 		textField.embedFonts = true;
 		sprite.addChild( textField );
-	}
-
-	override public function enableSignals( ):Void
-	{
-		//override me
-	}
-
-	override public function disableSignals( ):Void
-	{
-		//override me
 	}
 
 	public function updateTextFieldProperties( ):Void
@@ -91,6 +94,11 @@ class OTextBase extends OComponent {
 
 	public function updateTextFormat( ):Void
 	{
+		
+//		_fontBold,
+//		_fontItalic,
+//		_fontUnderline,
+		
 		_format = new TextFormat(
 		_fontName,
 		_fontSize,
@@ -119,6 +127,10 @@ class OTextBase extends OComponent {
 		textField.setTextFormat( _format ) ;
 	}
 
+	//***********************************************************
+	//                  Properties
+	//***********************************************************
+	
 	override public function getWidth():Float
 	{
 		return textField.width;
@@ -308,14 +320,55 @@ class OTextBase extends OComponent {
 	}
 	#end
 
-	
-	
-	override public function destroy():Void
+	public function getFontBold():Bool
 	{
-		textField = null;
-		_format = null;
+		return _fontBold;
 	}
-
+	
+	public function setFontBold(value:Bool):Bool
+	{
+		if (_fontBold != value)
+		{
+			_fontBold = value;
+			updateTextFormat( );
+		}
+		return _fontBold;
+	}
+	
+	public function getFontItalic():Bool
+	{
+		return _fontItalic;
+	}
+	
+	public function setFontItalic(value:Bool):Bool
+	{
+		if (_fontItalic != value)
+		{
+			_fontItalic = value;
+			updateTextFormat( );
+		}
+		return _fontBold;
+	}
+	
+	public function getFontUnderline():Bool
+	{
+		return _fontUnderline;
+	}
+	
+	public function setFontUnderline(value:Bool):Bool
+	{
+		if (_fontUnderline != value)
+		{
+			_fontUnderline = value;
+			updateTextFormat( );
+		}
+		return _fontBold;
+	}
+	
+	//***********************************************************
+	//                  Component Style
+	//***********************************************************
+	
 	override public function getStyleId( ):String
 	{
 		return TextBaseStyle.styleString;
@@ -323,9 +376,6 @@ class OTextBase extends OComponent {
 
 }
 
-/**
-* TextBaseStyle for the core textfield
-*/
 class TextBaseStyle extends OTextBaseStyle {
 
 	public static var styleString:String = "TextBaseStyle";
