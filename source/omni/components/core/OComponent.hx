@@ -13,8 +13,13 @@ import nme.display.Sprite;
 class OComponent implements IOComponent
 {
 
+	//***********************************************************
+	//                  Component Core
+	//***********************************************************
+	
 	public function new(style:IStyle = null)
 	{
+		compId = OCore.instance.getNextID;
 		createComponentMembers();
 		initStyle(style);
 		createMembers();
@@ -25,7 +30,7 @@ class OComponent implements IOComponent
 		sprite.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 	}
 
-	private function createComponentMembers():Void
+	public function createComponentMembers():Void
 	{
 		sprite = new Sprite();
 		onResize = new OCoreEvent(OCoreEvent.RESIZE, this.sprite);
@@ -38,10 +43,6 @@ class OComponent implements IOComponent
 		invalidate();
 		//		OCore.log("Added to stage");
 	}
-
-	//***********************************************************
-	//                  Component Core
-	//***********************************************************
 
 	public var sprite(getSprite, null):Sprite;
 
@@ -99,11 +100,6 @@ class OComponent implements IOComponent
 	}
 
 	public var styleId(getStyleId, null):String;
-
-	public function getStyleId():String
-	{
-		return ComponentStyle.styleString;
-	}
 
 	public function initStyle(style:IStyle = null):Void
 	{
@@ -230,6 +226,8 @@ class OComponent implements IOComponent
 		this.sprite.addChild(comp.sprite);
 	}
 
+	private var _listening:Bool = false;
+	
 	//***********************************************************
 	//                  Overridables
 	//***********************************************************
@@ -245,13 +243,21 @@ class OComponent implements IOComponent
 	}
 
 	public function enableSignals():Void
-	{
-		//override me
+	{	
+		if(! _listening)
+		{
+			//override me
+			_listening = true;
+		}
 	}
 
 	public function disableSignals():Void
 	{
-		//override me
+		if(_listening)
+		{
+			//override me
+			_listening = false;
+		}
 	}
 
 	//***********************************************************
@@ -459,22 +465,30 @@ class OComponent implements IOComponent
 	//                  Debug
 	//***********************************************************
 
+	public var compId(default, null):Int;
+	
 	public var drawCount(default, setdrawCount):Int = 0;
 
 	public function setdrawCount(value:Int):Int
 	{
 		drawCount = value;
-		//		OCore.log(this.styleId + " - " + drawCount);
+//				OCore.log("ID:" + compId + " : " +this.styleId + " :DRAWCOUNT: " + drawCount);
 		return drawCount;
+	}
+
+	//***********************************************************
+	//                  Component Style
+	//***********************************************************
+
+	public function getStyleId():String
+	{
+		return ComponentStyle.styleString;
 	}
 
 }
 
 import omni.components.style.OBackgroundStyle;
 
-/**
-* ComponentStyle
-*/
 class ComponentStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "ComponentStyle";
