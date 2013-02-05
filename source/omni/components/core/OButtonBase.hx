@@ -18,16 +18,17 @@ import nme.events.MouseEvent;
 class OButtonBase extends OComponent
 {
 	public var mouseOut:OSignalMouse;
-	public var mouseDown:OSignalMouse;
 	public var mouseOver:OSignalMouse;
+	public var mouseDown:OSignalMouse;
 	public var mouseUp:OSignalMouse;
-
-	public var mouseLeave:OCoreEvent;
 
 	private var _isOver:Bool = false;
 	private var _isDown:Bool = false;
-	private var _listening:Bool = false;
 
+	//***********************************************************
+	//                  Component Core
+	//***********************************************************
+	
 	override public function createMembers():Void
 	{
 		buttonMode = true;
@@ -36,17 +37,16 @@ class OButtonBase extends OComponent
 		mouseOver = new OSignalMouse(OSignalMouse.OVER, this.sprite);
 		mouseDown = new OSignalMouse(OSignalMouse.DOWN, this.sprite);
 		mouseUp = OCore.instance.onStageMouseUp;
-		mouseLeave = OCore.instance.onStageMouseLeave;
 	}
 
 	override public function enableSignals():Void
 	{
 		if(! _listening)
 		{
-			mouseOut.add(onMouseOut);
-			mouseOver.add(onMouseOver);
-			mouseDown.add(onMouseDown);
-			mouseUp.add(onMouseUp);
+			mouseOut.add(handleMouseOut);
+			mouseOver.add(handleMouseOver);
+			mouseDown.add(handleMouseDown);
+			mouseUp.add(handleMouseUp);
 
 			_listening = true;
 		}
@@ -56,67 +56,65 @@ class OButtonBase extends OComponent
 	{
 		if(_listening)
 		{
-			mouseOut.remove(onMouseOut);
-			mouseOver.remove(onMouseOver);
-			mouseDown.remove(onMouseDown);
-			mouseUp.remove(onMouseUp);
-
-			mouseLeave.remove(onLeftStage);
-
+			state = OBaseStyle.STATE_ACTIVE;
+			
+			_isDown = false;
+			_isOver = false;
+			
+			mouseOut.removeAll();
+			mouseOver.removeAll();
+			mouseDown.removeAll();
+			mouseUp.removeAll();
+			
 			_listening = false;
 		}
 	}
-
-	public function onMouseOver(?e:Dynamic):Void
+	
+	override public function destroy():Void
 	{
-		_isOver = true;
-		_isDown ? state = OBaseStyle.STATE_ACTIVE : state = OButtonBaseStyle.STATE_OVER;
+		mouseOut.destroy();
+		mouseOver.destroy();
+		mouseDown.destroy();
+		mouseUp.destroy();
+		
+		super.destroy();
 	}
+	
+	//***********************************************************
+	//                  Event Handlers
+	//***********************************************************
 
-	public function onMouseDown(?e:Dynamic):Void
+	public function handleMouseDown(?e:OSignalMouse):Void
 	{
 		_isDown = true;
 		state = OButtonBaseStyle.STATE_DOWN;
-
-		mouseLeave.add(onLeftStage);
-
-		mouseOver.remove(onMouseOver);
-		mouseDown.remove(onMouseDown);
 	}
 
-	public function onMouseUp(?e:Dynamic):Void
+	public function handleMouseUp(?e:OSignalMouse):Void
 	{
-		mouseOver.add(onMouseOver);
-		mouseDown.add(onMouseDown);
-
 		_isDown = false;
+		state = OBaseStyle.STATE_ACTIVE;
 		_isOver ? state = OButtonBaseStyle.STATE_OVER : state = OBaseStyle.STATE_ACTIVE;
 	}
 
-	public function onMouseOut(?e:Dynamic):Void
+	public function handleMouseOut(?e:OSignalMouse):Void
 	{
 		_isOver = false;
 
 		if(_isDown == false)
 			state = OBaseStyle.STATE_ACTIVE;
 	}
-
-	public function onLeftStage(e:OCoreEvent):Void
+	
+	public function handleMouseOver(?e:OSignalMouse):Void
 	{
-		_isDown = false;
-		state = OBaseStyle.STATE_ACTIVE;
+		_isOver = true;
+		state = OButtonBaseStyle.STATE_OVER;
 	}
 
-	override public function destroy():Void
-	{
-		mouseOut.destroy();
-		mouseOver.destroy();
-		mouseDown.destroy();
-
-		mouseUp.remove(onMouseUp);
-		super.destroy();
-	}
-
+	//***********************************************************
+	//                  Component Style
+	//***********************************************************
+	
 	override public function getStyleId():String
 	{
 		return OButtonBaseStyle.styleString;
@@ -125,9 +123,6 @@ class OButtonBase extends OComponent
 
 import omni.components.style.OBackgroundStyle;
 
-/**
-* OButtonBaseStyle
-*/
 class OButtonBaseStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "OButtonBaseStyle";
