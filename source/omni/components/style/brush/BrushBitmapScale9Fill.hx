@@ -13,11 +13,13 @@ class BrushBitmapScale9Fill extends BrushBitmapFill
 	//todo smooth
 	//todo stretch
 
+	//todo cache sizes
+
 	override public function update(drawTarget:IOComponent)
 	{
 		var bitmapdata = images.get(drawTarget.state);
 
-		BitmapScaleSliceUtil.slice9(drawTarget.sprite, drawTarget.width, drawTarget.height, bitmapdata, scaleRect,smooth);
+		BitmapScaleSliceUtil.slice9(drawTarget.sprite, drawTarget.width, drawTarget.height, bitmapdata, scaleRect, smooth);
 	}
 
 	override public function destroy():Void
