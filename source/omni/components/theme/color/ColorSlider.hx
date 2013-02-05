@@ -1,4 +1,4 @@
-package omni.components.theme.orange;
+package omni.components.theme.color;
 
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -8,17 +8,18 @@ import omni.components.utils.ColorUtils;
 /**
  * OrangeSlider
  */
-class OrangeSlider extends SliderBaseStyle {
+class ColorSlider extends SliderBaseStyle
+{
 
-	public function new( )
+	public function new()
 	{
-		super( );
-		
-		buttonStyle = new OrangeButtonBase();
-		
+		super();
+
+		buttonStyle = new ColorButtonBase();
+
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Orange.BG);
-		setBackgroundBrush( bgColor );
+		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Color.BG);
+		setBackgroundBrush(bgColor);
 
 		defaultVHeight = 120;
 		defaultVWidth = 20;
@@ -27,7 +28,7 @@ class OrangeSlider extends SliderBaseStyle {
 		defaultHWidth = 120;
 
 		defaultValue = 50;
-		
+
 		defaultPadding = 0;
 		minWidth = 10;
 		minHeight = 10;

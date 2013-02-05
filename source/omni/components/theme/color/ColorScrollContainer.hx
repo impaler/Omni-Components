@@ -1,4 +1,4 @@
-package omni.components.theme.orange;
+package omni.components.theme.color;
 
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -7,18 +7,19 @@ import omni.components.gui.layout.Layout.LayoutStyle;
 import nme.geom.Rectangle;
 import omni.components.utils.ColorUtils;
 
-class OrangeScrollContainer extends ScrollContainerStyle {
+class ColorScrollContainer extends ScrollContainerStyle
+{
 
-	public function new( )
+	public function new()
 	{
-		super( );
+		super();
 
-		hScrollStyle = new OrangeScrollBar();
-		vScrollStyle = new OrangeScrollBar();
-		
+		hScrollStyle = new ColorScrollBar();
+		vScrollStyle = new ColorScrollBar();
+
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Orange.BG);
-		setBackgroundBrush( bgColor );
+		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Color.BG);
+		setBackgroundBrush(bgColor);
 
 		defaultWidth = 300;
 		defaultHeight = 300;

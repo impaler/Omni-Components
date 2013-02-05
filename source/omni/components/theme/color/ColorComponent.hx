@@ -1,18 +1,18 @@
-package omni.components.theme.orange;
+package omni.components.theme.color;
 
 import omni.components.style.OBaseStyle;
 import omni.components.utils.ColorUtils;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OComponent.ComponentStyle;
 
-class OrangeComponent extends ComponentStyle
+class ColorComponent extends ComponentStyle
 {
 	public function new()
 	{
 		super();
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Orange.BG);
+		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Color.BG);
 		setBackgroundBrush(bgColor);
 
 		defaultWidth = 100;
