@@ -17,26 +17,16 @@ class OTextBaseStyle extends OBaseStyle
 	public var selectable:Bool;
 	public var multiline:Bool;
 	public var wordWrap:Bool;
-	//Restrict is not available on cpp neko yet?
-	public var restrict:String;
-	//type dynamic as a workaround for flash/cpp type check inconsistency
-	public var type(default, setType):Dynamic;
 	public var fontSize:Int;
 	public var fontName:String;
 	public var fontColor:Int;
 	public var defaultText:String;
 
-	//todo look at Textarea component
-	//	public var align(default, setAlign):Dynamic;
-	//the dimensions are not suitable for any size method
-	//	public var autoSize(default, null):Dynamic = "left";
+	//type dynamic as a workaround for flash/cpp type check inconsistency
+	public var type(default, setType):Dynamic;
 
-	//todo textarea
-	//	public function setAlign( value:Dynamic ):Dynamic
-	//	{
-	//		align = Std.string( value );
-	//		return align;
-	//	}
+	//todo Restrict is not available on cpp neko yet?
+	public var restrict:String;
 
 	public override function initStyle(value:IOComponent):Void
 	{
@@ -47,14 +37,13 @@ class OTextBaseStyle extends OBaseStyle
 		textComponent._selectable = selectable;
 		textComponent._multiline = multiline;
 		textComponent._wordWrap = wordWrap;
-		#if (flash || js)
-		textComponent._restrict = restrict;
-		#end
 		textComponent._fontSize = fontSize;
 		textComponent._type = type;
 		textComponent._align = ComponentUtils.convertTextAlignmentToString(TextFormatAlign.LEFT);
-//		textComponent._autoSize = TextFieldAutoSize.LEFT;
 		textComponent._fontColor = fontColor;
+		#if (flash || js)
+		textComponent._restrict = restrict;
+		#end
 		if(defaultText != null && textComponent._text == null)
 			textComponent._text = defaultText;
 	}
@@ -70,10 +59,10 @@ class OTextBaseStyle extends OBaseStyle
 		textBase._width = textBase.textField.width;
 		textBase._height = textBase.textField.height;
 
-//		if(background != null)
-//			background.update(value);
+		//		if(background != null)
+		//			background.update(value);
 	}
-	
+
 	public function setType(value:Dynamic):String
 	{
 		type = Std.string(value);
