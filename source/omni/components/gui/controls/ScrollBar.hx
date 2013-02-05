@@ -1,10 +1,11 @@
 package omni.components.gui.controls;
 
-import omni.components.core.signals.OSignalMouse;
 import omni.components.core.interfaces.IStyle;
-import omni.components.gui.layout.Layout;
-import nme.geom.Rectangle;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
+import omni.components.core.signals.OSignalMouse;
+import omni.components.gui.layout.Layout;
+
+import nme.geom.Rectangle;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 
@@ -20,35 +21,35 @@ class ScrollBar extends Slider
 
 	public var _working:Bool = true;
 
-	override public function onMouseMove(?e:OSignalMouse):Void
+	override public function handleMouseMove(?e:OSignalMouse):Void
 	{
 		super.onMouseMove(e);
 	}
 
-	override public function onMouseUp(?e:OSignalMouse):Void
+	override public function handleMouseUp(?e:OSignalMouse):Void
 	{
-		button.onMouseUp(e);
+		button.handleMouseUp(e);
 		button.stopDrag();
 
 		updateValueOnMouseMove();
 
-		mouseUp.remove(onMouseUp);
-		mouseMove.remove(onMouseMove);
+		mouseUp.remove(handleMouseUp);
+		mouseMove.remove(handleMouseMove);
 	}
 
-	override public function onMouseDown(?e:OSignalMouse):Void
+	override public function handleMouseDown(?e:OSignalMouse):Void
 	{
-		button.onMouseDown(e);
+		button.handleMouseDown(e);
 
 		updateButtonLocationFromDown();
 		updateValueFromButtonLocation();
 
 		button.startDrag(false, _rect);
-		mouseMove.add(onMouseMove);
-		mouseUp.add(onMouseUp);
+		mouseMove.add(handleMouseMove);
+		mouseUp.add(handleMouseUp);
 	}
 
-	override public function onMouseWheel(?e:OSignalMouse):Void
+	override public function handleMouseWheel(?e:OSignalMouse):Void
 	{
 		if(_type == Layout.HORIZONTALLY)
 		{
@@ -64,7 +65,7 @@ class ScrollBar extends Slider
 	override public function refreshButton():Void
 	{
 		_max = Math.max(contentSize - pageSize, 0);
-		
+
 		if(_max > 0)
 		{
 			barNeeded = true;
@@ -135,22 +136,26 @@ class ScrollBar extends Slider
 			onChange.dispatch(_value);
 		}
 	}
-	
+
 	public var barNeeded(getBarNeeded, setBarNeeded):Bool;
+
 	public function setBarNeeded(value:Bool):Bool
 	{
 		barNeeded = value;
 		return barNeeded;
 	}
+
 	public function getBarNeeded():Bool
 	{
 		_max = Math.max(contentSize - pageSize, 0);
-		
+
 		if(_max > 0)
 		{
 			return true;
 
-		} else {
+		}
+		else
+		{
 
 			return false;
 		}
