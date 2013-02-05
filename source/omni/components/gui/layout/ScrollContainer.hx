@@ -202,7 +202,7 @@ class ScrollContainer extends Layout
 
 		mouseMove.removeAll();
 		_drag = true;
-		disableChildComponentEvents();
+		//		disableChildComponentEvents();
 	}
 
 	private function handleRelease(e:OSignalMouse):Void
@@ -231,7 +231,7 @@ class ScrollContainer extends Layout
 		_down = false;
 		_scrollbarMove = false;
 
-		enableChildComponentEvents();
+		//		enableChildComponentEvents();
 	}
 
 	private function renderDrag(e:OCoreEvent):Void
@@ -286,12 +286,12 @@ class ScrollContainer extends Layout
 
 	public function handleHScrollBarDown(e:OSignalMouse):Void
 	{
-		disableChildComponentEvents();
+		//		disableChildComponentEvents();
 	}
 
 	public function handleVScrollBarDown(e:OSignalMouse):Void
 	{
-		disableChildComponentEvents();
+		//		disableChildComponentEvents();
 	}
 
 	private function handleVScrollBarMove(e:Dynamic = null):Void
