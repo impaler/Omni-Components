@@ -13,6 +13,7 @@ class ColorScrollBar extends ScrollBarStyle
 		super();
 
 		buttonStyle = new ColorButtonBase();
+		buttonStyle.minHeight = 40;
 
 		var bgColor = new BrushColorFill ();
 		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Color.BG);
