@@ -1,4 +1,4 @@
-package omni.components.theme.orange;
+package omni.components.theme.bloom;
 
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -6,15 +6,16 @@ import omni.components.gui.layout.Layout.LayoutStyle;
 import omni.components.utils.ColorUtils;
 import nme.geom.Rectangle;
 
-class OrangeLayout extends LayoutStyle {
+class BloomLayout extends LayoutStyle
+{
 
-	public function new( )
+	public function new()
 	{
-		super( );
+		super();
 
 		var bgColor = new BrushColorFill ();
 		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, ColorUtils.BLACK);
-		setBackgroundBrush( bgColor );
+		setBackgroundBrush(bgColor);
 
 		defaultWidth = 300;
 		defaultHeight = 300;
