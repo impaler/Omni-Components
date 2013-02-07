@@ -16,7 +16,7 @@ class OComponent implements IOComponent
 	//***********************************************************
 	//                  Component Core
 	//***********************************************************
-	
+
 	public function new(style:IStyle = null)
 	{
 		compId = OCore.instance.getNextID;
@@ -129,6 +129,7 @@ class OComponent implements IOComponent
 			ORenderManager.instance.addToRenderList(this);
 
 		}
+		//todo is this handled in style
 		if(components.length > 0 && recursive)
 		{
 			for(i in 0...components.length)
@@ -138,12 +139,12 @@ class OComponent implements IOComponent
 			}
 		}
 	}
-	
+
 	public function drawNow(recursive:Bool = true):Void
 	{
 		this.invalid = true;
 		draw();
-		
+
 		if(components.length > 0 && recursive)
 		{
 			for(i in 0...components.length)
@@ -153,7 +154,7 @@ class OComponent implements IOComponent
 			}
 		}
 	}
-	
+
 	public function draw():Void
 	{
 		coreDraw();
@@ -227,7 +228,7 @@ class OComponent implements IOComponent
 	}
 
 	private var _listening:Bool = false;
-	
+
 	//***********************************************************
 	//                  Overridables
 	//***********************************************************
@@ -243,7 +244,7 @@ class OComponent implements IOComponent
 	}
 
 	public function enableSignals():Void
-	{	
+	{
 		if(! _listening)
 		{
 			//override me
@@ -422,22 +423,24 @@ class OComponent implements IOComponent
 	{
 		sprite.startDrag(false, bounds);
 	}
-	
+
 	public function stopDrag():Void
 	{
 		sprite.stopDrag();
 	}
 
 	public var mouseX(get_mouseX, null):Float;
+
 	private function get_mouseX():Float
-	{ 
-		return sprite.mouseX; 
+	{
+		return sprite.mouseX;
 	}
-	
+
 	public var mouseY(get_mouseY, null):Float;
+
 	private function get_mouseY():Float
-	{ 
-		return sprite.mouseY; 
+	{
+		return sprite.mouseY;
 	}
 
 	public function destroy():Void
@@ -448,6 +451,7 @@ class OComponent implements IOComponent
 			{
 				var comp = cast(o, IOComponent);
 				comp.destroy();
+				comp = null;
 			}
 			components = null;
 		}
@@ -466,13 +470,13 @@ class OComponent implements IOComponent
 	//***********************************************************
 
 	public var compId(default, null):Int;
-	
+
 	public var drawCount(default, setdrawCount):Int = 0;
 
 	public function setdrawCount(value:Int):Int
 	{
 		drawCount = value;
-//				OCore.log("ID:" + compId + " : " +this.styleId + " :DRAWCOUNT: " + drawCount);
+		//				OCore.log("ID:" + compId + " : " +this.styleId + " :DRAWCOUNT: " + drawCount);
 		return drawCount;
 	}
 
