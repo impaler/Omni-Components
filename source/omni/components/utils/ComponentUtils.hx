@@ -72,6 +72,8 @@ class ComponentUtils
 	 */
 	#if (flash || js)
 
+	
+
 	public static function convertTextAlignmentFromString(strAlign:String):TextFormatAlign
 	{
 		if(strAlign == "right")
@@ -94,6 +96,8 @@ class ComponentUtils
 
 	#elseif (cpp || neko)
 
+	
+
 	public static function convertTextAlignmentFromString(strAlign:String):String
 	{
 		return strAlign;
@@ -106,9 +110,19 @@ class ComponentUtils
 		moving.y = (target._height * .5) - (moving._height * .5);
 	}
 
+	public static inline function VAlignDisplayObjectToOther(moving:DisplayObject, target:DisplayObject):Void
+	{
+		moving.y = (target.height * .5) - (moving.height * .5);
+	}
+
 	public static inline function HAlignToOther(moving:IOComponent, target:IOComponent):Void
 	{
 		moving.x = (target._width * .5) - (moving._width * .5);
+	}
+
+	public static inline function HAlignDisplayObjectToOther(moving:DisplayObject, target:DisplayObject):Void
+	{
+		moving.x = (target.width * .5) - (moving.width * .5);
 	}
 
 	public static inline function createTestSprite():Sprite
@@ -138,13 +152,13 @@ class ComponentUtils
 	public static function joinBitmapData(source1:BitmapData, source2:BitmapData, direction:Int = 0,
 	                                      smooth:Bool = true):BitmapData
 	{
-		var newHeight=0;
+		var newHeight = 0;
 		if(direction == 0)
 		{
 			newHeight = source1.height * 2;
 		}
 
-		var newWidth=0;
+		var newWidth = 0;
 		if(direction == 0)
 		{
 			newWidth = source1.width;
