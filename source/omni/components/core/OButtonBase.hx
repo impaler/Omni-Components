@@ -28,9 +28,11 @@ class OButtonBase extends OComponent
 	//***********************************************************
 	//                  Component Core
 	//***********************************************************
-	
-	override public function createMembers():Void
+
+	override public function createComponentMembers():Void
 	{
+		super.createComponentMembers();
+
 		buttonMode = true;
 
 		mouseOut = new OSignalMouse(OSignalMouse.OUT, this.sprite);
@@ -57,29 +59,29 @@ class OButtonBase extends OComponent
 		if(_listening)
 		{
 			state = OBaseStyle.STATE_ACTIVE;
-			
+
 			_isDown = false;
 			_isOver = false;
-			
+
 			mouseOut.removeAll();
 			mouseOver.removeAll();
 			mouseDown.removeAll();
 			mouseUp.removeAll();
-			
+
 			_listening = false;
 		}
 	}
-	
+
 	override public function destroy():Void
 	{
 		mouseOut.destroy();
 		mouseOver.destroy();
 		mouseDown.destroy();
 		mouseUp.destroy();
-		
+
 		super.destroy();
 	}
-	
+
 	//***********************************************************
 	//                  Event Handlers
 	//***********************************************************
@@ -104,7 +106,7 @@ class OButtonBase extends OComponent
 		if(_isDown == false)
 			state = OBaseStyle.STATE_ACTIVE;
 	}
-	
+
 	public function handleMouseOver(?e:OSignalMouse):Void
 	{
 		_isOver = true;
@@ -114,7 +116,7 @@ class OButtonBase extends OComponent
 	//***********************************************************
 	//                  Component Style
 	//***********************************************************
-	
+
 	override public function getStyleId():String
 	{
 		return OButtonBaseStyle.styleString;
