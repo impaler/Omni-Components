@@ -1,5 +1,6 @@
 package omni.components.theme.color;
 
+import omni.components.gui.text.Label.LabelStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.core.OTextBase.TextBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -9,7 +10,7 @@ import nme.Assets;
 import nme.text.TextFormatAlign;
 import nme.text.TextFieldType;
 
-class ColorTextBase extends TextBaseStyle
+class ColorLabel extends LabelStyle
 {
 
 	public function new()
@@ -18,9 +19,6 @@ class ColorTextBase extends TextBaseStyle
 
 		defaultHeight = 60;
 		defaultWidth = 300;
-
-		defaultState = OBaseStyle.STATE_ACTIVE;
-		defaultPadding = 0;
 
 		var font = Assets.getFont("assets/themes/color/text/roboto-regular.ttf");
 		fontName = font.fontName;
@@ -31,7 +29,7 @@ class ColorTextBase extends TextBaseStyle
 		fontSize = 50;
 		type = TextFieldType.DYNAMIC;
 		fontColor = ColorUtils.ORANGE_BRIGHT;
-		defaultText = "Orange Text";
+		defaultText = "Orange Label TEST";
 
 	}
 
