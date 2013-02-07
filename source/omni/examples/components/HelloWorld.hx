@@ -27,20 +27,21 @@ class HelloWorld extends MovieClip
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		super();
 
-		OCore.instance.init(Android4);
+		//		OCore.instance.init(Android4);
 		//		OCore.instance.init(Bloom);
-		//		OCore.instance.init(Color);
+		OCore.instance.init(Color);
 
-		//		var buttons = new ButtonTests();
+		//				var buttons = new ButtonTests();
 		//		var signals = new SignalsTests();
 		//		var brushes = new BrushTests();
 		//		var layouts = new LayoutTests();
 		//		var sliders = new SliderTests();
-		var scrollContainers = new ScrollContainerTests();
-		//		var drag = new DragTest();
+		//				var scrollContainers = new ScrollContainerTests();
+		//				var drag = new DragTest();
 		//		var grid = new GridLayout();
-		//		var text = new TextTest();
+		var text = new TextTest();
 		//		var tilesheet = new DrawTilesTest();
+		//				var togglers = new TogglesTest();
 
 	}
 
