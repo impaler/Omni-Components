@@ -105,6 +105,8 @@ interface IOComponent implements IDestroyable
 
 	public function add (comp:IOComponent):Void;
 
+	public function remove(comp:IOComponent):Void;
+
 //***********************************************************
 //                  Overridables
 //***********************************************************
@@ -117,7 +119,7 @@ interface IOComponent implements IDestroyable
 /**
 * The function to override to update the child object of a component
 **/
-	public function updateMembers ():Void;
+	public function drawMembers ():Void;
 
 /**
 * The suggested place for where Events are enabled
