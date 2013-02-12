@@ -1,51 +1,49 @@
 package omni.components.gui.layout;
 
-import omni.components.core.interfaces.IOComponent;
-import omni.components.utils.ComponentUtils;
-import omni.components.core.OComponent;
-
 import nme.Assets;
-import nme.display.Bitmap;
 import nme.display.BitmapData;
+import nme.display.Bitmap;
+import omni.utils.ComponentUtils;
+import omni.components.core.interfaces.IOComponent;
+import omni.components.core.OComponent;
+import omni.components.style.OBackgroundStyle;
 
 class Icon extends OComponent
 {
 
 	private var bitmap:Bitmap;
 
-	public function setBitmapAsset(path:String, scaleToFit:Bool = false):Void
+	public function setBitmapAsset( path:String, scaleToFit:Bool = false ):Void
 	{
-		setBitmapData(Assets.getBitmapData(path), scaleToFit);
+		setBitmapData( Assets.getBitmapData( path ), scaleToFit );
 	}
 
-	public function setBitmapData(bitmapData:BitmapData, scaleToFit:Bool = false):Void
+	public function setBitmapData( bitmapData:BitmapData, scaleToFit:Bool = false ):Void
 	{
-		//todo scaleToFit
+//todo scaleToFit
 		bitmap = new Bitmap(bitmapData);
 
-		sprite.addChild(bitmap);
+		sprite.addChild( bitmap );
 	}
 
-	override public function updateMembers():Void
+	override public function updateMembers( ):Void
 	{
-		if(bitmap != null)
+		if( bitmap != null )
 		{
-			ComponentUtils.VAlignDisplayObjectToOther(bitmap, this.sprite);
-			ComponentUtils.HAlignDisplayObjectToOther(bitmap, this.sprite);
+			ComponentUtils.VAlignDisplayObjectToOther( bitmap, this.sprite );
+			ComponentUtils.HAlignDisplayObjectToOther( bitmap, this.sprite );
 		}
 	}
 
-	//***********************************************************
-	//                  Component Style
-	//***********************************************************
+//***********************************************************
+//                  Component Style
+//***********************************************************
 
-	override public function getStyleId():String
+	override public function getStyleId( ):String
 	{
 		return IconStyle.styleString;
 	}
 }
-
-import omni.components.style.OBackgroundStyle;
 
 class IconStyle extends OBackgroundStyle
 {
@@ -57,16 +55,16 @@ class IconStyle extends OBackgroundStyle
 	public var bitmapPath:String;
 	public var bitmapData:BitmapData;
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 		styleID = styleString;
 	}
 
-	override public function initStyle(value:IOComponent):Void
+	override public function initStyle( value:IOComponent ):Void
 	{
-		//todo load the style bitmaps etc
-		super.initStyle(value);
+//todo load the style bitmaps etc
+		super.initStyle( value );
 	}
 
 }

@@ -1,11 +1,12 @@
 package omni.components.core;
 
-import omni.components.core.signals.OSignalBase;
+import omni.components.core.signals.OSignalType;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.core.signals.OCoreEvent;
 import omni.components.style.OBaseStyle;
 import omni.components.core.OCore;
+import omni.components.style.OBackgroundStyle;
 
 import nme.events.Event;
 import nme.events.MouseEvent;
@@ -24,7 +25,7 @@ class OButtonBase extends OComponent
 	public var mouseUp:OSignalMouse;
 	public var mouseClick:OSignalMouse;
 
-	public var onClick:OSignalBase<OButtonBase -> Void>;
+	public var onClick:OSignalType<OButtonBase -> Void>;
 
 	private var _isOver:Bool = false;
 	private var _isDown:Bool = false;
@@ -45,7 +46,7 @@ class OButtonBase extends OComponent
 		mouseUp = new OSignalMouse(OSignalMouse.UP, this.sprite);
 		mouseClick = new OSignalMouse(OSignalMouse.CLICK, this.sprite);
 
-		onClick = new OSignalBase<OButtonBase -> Void>();
+		onClick = new OSignalType<OButtonBase -> Void>();
 	}
 
 	override public function enableSignals( ):Void
@@ -140,8 +141,6 @@ class OButtonBase extends OComponent
 		return OButtonBaseStyle.styleString;
 	}
 }
-
-import omni.components.style.OBackgroundStyle;
 
 class OButtonBaseStyle extends OBackgroundStyle
 {

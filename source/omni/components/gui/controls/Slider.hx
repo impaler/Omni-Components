@@ -1,9 +1,10 @@
 package omni.components.gui.controls;
 
+import omni.utils.UtilNumbers;
 import omni.components.gui.controls.Slider;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
-import omni.components.core.signals.OSignal;
+import omni.components.core.signals.OSignalType;
 import omni.components.core.signals.OCoreEvent;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.style.OBackgroundStyle;
@@ -11,7 +12,7 @@ import omni.components.core.OCore;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.core.OComponent;
 import omni.components.core.OButtonBase;
-import omni.components.utils.ComponentUtils;
+import omni.utils.ComponentUtils;
 
 import nme.display.Sprite;
 import nme.geom.Rectangle;
@@ -48,20 +49,20 @@ class Slider extends OComponent
 	public var mouseDown:OSignalMouse;
 	public var mouseUp:OSignalMouse;
 
-	public var onChange(default, null):OSignal<Int -> Void>;
+	public var onChange(default, null):OSignalType<Int -> Void>;
 
-	//todo broken in html5
+//todo broken in html5
 	private var _mouseWheelTarget(default, setMouseWheelTarget):Sprite;
 
-	//***********************************************************
-	//                  Component Core
-	//***********************************************************
+//***********************************************************
+//                  Component Core
+//***********************************************************
 
-	override public function createMembers():Void
+	override public function createMembers( ):Void
 	{
 		_rect = new Rectangle();
 
-		onChange = new OSignal<Int -> Void>();
+		onChange = new OSignalType<Int -> Void>();
 		mouseWheel = new OSignalMouse (OSignalMouse.WHEEL, this.sprite);
 		mouseDown = new OSignalMouse (OSignalMouse.DOWN, this.sprite);
 		mouseUp = OCore.instance.onStageMouseUp;
@@ -69,266 +70,268 @@ class Slider extends OComponent
 
 		var thisStyle = cast(_style, SliderBaseStyle);
 		button = new OButtonBase(thisStyle.buttonStyle);
-		add(button);
+		add( button );
 
 		sprite.buttonMode = true;
 	}
 
-	override public function enableSignals():Void
+	override public function enableSignals( ):Void
 	{
-		button.mouseDown.add(handleButtonDown);
-		mouseWheel.add(handleMouseWheel);
-		mouseDown.add(handleMouseDown);
+		button.mouseDown.add( handleButtonDown );
+		mouseWheel.add( handleMouseWheel );
+		mouseDown.add( handleMouseDown );
 	}
 
-	override public function disableSignals():Void
+	override public function disableSignals( ):Void
 	{
-		button.mouseDown.remove(handleButtonDown);
-		mouseDown.remove(handleMouseDown);
-		mouseWheel.remove(handleMouseWheel);
+		button.mouseDown.remove( handleButtonDown );
+		mouseDown.remove( handleMouseDown );
+		mouseWheel.remove( handleMouseWheel );
 	}
 
-	override public function destroy():Void
+	override public function destroy( ):Void
 	{
-		mouseMove.destroy();
-		mouseWheel.destroy();
-		mouseDown.destroy();
-		mouseUp.destroy();
+		mouseWheel.destroy( );
+		mouseDown.destroy( );
 
-		button.mouseDown.remove(handleButtonDown);
-		OCore.instance.onStageMouseLeave.remove(handleLeftStage);
-		super.destroy();
+		mouseMove.remove( handleMouseMove );
+		mouseUp.remove( handleMouseUp );
+		button.mouseDown.remove( handleButtonDown );
+		OCore.instance.onStageMouseLeave.remove( handleLeftStage );
+
+		super.destroy( );
 	}
 
-	//***********************************************************
-	//                  Event Handlers
-	//***********************************************************
+//***********************************************************
+//                  Event Handlers
+//***********************************************************
 
-	public function handleMouseMove(?e:OSignalMouse):Void
+	public function handleMouseMove( ?e:OSignalMouse ):Void
 	{
-		updateValueOnMouseMove();
+		updateValueOnMouseMove( );
 
-		e.updateAfterEvent();
+		if( OCore.instance.updateAfterEvent )
+			e.updateAfterEvent( );
 	}
 
-	public function handleMouseDown(?e:OSignalMouse):Void
+	public function handleMouseDown( ?e:OSignalMouse ):Void
 	{
-		button.handleMouseDown(e);
+		button.handleMouseDown( e );
 
-		updateButtonLocationFromDown();
-		updateValueFromButtonLocation();
+		updateButtonLocationFromDown( );
+		updateValueFromButtonLocation( );
 
-		button.startDrag(false, _rect);
+		button.startDrag( false, _rect );
 
-		mouseMove.add(handleMouseMove);
-		mouseUp.add(handleMouseUp);
+		mouseMove.add( handleMouseMove );
+		mouseUp.add( handleMouseUp );
 	}
 
-	public function handleButtonDown(e:OSignalMouse):Void
+	public function handleButtonDown( e:OSignalMouse ):Void
 	{
 		buttonClick = true;
-		OCore.instance.onStageMouseLeave.add(handleLeftStage);
+		OCore.instance.onStageMouseLeave.add( handleLeftStage );
 	}
 
-	public function handleMouseUp(?e:OSignalMouse):Void
+	public function handleMouseUp( ?e:OSignalMouse ):Void
 	{
-		button.handleMouseUp(e);
-		button.stopDrag();
+		button.handleMouseUp( e );
+		button.stopDrag( );
 
-		mouseUp.remove(handleMouseUp);
-		mouseMove.remove(handleMouseMove);
+		mouseUp.remove( handleMouseUp );
+		mouseMove.remove( handleMouseMove );
 
-		updateValueFromButtonLocation();
+		updateValueFromButtonLocation( );
 
-		onChange.dispatch(value);
+		onChange.dispatch( value );
 	}
 
-	public function handleMouseWheel(?e:OSignalMouse):Void
+	public function handleMouseWheel( ?e:OSignalMouse ):Void
 	{
 		value += (e.delta > 0 ? step : - step);
-		e.updateAfterEvent();
+		e.updateAfterEvent( );
 	}
 
-	public function handleLeftStage(e:OCoreEvent):Void
+	public function handleLeftStage( e:OCoreEvent ):Void
 	{
-		handleMouseUp();
+		handleMouseUp( );
 	}
 
-	//***********************************************************
-	//                  Component Methods
-	//***********************************************************
+//***********************************************************
+//                  Component Methods
+//***********************************************************
 
-	public function updateButtonLocationFromDown():Void
+	public function updateButtonLocationFromDown( ):Void
 	{
-		if(buttonClick == false)
+		if( buttonClick == false )
 		{
-			if(_type == HORIZONTALLY)
+			if( _type == HORIZONTALLY )
 			{
-				var maxlocation = Math.min(this.width - button.width, this.mouseX - button.width / 2);
-				button.x = ComponentUtils.clamp((this.mouseX - button.width / 2), 0, maxlocation);
+				var maxlocation = Math.min( this.width - button.width, this.mouseX - button.width / 2 );
+				button.x = UtilNumbers.clamp( (this.mouseX - button.width / 2), 0, maxlocation );
 			}
 
-			if(_type == VERTICALLY)
+			if( _type == VERTICALLY )
 			{
-				var maxlocation = Math.min(this.height - button.height, this.mouseY - button.height / 2);
-				button.y = ComponentUtils.clamp((this.mouseY - button.height / 2), 0, maxlocation);
+				var maxlocation = Math.min( this.height - button.height, this.mouseY - button.height / 2 );
+				button.y = UtilNumbers.clamp( (this.mouseY - button.height / 2), 0, maxlocation );
 			}
 		}
 		buttonClick = false;
 	}
 
-	public function updateValueOnMouseMove():Void
+	public function updateValueOnMouseMove( ):Void
 	{
 		var valueChange = _value;
 
-		if(_type == Slider.HORIZONTALLY)
+		if( _type == Slider.HORIZONTALLY )
 		{
-			valueChange = clamp(Std.int(button.x / (_width - _height) * (_max - _min) + _min));
+			valueChange = clamp( Std.int( button.x / (_width - _height) * (_max - _min) + _min ) );
 		}
 		else
 		{
-			valueChange = clamp(Std.int((_height - _width - button.y) / (_height - _width) * (_max - _min) + _min));
+			valueChange = clamp( Std.int( (_height - _width - button.y) / (_height - _width) * (_max - _min) + _min ) );
 		}
 
-		if(_value != valueChange)
+		if( _value != valueChange )
 		{
 			_value = valueChange;
-			onChange.dispatch(_value);
+			onChange.dispatch( _value );
 		}
 	}
 
-	override public function invalidate(recursive:Bool = true):Void
+	override public function invalidate( recursive:Bool = true ):Void
 	{
-		refreshButton();
-		super.invalidate(true);
+		refreshButton( );
+		super.invalidate( true );
 	}
 
-	public function refreshButton():Void
+	public function refreshButton( ):Void
 	{
-		if(_type == Slider.HORIZONTALLY)
+		if( _type == Slider.HORIZONTALLY )
 		{
 			button._height = _height;
 			button._width = _height;
 			_rect.width = _width - _height;
-			button.move((_value - _min) / (_max - _min) * _rect.width, 0);
+			button.move( (_value - _min) / (_max - _min) * _rect.width, 0 );
 		}
 		else
 		{
 			button._height = _width;
 			button._width = _width;
 			_rect.height = _height - _width;
-			button.move(0, _rect.height - (_value - _min) / (_max - _min) * _rect.height);
+			button.move( 0, _rect.height - (_value - _min) / (_max - _min) * _rect.height );
 		}
 	}
 
-	public function updateValueFromButtonLocation():Void
+	public function updateValueFromButtonLocation( ):Void
 	{
-		if(_type == Slider.HORIZONTALLY)
+		if( _type == Slider.HORIZONTALLY )
 		{
-			_value = clamp(Std.int(((this.mouseX - (Std.int(_height) >> 1)) / (_width - _height)) * (_max - _min) + _min));
+			_value = clamp( Std.int( ((this.mouseX - (Std.int( _height ) >> 1)) / (_width - _height)) * (_max - _min) + _min ) );
 		}
 		else
 		{
-			_value = clamp(Std.int((_height - (Std.int(_width) >> 1) - this.mouseY) / (_height - _width) * (_max - _min) + _min));
+			_value = clamp( Std.int( (_height - (Std.int( _width ) >> 1) - this.mouseY) / (_height - _width) * (_max - _min) + _min ) );
 		}
 	}
 
-	private function clampValue():Void
+	private function clampValue( ):Void
 	{
-		_value = clamp(_value);
+		_value = clamp( _value );
 	}
 
-	private function clamp(value:Int):Int
+	private function clamp( value:Int ):Int
 	{
-		if(_max > _min)
+		if( _max > _min )
 		{
-			if(value > Std.int(_max))value = Std.int(_max);
-			if(value < Std.int(_min))value = Std.int(_min);
+			if( value > Std.int( _max ) )value = Std.int( _max );
+			if( value < Std.int( _min ) )value = Std.int( _min );
 		}
 		else
 		{
-			value = Std.int(_max);
+			value = Std.int( _max );
 			_min = _max;
 		}
 		return value;
 	}
 
-	//***********************************************************
-	//                  Properties
-	//***********************************************************
+//***********************************************************
+//                  Properties
+//***********************************************************
 
-	public function get_mouseWheelTarget():Sprite
+	public function get_mouseWheelTarget( ):Sprite
 	{
 		return _mouseWheelTarget;
 	}
 
-	public function setMouseWheelTarget(value:Sprite):Sprite
+	public function setMouseWheelTarget( value:Sprite ):Sprite
 	{
 		_mouseWheelTarget = value;
 		return _mouseWheelTarget;
 	}
 
-	private function getMax():Float
+	private function getMax( ):Float
 	{
 		return _max;
 	}
 
-	private function setMax(value:Float):Float
+	private function setMax( value:Float ):Float
 	{
-		if(_max != value)
+		if( _max != value )
 		{
 			_max = value;
-			invalidate();
+			invalidate( );
 		}
 		return value;
 	}
 
-	private function getMin():Float
+	private function getMin( ):Float
 	{
 		return _min;
 	}
 
-	private function setMin(value:Float):Float
+	private function setMin( value:Float ):Float
 	{
-		if(_min != value)
+		if( _min != value )
 		{
 			_min = value;
-			invalidate();
+			invalidate( );
 		} return value;
 	}
 
-	public function getValue():Int
+	public function getValue( ):Int
 	{
 		return _value;
 	}
 
-	public function setValue(value:Int):Int
+	public function setValue( value:Int ):Int
 	{
-		value = clamp(value);
+		value = clamp( value );
 
-		if(_value != value)
+		if( _value != value )
 		{
 			_value = value;
 
-			invalidate();
-			onChange.dispatch(_value);
+			invalidate( );
+			onChange.dispatch( _value );
 		}
 		return value;
 	}
 
-	public function getType():Int
+	public function getType( ):Int
 	{
 		return _type;
 	}
 
-	public function setType(value:Int):Int
+	public function setType( value:Int ):Int
 	{
-		if(_type != value)
+		if( _type != value )
 		{
 			_type = value;
 
 			var styleAs = cast (_style, SliderBaseStyle);
-			if(_type == Slider.VERTICALLY)
+			if( _type == Slider.VERTICALLY )
 			{
 				_width = styleAs.defaultVWidth;
 			}
@@ -337,7 +340,7 @@ class Slider extends OComponent
 				_width = styleAs.defaultHWidth;
 			}
 
-			if(_type == Slider.VERTICALLY)
+			if( _type == Slider.VERTICALLY )
 			{
 				_height = styleAs.defaultVHeight;
 			}
@@ -347,16 +350,16 @@ class Slider extends OComponent
 			}
 			_rect = new Rectangle(0, 0, 0, 0);
 
-			invalidate();
+			invalidate( );
 		}
 		return _type;
 	}
 
-	//***********************************************************
-	//                  Component Style
-	//***********************************************************
+//***********************************************************
+//                  Component Style
+//***********************************************************
 
-	override public function getStyleId():String
+	override public function getStyleId( ):String
 	{
 		return SliderBaseStyle.styleString;
 	}
@@ -382,9 +385,9 @@ class SliderBaseStyle extends OBackgroundStyle
 	private var defaultMax:Float;
 	private var defaultMin:Float;
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 		styleID = styleString;
 
 		defaultType = 0;
@@ -394,21 +397,21 @@ class SliderBaseStyle extends OBackgroundStyle
 		defaultMin = 0;
 	}
 
-	override public function initStyle(value:IOComponent):Void
+	override public function initStyle( value:IOComponent ):Void
 	{
-		super.initStyle(value);
+		super.initStyle( value );
 
 		var styleAs = cast (value, Slider);
-		//todo
+//todo
 		styleAs._type = defaultType;
 		styleAs.step = defaultStep;
 		styleAs._value = defaultValue;
 		styleAs._max = defaultMax;
 		styleAs._min = defaultMin;
 
-		if(value._width == defaultWidth && value._height == defaultHeight)
+		if( value._width == defaultWidth && value._height == defaultHeight )
 		{
-			if(defaultType == Slider.VERTICALLY)
+			if( defaultType == Slider.VERTICALLY )
 			{
 				value._width = defaultVWidth;
 			}
@@ -417,7 +420,7 @@ class SliderBaseStyle extends OBackgroundStyle
 				value._width = defaultHWidth;
 			}
 
-			if(defaultType == Slider.VERTICALLY)
+			if( defaultType == Slider.VERTICALLY )
 			{
 				value._height = defaultVHeight;
 			}

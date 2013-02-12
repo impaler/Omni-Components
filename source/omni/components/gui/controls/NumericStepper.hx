@@ -1,13 +1,14 @@
 package omni.components.gui.controls;
 
+import omni.utils.ComponentUtils;
 import omni.components.core.interfaces.IOComponent;
+import omni.components.core.OComponent;
+import omni.components.gui.text.Label;
 import omni.components.core.OCore;
 import omni.components.core.signals.OSignalMouse;
-import omni.components.core.signals.OSignal;
-import omni.components.core.OComponent;
+import omni.components.core.signals.OSignalType;
 import omni.components.core.OTextBase;
 import omni.components.core.OButtonBase;
-import omni.components.utils.ComponentUtils;
 import omni.components.style.OBackgroundStyle;
 
 import nme.utils.Timer;
@@ -30,99 +31,102 @@ class NumericStepper extends OComponent
 	private var _increasing:Bool;
 	private var _timer:Timer;
 
-	private var _textBase:OTextBase;
-	private var _increase:OButtonBase;
-	private var _decrease:OButtonBase;
+	public var _textBase:OTextBase;
+	public var _increase:OButtonBase;
+	public var _decrease:OButtonBase;
 
 	public var mouseWheel:OSignalMouse;
-	public var onChange(default, null):OSignal<Int -> Void>;
+	public var onChange(default, null):OSignalType<Int -> Void>;
 
-	override public function createMembers():Void
+	override public function createMembers( ):Void
 	{
-		//todo move to style layer and finish TextBase
-		_max = max;
-		_min = min;
-		_value = value;
-		this.step = step;
+//todo move to style layer and finish TextBase
+		_max = 1000;
+		_min = - 10;
+		_value = 0;
+		step = 1;
 
-		onChange = new OSignal();
+		onChange = new OSignalType();
 		mouseWheel = new OSignalMouse(OSignalMouse.WHEEL, this.sprite);
 
 		var thisStyle = cast(_style, NumericStepperStyle);
 
-		_textBase = new OTextBase(thisStyle.textStyle);
+		_textBase = new Label(thisStyle.textStyle);
 		_textBase.trackTheme = false;
-		add(_textBase);
+		add( _textBase );
 
 		_increase = new OButtonBase(thisStyle.increaseButtonStyle);
 		_increase.trackTheme = false;
-		add(_increase);
+		add( _increase );
 
 		_decrease = new OButtonBase(thisStyle.decreaseButtonStyle);
 		_decrease.trackTheme = false;
-		add(_decrease);
+		add( _decrease );
 
 		_timer = new Timer(1000);
-		_timer.addEventListener(TimerEvent.TIMER, onTimerTick);
+		_timer.addEventListener( TimerEvent.TIMER, onTimerTick );
 	}
 
-	override public function enableSignals():Void
+	override public function enableSignals( ):Void
 	{
-		_increase.mouseDown.add(onIncreaseClick);
-		_decrease.mouseDown.add(onDecreaseClick);
-		mouseWheel.add(onMouseWheel);
+		_increase.mouseDown.add( onIncreaseClick );
+		_decrease.mouseDown.add( onDecreaseClick );
+		mouseWheel.add( onMouseWheel );
 	}
 
-	override public function disableSignals():Void
+	override public function disableSignals( ):Void
 	{
-		_increase.mouseDown.remove(onIncreaseClick);
-		_decrease.mouseDown.remove(onDecreaseClick);
+		_increase.mouseDown.remove( onIncreaseClick );
+		_decrease.mouseDown.remove( onDecreaseClick );
 	}
 
-	private function onMouseWheel(e:MouseEvent):Void
+	private function onMouseWheel( ?e:OSignalMouse ):Void
 	{
 		value += (e.delta > 0 ? 1 : - 1) * step;
 	}
 
-	private function onTimerTick(e:TimerEvent):Void
+	private function onTimerTick( e:TimerEvent ):Void
 	{
 		_timer.delay = 100;
 		value += _increasing ? step : - step;
 	}
 
-	private function onIncreaseClick(e:MouseEvent):Void
+	private function onIncreaseClick( ?e:OSignalMouse ):Void
 	{
+		nme.Lib.trace( "down" );
 		value += step;
 
 		_increasing = true;
-		_timer.reset();
-		_timer.start();
-		OCore.onStageMouseUp.addOnce(onMouseUp);
+		_timer.reset( );
+		_timer.start( );
+		OCore.instance.onStageMouseUp.addOnce( onMouseUp );
 	}
 
-	private function onDecreaseClick(e:MouseEvent):Void
+	private function onDecreaseClick( ?e:OSignalMouse ):Void
 	{
 		value -= step;
 
 		_increasing = false;
-		_timer.reset();
-		_timer.start();
-		OCore.onStageMouseUp.addOnce(onMouseUp);
+		_timer.reset( );
+		_timer.start( );
+		OCore.instance.onStageMouseUp.addOnce( onMouseUp );
 	}
 
-	private function onMouseUp(e:MouseEvent):Void
+	private function onMouseUp( ?e:OSignalMouse ):Void
 	{
-		_timer.stop();
+		_timer.stop( );
 		_timer.delay = 1000;
 	}
 
-	override public function draw():Void
+	override public function draw( ):Void
 	{
-		super.draw();
-		updatePositions();
+		super.draw( );
+		_textBase.text = Std.string( value );
+
+		updatePositions( );
 	}
 
-	public function updatePositions():Void
+	public function updatePositions( ):Void
 	{
 		_increase._width = _height;
 		_decrease._width = _height;
@@ -132,74 +136,74 @@ class NumericStepper extends OComponent
 
 		_decrease.y = _height * 0.5;
 
-		ComponentUtils.VAlignToOther(_textBase, this);
-		ComponentUtils.HAlignToOther(_textBase, this);
+		ComponentUtils.VAlignToOther( _textBase, this );
+		ComponentUtils.HAlignToOther( _textBase, this );
 	}
 
-	public function fixValue():Void
+	public function fixValue( ):Void
 	{
-		if(_max > _min)
+		if( _max > _min )
 		{
-			if(_value > _max)_value = _max;
-			if(_value < _min)_value = _min;
+			if( _value > _max )_value = _max;
+			if( _value < _min )_value = _min;
 		}
 		else
 		{
 			_value = _min = _max;
 		}
-		_textBase.text = Std.string(_value);
+		_textBase.text = Std.string( _value );
 	}
 
-	public function getValue():Int
+	public function getValue( ):Int
 	{
 		return _value;
 	}
 
-	public function setValue(value:Int):Int
+	public function setValue( value:Int ):Int
 	{
-		if(_value != value)
+		if( _value != value )
 		{
 			_value = value;
-			fixValue();
-			invalidate();
-			onChange.dispatch(_value);
+			fixValue( );
+			invalidate( );
+			onChange.dispatch( _value );
 		}
 		return _value;
 	}
 
-	public function setMax(value:Int):Int
+	public function setMax( value:Int ):Int
 	{
-		if(_max != value)
+		if( _max != value )
 		{
 			_max = value;
-			fixValue();
-			invalidate();
+			fixValue( );
+			invalidate( );
 		}
 		return _max;
 	}
 
-	public function getMax():Int
+	public function getMax( ):Int
 	{
 		return _max;
 	}
 
-	public function setMin(value:Int):Int
+	public function setMin( value:Int ):Int
 	{
-		if(_min != value)
+		if( _min != value )
 		{
 			_min = value;
-			fixValue();
-			invalidate();
+			fixValue( );
+			invalidate( );
 		}
 		return _min;
 	}
 
-	public function getMin():Int
+	public function getMin( ):Int
 	{
 		return _min;
 	}
 
-	override public function getStyleId():String
+	override public function getStyleId( ):String
 	{
 		return NumericStepperStyle.styleString;
 	}
@@ -216,31 +220,32 @@ class NumericStepperStyle extends OBackgroundStyle
 {
 
 	public static var styleString:String = "NumericStepperStyle";
+
 	public static var STATE_ACTIVE:String = "STATE_ACTIVE";
 
 	public var increaseButtonStyle:OButtonBaseStyle;
 	public var decreaseButtonStyle:OButtonBaseStyle;
-	public var textStyle:OTextBaseStyle;
+	public var textStyle:TextBaseStyle;
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 		styleID = styleString;
 	}
 
-	override public function initStyle(value:IOComponent):Void
+	override public function initStyle( value:IOComponent ):Void
 	{
-		super.initStyle(value);
+		super.initStyle( value );
 
-		var instance = cast ( value, NumericStepper);
-
-		if(instance._textBase != null)
-		{
-			var stylethis = cast ( instance._style, NumericStepperStyle);
-			instance._textBase.style = stylethis.textStyle;
-			instance._increase.style = stylethis.increaseButtonStyle;
-			instance._decrease.style = stylethis.decreaseButtonStyle;
-		}
+//		var instance = cast ( value, NumericStepper);
+//
+//		if(instance._textBase != null)
+//		{
+//			var stylethis = cast ( instance.style, NumericStepperStyle);
+//			instance._textBase.style = stylethis.textStyle;
+//			instance._increase.style = stylethis.increaseButtonStyle;
+//			instance._decrease.style = stylethis.decreaseButtonStyle;
+//		}
 
 	}
 
