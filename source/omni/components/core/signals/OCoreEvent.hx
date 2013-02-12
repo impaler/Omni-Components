@@ -1,6 +1,6 @@
 package omni.components.core.signals;
 
-import omni.components.core.signals.OSignal;
+import omni.components.core.signals.OSignalType;
 
 import nme.events.Event;
 import nme.display.DisplayObjectContainer;
@@ -15,7 +15,7 @@ import nme.display.DisplayObjectContainer;
 * Based on work by ralcr/sdk.ralcr and robertpenner/as3-signals
 * 
 **/
-class OCoreEvent extends OSignal<OCoreEvent -> Void>
+class OCoreEvent extends OSignalType<OCoreEvent -> Void>
 {
 //	inline public static var ACTIVATE = "activate";
 //	inline public static var ADDED = "added";
@@ -51,54 +51,54 @@ class OCoreEvent extends OSignal<OCoreEvent -> Void>
 
 	private var displayTarget:DisplayObjectContainer;
 
-	public function new(type:String, target:DisplayObjectContainer, ?pos:haxe.PosInfos)
+	public function new( type:String, target:DisplayObjectContainer, ?pos:haxe.PosInfos )
 	{
-		super();
+		super( );
 
 		this.type = type;
 		this.target = target;
 		this.delta = 0;
 		this.displayTarget = target;
 
-		addEventListener(pos);
+		addEventListener( pos );
 	}
 
-	function addEventListener(?pos:haxe.PosInfos):Void
+	function addEventListener( ?pos:haxe.PosInfos ):Void
 	{
 		switch (type) {
-			case RESIZE: displayTarget.addEventListener(Event.RESIZE, eventHandler);
-			case CHANGE: displayTarget.addEventListener(Event.CHANGE, eventHandler);
-			case ENTER_FRAME: displayTarget.addEventListener(Event.ENTER_FRAME, eventHandler);
-			case RENDER: displayTarget.addEventListener(Event.RENDER, eventHandler);
-			case REMOVED_FROM_STAGE: displayTarget.addEventListener(Event.REMOVED_FROM_STAGE, eventHandler);
-			case ADDED_TO_STAGE: displayTarget.addEventListener(Event.ADDED_TO_STAGE, eventHandler);
-			case MOUSE_LEAVE: displayTarget.addEventListener(Event.MOUSE_LEAVE, eventHandler);
-			default: OCore.error("The event you're trying to add does not exist. " + pos);
+			case RESIZE: displayTarget.addEventListener( Event.RESIZE, eventHandler );
+			case CHANGE: displayTarget.addEventListener( Event.CHANGE, eventHandler );
+			case ENTER_FRAME: displayTarget.addEventListener( Event.ENTER_FRAME, eventHandler );
+			case RENDER: displayTarget.addEventListener( Event.RENDER, eventHandler );
+			case REMOVED_FROM_STAGE: displayTarget.addEventListener( Event.REMOVED_FROM_STAGE, eventHandler );
+			case ADDED_TO_STAGE: displayTarget.addEventListener( Event.ADDED_TO_STAGE, eventHandler );
+			case MOUSE_LEAVE: displayTarget.addEventListener( Event.MOUSE_LEAVE, eventHandler );
+			default: OCore.error( "The event you're trying to add does not exist. " + pos );
 		}
 	}
 
-	function removeEventListener()
+	function removeEventListener( )
 	{
 		switch (type) {
-			case RESIZE: displayTarget.removeEventListener(Event.RESIZE, eventHandler);
-			case CHANGE: displayTarget.removeEventListener(Event.CHANGE, eventHandler);
-			case ENTER_FRAME: displayTarget.removeEventListener(Event.ENTER_FRAME, eventHandler);
-			case RENDER: displayTarget.removeEventListener(Event.RENDER, eventHandler);
-			case REMOVED_FROM_STAGE: displayTarget.removeEventListener(Event.REMOVED_FROM_STAGE, eventHandler);
-			case ADDED_TO_STAGE: displayTarget.removeEventListener(Event.ADDED_TO_STAGE, eventHandler);
-			case MOUSE_LEAVE: displayTarget.removeEventListener(Event.MOUSE_LEAVE, eventHandler);
+			case RESIZE: displayTarget.removeEventListener( Event.RESIZE, eventHandler );
+			case CHANGE: displayTarget.removeEventListener( Event.CHANGE, eventHandler );
+			case ENTER_FRAME: displayTarget.removeEventListener( Event.ENTER_FRAME, eventHandler );
+			case RENDER: displayTarget.removeEventListener( Event.RENDER, eventHandler );
+			case REMOVED_FROM_STAGE: displayTarget.removeEventListener( Event.REMOVED_FROM_STAGE, eventHandler );
+			case ADDED_TO_STAGE: displayTarget.removeEventListener( Event.ADDED_TO_STAGE, eventHandler );
+			case MOUSE_LEAVE: displayTarget.removeEventListener( Event.MOUSE_LEAVE, eventHandler );
 		}
 	}
 
-	function eventHandler(e:Event)
+	function eventHandler( e:Event )
 	{
 		this.e = e;
-		dispatch(this);
+		dispatch( this );
 	}
 
-	override public function destroy():Void
+	override public function destroy( ):Void
 	{
-		removeEventListener();
-		super.destroy();
+		removeEventListener( );
+		super.destroy( );
 	}
 }
