@@ -1,52 +1,54 @@
 package omni.components.core;
 
-import nme.geom.Rectangle;
-import omni.components.core.signals.OCoreEvent;
-import omni.components.utils.ComponentUtils;
-import omni.components.core.signals.OSignal;
+import omni.utils.UtilNumbers;
+import omni.utils.ComponentUtils;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
+import omni.components.core.signals.OCoreEvent;
+import omni.components.core.signals.OSignalType;
+import omni.components.style.OBackgroundStyle;
 
 import nme.events.Event;
 import nme.display.Sprite;
+import nme.geom.Rectangle;
 
 class OComponent implements IOComponent
 {
 
-	//***********************************************************
-	//                  Component Core
-	//***********************************************************
+//***********************************************************
+//                  Component Core
+//***********************************************************
 
-	public function new(style:IStyle = null)
+	public function new( style:IStyle = null )
 	{
 		compId = OCore.instance.getNextID;
-		createComponentMembers();
-		initStyle(style);
-		createMembers();
-		if(style == null)
-			startTrackingTheme();
-		enableSignals();
+		createComponentMembers( );
+		initStyle( style );
+		createMembers( );
+		if( style == null )
+			startTrackingTheme( );
+		enableSignals( );
 
-		sprite.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		sprite.addEventListener( Event.ADDED_TO_STAGE, onAddedToStage );
 	}
 
-	public function createComponentMembers():Void
+	public function createComponentMembers( ):Void
 	{
 		sprite = new Sprite();
 		onResize = new OCoreEvent(OCoreEvent.RESIZE, this.sprite);
 		components = [];
 	}
 
-	public function onAddedToStage(e:Event):Void
+	public function onAddedToStage( e:Event ):Void
 	{
-		sprite.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-		invalidate();
-		//		OCore.log("Added to stage");
+		sprite.removeEventListener( Event.ADDED_TO_STAGE, onAddedToStage );
+		invalidate( );
+//		OCore.log("Added to stage");
 	}
 
 	public var sprite(getSprite, null):Sprite;
 
-	private function getSprite():Sprite
+	private function getSprite( ):Sprite
 	{
 		return sprite;
 	}
@@ -54,17 +56,17 @@ class OComponent implements IOComponent
 	public var state(getState, setState):String;
 	public var _state:String = null;
 
-	private function setState(value:String):String
+	private function setState( value:String ):String
 	{
-		if(value != this._state)
+		if( value != this._state )
 		{
 			this._state = value;
-			invalidate();
+			invalidate( );
 		}
 		return _state;
 	}
 
-	private function getState():String
+	private function getState( ):String
 	{
 		return _state;
 	}
@@ -72,20 +74,20 @@ class OComponent implements IOComponent
 	public var style(getStyle, setStyle):IStyle;
 	private var _style:IStyle;
 
-	public function setStyleClass(value:Class<IStyle>):IStyle
+	public function setStyleClass( value:Class<IStyle> ):IStyle
 	{
-		var styleInstance = Type.createInstance(value, []);
+		var styleInstance = Type.createInstance( value, [] );
 		this.style = styleInstance;
 		return this.style;
 	}
 
-	private function setStyle(value:IStyle):IStyle
+	private function setStyle( value:IStyle ):IStyle
 	{
-		if(this._style != value)
+		if( this._style != value )
 		{
-			stopTrackingTheme();
-			initStyle(value);
-			invalidate();
+			stopTrackingTheme( );
+			initStyle( value );
+			invalidate( );
 			return this._style;
 		}
 		else
@@ -94,126 +96,127 @@ class OComponent implements IOComponent
 		}
 	}
 
-	private function getStyle():IStyle
+	private function getStyle( ):IStyle
 	{
 		return this._style;
 	}
 
 	public var styleId(getStyleId, null):String;
 
-	public function initStyle(style:IStyle = null):Void
+	public function initStyle( style:IStyle = null ):Void
 	{
-		if(this._style != null)
+		if( this._style != null )
 		{
-			this._style.destroy();
+			this._style.destroy( );
 			this._style = null;
 		}
-		if(style == null)
+		if( style == null )
 		{
-			this._style = OCore.instance.defaultTheme.getStyle(this.styleId);
+			this._style = OCore.instance.defaultTheme.getStyle( this.styleId );
 		}
 		else
 		{
 			this._style = style;
 		}
-		this._style.initStyle(this);
+		this._style.initStyle( this );
 	}
 
 	public var invalid:Bool;
 
-	public function invalidate(recursive:Bool = true):Void
+	public function invalidate( recursive:Bool = true ):Void
 	{
-		if(! this.invalid)
+		if( ! this.invalid )
 		{
 			this.invalid = true;
-			ORenderManager.instance.addToRenderList(this);
+			ORenderManager.instance.addToRenderList( this );
 
 		}
-		//todo is this handled in style
-		if(components.length > 0 && recursive)
+//todo is this handled in style
+		if( components.length > 0 && recursive )
 		{
-			for(i in 0...components.length)
+			for( i in 0...components.length )
 			{
 				var o = cast (components[i], IOComponent);
-				o.invalidate();
+				o.invalidate( );
 			}
 		}
 	}
 
-	public function drawNow(recursive:Bool = true):Void
+	public function drawNow( recursive:Bool = true ):Void
 	{
 		this.invalid = true;
-		draw();
+		draw( );
 
-		if(components.length > 0 && recursive)
+		if( components.length > 0 && recursive )
 		{
-			for(i in 0...components.length)
+			for( i in 0...components.length )
 			{
 				var o = cast (components[i], IOComponent);
-				o.drawNow();
+				o.drawNow( );
 			}
 		}
 	}
 
-	public function draw():Void
+	public function draw( ):Void
 	{
-		coreDraw();
+		coreDraw( );
 	}
 
-	public function coreDraw():Void
+	public function coreDraw( ):Void
 	{
-		if(! this.invalid)
+		if( ! this.invalid )
 			return;
 
-		if(this._style != null)
+		if( this._style != null )
 		{
-			this._style.update(this);
+			this._style.update( this );
 		}
 
-		updateMembers();
+		updateMembers( );
 
 		drawCount++;
 
 		this.invalid = false;
 	}
 
-	public function onThemeChange():Void
+	public function onThemeChange( ):Void
 	{
-		initStyle();
-		invalidate();
+		initStyle( );
+		invalidate( );
 	}
 
 	public var trackTheme(default, setTrackTheme):Bool;
 
-	public function setTrackTheme(value:Bool):Bool
+	public function setTrackTheme( value:Bool ):Bool
 	{
-		if(value != this.trackTheme)
+		if( value != this.trackTheme )
 		{
 			this.trackTheme = value;
-			this.trackTheme ? startTrackingTheme() : stopTrackingTheme();
+			this.trackTheme ? startTrackingTheme( ) : stopTrackingTheme( );
 		}
 
 		return this.trackTheme;
 	}
 
-	public function startTrackingTheme():Void
+	public function startTrackingTheme( ):Void
 	{
-		if(! this.trackTheme)
+		if( ! this.trackTheme )
 		{
-			OCore.instance.onThemeChange.add(onThemeChange);
+			OCore.instance.onThemeChange.add( onThemeChange );
 			this.trackTheme = true;
 		}
 	}
 
-	public function stopTrackingTheme():Void
+	public function stopTrackingTheme( ):Void
 	{
-		if(this.trackTheme)
+		if( this.trackTheme )
 		{
-			OCore.instance.onThemeChange.remove(onThemeChange);
+			OCore.instance.onThemeChange.remove( onThemeChange );
 
-			var styleType = Type.getClass(this._style);
-			this._style = Type.createInstance(styleType, []);
-			this.trackTheme = false;
+//todo
+//			var styleType = Type.getClass(this._style);
+//			this._style = Type.createInstance(styleType, []);
+//			this.trackTheme = false;
 		}
 	}
 
@@ -221,104 +224,104 @@ class OComponent implements IOComponent
 
 	public var components:Array <IOComponent>;
 
-	public function add(comp:IOComponent):Void
+	public function add( comp:IOComponent ):Void
 	{
-		this.components.push(comp);
-		this.sprite.addChild(comp.sprite);
+		this.components.push( comp );
+		this.sprite.addChild( comp.sprite );
 	}
 
 	private var _listening:Bool = false;
 
-	//***********************************************************
-	//                  Overridables
-	//***********************************************************
+//***********************************************************
+//                  Overridables
+//***********************************************************
 
-	public function createMembers():Void
+	public function createMembers( ):Void
 	{
-		//override me
+//override me
 	}
 
-	public function updateMembers():Void
+	public function updateMembers( ):Void
 	{
-		//override me
+//override me
 	}
 
-	public function enableSignals():Void
+	public function enableSignals( ):Void
 	{
-		if(! _listening)
+		if( ! _listening )
 		{
-			//override me
+//override me
 			_listening = true;
 		}
 	}
 
-	public function disableSignals():Void
+	public function disableSignals( ):Void
 	{
-		if(_listening)
+		if( _listening )
 		{
-			//override me
+//override me
 			_listening = false;
 		}
 	}
 
-	//***********************************************************
-	//                  Dimensions / Positions
-	//***********************************************************
+//***********************************************************
+//                  Dimensions / Positions
+//***********************************************************
 
 	public var x(getX, setX):Float;
 
-	public function setX(value:Float):Float
+	public function setX( value:Float ):Float
 	{
 		return x = sprite.x = (value);
 	}
 
-	function getX():Float
+	function getX( ):Float
 	{
 		return sprite.x;
 	}
 
 	public var y(getY, setY):Float;
 
-	function getY():Float
+	function getY( ):Float
 	{
 		return sprite.y;
 	}
 
-	public function setY(value:Float):Float
+	public function setY( value:Float ):Float
 	{
 		return y = sprite.y = (value);
 	}
 
-	public function move(x:Float, y:Float):Void
+	public function move( x:Float, y:Float ):Void
 	{
-		setX(x);
-		setY(y);
+		setX( x );
+		setY( y );
 	}
 
 	public var height(getHeight, setHeight):Float;
 	public var _height(default, set_Height):Float = 0;
 
-	private function setHeight(h:Float):Float
+	private function setHeight( h:Float ):Float
 	{
-		if(_height != h)
+		if( _height != h )
 		{
-			set_Height(h);
-			invalidate();
-			onResize.dispatch();
+			set_Height( h );
+			invalidate( );
+			onResize.dispatch( );
 		}
 		return _height;
 	}
 
-	private function getHeight():Float
+	private function getHeight( ):Float
 	{
 		return _height;
 	}
 
-	private function set_Height(h:Float):Float
+	private function set_Height( h:Float ):Float
 	{
-		if(_height != h)
+		if( _height != h )
 		{
-			h = ComponentUtils.clamp(h, _style.minHeight, _style.maxHeight);
+			h = UtilNumbers.clamp( h, _style.minHeight, _style.maxHeight );
 			_height = (h);
 		}
 		return _height;
@@ -327,171 +330,172 @@ class OComponent implements IOComponent
 	public var width(getWidth, setWidth):Float;
 	public var _width(default, set_Width):Float = 0;
 
-	public function setWidth(w:Float):Float
+	public function setWidth( w:Float ):Float
 	{
-		if(_width != w)
+		if( _width != w )
 		{
-			set_Width(w);
-			invalidate();
-			onResize.dispatch();
+			set_Width( w );
+			invalidate( );
+			onResize.dispatch( );
 		}
 		return _width;
 	}
 
-	public function set_Width(w:Float):Float
+	public function set_Width( w:Float ):Float
 	{
-		if(_width != w)
+		if( _width != w )
 		{
-			w = ComponentUtils.clamp(w, this._style.minWidth, this._style.maxWidth);
+			w = UtilNumbers.clamp( w, this._style.minWidth, this._style.maxWidth );
 			_width = (w);
 		}
 		return _width;
 	}
 
-	public function getWidth():Float
+	public function getWidth( ):Float
 	{
 		return _width;
 	}
 
-	public function size(w:Float, h:Float):Void
+	public function size( w:Float, h:Float ):Void
 	{
-		_size(w, h);
-		invalidate();
+		_size( w, h );
+		invalidate( );
 	}
 
-	public function _size(w:Float, h:Float):Void
+	public function _size( w:Float, h:Float ):Void
 	{
-		_width = ComponentUtils.clamp(w, this._style.minWidth, this._style.maxWidth);
-		_height = ComponentUtils.clamp(h, this._style.minHeight, this._style.maxHeight);
+		_width = UtilNumbers.clamp( w, this._style.minWidth, this._style.maxWidth );
+		_height = UtilNumbers.clamp( h, this._style.minHeight, this._style.maxHeight );
 	}
 
 	public var padding(getPadding, setPadding):Float;
 	public var _padding(default, set_Padding):Float = 0;
 
-	private function setPadding(value:Float):Float
+	private function setPadding( value:Float ):Float
 	{
-		if(_padding != value)
+		if( _padding != value )
 		{
-			set_Padding(value);
-			invalidate();
-			onResize.dispatch();
+			set_Padding( value );
+			invalidate( );
+			onResize.dispatch( );
 		}
 		return _padding;
 	}
 
-	private function getPadding():Float
+	private function getPadding( ):Float
 	{
 		return _padding;
 	}
 
-	private function set_Padding(value:Float):Float
+	private function set_Padding( value:Float ):Float
 	{
-		if(_padding != value)
+		if( _padding != value )
 		{
-			_padding = Math.round(value);
+			_padding = Math.round( value );
 		}
 		return _padding;
 	}
 
 	public var buttonMode(getButtonMode, setButtonMode):Bool;
 
-	public function setButtonMode(b:Bool):Bool
+	public function setButtonMode( b:Bool ):Bool
 	{
-		#if flash
+#if flash
 		//todo new native flash api for cursors
 		sprite.buttonMode = b;
-		#elseif js
+#elseif js
 		sprite.useHandCursor = b;
-		#end
-		//todo cpp desktop use displayobject
+#end
+//todo cpp desktop use displayobject
 
 		return b;
 	}
 
-	public function getButtonMode():Bool
+	public function getButtonMode( ):Bool
 	{
-		#if flash
+#if flash
 		return sprite.buttonMode;
-		#elseif js
+#elseif js
 		return sprite.useHandCursor;
-		#else
-		return false;
-		#end
+#else
+return false;
+#end
 	}
 
-	public function startDrag(lockCenter:Bool = false, ?bounds:Rectangle):Void
+	public function startDrag( lockCenter:Bool = false, ?bounds:Rectangle ):Void
 	{
-		sprite.startDrag(false, bounds);
+		sprite.startDrag( false, bounds );
 	}
 
-	public function stopDrag():Void
+	public function stopDrag( ):Void
 	{
-		sprite.stopDrag();
+		sprite.stopDrag( );
 	}
 
 	public var mouseX(get_mouseX, null):Float;
 
-	private function get_mouseX():Float
+	private function get_mouseX( ):Float
 	{
 		return sprite.mouseX;
 	}
 
 	public var mouseY(get_mouseY, null):Float;
 
-	private function get_mouseY():Float
+	private function get_mouseY( ):Float
 	{
 		return sprite.mouseY;
 	}
 
-	public function destroy():Void
+	public function destroy( ):Void
 	{
-		if(components.length > 0)
+		if( components.length > 0 )
 		{
-			for(o in components)
+			for( o in components )
 			{
 				var comp = cast(o, IOComponent);
-				comp.destroy();
+				comp.destroy( );
 				comp = null;
 			}
 			components = null;
 		}
-
-		_style.destroy();
+//todo
+////		_style.destroy();
 		_style = null;
+
+		if( sprite.parent != null )
+			sprite.parent.removeChild( sprite );
 
 		sprite = null;
 
-		onResize.destroy();
-		stopTrackingTheme();
+		onResize.destroy( );
+		stopTrackingTheme( );
 	}
 
-	//***********************************************************
-	//                  Debug
-	//***********************************************************
+//***********************************************************
+//                  Debug
+//***********************************************************
 
 	public var compId(default, null):Int;
 
 	public var drawCount(default, setdrawCount):Int = 0;
 
-	public function setdrawCount(value:Int):Int
+	public function setdrawCount( value:Int ):Int
 	{
 		drawCount = value;
-		//				OCore.log("ID:" + compId + " : " +this.styleId + " :DRAWCOUNT: " + drawCount);
+//				OCore.log("ID:" + compId + " : " +this.styleId + " :DRAWCOUNT: " + drawCount);
 		return drawCount;
 	}
 
-	//***********************************************************
-	//                  Component Style
-	//***********************************************************
+//***********************************************************
+//                  Component Style
+//***********************************************************
 
-	public function getStyleId():String
+	public function getStyleId( ):String
 	{
 		return ComponentStyle.styleString;
 	}
 
 }
-
-import omni.components.style.OBackgroundStyle;
 
 class ComponentStyle extends OBackgroundStyle
 {
@@ -500,9 +504,9 @@ class ComponentStyle extends OBackgroundStyle
 	public static var STATE_OVER:String = "STATE_OVER";
 	public static var STATE_DOWN:String = "STATE_DOWN";
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 		styleID = styleString;
 	}
 
