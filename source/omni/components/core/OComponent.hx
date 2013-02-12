@@ -172,7 +172,7 @@ class OComponent implements IOComponent
 			this._style.update( this );
 		}
 
-		updateMembers( );
+		drawMembers( );
 
 		drawCount++;
 
@@ -230,6 +230,12 @@ class OComponent implements IOComponent
 		this.sprite.addChild( comp.sprite );
 	}
 
+	public function remove( comp:IOComponent ):Void
+	{
+		this.components.remove( comp );
+		this.sprite.removeChild( comp.sprite );
+	}
+
 	private var _listening:Bool = false;
 
 //***********************************************************
@@ -241,7 +247,7 @@ class OComponent implements IOComponent
 //override me
 	}
 
-	public function updateMembers( ):Void
+	public function drawMembers( ):Void
 	{
 //override me
 	}

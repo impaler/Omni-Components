@@ -26,7 +26,7 @@ class Icon extends OComponent
 		sprite.addChild( bitmap );
 	}
 
-	override public function updateMembers( ):Void
+	override public function drawMembers( ):Void
 	{
 		if( bitmap != null )
 		{

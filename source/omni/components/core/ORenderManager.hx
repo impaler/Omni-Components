@@ -25,61 +25,61 @@ class ORenderManager
 
 	public static var instance(getInstance, null):ORenderManager;
 
-	private static function getInstance():ORenderManager
+	private static function getInstance( ):ORenderManager
 	{
-		if(instance == null)
+		if( instance == null )
 		{
 			instance = new ORenderManager();
 		}
 		return instance;
 	}
 
-	public function new()
+	public function new( )
 	{
 		rendering = false;
 		renderList = new Array<IOComponent>();
 	}
 
-	public function addToRenderList(com:IOComponent):Void
+	public function addToRenderList( comp:IOComponent ):Void
 	{
-		if(com.invalid)
+		if( comp.invalid )
 		{
-			renderList.push(com);
-			renderLater();
+			renderList.push( comp );
+			renderLater( );
 		}
 	}
 
-	private function renderLater():Void
+	private function renderLater( ):Void
 	{
 		var st:Stage = nme.Lib.current.stage;
 
-		st.addEventListener(Event.RENDER, _render, false, 0, true);
-		st.invalidate();
+		st.addEventListener( Event.RENDER, _render, false, 0, true );
+		st.invalidate( );
 	}
 
-	private function _render(e:Dynamic = null):Void
+	private function _render( e:Dynamic = null ):Void
 	{
-		if(e != null)
+		if( e != null )
 		{
 			var st:Stage = nme.Lib.current.stage;
-			st.removeEventListener(Event.RENDER, _render);
+			st.removeEventListener( Event.RENDER, _render );
 		}
 
 		var i:Int;
 		var n:Int;
 		var component:IOComponent;
-		var time:Int = Lib.getTimer();
-		var processRenderList:Array<IOComponent> = renderList.copy();
+		var time:Int = Lib.getTimer( );
+		var processRenderList:Array<IOComponent> = renderList.copy( );
 		renderList = new Array<IOComponent>();
 		n = processRenderList.length;
 		rendering = true;
 		i = - 1;
-		while((++ i) < n)
+		while( (++ i) < n )
 		{
 			component = processRenderList[i];
-			component.draw();
+			component.draw( );
 		}
-		if(n > 0)
+		if( n > 0 )
 		{
 //			trace("Rendered - " + n + " with render time of : " + (Lib.getTimer() - time) + " ms");
 			processRenderList = null;

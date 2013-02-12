@@ -200,10 +200,10 @@ class Slider extends OComponent
 		}
 	}
 
-	override public function invalidate( recursive:Bool = true ):Void
+	override public function drawMembers( ):Void
 	{
 		refreshButton( );
-		super.invalidate( true );
+		super.drawMembers( );
 	}
 
 	public function refreshButton( ):Void
