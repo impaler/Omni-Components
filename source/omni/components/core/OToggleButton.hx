@@ -1,102 +1,158 @@
 package omni.components.core;
 
+import omni.components.core.signals.OSignalBool;
+import omni.components.core.interfaces.IOComponent;
 import omni.components.gui.text.Label;
 import omni.components.core.signals.OSignalMouse;
-import omni.components.core.signals.OSignal;
+import omni.components.core.signals.OSignalType;
 import omni.components.gui.controls.Button;
 import omni.components.style.OBackgroundStyle;
 
 class OToggleButton extends Button
 {
-
+	public var value(get, set):Bool;
 	public var _value:Bool;
-	public var onChanged:OSignal<Bool>;
 
-	override public function createComponentMembers():Void
+	public var onChange:OSignalType<OToggleButton -> Void>;
+	public var onValueChange:OSignalBool;
+
+//***********************************************************
+//                  Component Core
+//***********************************************************
+
+	override public function createComponentMembers( ):Void
 	{
-		super.createComponentMembers();
+		super.createComponentMembers( );
 
-		onChanged = new OSignal<Bool>();
-		_paddingLeft = 10;
+		onChange = new OSignalType<OToggleButton -> Void>();
+		onValueChange = new OSignalBool();
 	}
 
-	override public function handleMouseOver(?e:OSignalMouse):Void
+	override public function destroy( ):Void
+	{
+		onChange.destroy( );
+		onValueChange.destroy( );
+
+		super.destroy( );
+	}
+
+//***********************************************************
+//                  Event Handlers
+//***********************************************************
+
+	override public function handleMouseOver( ?e:OSignalMouse ):Void
 	{
 		_isOver = true;
-		state = getOverState();
+		state = getOverState( );
 	}
 
-	override public function handleMouseDown(?e:OSignalMouse):Void
+	override public function handleMouseDown( ?e:OSignalMouse ):Void
 	{
 		_isDown = true;
-		//		ComponentsCore.instance.onStageMouseLeave.add(onleftStage);
-
-		_value = ! _value;
-		_value ? state = ToggleButtonStyle.STATE_ON : ToggleButtonStyle.STATE_OFF;
+		value = ! _value;
+		value ? state = OToggleButtonStyle.STATE_ON : OToggleButtonStyle.STATE_OFF;
 	}
 
-	override public function handleMouseUp(?e:OSignalMouse):Void
+	override public function handleMouseUp( ?e:OSignalMouse ):Void
 	{
 		_isDown = false;
-		_isOver ? state = getOverState() : state = getOutState();
-
-		//		ComponentsCore.instance.onStageMouseLeave.remove(onleftStage);
+		_isOver ? state = getOverState( ) : state = getOutState( );
 	}
 
-	override public function handleMouseOut(?e:OSignalMouse):Void
+	override public function handleMouseOut( ?e:OSignalMouse ):Void
 	{
 		_isOver = false;
-		if(_isDown == false) state = getOutState();
+		if( _isDown == false ) state = getOutState( );
 	}
 
-	private function getOutState():String
+//***********************************************************
+//                  Component Methods
+//***********************************************************
+
+	private function getOutState( ):String
 	{
-		return _value ? ToggleButtonStyle.STATE_ON : ToggleButtonStyle.STATE_OFF;
+		return value ? OToggleButtonStyle.STATE_ON : OToggleButtonStyle.STATE_OFF;
 	}
 
-	private function getOverState():String
+	private function getOverState( ):String
 	{
-		return _value ? ToggleButtonStyle.STATE_ON_OVER : ToggleButtonStyle.STATE_OFF_OVER;
+		return value ? OToggleButtonStyle.STATE_ON_OVER : OToggleButtonStyle.STATE_OFF_OVER;
 	}
 
-	public function setValue(b:Bool):Bool
+//***********************************************************
+//                  Properties
+//***********************************************************
+
+	public function set( b:Bool ):Bool
 	{
-		if(_value != b)
+		return setValue( b );
+	}
+
+	public function get( ):Bool
+	{
+		return _value;
+	}
+
+	public function setValue( b:Bool ):Bool
+	{
+		if( _value != b )
 		{
 			_value = b;
-			invalidate();
-			onChanged.dispatch(_value);
+			invalidate( );
+			onValueChange.dispatch( _value );
+			onChange.dispatch( this );
 		}
 		return _value;
 	}
 
-	public function getValue():Bool
+	public function getValue( ):Bool
 	{
 		return _value;
 	}
 
-	override public function getStyleId():String
+//***********************************************************
+//                  Style
+//***********************************************************
+
+	override public function getStyleId( ):String
 	{
-		return ToggleButtonStyle.styleString;
+		return OToggleButtonStyle.styleString;
 	}
 
 }
 
-class ToggleButtonStyle extends ButtonStyle
+class OToggleButtonStyle extends ButtonStyle
 {
 
 	public static var styleString:String = "ToggleButtonStyle";
 
 	public static var STATE_ON:String = "STATE_ON";
 	public static var STATE_ON_OVER:String = "STATE_ON_OVER";
+
 	public static var STATE_OFF:String = "STATE_OFF";
 	public static var STATE_OFF_OVER:String = "STATE_OFF_OVER";
+
 	public static var STATE_DISABLED:String = "STATE_DISABLED_ON";
 
-	public function new()
+	public var defaultValue:Bool;
+
+	public function new( )
 	{
-		super();
+		super( );
 		styleID = styleString;
+
+		defaultValue = false;
+	}
+
+	override public function initStyle( value:IOComponent ):Void
+	{
+		super.initStyle( value );
+
+		var styleAs = cast (value, OToggleButton);
+
+		styleAs._value = defaultValue;
+		styleAs._value ? styleAs._state = STATE_ON : styleAs._state = STATE_OFF;
+
 	}
 }
 
