@@ -34,6 +34,12 @@ class Color extends OTheme
 		addStyle( ColorLayout );
 		addStyle( ColorHBox );
 		addStyle( ColorVBox );
+		addStyle( ColorContainerPage );
+		addStyle( ColorTabbedContainer );
+		addStyle( ColorTabButton );
+		addStyle( ColorTabButtonGroup );
+
+		addStyle( ColorOToggleButtonGroup );
 
 		addStyle( ColorSlider );
 

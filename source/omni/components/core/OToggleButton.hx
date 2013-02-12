@@ -50,7 +50,7 @@ class OToggleButton extends Button
 	{
 		_isDown = true;
 		value = ! _value;
-		value ? state = OToggleButtonStyle.STATE_ON : OToggleButtonStyle.STATE_OFF;
+		state = getValueState( );
 	}
 
 	override public function handleMouseUp( ?e:OSignalMouse ):Void
@@ -68,6 +68,11 @@ class OToggleButton extends Button
 //***********************************************************
 //                  Component Methods
 //***********************************************************
+
+	private function getValueState( ):String
+	{
+		return value ? state = OToggleButtonStyle.STATE_ON : OToggleButtonStyle.STATE_OFF;
+	}
 
 	private function getOutState( ):String
 	{
@@ -104,6 +109,17 @@ class OToggleButton extends Button
 		}
 		return _value;
 	}
+
+//	public function set_On():Bool
+//	{
+//		if( _value != true )
+//		{
+//			_value = true;
+//			_state = OToggleButtonStyle.STATE_ON;
+//			invalidate( );
+//		}
+//		return _value;
+//	}
 
 	public function getValue( ):Bool
 	{
