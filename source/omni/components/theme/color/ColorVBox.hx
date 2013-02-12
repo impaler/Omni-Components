@@ -1,13 +1,13 @@
 package omni.components.theme.color;
 
+import omni.components.gui.layout.VBox.VBoxStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.gui.layout.Layout.LayoutStyle;
 import omni.components.gui.layout.Layout;
 import omni.utils.ColorUtils;
 import nme.geom.Rectangle;
 
-class ColorLayout extends LayoutStyle
+class ColorVBox extends VBoxStyle
 {
 
 	public function new( )

@@ -1,36 +1,38 @@
 package omni.components.theme.color;
 
-import nme.Assets;
-import omni.components.gui.layout.Icon.IconStyle;
+import omni.components.gui.controls.RadioButton.RadioButtonStyle;
 import omni.components.gui.text.Label.LabelStyle;
-import omni.components.gui.controls.Button.ButtonStyle;
+import omni.components.core.OToggleButton.OToggleButtonStyle;
 import omni.components.core.OButtonBase.OButtonBaseStyle;
 import omni.components.style.OBaseStyle;
 import omni.utils.ColorUtils;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OComponent.ComponentStyle;
 
-class ColorButton extends ButtonStyle
+class ColorRadioButton extends RadioButtonStyle
 {
 	public function new( )
 	{
 		super( );
 
 		var textStyle = new LabelStyle();
-		textStyle.defaultText = "Cancel!";
+		textStyle.defaultText = "Radio!";
 		textStyle.fontSize = 18;
 		labelText = textStyle;
 
-		var icon = new IconStyle();
-//		icon.bitmap = Assets.getBitmapData("w");
-//		icon.sprite = createTestIconSprite();
-
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.ACTIVE );
-		bgColor.setColorState( OBaseStyle.STATE_DISABLED, Color.DISABLED );
-		bgColor.setColorState( OButtonBaseStyle.STATE_OVER, Color.OVER );
-		bgColor.setColorState( OButtonBaseStyle.STATE_DOWN, Color.DOWN );
+
+		bgColor.setColorState( OToggleButtonStyle.STATE_ON, Color.ON );
+		bgColor.setColorState( OToggleButtonStyle.STATE_ON_OVER, Color.ON_OVER );
+
+		bgColor.setColorState( OToggleButtonStyle.STATE_OFF, Color.OFF_OVER );
+		bgColor.setColorState( OToggleButtonStyle.STATE_OFF_OVER, Color.OFF_OVER );
+
+		bgColor.setColorState( OToggleButtonStyle.STATE_DISABLED, Color.DISABLED );
+
 		setBackgroundBrush( bgColor );
+
+		defaultState = OToggleButtonStyle.STATE_OFF;
 
 		defaultWidth = 200;
 		defaultHeight = 50;
@@ -39,6 +41,5 @@ class ColorButton extends ButtonStyle
 		maxWidth = 2000;
 		maxHeight = 2000;
 		defaultPadding = 0;
-
 	}
 }

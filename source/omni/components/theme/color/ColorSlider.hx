@@ -3,7 +3,7 @@ package omni.components.theme.color;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
-import omni.components.utils.ColorUtils;
+import omni.utils.ColorUtils;
 
 /**
  * OrangeSlider
@@ -11,15 +11,15 @@ import omni.components.utils.ColorUtils;
 class ColorSlider extends SliderBaseStyle
 {
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 
 		buttonStyle = new ColorButtonBase();
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Color.BG);
-		setBackgroundBrush(bgColor);
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG );
+		setBackgroundBrush( bgColor );
 
 		defaultVHeight = 120;
 		defaultVWidth = 20;

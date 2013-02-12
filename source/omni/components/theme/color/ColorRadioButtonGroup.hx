@@ -1,29 +1,29 @@
 package omni.components.theme.color;
 
+import omni.components.gui.layout.RadioButtonGroup.RadioButtonGroupStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.gui.layout.ScrollContainer.ScrollContainerStyle;
 import omni.components.gui.layout.Layout.LayoutStyle;
-import nme.geom.Rectangle;
+import omni.components.gui.layout.Layout;
 import omni.utils.ColorUtils;
+import nme.geom.Rectangle;
 
-class ColorScrollContainer extends ScrollContainerStyle
+class ColorRadioButtonGroup extends RadioButtonGroupStyle
 {
 
 	public function new( )
 	{
 		super( );
 
-		hScrollStyle = new ColorScrollBar();
-		vScrollStyle = new ColorScrollBar();
-
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG );
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG_LAYOUT );
 		setBackgroundBrush( bgColor );
 
+//todo
+		defaultDirection = Layout.HORIZONTALLY;
 		defaultWidth = 300;
 		defaultHeight = 300;
-		defaultPadding = 20;
+		defaultPadding = 10;
 
 	}
 

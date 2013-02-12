@@ -4,20 +4,20 @@ import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.controls.ScrollBar.ScrollBarStyle;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
-import omni.components.utils.ColorUtils;
+import omni.utils.ColorUtils;
 
 class ColorScrollBar extends ScrollBarStyle
 {
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 
 		buttonStyle = new ColorButtonBase();
 		buttonStyle.minHeight = 40;
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Color.BG);
-		setBackgroundBrush(bgColor);
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG );
+		setBackgroundBrush( bgColor );
 
 		defaultWidth = 20;
 		defaultHeight = 180;

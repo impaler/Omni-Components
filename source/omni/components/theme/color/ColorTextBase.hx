@@ -3,7 +3,7 @@ package omni.components.theme.color;
 import omni.components.style.OBaseStyle;
 import omni.components.core.OTextBase.TextBaseStyle;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.utils.ColorUtils;
+import omni.utils.ColorUtils;
 
 import nme.Assets;
 import nme.text.TextFormatAlign;
@@ -12,9 +12,9 @@ import nme.text.TextFieldType;
 class ColorTextBase extends TextBaseStyle
 {
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 
 		defaultHeight = 60;
 		defaultWidth = 300;
@@ -22,7 +22,7 @@ class ColorTextBase extends TextBaseStyle
 		defaultState = OBaseStyle.STATE_ACTIVE;
 		defaultPadding = 0;
 
-		var font = Assets.getFont("assets/themes/color/text/roboto-regular.ttf");
+		var font = Assets.getFont( "assets/themes/color/text/roboto-regular.ttf" );
 		fontName = font.fontName;
 		selectable = false;
 		multiline = false;
