@@ -6,8 +6,8 @@ import omni.components.core.signals.OSignalMouse;
 import omni.components.core.OCore;
 import omni.components.gui.controls.ScrollBar;
 import omni.components.gui.layout.Layout;
-import omni.components.utils.Tween;
-import omni.components.utils.ComponentUtils;
+import omni.utils.Tween;
+import omni.utils.ComponentUtils;
 
 import nme.display.DisplayObject;
 import nme.display.DisplayObjectContainer;
@@ -46,6 +46,7 @@ class ScrollContainer extends Layout
 	private var _ratio:Float = 0;
 	private var _decel:Float = 0;
 	private var _drag:Bool = false;
+	private var _draggingInit:Bool = false;
 	private var _isLayout:Bool = false;
 	private var _scrollbarMove:Bool = false;
 	public var _removeanimateYBackAnimating:Bool = false;
@@ -54,7 +55,6 @@ class ScrollContainer extends Layout
 	private var mouseTargetDown:OSignalMouse;
 	private var mouseUp:OSignalMouse;
 	private var mouseWheel:OSignalMouse;
-	private var mouseMove:OSignalMouse;
 	private var dragEnterFrame:OCoreEvent;
 
 	public var tweenX:Bool = true;
@@ -63,30 +63,32 @@ class ScrollContainer extends Layout
 	private var _xTouchOffset:Float = 0;
 	private var _yTouchOffset:Float = 0;
 
-	override public function createMembers():Void
+	override public function createMembers( ):Void
 	{
-		super.createMembers();
+		super.createMembers( );
 
-		//todo move all properties to style system 
-		//todo tween needs a refactor for initial press tolerance and better behaviour
+//todo move all properties to style system 
+//todo tween needs a refactor for initial press tolerance and better behaviour
 		scrollButtonSize = 10;
 		scrollStep = 20;
-		_tweenBackSpeed = 8;
+		_tweenBackSpeed = 4;
 		_speedLimit = 1;
-		_ratio = .5;
-		_decel = .9;
+		_ratio = .8;
+//		_ratio = .8;
+		_decel = .96;
+//		_decel = .92;
 
 		_rect = new Rectangle(0, 0, 0, 0);
 
 		target = new Sprite();
 		target.scrollRect = _rect;
-		sprite.addChild(target);
+		sprite.addChild( target );
 
 		var thisStyle = cast(_style, ScrollContainerStyle);
 
 		h_scrollBar = new ScrollBar( thisStyle.hScrollStyle );
 		h_scrollBar.type = Layout.HORIZONTALLY;
-		//todo in style
+//todo in style
 		h_scrollBar.step = scrollStep;
 
 		v_scrollBar = new ScrollBar( thisStyle.vScrollStyle );
@@ -97,184 +99,225 @@ class ScrollContainer extends Layout
 
 	}
 
-	override public function enableSignals():Void
+	override public function enableSignals( ):Void
 	{
-		h_scrollBar.onChange.add(handleHScrollBarMove);
-		v_scrollBar.onChange.add(handleVScrollBarMove);
+		h_scrollBar.onChange.add( handleHScrollBarMove );
+		v_scrollBar.onChange.add( handleVScrollBarMove );
 
-		h_scrollBar.button.mouseDown.add(handleHScrollBarDown);
-		v_scrollBar.button.mouseDown.add(handleVScrollBarDown);
+		h_scrollBar.button.mouseDown.add( handleHScrollBarDown );
+		v_scrollBar.button.mouseDown.add( handleVScrollBarDown );
 
-		mouseUp.add(handleRelease);
+		mouseUp.add( handleRelease );
 
-		enableTween();
+		enableTween( );
 
-		//todo release outside of stage for desktop?
+//todo release outside of stage for desktop?
 	}
 
-	override public function disableSignals():Void
+	override public function disableSignals( ):Void
 	{
-		h_scrollBar.onChange.remove(handleHScrollBarMove);
-		v_scrollBar.onChange.remove(handleVScrollBarMove);
+		h_scrollBar.onChange.remove( handleHScrollBarMove );
+		v_scrollBar.onChange.remove( handleVScrollBarMove );
 
-		mouseUp.remove(handleRelease);
+		mouseUp.remove( handleRelease );
 
-		//		disableTween();
+//		disableTween();
 	}
 
-	public function disableChildComponentEvents():Void
+	public function disableChildComponentEvents( ):Void
 	{
-		if(_isLayout)
+
+		if( _isLayout )
 		{
-			for(o in contentComponent.components)
+			for( o in contentComponent.components )
 			{
-				//todo check for save non core events that might have been added
-				o.disableSignals();
+//todo check for save non core events that might have been added
+				o.disableSignals( );
 			}
 		}
+
 	}
 
-	public function enableChildComponentEvents():Void
+	public function enableChildComponentEvents( ):Void
 	{
-		if(_isLayout)
+
+		if( _isLayout )
 		{
-			for(o in contentComponent.components)
+			for( o in contentComponent.components )
 			{
-				o.enableSignals();
+				o.enableSignals( );
 			}
 		}
+
 	}
 
-	public function enableTween():Void
+	public function enableTween( ):Void
 	{
 		tweenEnabled = true;
 		dragEnterFrame = new OCoreEvent(Event.ENTER_FRAME, nme.Lib.stage );
-		dragEnterFrame.add(renderDrag);
+		dragEnterFrame.add( renderDrag );
 	}
 
-	public function disableTween():Void
+	public function disableTween( ):Void
 	{
 		tweenEnabled = false;
-		dragEnterFrame.destroy();
+		dragEnterFrame.destroy( );
 	}
 
-	//todo 
-	//addToLayout
-	//addVerical
-	//addHorizontal
+//todo 
+//addToLayout
+//addVerical
+//addHorizontal
 
-	override public function add(comp:IOComponent):Void
+	override public function add( comp:IOComponent ):Void
 	{
 		_isLayout = true;
 
 		contentComponent = comp;
 
-		target.addChild(comp.sprite);
-		this.components.push(comp);
+		target.addChild( comp.sprite );
+		this.components.push( comp );
 
-		if(mouseTargetDown != null) mouseTargetDown.removeAll();
+		if( mouseTargetDown != null ) mouseTargetDown.removeAll( );
 		mouseTargetDown = new OSignalMouse (OSignalMouse.DOWN, comp.sprite);
-		mouseTargetDown.add(handleDownContent);
+		mouseTargetDown.add( handleDownContent );
 
-		if(mouseWheel != null) mouseWheel.removeAll();
+		if( mouseWheel != null ) mouseWheel.removeAll( );
 		mouseWheel = new OSignalMouse (OSignalMouse.WHEEL, comp.sprite);
-		mouseWheel.add(v_scrollBar.handleMouseWheel);
+		mouseWheel.add( handleMouseWheel );
 
-		mouseMove = new OSignalMouse(OSignalMouse.MOVE, comp.sprite);
-
-		invalidate();
+		invalidate( );
 	}
 
-	//***********************************************************
-	//                  Event Handlers
-	//***********************************************************
+//***********************************************************
+//                  Event Handlers
+//***********************************************************
 
-	private function handleDownContent(e:OSignalMouse):Void
+	public function handleMouseWheel( ?e:OSignalMouse ):Void
 	{
+		target.mouseChildren = true;
+		_scrollbarMove = true;
+//		if(_type == Layout.HORIZONTALLY)
+//		{
+//			//todo
+//		}
+//		else
+//		{
+//			 
+//		}
+
+		v_scrollBar.value -= e.delta > 0 ? v_scrollBar.step : - v_scrollBar.step;
+
+		if( OCore.instance.updateAfterEvent )
+			e.updateAfterEvent( );
+	}
+
+	private function handleDownContent( e:OSignalMouse ):Void
+	{
+		nme.Lib.trace( "down" );
 		_down = true;
 		_drag = false;
 		_xSpeed = 0;
 		_xSpeed = 0;
-		removeanimateXBack();
-		removeanimateYBack();
+		removeanimateXBack( );
+		removeanimateYBack( );
 		_xOffset = e.event.stageX - contentComponent.x;
 		_yOffset = e.event.stageY - contentComponent.y;
-
-		mouseMove.removeAll();
+		_xTouchOffset = nme.Lib.stage.mouseX;
+		_yTouchOffset = nme.Lib.stage.mouseY;
 		_drag = true;
-		//		disableChildComponentEvents();
 	}
 
-	private function handleRelease(e:OSignalMouse):Void
+	private function handleRelease( e:OSignalMouse ):Void
 	{
-		mouseMove.removeAll();
+//		enableChildComponentEvents();
+
+		target.mouseChildren = true;
+		_draggingInit = false;
 		_drag = false;
 
-		if(tweenEnabled)
+		if( tweenEnabled )
 		{
-			if(_down)
+			if( _down )
 			{
-				if(tweenX)
+				if( tweenX )
 					_xSpeed = (contentComponent.x - _xCache) * _ratio;
 
-				if(tweenY)
+				if( tweenY )
 					_ySpeed = (contentComponent.y - _yCache) * _ratio;
 			}
+			_down = false;
 
-			if(_scrollbarMove)
+			if( _scrollbarMove )
 			{
 				_xSpeed = 0;
 				_ySpeed = 0;
 			}
+			_scrollbarMove = false;
 		}
-
-		_down = false;
-		_scrollbarMove = false;
-
-		//		enableChildComponentEvents();
 	}
 
-	private function renderDrag(e:OCoreEvent):Void
+	private function renderDrag( e:OCoreEvent ):Void
 	{
-		if(! _scrollbarMove)
+		if( ! _scrollbarMove )
 		{
-			removeanimateYBack();
-			removeanimateXBack();
+			removeanimateYBack( );
+			removeanimateXBack( );
 
-			if(! _drag)
+			if( ! _drag )
 			{
-				limitSpeed();
+				limitSpeed( );
 
-				if(tweenX)
+				if( tweenX )
 					contentComponent.x += (_xSpeed *= _decel);
-				if(tweenY)
+				if( tweenY )
 					contentComponent.y += (_ySpeed *= _decel);
 
-				//				nme.Lib.trace (Math.round(_xSpeed));
-				//				nme.Lib.trace (Math.round(_ySpeed));
-				if(! isTweening())
+//				nme.Lib.trace (Math.round(_xSpeed));
+//				nme.Lib.trace (Math.round(_ySpeed));
+				if( ! isTweening( ) )
 				{
-					checkYPosition();
-					checkXPosition();
+					checkYPosition( );
+					checkXPosition( );
 				}
 			}
 			else
 			{
 				_xCache = contentComponent.x;
 				_yCache = contentComponent.y;
-				if(tweenX)
-					contentComponent.x = nme.Lib.stage.mouseX - _xOffset;
-				if(tweenY)
-					contentComponent.y = nme.Lib.stage.mouseY - _yOffset;
+
+				var touchTolerance = 6;
+
+				if( _draggingInit == true || isTweening( ) )
+				{
+					if( tweenX )
+						contentComponent.x = nme.Lib.stage.mouseX - _xOffset;
+					if( tweenY )
+						contentComponent.y = nme.Lib.stage.mouseY - _yOffset;
+
+				}
+				else if(
+				_xTouchOffset - nme.Lib.stage.mouseX > touchTolerance
+				|| _xTouchOffset - nme.Lib.stage.mouseX < - touchTolerance
+				|| _yTouchOffset - nme.Lib.stage.mouseY > touchTolerance
+				|| _yTouchOffset - nme.Lib.stage.mouseY < - touchTolerance )
+				{
+
+					_draggingInit = true;
+					target.mouseChildren = false;
+//					disableChildComponentEvents( );
+
+				}
+
 			}
-			updateScrollBarsFromChange();
+			updateScrollBarsFromChange( );
 		}
 	}
 
-	private function isTweening():Bool
+	private function isTweening( ):Bool
 	{
-		var limit = 1;
-		if(Math.round(_ySpeed) < limit || Math.round(_xSpeed) < limit)
+		var limit = 10;
+		if( Math.round( _ySpeed ) < limit || Math.round( _xSpeed ) < limit )
 		{
 			return false;
 		}
@@ -284,185 +327,190 @@ class ScrollContainer extends Layout
 		}
 	}
 
-	public function handleHScrollBarDown(e:OSignalMouse):Void
+	public function handleHScrollBarDown( e:OSignalMouse ):Void
 	{
-		//		disableChildComponentEvents();
+		_scrollbarMove = true;
+		target.mouseChildren = false;
+//		disableChildComponentEvents( );
 	}
 
-	public function handleVScrollBarDown(e:OSignalMouse):Void
+	public function handleVScrollBarDown( e:OSignalMouse ):Void
 	{
-		//		disableChildComponentEvents();
+		_scrollbarMove = true;
+		target.mouseChildren = false;
+//		disableChildComponentEvents( );
 	}
 
-	private function handleVScrollBarMove(e:Dynamic = null):Void
+	private function handleVScrollBarMove( e:Dynamic = null ):Void
 	{
 		_scrollbarMove = true;
 
-		if(v_scrollBar_enabled)
+		if( v_scrollBar_enabled )
 		{
 			contentComponent.y = - v_scrollBar.value;
 		}
 
-		checkXPosition(false);
-		removeanimateYBack();
+		checkXPosition( false );
+		removeanimateYBack( );
 	}
 
-	private function handleHScrollBarMove(e:Dynamic = null):Void
+	private function handleHScrollBarMove( e:Dynamic = null ):Void
 	{
 		_scrollbarMove = true;
 
-		if(h_scrollBar_enabled)
+		if( h_scrollBar_enabled )
 		{
 			contentComponent.x = - h_scrollBar.value;
 		}
 
-		checkYPosition(false);
-		removeanimateXBack();
+		checkYPosition( false );
+		removeanimateXBack( );
 	}
 
-	public function handleDragNoTween(e:OSignalMouse):Void
+	public function handleDragNoTween( e:OSignalMouse ):Void
 	{
 
-		if(v_scrollBar_enabled)
+		if( v_scrollBar_enabled )
 		{
 			contentComponent.y = e.event.stageY - _yOffset;
 			_scrollY = - contentComponent.y;
 
-			//todo shouldnt need this as _value clamp should take care in scrollbar???
-			if(_scrollY < 0) _scrollY = 0;
+//todo shouldnt need this as _value clamp should take care in scrollbar???
+			if( _scrollY < 0 ) _scrollY = 0;
 
-			v_scrollBar._value = Std.int(_scrollY);
-			v_scrollBar.refreshButton();
+			v_scrollBar._value = Std.int( _scrollY );
+			v_scrollBar.refreshButton( );
 		}
 
-		if(h_scrollBar_enabled)
+		if( h_scrollBar_enabled )
 		{
 			contentComponent.x = e.event.stageX - _xOffset;
 			_scrollX = - contentComponent.x;
-			if(_scrollX < 0) _scrollX = 0;
+			if( _scrollX < 0 ) _scrollX = 0;
 
-			h_scrollBar._value = Std.int(_scrollX);
-			h_scrollBar.refreshButton();
+			h_scrollBar._value = Std.int( _scrollX );
+			h_scrollBar.refreshButton( );
 		}
 
-		checkXPosition(false);
-		checkYPosition(false);
+		checkXPosition( false );
+		checkYPosition( false );
 
-		e.updateAfterEvent();
+		if( OCore.instance.updateAfterEvent )
+			e.updateAfterEvent( );
 	}
 
-	//***********************************************************
-	//                  Component Methods
-	//***********************************************************
+//***********************************************************
+//                  Component Methods
+//***********************************************************
 
-	private inline function limitSpeed():Void
+	private inline function limitSpeed( ):Void
 	{
-		//if the content is out of bounds limit it's speed
-		if(! isValidY())
+//if the content is out of bounds limit it's speed
+		if( ! isValidY( ) )
 		{
-			if(_ySpeed > _speedLimit) _ySpeed = _speedLimit;
-			if(_ySpeed < - _speedLimit) _ySpeed = - _speedLimit;
+			if( _ySpeed > _speedLimit ) _ySpeed = _speedLimit;
+			if( _ySpeed < - _speedLimit ) _ySpeed = - _speedLimit;
 		}
 
-		if(! isValidX())
+		if( ! isValidX( ) )
 		{
-			if(_xSpeed > _speedLimit) _xSpeed = _speedLimit;
-			if(_xSpeed < - _speedLimit) _xSpeed = - _speedLimit;
+			if( _xSpeed > _speedLimit ) _xSpeed = _speedLimit;
+			if( _xSpeed < - _speedLimit ) _xSpeed = - _speedLimit;
 		}
 	}
 
-	public function animateToxPos():Void
+	public function animateToxPos( ):Void
 	{
-		if(! _removeanimateXBackAnimating && tweenX)
+		if( ! _removeanimateXBackAnimating && tweenX )
 		{
 			_removeanimateXBackAnimating = true;
-			nme.Lib.stage.addEventListener(Event.ENTER_FRAME, animateXBack);
+			nme.Lib.stage.addEventListener( Event.ENTER_FRAME, animateXBack );
 		}
 	}
 
-	public function animateXBack(e:Event):Void
+	public function animateXBack( e:Event ):Void
 	{
 		contentComponent.x += (_xPos - contentComponent.x) / _tweenBackSpeed;
 
-		if(contentComponent.x == _xPos)
+		if( contentComponent.x == _xPos )
 		{
-			removeanimateXBack();
+			removeanimateXBack( );
 		}
 	}
 
-	public function removeanimateXBack():Void
+	public function removeanimateXBack( ):Void
 	{
-		if(_removeanimateXBackAnimating)
+		if( _removeanimateXBackAnimating )
 		{
-			nme.Lib.stage.removeEventListener(Event.ENTER_FRAME, animateXBack);
+			nme.Lib.stage.removeEventListener( Event.ENTER_FRAME, animateXBack );
 			_removeanimateXBackAnimating = false;
 		}
 	}
 
-	public function animateToYPos():Void
+	public function animateToYPos( ):Void
 	{
-		if(! _removeanimateYBackAnimating && tweenY)
+		if( ! _removeanimateYBackAnimating && tweenY )
 		{
 			_removeanimateYBackAnimating = true;
-			nme.Lib.stage.addEventListener(Event.ENTER_FRAME, animateYBack);
+			nme.Lib.stage.addEventListener( Event.ENTER_FRAME, animateYBack );
 		}
 	}
 
-	public function animateYBack(e:Event):Void
+	public function animateYBack( e:Event ):Void
 	{
 		contentComponent.y += (_yPos - contentComponent.y) / _tweenBackSpeed;
 
-		if(contentComponent.y == _yPos)
+		if( contentComponent.y == _yPos )
 		{
-			removeanimateYBack();
+			removeanimateYBack( );
 		}
 	}
 
-	public function removeanimateYBack():Void
+	public function removeanimateYBack( ):Void
 	{
-		if(_removeanimateYBackAnimating)
+		if( _removeanimateYBackAnimating )
 		{
 			_removeanimateYBackAnimating = false;
-			nme.Lib.stage.removeEventListener(Event.ENTER_FRAME, animateYBack);
+			nme.Lib.stage.removeEventListener( Event.ENTER_FRAME, animateYBack );
 		}
 	}
 
-	public function updateScrollBarsFromChange():Void
+	public function updateScrollBarsFromChange( ):Void
 	{
-		if(v_scrollBar_enabled)
+		if( v_scrollBar_enabled )
 		{
 			_scrollY = - contentComponent.y;
-			//todo shouldnt need this as _value clamp should take care in scrollbar???
-			if(_scrollY < 0) _scrollY = 0;
+//todo shouldnt need this as _value clamp should take care in scrollbar???
+			if( _scrollY < 0 ) _scrollY = 0;
 
-			v_scrollBar._value = Std.int(_scrollY);
-			v_scrollBar.refreshButton();
+			v_scrollBar._value = Std.int( _scrollY );
+			v_scrollBar.refreshButton( );
 		}
 
-		if(h_scrollBar_enabled)
+		if( h_scrollBar_enabled )
 		{
 			_scrollX = - contentComponent.x;
-			if(_scrollX < 0) _scrollX = 0;
+			if( _scrollX < 0 ) _scrollX = 0;
 
-			h_scrollBar._value = Std.int(_scrollX);
-			h_scrollBar.refreshButton();
+			h_scrollBar._value = Std.int( _scrollX );
+			h_scrollBar.refreshButton( );
 		}
 	}
 
-	public function checkYPosition(animate:Bool = true):Void
+	public function checkYPosition( animate:Bool = true ):Void
 	{
-		var isValid = isValidY();
+		var isValid = isValidY( );
 
-		if(! isValid)
+		if( ! isValid )
 		{
-			animate ? animateToYPos() : contentComponent.y = _yPos;
+			animate ? animateToYPos( ) : contentComponent.y = _yPos;
 		}
 	}
 
-	private inline function isValidY():Bool
+	private inline function isValidY( ):Bool
 	{
 		var isValid = true;
-		if(contentComponent.y > 0)
+		if( contentComponent.y > 0 )
 		{
 			_yPos = 0;
 			isValid = false;
@@ -470,7 +518,7 @@ class ScrollContainer extends Layout
 
 		var ylimit = - (contentComponent.height - _rect.height);
 
-		if(contentComponent.y < ylimit)
+		if( contentComponent.y < ylimit )
 		{
 			isValid = false;
 			v_scrollBar.barNeeded ? _yPos = ylimit : _yPos = 0;
@@ -479,20 +527,20 @@ class ScrollContainer extends Layout
 		return isValid;
 	}
 
-	public function checkXPosition(animate:Bool = true):Void
+	public function checkXPosition( animate:Bool = true ):Void
 	{
-		var isValid = isValidX();
+		var isValid = isValidX( );
 
-		if(! isValid)
+		if( ! isValid )
 		{
-			animate ? animateToxPos() : contentComponent.x = _xPos;
+			animate ? animateToxPos( ) : contentComponent.x = _xPos;
 		}
 	}
 
-	private function isValidX():Bool
+	private function isValidX( ):Bool
 	{
 		var isValid = true;
-		if(contentComponent.x > 0)
+		if( contentComponent.x > 0 )
 		{
 			_xPos = 0;
 			isValid = false;
@@ -500,7 +548,7 @@ class ScrollContainer extends Layout
 
 		var xlimit = - (contentComponent.width - _rect.width);
 
-		if(contentComponent.x < xlimit)
+		if( contentComponent.x < xlimit )
 		{
 			isValid = false;
 			h_scrollBar.barNeeded ? _xPos = xlimit : _xPos = 0;
@@ -508,184 +556,184 @@ class ScrollContainer extends Layout
 		return isValid;
 	}
 
-	override public function setDirection(value:Int):Int
+	override public function setDirection( value:Int ):Int
 	{
 		_direction = value;
 
-		if(_direction == Layout.VERTICALLY)
+		if( _direction == Layout.VERTICALLY )
 		{
 			h_scrollBar_enabled = false;
 			v_scrollBar_enabled = true;
 		}
-		else if(_direction == Layout.HORIZONTALLY)
+		else if( _direction == Layout.HORIZONTALLY )
 		{
 			h_scrollBar_enabled = true;
 			v_scrollBar_enabled = false;
 		}
 
-		invalidate();
+		invalidate( );
 
 		return _direction;
 	}
 
-	public function updateScrollBars():Void
+	public function updateScrollBars( ):Void
 	{
-		h_scrollBar.move(0, _height - scrollButtonSize);
-		v_scrollBar.move(_width - scrollButtonSize, 0);
+		h_scrollBar.move( 0, _height - scrollButtonSize );
+		v_scrollBar.move( _width - scrollButtonSize, 0 );
 
-		updateContentSize();
+		updateContentSize( );
 
-		if(h_scrollBar_enabled)
+		if( h_scrollBar_enabled )
 		{
-			if(v_scrollBar_enabled)
+			if( v_scrollBar_enabled )
 			{
 				_rect.width = _width - scrollButtonSize;
-				h_scrollBar.pageSize = Std.int(_rect.width);
+				h_scrollBar.pageSize = Std.int( _rect.width );
 				_rect.height = _height - scrollButtonSize;
-				v_scrollBar.pageSize = Std.int(_rect.height);
+				v_scrollBar.pageSize = Std.int( _rect.height );
 
-				h_scrollBar._size(_width - scrollButtonSize, scrollButtonSize);
-				v_scrollBar._size(scrollButtonSize, _height - scrollButtonSize);
+				h_scrollBar._size( _width - scrollButtonSize, scrollButtonSize );
+				v_scrollBar._size( scrollButtonSize, _height - scrollButtonSize );
 
-				if(! v_scrollBar.barNeeded)
+				if( ! v_scrollBar.barNeeded )
 				{
-					if(v_scrollBar.sprite.parent != null) sprite.removeChild(v_scrollBar.sprite);
+					if( v_scrollBar.sprite.parent != null ) sprite.removeChild( v_scrollBar.sprite );
 					_rect.width = _width;
-					h_scrollBar.pageSize = Std.int(_rect.width);
-					h_scrollBar._size(_width, scrollButtonSize);
+					h_scrollBar.pageSize = Std.int( _rect.width );
+					h_scrollBar._size( _width, scrollButtonSize );
 				}
 				else
 				{
-					if(v_scrollBar.sprite.parent == null) sprite.addChild(v_scrollBar.sprite);
+					if( v_scrollBar.sprite.parent == null ) sprite.addChild( v_scrollBar.sprite );
 				}
 
-				if(! h_scrollBar.barNeeded)
+				if( ! h_scrollBar.barNeeded )
 				{
-					if(h_scrollBar.sprite.parent != null) sprite.removeChild(h_scrollBar.sprite);
+					if( h_scrollBar.sprite.parent != null ) sprite.removeChild( h_scrollBar.sprite );
 					_rect.height = _height;
-					v_scrollBar.pageSize = Std.int(_rect.height);
-					v_scrollBar._size(scrollButtonSize, _height);
+					v_scrollBar.pageSize = Std.int( _rect.height );
+					v_scrollBar._size( scrollButtonSize, _height );
 				}
 				else
 				{
-					if(h_scrollBar.sprite.parent == null) sprite.addChild(h_scrollBar.sprite);
+					if( h_scrollBar.sprite.parent == null ) sprite.addChild( h_scrollBar.sprite );
 				}
 			}
 			else
 			{
 				_rect.width = _width;
-				h_scrollBar.pageSize = Std.int(_rect.width);
+				h_scrollBar.pageSize = Std.int( _rect.width );
 				_rect.height = _height - scrollButtonSize;
-				v_scrollBar.pageSize = Std.int(_rect.height);
-				h_scrollBar._size(_width, scrollButtonSize);
+				v_scrollBar.pageSize = Std.int( _rect.height );
+				h_scrollBar._size( _width, scrollButtonSize );
 
-				v_scrollBar._size(0, 0);
+				v_scrollBar._size( 0, 0 );
 
-				if(v_scrollBar.sprite.parent != null) sprite.removeChild(v_scrollBar.sprite);
+				if( v_scrollBar.sprite.parent != null ) sprite.removeChild( v_scrollBar.sprite );
 
-				if(! h_scrollBar.barNeeded)
+				if( ! h_scrollBar.barNeeded )
 				{
-					if(h_scrollBar.sprite.parent != null) sprite.removeChild(h_scrollBar.sprite);
+					if( h_scrollBar.sprite.parent != null ) sprite.removeChild( h_scrollBar.sprite );
 					_rect.height = _height;
-					v_scrollBar.pageSize = Std.int(_rect.height);
+					v_scrollBar.pageSize = Std.int( _rect.height );
 				}
 				else
 				{
-					if(h_scrollBar.sprite.parent == null) sprite.addChild(h_scrollBar.sprite);
+					if( h_scrollBar.sprite.parent == null ) sprite.addChild( h_scrollBar.sprite );
 				}
 			}
 		}
 		else
 		{
-			if(v_scrollBar_enabled)
+			if( v_scrollBar_enabled )
 			{
 				_rect.width = _width - scrollButtonSize;
-				h_scrollBar.pageSize = Std.int(_rect.width);
+				h_scrollBar.pageSize = Std.int( _rect.width );
 				_rect.height = _height;
-				v_scrollBar.pageSize = Std.int(_rect.height);
+				v_scrollBar.pageSize = Std.int( _rect.height );
 
-				h_scrollBar._size(0, 0);
-				v_scrollBar._size(scrollButtonSize, _height);
+				h_scrollBar._size( 0, 0 );
+				v_scrollBar._size( scrollButtonSize, _height );
 
-				if(! v_scrollBar.barNeeded)
+				if( ! v_scrollBar.barNeeded )
 				{
-					if(v_scrollBar.sprite.parent != null) sprite.removeChild(v_scrollBar.sprite);
+					if( v_scrollBar.sprite.parent != null ) sprite.removeChild( v_scrollBar.sprite );
 					_rect.width = _width;
-					h_scrollBar.pageSize = Std.int(_rect.width);
+					h_scrollBar.pageSize = Std.int( _rect.width );
 				}
 				else
 				{
-					if(v_scrollBar.sprite.parent == null) sprite.addChild(v_scrollBar.sprite);
+					if( v_scrollBar.sprite.parent == null ) sprite.addChild( v_scrollBar.sprite );
 				}
 			}
 			else
 			{
 				_rect.width = _width;
-				h_scrollBar.pageSize = Std.int(_rect.width);
+				h_scrollBar.pageSize = Std.int( _rect.width );
 				_rect.height = _height;
-				v_scrollBar.pageSize = Std.int(_rect.height);
+				v_scrollBar.pageSize = Std.int( _rect.height );
 
-				h_scrollBar._size(0, 0);
-				v_scrollBar._size(0, 0);
+				h_scrollBar._size( 0, 0 );
+				v_scrollBar._size( 0, 0 );
 
-				if(! v_scrollBar.barNeeded)
+				if( ! v_scrollBar.barNeeded )
 				{
-					if(v_scrollBar.sprite.parent != null) sprite.removeChild(v_scrollBar.sprite);
+					if( v_scrollBar.sprite.parent != null ) sprite.removeChild( v_scrollBar.sprite );
 				}
 				else
 				{
-					if(v_scrollBar.sprite.parent == null) sprite.addChild(v_scrollBar.sprite);
+					if( v_scrollBar.sprite.parent == null ) sprite.addChild( v_scrollBar.sprite );
 				}
 			}
 
-			if(h_scrollBar.sprite.parent != null) sprite.removeChild(h_scrollBar.sprite);
+			if( h_scrollBar.sprite.parent != null ) sprite.removeChild( h_scrollBar.sprite );
 		}
 
 		target.scrollRect = _rect;
 	}
 
-	public function updateContentSize():Void
+	public function updateContentSize( ):Void
 	{
-		if(contentComponent != null)
+		if( contentComponent != null )
 		{
-			var height = Std.int(contentComponent.height);
-			var width = Std.int(contentComponent.width);
+			var height = Std.int( contentComponent.height );
+			var width = Std.int( contentComponent.width );
 
 			h_scrollBar.contentSize = width;
 			v_scrollBar.contentSize = height;
 		}
 	}
 
-	override public function invalidate(recursive:Bool = true):Void
+	override public function invalidate( recursive:Bool = true ):Void
 	{
-		updateScrollBars();
+		updateScrollBars( );
 
-		h_scrollBar.invalidate();
-		v_scrollBar.invalidate();
+		h_scrollBar.invalidate( );
+		v_scrollBar.invalidate( );
 
-		super.invalidate(false);
+		super.invalidate( false );
 	}
 
-	override public function draw():Void
+	override public function draw( ):Void
 	{
-		coreDraw();
+		coreDraw( );
 	}
 
-	override public function getHeight():Float
+	override public function getHeight( ):Float
 	{
 		return _height;
 	}
 
-	override public function getWidth():Float
+	override public function getWidth( ):Float
 	{
 		return _width;
 	}
 
-	//***********************************************************
-	//                  Component Style
-	//***********************************************************
+//***********************************************************
+//                  Component Style
+//***********************************************************
 
-	override public function getStyleId():String
+	override public function getStyleId( ):String
 	{
 		return ScrollContainerStyle.styleString;
 	}
@@ -699,9 +747,9 @@ class ScrollContainerStyle extends LayoutStyle
 	public var hScrollStyle:ScrollBarStyle;
 	public var vScrollStyle:ScrollBarStyle;
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 		styleID = styleString;
 	}
 }
