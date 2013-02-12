@@ -124,6 +124,17 @@ class ScrollContainer extends Layout
 //		disableTween();
 	}
 
+	override public function invalidate( recursive:Bool = true ):Void
+	{
+		updateScrollBars( );
+		super.invalidate( recursive );
+	}
+
+	override public function draw( ):Void
+	{
+		coreDraw( );
+	}
+
 	public function disableChildComponentEvents( ):Void
 	{
 
@@ -132,7 +143,7 @@ class ScrollContainer extends Layout
 			for( o in contentComponent.components )
 			{
 //todo check for save non core events that might have been added
-				o.disableSignals( );
+//				o.disableSignals( );
 			}
 		}
 
@@ -145,7 +156,7 @@ class ScrollContainer extends Layout
 		{
 			for( o in contentComponent.components )
 			{
-				o.enableSignals( );
+//				o.enableSignals( );
 			}
 		}
 
@@ -155,7 +166,7 @@ class ScrollContainer extends Layout
 	{
 		tweenEnabled = true;
 		dragEnterFrame = new OCoreEvent(Event.ENTER_FRAME, nme.Lib.stage );
-		dragEnterFrame.add( renderDrag );
+		dragEnterFrame.add( handleRenderDrag );
 	}
 
 	public function disableTween( ):Void
@@ -257,7 +268,7 @@ class ScrollContainer extends Layout
 		}
 	}
 
-	private function renderDrag( e:OCoreEvent ):Void
+	private function handleRenderDrag( e:OCoreEvent ):Void
 	{
 		if( ! _scrollbarMove )
 		{
@@ -311,19 +322,6 @@ class ScrollContainer extends Layout
 
 			}
 			updateScrollBarsFromChange( );
-		}
-	}
-
-	private function isTweening( ):Bool
-	{
-		var limit = 10;
-		if( Math.round( _ySpeed ) < limit || Math.round( _xSpeed ) < limit )
-		{
-			return false;
-		}
-		else
-		{
-			return true;
 		}
 	}
 
@@ -416,6 +414,19 @@ class ScrollContainer extends Layout
 		{
 			if( _xSpeed > _speedLimit ) _xSpeed = _speedLimit;
 			if( _xSpeed < - _speedLimit ) _xSpeed = - _speedLimit;
+		}
+	}
+
+	private function isTweening( ):Bool
+	{
+		var limit = 10;
+		if( Math.round( _ySpeed ) < limit || Math.round( _xSpeed ) < limit )
+		{
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
 
@@ -702,21 +713,6 @@ class ScrollContainer extends Layout
 			h_scrollBar.contentSize = width;
 			v_scrollBar.contentSize = height;
 		}
-	}
-
-	override public function invalidate( recursive:Bool = true ):Void
-	{
-		updateScrollBars( );
-
-		h_scrollBar.invalidate( );
-		v_scrollBar.invalidate( );
-
-		super.invalidate( false );
-	}
-
-	override public function draw( ):Void
-	{
-		coreDraw( );
 	}
 
 	override public function getHeight( ):Float

@@ -20,7 +20,7 @@ class Layout extends OComponent
 	{
 		super.add( comp );
 		comp.drawNow( );
-		invalidate( );
+		invalidate( false );
 	}
 
 	override public function getHeight( ):Float
