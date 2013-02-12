@@ -1,4 +1,4 @@
-﻿package omni.components.utils;
+﻿package omni.utils;
 
 /**
  * ColorUtils
@@ -8,14 +8,14 @@
 class ColorUtils
 {
 
-	/**
-	 *  Return a random Color
-	 *
-	 * @return
-	 */
-	public static inline function randomColor():Int
+/**
+ *  Return a random Color
+ *
+ * @return
+ */
+	public static inline function randomColor( ):Int
 	{
-		return Std.int(Math.random() * WHITE);
+		return Std.int( Math.random( ) * WHITE );
 	}
 
 	public static var WHITE:Int = 0xffffff;
