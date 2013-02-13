@@ -9,9 +9,9 @@ class Color extends OTheme
 	static public var ACTIVE:Int = ColorUtils.DARKER_ORANGE;
 
 	static public var ON:Int = ColorUtils.DARKER_ORANGE;
-	static public var ON_OVER:Int = ColorUtils.HALO_ORANGE;
+	static public var ON_OVER:Int = ColorUtils.BLUE;
 	static public var OFF:Int = ColorUtils.LIGHT_ORANGE;
-	static public var OFF_OVER:Int = ColorUtils.ORANGE_BRIGHT;
+	static public var OFF_OVER:Int = ColorUtils.HALO_GREEN;
 
 	static public var OVER:Int = ColorUtils.ORANGE_BRIGHT;
 	static public var DOWN:Int = ColorUtils.ORANGE;
@@ -26,7 +26,7 @@ class Color extends OTheme
 
 		addStyle( ColorButtonBase );
 		addStyle( ColorButton );
-		addStyle( ColorToggleButton );
+		addStyle( ColorOToggleButton );
 		addStyle( ColorCheckBox );
 		addStyle( ColorRadioButton );
 		addStyle( ColorRadioButtonGroup );
@@ -42,7 +42,6 @@ class Color extends OTheme
 		addStyle( ColorOToggleButtonGroup );
 
 		addStyle( ColorSlider );
-
 		addStyle( ColorScrollBar );
 		addStyle( ColorScrollContainer );
 

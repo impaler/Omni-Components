@@ -12,19 +12,29 @@ class TabButton extends OToggleButton
 //                  Event Handlers
 //***********************************************************
 
-	public function handleSetTrue( ):Void
-	{
-		_isDown = true;
-		_value = true;
-		_state = OToggleButtonStyle.STATE_ON;
-//		invalidate( );
-	}
-
+//	override public function handleMouseOver( ?e:OSignalMouse ):Void
+//	{
+//		_isOver = true;
+//		state = getOverState( );
+//	}
+//
 //	override public function handleMouseDown( ?e:OSignalMouse ):Void
 //	{
 //		_isDown = true;
-//		_value = true;
-//		_state = getValueState();
+//		_state = getValueState( );
+//		value = ! _value;
+//	}
+//
+//	override public function handleMouseUp( ?e:OSignalMouse ):Void
+//	{
+//		_isDown = false;
+//		_isOver ? state = getOverState( ) : state = getOutState( );
+//	}
+//
+//	override public function handleMouseOut( ?e:OSignalMouse ):Void
+//	{
+//		_isOver = false;
+//		if( _isDown == false ) state = getOutState( );
 //	}
 
 //***********************************************************

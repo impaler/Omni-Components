@@ -25,14 +25,12 @@ class ColorTabButton extends TabButtonStyle
 		bgColor.setColorState( OToggleButtonStyle.STATE_ON, Color.ON );
 		bgColor.setColorState( OToggleButtonStyle.STATE_ON_OVER, Color.ON_OVER );
 
-		bgColor.setColorState( OToggleButtonStyle.STATE_OFF, Color.OFF_OVER );
+		bgColor.setColorState( OToggleButtonStyle.STATE_OFF, Color.OFF );
 		bgColor.setColorState( OToggleButtonStyle.STATE_OFF_OVER, Color.OFF_OVER );
 
 		bgColor.setColorState( OToggleButtonStyle.STATE_DISABLED, Color.DISABLED );
 
 		setBackgroundBrush( bgColor );
-
-		defaultState = OToggleButtonStyle.STATE_OFF;
 
 		defaultWidth = 80;
 		defaultHeight = 40;

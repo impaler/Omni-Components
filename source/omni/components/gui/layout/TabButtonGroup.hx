@@ -24,8 +24,6 @@ class TabButtonGroup extends OToggleButtonGroup
 	{
 		super.createMembers( );
 
-//todo style layer
-		layout.direction = Layout.HORIZONTALLY;
 		onTabButtonChange = new OSignalType<TabButton -> Void>();
 	}
 
@@ -63,7 +61,8 @@ class TabButtonGroup extends OToggleButtonGroup
 
 	public function setActiveButton( button:TabButton ):Void
 	{
-		button.handleSetTrue( );
+		_target = button;
+		button.set_Value( true );
 		update( );
 	}
 

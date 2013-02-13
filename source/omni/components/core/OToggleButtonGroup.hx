@@ -3,6 +3,8 @@ package omni.components.core;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.gui.layout.Layout;
+import omni.components.gui.layout.Layout.LayoutStyle;
+import omni.components.core.OToggleButton;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.OToggleButton;
 import omni.components.core.OComponent;
@@ -25,9 +27,8 @@ class OToggleButtonGroup extends OComponent
 	override public function createMembers( ):Void
 	{
 		layout = new Layout();
-//todo style layer
-//		_direction = Layout.VERTICALLY;
-		layout.direction = direction;
+		var thisStyle = cast(_style, OToggleButtonGroupStyle);
+		layout.direction = thisStyle.defaultDirection;
 
 		this.sprite.addChild( layout.sprite );
 
@@ -65,6 +66,13 @@ class OToggleButtonGroup extends OComponent
 //                  Component Methods
 //***********************************************************
 
+	public function setActive( button:OToggleButton ):Void
+	{
+		button.set_Value( true );
+		_target = button;
+		update( );
+	}
+
 	public function addButton( style:IStyle = null ):OToggleButton
 	{
 		var button = new OToggleButton(style);
@@ -73,28 +81,6 @@ class OToggleButtonGroup extends OComponent
 		layout.add( button );
 
 		return button;
-	}
-
-	public function removeButton( button:OToggleButton ):Void
-	{
-		if( getButton( button ) != null )
-		{
-			this.components.remove( button );
-			layout.remove( button );
-			button.destroy( );
-		}
-	}
-
-	public function getButton( button:OToggleButton ):OToggleButton
-	{
-		for( o in components )
-		{
-			var comp = cast(o, OToggleButton);
-
-			if( comp == button )
-				return comp;
-		}
-		return null;
 	}
 
 	private function update( ):Void
@@ -107,12 +93,6 @@ class OToggleButtonGroup extends OComponent
 				comp.setValue( false );
 		}
 	}
-
-//	public function setActiveButton( button:OToggleButton ):Void
-//	{
-//		_target = button;
-//		button.set_On();
-//	}
 
 //***********************************************************
 //                  Properties

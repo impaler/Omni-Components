@@ -21,7 +21,6 @@ class ColorOToggleButtonGroup extends OToggleButtonGroupStyle
 		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG_LAYOUT );
 		setBackgroundBrush( bgColor );
 
-//todo
 		defaultDirection = Layout.HORIZONTALLY;
 		defaultWidth = 300;
 		defaultHeight = 300;

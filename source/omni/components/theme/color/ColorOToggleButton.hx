@@ -8,7 +8,7 @@ import omni.utils.ColorUtils;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OComponent.ComponentStyle;
 
-class ColorToggleButton extends OToggleButtonStyle
+class ColorOToggleButton extends OToggleButtonStyle
 {
 	public function new( )
 	{
@@ -30,8 +30,6 @@ class ColorToggleButton extends OToggleButtonStyle
 		bgColor.setColorState( OToggleButtonStyle.STATE_DISABLED, Color.DISABLED );
 
 		setBackgroundBrush( bgColor );
-
-		defaultValue = true;
 
 		defaultWidth = 200;
 		defaultHeight = 50;

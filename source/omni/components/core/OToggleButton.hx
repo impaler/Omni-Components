@@ -49,8 +49,11 @@ class OToggleButton extends Button
 	override public function handleMouseDown( ?e:OSignalMouse ):Void
 	{
 		_isDown = true;
-		value = ! _value;
-		state = getValueState( );
+		_value = ! _value;
+		_state = getValueState( );
+		invalidate( );
+		onValueChange.dispatch( _value );
+		onChange.dispatch( this );
 	}
 
 	override public function handleMouseUp( ?e:OSignalMouse ):Void
@@ -69,7 +72,7 @@ class OToggleButton extends Button
 //                  Component Methods
 //***********************************************************
 
-	private function getValueState( ):String
+	public function getValueState( ):String
 	{
 		return value ? state = OToggleButtonStyle.STATE_ON : OToggleButtonStyle.STATE_OFF;
 	}
@@ -110,16 +113,16 @@ class OToggleButton extends Button
 		return _value;
 	}
 
-//	public function set_On():Bool
-//	{
-//		if( _value != true )
-//		{
-//			_value = true;
-//			_state = OToggleButtonStyle.STATE_ON;
-//			invalidate( );
-//		}
-//		return _value;
-//	}
+	public function set_Value( b:Bool ):Bool
+	{
+		if( _value != b )
+		{
+			_value = b;
+			_state = getValueState( );
+			invalidate( );
+		}
+		return _value;
+	}
 
 	public function getValue( ):Bool
 	{
@@ -140,7 +143,7 @@ class OToggleButton extends Button
 class OToggleButtonStyle extends ButtonStyle
 {
 
-	public static var styleString:String = "ToggleButtonStyle";
+	public static var styleString:String = "OToggleButtonStyle";
 
 	public static var STATE_ON:String = "STATE_ON";
 	public static var STATE_ON_OVER:String = "STATE_ON_OVER";
@@ -150,14 +153,11 @@ class OToggleButtonStyle extends ButtonStyle
 
 	public static var STATE_DISABLED:String = "STATE_DISABLED_ON";
 
-	public var defaultValue:Bool;
-
 	public function new( )
 	{
 		super( );
 		styleID = styleString;
 
-		defaultValue = false;
 	}
 
 	override public function initStyle( value:IOComponent ):Void
@@ -166,9 +166,9 @@ class OToggleButtonStyle extends ButtonStyle
 
 		var styleAs = cast (value, OToggleButton);
 
-		styleAs._value = defaultValue;
+		styleAs._value = false;
 		styleAs._value ? styleAs._state = STATE_ON : styleAs._state = STATE_OFF;
-
 	}
+
 }
 
