@@ -18,6 +18,7 @@ class ColorVBox extends VBoxStyle
 		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG_LAYOUT );
 		setBackgroundBrush( bgColor );
 
+		defaultScrollRect = false;
 		defaultDirection = Layout.VERTICALLY;
 		defaultWidth = 300;
 		defaultHeight = 300;
