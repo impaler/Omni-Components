@@ -129,15 +129,18 @@ class NumericStepper extends OComponent
 	public function updatePositions( ):Void
 	{
 		_increase._width = _height;
+		_increase._height = _height * .5;
+
 		_decrease._width = _height;
+		_decrease._height = _height * .5;
 
 		_increase.x = _width - _increase.width;
 		_decrease.x = _width - _decrease.width;
 
-		_decrease.y = _height * 0.5;
+		_decrease.y = _height * .5;
 
 		ComponentUtils.VAlignToOther( _textBase, this );
-		ComponentUtils.HAlignToOther( _textBase, this );
+
 	}
 
 	public function fixValue( ):Void
