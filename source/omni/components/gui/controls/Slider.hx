@@ -1,5 +1,6 @@
 package omni.components.gui.controls;
 
+import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
 import omni.utils.UtilNumbers;
 import omni.components.gui.controls.Slider;
 import omni.components.core.interfaces.IOComponent;
@@ -30,6 +31,7 @@ class Slider extends OComponent
 
 	public var value(getValue, setValue):Int;
 	public var _value:Int = 30;
+	public var tempValue:Int;
 
 	public var type(getType, setType):Int;
 	public var _type:Int = 0;
@@ -182,20 +184,20 @@ class Slider extends OComponent
 
 	public function updateValueOnMouseMove( ):Void
 	{
-		var valueChange = _value;
+		tempValue = _value;
 
 		if( _type == Slider.HORIZONTALLY )
 		{
-			valueChange = clamp( Std.int( button.x / (_width - _height) * (_max - _min) + _min ) );
+			tempValue = clamp( Std.int( button.x / (_width - _height) * (_max - _min) + _min ) );
 		}
 		else
 		{
-			valueChange = clamp( Std.int( (_height - _width - button.y) / (_height - _width) * (_max - _min) + _min ) );
+			tempValue = clamp( Std.int( (_height - _width - button.y) / (_height - _width) * (_max - _min) + _min ) );
 		}
 
-		if( _value != valueChange )
+		if( _value != tempValue )
 		{
-			_value = valueChange;
+			_value = tempValue;
 			onChange.dispatch( _value );
 		}
 	}
@@ -370,7 +372,7 @@ class SliderBaseStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "SliderBaseStyle";
 
-	public var buttonStyle:OButtonBaseStyle;
+	public var buttonStyle:ScrollBarButtonStyle;
 
 	public var defaultVHeight:Float;
 	public var defaultVWidth:Float;
@@ -402,7 +404,7 @@ class SliderBaseStyle extends OBackgroundStyle
 		super.initStyle( value );
 
 		var styleAs = cast (value, Slider);
-//todo
+
 		styleAs._type = defaultType;
 		styleAs.step = defaultStep;
 		styleAs._value = defaultValue;
