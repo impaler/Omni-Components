@@ -198,11 +198,14 @@ class OComponent implements IOComponent
 		return this.trackTheme;
 	}
 
+	public var trackingTheme:Bool = false;
+
 	public function startTrackingTheme( ):Void
 	{
-		if( this.trackTheme )
+		if( ! this.trackingTheme )
 		{
 			OCore.instance.onThemeChange.add( onThemeChange );
+			trackingTheme = true;
 		}
 	}
 
