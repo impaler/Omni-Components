@@ -1,13 +1,13 @@
-package omni.components.theme.bloom;
+package omni.components.theme.color.layout;
 
-import omni.components.core.OLayout;
+import omni.components.gui.layout.HBox.HBoxStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OLayout.OLayoutStyle;
+import omni.components.core.OLayout;
 import omni.utils.ColorUtils;
 import nme.geom.Rectangle;
 
-class BloomLayout extends OLayoutStyle
+class ColorHBox extends HBoxStyle
 {
 
 	public function new( )
@@ -15,9 +15,8 @@ class BloomLayout extends OLayoutStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, ColorUtils.BLACK );
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG_LAYOUT );
 		setBackgroundBrush( bgColor );
-
 		defaultWidth = 300;
 		defaultHeight = 300;
 		defaultPadding = 10;

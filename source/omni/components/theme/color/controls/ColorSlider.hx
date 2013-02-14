@@ -1,5 +1,6 @@
-package omni.components.theme.color;
+package omni.components.theme.color.controls;
 
+import omni.components.theme.color.core.ColorButtonBase;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
@@ -15,10 +16,10 @@ class ColorSlider extends SliderBaseStyle
 	{
 		super( );
 
-		buttonStyle = new ColorButtonBase();
+		buttonStyle = new ColorScrollBarButton();
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG );
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
 		setBackgroundBrush( bgColor );
 
 		defaultVHeight = 120;

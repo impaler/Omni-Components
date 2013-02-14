@@ -1,10 +1,9 @@
-package omni.components.theme.color;
+package omni.components.theme.color.layout;
 
 import omni.components.gui.layout.ContainerPage.ContainerPageStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.gui.layout.Layout.LayoutStyle;
-import omni.components.gui.layout.Layout;
+import omni.components.core.OLayout.OLayoutStyle;
 import omni.utils.ColorUtils;
 import nme.geom.Rectangle;
 

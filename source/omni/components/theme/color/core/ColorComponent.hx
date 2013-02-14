@@ -1,4 +1,4 @@
-package omni.components.theme.color;
+package omni.components.theme.color.core;
 
 import omni.components.style.OBaseStyle;
 import omni.utils.ColorUtils;
@@ -12,13 +12,13 @@ class ColorComponent extends ComponentStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG );
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
 		setBackgroundBrush( bgColor );
 
 		defaultWidth = 100;
 		defaultHeight = 30;
-		minWidth = 10;
-		minHeight = 10;
+		minWidth = 0;
+		minHeight = 0;
 		maxWidth = 2000;
 		maxHeight = 2000;
 		defaultPadding = 0;

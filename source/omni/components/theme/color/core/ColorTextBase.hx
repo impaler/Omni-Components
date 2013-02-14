@@ -1,7 +1,5 @@
-package omni.components.theme.color;
+package omni.components.theme.color.core;
 
-import omni.components.gui.text.InputField.InputFieldStyle;
-import omni.components.gui.text.Label.LabelStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.core.OTextBase.TextBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -11,25 +9,29 @@ import nme.Assets;
 import nme.text.TextFormatAlign;
 import nme.text.TextFieldType;
 
-class ColorInputField extends InputFieldStyle
+class ColorTextBase extends TextBaseStyle
 {
 
 	public function new( )
 	{
 		super( );
 
-		defaultHeight = 50;
-		defaultWidth = 200;
+		defaultHeight = 60;
+		defaultWidth = 300;
+
+		defaultState = OBaseStyle.STATE_ACTIVE;
+		defaultPadding = 0;
 
 		var font = Assets.getFont( "assets/themes/color/text/roboto-regular.ttf" );
 		fontName = font.fontName;
-		selectable = true;
+		selectable = false;
 		multiline = false;
 		wordWrap = false;
-//		restrict = "0-9.\\-";
-		fontSize = 20;
+		restrict = "0-9.\\-";
+		fontSize = 50;
+		type = TextFieldType.DYNAMIC;
 		fontColor = ColorUtils.ORANGE_BRIGHT;
-		defaultText = "Orange Input Text";
+		defaultText = "Orange Text";
 
 	}
 

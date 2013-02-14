@@ -1,4 +1,4 @@
-package omni.components.theme.color;
+package omni.components.theme.color.controls;
 
 import nme.Assets;
 import omni.components.gui.layout.Icon.IconStyle;
@@ -17,7 +17,7 @@ class ColorButton extends ButtonStyle
 		super( );
 
 		var textStyle = new LabelStyle();
-		textStyle.defaultText = "Cancel!";
+		textStyle.defaultText = "Button";
 		textStyle.fontSize = 18;
 		labelText = textStyle;
 
@@ -26,10 +26,10 @@ class ColorButton extends ButtonStyle
 //		icon.sprite = createTestIconSprite();
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.ACTIVE );
-		bgColor.setColorState( OBaseStyle.STATE_DISABLED, Color.DISABLED );
-		bgColor.setColorState( OButtonBaseStyle.STATE_OVER, Color.OVER );
-		bgColor.setColorState( OButtonBaseStyle.STATE_DOWN, Color.DOWN );
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.ACTIVE );
+		bgColor.setColorState( OBaseStyle.STATE_DISABLED, Colors.DISABLED );
+		bgColor.setColorState( OButtonBaseStyle.STATE_OVER, Colors.OVER );
+		bgColor.setColorState( OButtonBaseStyle.STATE_DOWN, Colors.DOWN );
 		setBackgroundBrush( bgColor );
 
 		defaultWidth = 200;

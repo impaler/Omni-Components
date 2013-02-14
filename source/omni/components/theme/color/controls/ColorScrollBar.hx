@@ -1,4 +1,4 @@
-package omni.components.theme.color;
+package omni.components.theme.color.controls;
 
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -12,11 +12,13 @@ class ColorScrollBar extends ScrollBarStyle
 	{
 		super( );
 
-		buttonStyle = new ColorButtonBase();
-		buttonStyle.minHeight = 40;
+		buttonStyle = new ColorScrollBarButton();
+
+		decreaseButtonStyle = new ColorScrollBarButton();
+		increaseButtonStyle = new ColorScrollBarButton();
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG );
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
 		setBackgroundBrush( bgColor );
 
 		defaultWidth = 20;

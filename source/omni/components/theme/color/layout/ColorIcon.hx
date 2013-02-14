@@ -1,4 +1,4 @@
-package omni.components.theme.color;
+package omni.components.theme.color.layout;
 
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -8,18 +8,18 @@ import nme.Assets;
 
 class ColorIcon extends IconStyle
 {
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Color.BG);
-		bgColor.setColorState(OBaseStyle.STATE_DISABLED, Color.DISABLED);
-		setBackgroundBrush(bgColor);
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
+		bgColor.setColorState( OBaseStyle.STATE_DISABLED, Colors.DISABLED );
+		setBackgroundBrush( bgColor );
 
-		//todo test
-		//		bitmapPath = "asfasfs";
-		//		bitmapData = createBitmapDataTest();
+//todo test
+//		bitmapPath = "asfasfs";
+//		bitmapData = createBitmapDataTest();
 
 		defaultWidth = 20;
 		defaultHeight = 20;

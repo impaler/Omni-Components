@@ -1,4 +1,4 @@
-package omni.components.theme.color;
+package omni.components.theme.color.controls;
 
 import omni.components.gui.controls.CheckBox.CheckBoxStyle;
 import omni.components.gui.controls.RadioButton.RadioButtonStyle;
@@ -23,13 +23,13 @@ class ColorCheckBox extends CheckBoxStyle
 
 		var bgColor = new BrushColorFill ();
 
-		bgColor.setColorState( OToggleButtonStyle.STATE_ON, Color.ON );
-		bgColor.setColorState( OToggleButtonStyle.STATE_ON_OVER, Color.ON_OVER );
+		bgColor.setColorState( OToggleButtonStyle.STATE_ON, Colors.ON );
+		bgColor.setColorState( OToggleButtonStyle.STATE_ON_OVER, Colors.ON_OVER );
 
-		bgColor.setColorState( OToggleButtonStyle.STATE_OFF, Color.OFF_OVER );
-		bgColor.setColorState( OToggleButtonStyle.STATE_OFF_OVER, Color.OFF_OVER );
+		bgColor.setColorState( OToggleButtonStyle.STATE_OFF, Colors.OFF_OVER );
+		bgColor.setColorState( OToggleButtonStyle.STATE_OFF_OVER, Colors.OFF_OVER );
 
-		bgColor.setColorState( OToggleButtonStyle.STATE_DISABLED, Color.DISABLED );
+		bgColor.setColorState( OToggleButtonStyle.STATE_DISABLED, Colors.DISABLED );
 
 		setBackgroundBrush( bgColor );
 

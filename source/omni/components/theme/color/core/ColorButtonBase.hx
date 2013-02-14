@@ -1,4 +1,4 @@
-package omni.components.theme.color;
+package omni.components.theme.color.core;
 
 import omni.components.core.OButtonBase.OButtonBaseStyle;
 import omni.components.style.OBaseStyle;
@@ -13,10 +13,10 @@ class ColorButtonBase extends OButtonBaseStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.ACTIVE );
-		bgColor.setColorState( OBaseStyle.STATE_DISABLED, Color.DISABLED );
-		bgColor.setColorState( OButtonBaseStyle.STATE_OVER, Color.OVER );
-		bgColor.setColorState( OButtonBaseStyle.STATE_DOWN, Color.DOWN );
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.ACTIVE );
+		bgColor.setColorState( OBaseStyle.STATE_DISABLED, Colors.DISABLED );
+		bgColor.setColorState( OButtonBaseStyle.STATE_OVER, Colors.OVER );
+		bgColor.setColorState( OButtonBaseStyle.STATE_DOWN, Colors.DOWN );
 		setBackgroundBrush( bgColor );
 
 		defaultWidth = 300;

@@ -1,20 +1,21 @@
 package omni.components.theme.bloom;
 
+import omni.components.theme.color.Colors;
 import omni.components.theme.color.Color;
 import omni.components.style.OBaseStyle;
-import omni.components.utils.ColorUtils;
+import omni.utils.ColorUtils;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OComponent.ComponentStyle;
 
 class BloomComponent extends ComponentStyle
 {
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState(OBaseStyle.STATE_ACTIVE, Color.BG);
-		setBackgroundBrush(bgColor);
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
+		setBackgroundBrush( bgColor );
 
 		defaultWidth = 100;
 		defaultHeight = 30;

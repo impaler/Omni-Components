@@ -1,13 +1,13 @@
-package omni.components.theme.color;
+package omni.components.theme.color.layout;
 
-import omni.components.gui.layout.VBox.VBoxStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.gui.layout.Layout;
+import omni.components.core.OLayout;
+import omni.components.core.OLayout.OLayoutStyle;
 import omni.utils.ColorUtils;
 import nme.geom.Rectangle;
 
-class ColorVBox extends VBoxStyle
+class ColorLayout extends OLayoutStyle
 {
 
 	public function new( )
@@ -15,11 +15,10 @@ class ColorVBox extends VBoxStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Color.BG_LAYOUT );
+		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG_LAYOUT );
 		setBackgroundBrush( bgColor );
 
-		defaultScrollRect = false;
-		defaultDirection = Layout.VERTICALLY;
+		defaultDirection = OLayout.VERTICALLY;
 		defaultWidth = 300;
 		defaultHeight = 300;
 		defaultPadding = 10;

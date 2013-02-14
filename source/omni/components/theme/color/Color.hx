@@ -1,26 +1,40 @@
 package omni.components.theme.color;
 
-import omni.utils.ColorUtils;
 import omni.components.core.OTheme;
+import omni.components.theme.color.text.ColorLabel;
+import omni.components.theme.color.text.ColorInputField;
+import omni.components.theme.color.controls.ColorScrollBarButton;
+import omni.components.theme.color.core.ColorOToggleButtonGroup;
+import omni.components.theme.color.core.ColorOToggleButton;
+import omni.components.theme.color.core.ColorTextBase;
+import omni.components.theme.color.core.ColorComponent;
+import omni.components.theme.color.core.ColorButtonBase;
+import omni.components.theme.color.layout.ColorVBox;
+import omni.components.theme.color.layout.ColorTabButtonGroup;
+import omni.components.theme.color.layout.ColorTabbedContainer;
+import omni.components.theme.color.layout.ColorScrollContainer;
+import omni.components.theme.color.layout.ColorIcon;
+import omni.components.theme.color.layout.ColorRadioButtonGroup;
+import omni.components.theme.color.layout.ColorHBox;
+import omni.components.theme.color.layout.ColorContainerPage;
+import omni.components.theme.color.layout.ColorLayout;
+import omni.components.theme.color.controls.ColorTabButton;
+import omni.components.theme.color.controls.ColorSlider;
+import omni.components.theme.color.controls.ColorScrollBar;
+import omni.components.theme.color.controls.ColorRadioButton;
+import omni.components.theme.color.controls.ColorNumericStepper;
+import omni.components.theme.color.controls.ColorCheckBox;
+import omni.components.theme.color.controls.ColorProgressBar;
+import omni.components.theme.color.controls.ColorButton;
 
 class Color extends OTheme
 {
-	static public var DISABLED:Int = ColorUtils.LIGHT_ORANGE;
-	static public var ACTIVE:Int = ColorUtils.DARKER_ORANGE;
-
-	static public var ON:Int = ColorUtils.DARKER_ORANGE;
-	static public var ON_OVER:Int = ColorUtils.BLUE;
-	static public var OFF:Int = ColorUtils.LIGHT_ORANGE;
-	static public var OFF_OVER:Int = ColorUtils.HALO_GREEN;
-
-	static public var OVER:Int = ColorUtils.ORANGE_BRIGHT;
-	static public var DOWN:Int = ColorUtils.ORANGE;
-	static public var BG:Int = ColorUtils.GRAY;
-	static public var BG_LAYOUT:Int = ColorUtils.BLACK;
 
 	public function new( )
 	{
 		super( );
+
+		setupColors( );
 
 		addStyle( ColorComponent );
 
@@ -43,15 +57,22 @@ class Color extends OTheme
 
 		addStyle( ColorSlider );
 		addStyle( ColorScrollBar );
+		addStyle( ColorScrollBarButton );
 		addStyle( ColorScrollContainer );
 
 		addStyle( ColorIcon );
+		addStyle( ColorProgressBar );
 
 		addStyle( ColorNumericStepper );
 
 		addStyle( ColorTextBase );
 		addStyle( ColorLabel );
 		addStyle( ColorInputField );
+
+	}
+
+	public function setupColors( ):Void
+	{
 
 	}
 }
