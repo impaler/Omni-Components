@@ -200,10 +200,9 @@ class OComponent implements IOComponent
 
 	public function startTrackingTheme( ):Void
 	{
-		if( ! this.trackTheme )
+		if( this.trackTheme )
 		{
 			OCore.instance.onThemeChange.add( onThemeChange );
-			this.trackTheme = true;
 		}
 	}
 
@@ -475,6 +474,22 @@ return false;
 
 		onResize.destroy( );
 		stopTrackingTheme( );
+	}
+
+	public var visible(default, setVisible):Bool;
+
+	public function setVisible( v:Bool ):Bool
+	{
+		sprite.visible = v;
+		return sprite.visible;
+	}
+
+	public var alpha(default, setAlpha):Float;
+
+	public function setAlpha( a:Float ):Float
+	{
+		sprite.alpha = a;
+		return sprite.alpha;
 	}
 
 //***********************************************************
