@@ -1,4 +1,4 @@
-package omni.components.gui.layout;
+package omni.components.core;
 
 import nme.geom.Rectangle;
 import omni.components.core.interfaces.IOComponent;
@@ -7,7 +7,7 @@ import omni.components.style.OBackgroundStyle;
 
 import nme.display.Sprite;
 
-class Layout extends OComponent
+class OLayout extends OComponent
 {
 	public var direction(default, setDirection):Int;
 	public var _direction:Int;
@@ -181,11 +181,11 @@ class Layout extends OComponent
 
 	override public function getStyleId( ):String
 	{
-		return LayoutStyle.styleString;
+		return OLayoutStyle.styleString;
 	}
 }
 
-class LayoutStyle extends OBackgroundStyle
+class OLayoutStyle extends OBackgroundStyle
 {
 
 	public static var styleString:String = "LayoutStyle";
@@ -195,14 +195,14 @@ class LayoutStyle extends OBackgroundStyle
 	public function new( )
 	{
 		super( );
-		defaultDirection = Layout.VERTICALLY;
+		defaultDirection = OLayout.VERTICALLY;
 		defaultScrollRect = false;
 		styleID = styleString;
 	}
 
 	override public function initStyle( value:IOComponent ):Void
 	{
-		var styleAs = cast (value, Layout);
+		var styleAs = cast (value, OLayout);
 
 		styleAs._direction = defaultDirection;
 		styleAs._scrollRectEnabled = defaultScrollRect;

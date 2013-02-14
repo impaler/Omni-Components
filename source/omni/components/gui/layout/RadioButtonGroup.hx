@@ -1,8 +1,9 @@
 package omni.components.gui.layout;
 
+import omni.components.core.OLayout;
 import omni.components.core.OToggleButtonGroup;
 import omni.components.core.interfaces.IStyle;
-import omni.components.gui.layout.Layout.LayoutStyle;
+import omni.components.core.OLayout.OLayoutStyle;
 import omni.components.gui.controls.RadioButton;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.interfaces.IOComponent;

@@ -1,9 +1,10 @@
 package omni.components.gui.layout;
 
+import omni.components.core.OLayout;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.gui.layout.Layout.LayoutStyle;
+import omni.components.core.OLayout.OLayoutStyle;
 
-class HBox extends Layout
+class HBox extends OLayout
 {
 	override public function getStyleId( ):String
 	{
@@ -12,7 +13,7 @@ class HBox extends Layout
 
 }
 
-class HBoxStyle extends LayoutStyle
+class HBoxStyle extends OLayoutStyle
 {
 	public static var styleString:String = "HBoxStyle";
 
@@ -20,6 +21,6 @@ class HBoxStyle extends LayoutStyle
 	{
 		super( );
 		styleID = styleString;
-		defaultDirection = Layout.HORIZONTALLY;
+		defaultDirection = OLayout.HORIZONTALLY;
 	}
 }

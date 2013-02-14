@@ -2,8 +2,7 @@ package omni.components.core;
 
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.gui.layout.Layout;
-import omni.components.gui.layout.Layout.LayoutStyle;
+import OLayout.OLayoutStyle;
 import omni.components.core.OToggleButton;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.OToggleButton;
@@ -13,7 +12,7 @@ import omni.components.style.OBackgroundStyle;
 class OToggleButtonGroup extends OComponent
 {
 	private var _target:OToggleButton;
-	public var layout:Layout;
+	public var layout:OLayout;
 
 	public var direction:Int;
 
@@ -26,7 +25,7 @@ class OToggleButtonGroup extends OComponent
 
 	override public function createMembers( ):Void
 	{
-		layout = new Layout();
+		layout = new OLayout();
 		var thisStyle = cast(_style, OToggleButtonGroupStyle);
 		layout.direction = thisStyle.defaultDirection;
 
@@ -127,7 +126,7 @@ class OToggleButtonGroupStyle extends OBackgroundStyle
 	public function new( )
 	{
 		super( );
-		defaultDirection = Layout.VERTICALLY;
+		defaultDirection = OLayout.VERTICALLY;
 		styleID = styleString;
 	}
 

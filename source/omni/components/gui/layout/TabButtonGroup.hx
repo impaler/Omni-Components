@@ -1,12 +1,13 @@
 package omni.components.gui.layout;
 
+import omni.components.core.OLayout;
 import omni.components.core.OToggleButtonGroup;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.components.gui.layout.ContainerPage;
 import omni.components.gui.controls.TabButton;
 import omni.components.core.OToggleButtonGroup.OToggleButtonGroupStyle;
-import omni.components.gui.layout.Layout.LayoutStyle;
+import omni.components.core.OLayout.OLayoutStyle;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.OToggleButton;
 import omni.components.core.OComponent;
@@ -87,7 +88,7 @@ class TabButtonGroupStyle extends OToggleButtonGroupStyle
 	public function new( )
 	{
 		super( );
-		defaultDirection = Layout.HORIZONTALLY;
+		defaultDirection = OLayout.HORIZONTALLY;
 		styleID = styleString;
 	}
 

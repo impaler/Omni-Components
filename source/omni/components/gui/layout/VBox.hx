@@ -1,8 +1,9 @@
 package omni.components.gui.layout;
 
-import omni.components.gui.layout.Layout.LayoutStyle;
+import omni.components.core.OLayout;
+import omni.components.core.OLayout.OLayoutStyle;
 
-class VBox extends Layout
+class VBox extends OLayout
 {
 	override public function getStyleId( ):String
 	{
@@ -11,7 +12,7 @@ class VBox extends Layout
 
 }
 
-class VBoxStyle extends LayoutStyle
+class VBoxStyle extends OLayoutStyle
 {
 	public static var styleString:String = "VBoxStyle";
 
@@ -19,7 +20,7 @@ class VBoxStyle extends LayoutStyle
 	{
 		super( );
 		styleID = styleString;
-		defaultDirection = Layout.VERTICALLY;
+		defaultDirection = OLayout.VERTICALLY;
 	}
 
 }
