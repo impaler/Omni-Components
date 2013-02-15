@@ -5,7 +5,7 @@ import omni.components.core.OToggleButton;
 class RadioButton extends OToggleButton
 {
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return RadioButtonStyle.styleString;
 	}

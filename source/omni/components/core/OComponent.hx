@@ -46,17 +46,17 @@ class OComponent implements IOComponent
 //		OCore.log("Added to stage");
 	}
 
-	public var sprite(getSprite, null):Sprite;
+	public var sprite(get_sprite, null):Sprite;
 
-	private function getSprite( ):Sprite
+	private function get_sprite( ):Sprite
 	{
 		return sprite;
 	}
 
-	public var state(getState, setState):String;
+	public var state(get_state, set_state):String;
 	public var _state:String = null;
 
-	private function setState( value:String ):String
+	private function set_state( value:String ):String
 	{
 		if( value != this._state )
 		{
@@ -66,12 +66,12 @@ class OComponent implements IOComponent
 		return _state;
 	}
 
-	private function getState( ):String
+	private function get_state( ):String
 	{
 		return _state;
 	}
 
-	public var style(getStyle, setStyle):IStyle;
+	public var style(get_style, set_style):IStyle;
 	private var _style:IStyle;
 
 	public function setStyleClass( value:Class<IStyle> ):IStyle
@@ -81,7 +81,7 @@ class OComponent implements IOComponent
 		return this.style;
 	}
 
-	private function setStyle( value:IStyle ):IStyle
+	private function set_style( value:IStyle ):IStyle
 	{
 		if( this._style != value )
 		{
@@ -96,12 +96,12 @@ class OComponent implements IOComponent
 		}
 	}
 
-	private function getStyle( ):IStyle
+	private function get_style( ):IStyle
 	{
 		return this._style;
 	}
 
-	public var styleId(getStyleId, null):String;
+	public var styleId(get_styleId, null):String;
 
 	public function initStyle( style:IStyle = null ):Void
 	{
@@ -185,9 +185,9 @@ class OComponent implements IOComponent
 		invalidate( );
 	}
 
-	public var trackTheme(default, setTrackTheme):Bool;
+	public var trackTheme(default, set_trackTheme):Bool;
 
-	public function setTrackTheme( value:Bool ):Bool
+	public function set_trackTheme( value:Bool ):Bool
 	{
 		if( value != this.trackTheme )
 		{
@@ -276,56 +276,56 @@ class OComponent implements IOComponent
 //                  Dimensions / Positions
 //***********************************************************
 
-	public var x(getX, setX):Float;
+	public var x(get_x, set_x):Float;
 
-	public function setX( value:Float ):Float
+	public function set_x( value:Float ):Float
 	{
 		return x = sprite.x = (value);
 	}
 
-	function getX( ):Float
+	function get_x( ):Float
 	{
 		return sprite.x;
 	}
 
-	public var y(getY, setY):Float;
+	public var y(get_y, set_y):Float;
 
-	function getY( ):Float
+	function get_y( ):Float
 	{
 		return sprite.y;
 	}
 
-	public function setY( value:Float ):Float
+	public function set_y( value:Float ):Float
 	{
 		return y = sprite.y = (value);
 	}
 
 	public function move( x:Float, y:Float ):Void
 	{
-		setX( x );
-		setY( y );
+		set_x( x );
+		set_y( y );
 	}
 
-	public var height(getHeight, setHeight):Float;
-	public var _height(default, set_Height):Float = 0;
+	public var height(get_height, set_height):Float;
+	public var _height(default, set__height):Float = 0;
 
-	private function setHeight( h:Float ):Float
+	private function set_height( h:Float ):Float
 	{
 		if( _height != h )
 		{
-			set_Height( h );
+			set__height( h );
 			invalidate( );
 			onResize.dispatch( );
 		}
 		return _height;
 	}
 
-	private function getHeight( ):Float
+	private function get_height( ):Float
 	{
 		return _height;
 	}
 
-	private function set_Height( h:Float ):Float
+	private function set__height( h:Float ):Float
 	{
 		if( _height != h )
 		{
@@ -335,21 +335,21 @@ class OComponent implements IOComponent
 		return _height;
 	}
 
-	public var width(getWidth, setWidth):Float;
-	public var _width(default, set_Width):Float = 0;
+	public var width(get_width, set_width):Float;
+	public var _width(default, set__width):Float = 0;
 
-	public function setWidth( w:Float ):Float
+	public function set_width( w:Float ):Float
 	{
 		if( _width != w )
 		{
-			set_Width( w );
+			set__width( w );
 			invalidate( );
 			onResize.dispatch( );
 		}
 		return _width;
 	}
 
-	public function set_Width( w:Float ):Float
+	public function set__width( w:Float ):Float
 	{
 		if( _width != w )
 		{
@@ -359,7 +359,7 @@ class OComponent implements IOComponent
 		return _width;
 	}
 
-	public function getWidth( ):Float
+	public function get_width( ):Float
 	{
 		return _width;
 	}
@@ -376,26 +376,26 @@ class OComponent implements IOComponent
 		_height = UtilNumbers.clamp( h, this._style.minHeight, this._style.maxHeight );
 	}
 
-	public var padding(getPadding, setPadding):Float;
-	public var _padding(default, set_Padding):Float = 0;
+	public var padding(get_padding, set_padding):Float;
+	public var _padding(default, set__padding):Float = 0;
 
-	private function setPadding( value:Float ):Float
+	private function set_padding( value:Float ):Float
 	{
 		if( _padding != value )
 		{
-			set_Padding( value );
+			set__padding( value );
 			invalidate( );
 			onResize.dispatch( );
 		}
 		return _padding;
 	}
 
-	private function getPadding( ):Float
+	private function get_padding( ):Float
 	{
 		return _padding;
 	}
 
-	private function set_Padding( value:Float ):Float
+	private function set__padding( value:Float ):Float
 	{
 		if( _padding != value )
 		{
@@ -404,9 +404,9 @@ class OComponent implements IOComponent
 		return _padding;
 	}
 
-	public var buttonMode(getButtonMode, setButtonMode):Bool;
+	public var buttonMode(get_buttonMode, set_buttonMode):Bool;
 
-	public function setButtonMode( b:Bool ):Bool
+	public function set_buttonMode( b:Bool ):Bool
 	{
 #if flash
 		//todo new native flash api for cursors
@@ -419,7 +419,7 @@ class OComponent implements IOComponent
 		return b;
 	}
 
-	public function getButtonMode( ):Bool
+	public function get_buttonMode( ):Bool
 	{
 #if flash
 		return sprite.buttonMode;
@@ -479,17 +479,17 @@ return false;
 		stopTrackingTheme( );
 	}
 
-	public var visible(default, setVisible):Bool;
+	public var visible(default, set_visible):Bool;
 
-	public function setVisible( v:Bool ):Bool
+	public function set_visible( v:Bool ):Bool
 	{
 		sprite.visible = v;
 		return sprite.visible;
 	}
 
-	public var alpha(default, setAlpha):Float;
+	public var alpha(default, set_alpha):Float;
 
-	public function setAlpha( a:Float ):Float
+	public function set_alpha( a:Float ):Float
 	{
 		sprite.alpha = a;
 		return sprite.alpha;
@@ -501,9 +501,9 @@ return false;
 
 	public var compId(default, null):Int;
 
-	public var drawCount(default, setdrawCount):Int = 0;
+	public var drawCount(default, set_drawCount):Int = 0;
 
-	public function setdrawCount( value:Int ):Int
+	public function set_drawCount( value:Int ):Int
 	{
 		drawCount = value;
 //				OCore.log("ID:" + compId + " : " +this.styleId + " :DRAWCOUNT: " + drawCount);
@@ -514,7 +514,7 @@ return false;
 //                  Component Style
 //***********************************************************
 
-	public function getStyleId( ):String
+	public function get_styleId( ):String
 	{
 		return ComponentStyle.styleString;
 	}

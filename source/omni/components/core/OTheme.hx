@@ -12,37 +12,37 @@ import omni.components.style.OBaseStyle;
 class OTheme implements IDestroyable
 {
 
-	public function new()
+	public function new( )
 	{
 		_stylesHash = new Hash();
 	}
 
 	var _stylesHash:Hash<OBaseStyle>;
 
-	public var themeName(getThemeName, null):String;
+	public var themeName(get_themeName, null):String;
 
-	public function getThemeName():String
+	public function get_themeName( ):String
 	{
-		return Type.getClassName(Type.getClass(this));
+		return Type.getClassName( Type.getClass( this ) );
 	}
 
-	public function addStyle(style:Class<OBaseStyle>):Void
+	public function addStyle( style:Class<OBaseStyle> ):Void
 	{
-		var styleInstance:OBaseStyle = Type.createInstance(style, []);
-		_stylesHash.set(styleInstance.styleID, styleInstance);
+		var styleInstance:OBaseStyle = Type.createInstance( style, [] );
+		_stylesHash.set( styleInstance.styleID, styleInstance );
 	}
 
-	public function getStyle(styleID:String):OBaseStyle
+	public function getStyle( styleID:String ):OBaseStyle
 	{
-		var styleInstance:OBaseStyle = cast ( _stylesHash.get(styleID), OBaseStyle);
+		var styleInstance:OBaseStyle = cast ( _stylesHash.get( styleID ), OBaseStyle);
 		return styleInstance;
 	}
 
-	public function destroy():Void
+	public function destroy( ):Void
 	{
-		for(style in _stylesHash)
+		for( style in _stylesHash )
 		{
-			style.destroy();
+			style.destroy( );
 		}
 		_stylesHash = null;
 	}

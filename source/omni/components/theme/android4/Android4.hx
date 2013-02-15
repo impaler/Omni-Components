@@ -1,6 +1,6 @@
 package omni.components.theme.android4;
 
-import omni.components.theme.color.controls.ColorScrollBar;
+import omni.components.theme.color.controls.ColorScrollSlider;
 import omni.components.theme.color.controls.ColorSlider;
 import omni.components.theme.bloom.BloomScrollContainer;
 import omni.components.theme.bloom.BloomScrollBar;
@@ -22,7 +22,7 @@ class Android4 extends OTheme
 		addStyle( Android4ButtonBase );
 		addStyle( BloomLayout );
 		addStyle( ColorSlider );
-		addStyle( ColorScrollBar );
+		addStyle( ColorScrollSlider );
 		addStyle( Android4ScrollContainer );
 
 //		76px squares

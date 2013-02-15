@@ -19,13 +19,13 @@ class NumericStepper extends OComponent
 {
 	public var step:Int;
 
-	public var value(getValue, setValue):Int;
+	public var value(get_value, set_value):Int;
 	public var _value:Int;
 
-	public var max(getMax, setMax):Int;
+	public var max(get_max, set_max):Int;
 	public var _max:Int;
 
-	public var min(getMin, setMin):Int;
+	public var min(get_min, set_min):Int;
 	public var _min:Int;
 
 	private var _increasing:Bool;
@@ -157,12 +157,12 @@ class NumericStepper extends OComponent
 		_textBase.text = Std.string( _value );
 	}
 
-	public function getValue( ):Int
+	public function get_value( ):Int
 	{
 		return _value;
 	}
 
-	public function setValue( value:Int ):Int
+	public function set_value( value:Int ):Int
 	{
 		if( _value != value )
 		{
@@ -174,7 +174,7 @@ class NumericStepper extends OComponent
 		return _value;
 	}
 
-	public function setMax( value:Int ):Int
+	public function set_max( value:Int ):Int
 	{
 		if( _max != value )
 		{
@@ -185,12 +185,12 @@ class NumericStepper extends OComponent
 		return _max;
 	}
 
-	public function getMax( ):Int
+	public function get_max( ):Int
 	{
 		return _max;
 	}
 
-	public function setMin( value:Int ):Int
+	public function set_min( value:Int ):Int
 	{
 		if( _min != value )
 		{
@@ -201,12 +201,12 @@ class NumericStepper extends OComponent
 		return _min;
 	}
 
-	public function getMin( ):Int
+	public function get_min( ):Int
 	{
 		return _min;
 	}
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return NumericStepperStyle.styleString;
 	}

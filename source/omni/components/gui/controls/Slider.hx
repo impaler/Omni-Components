@@ -29,17 +29,18 @@ class Slider extends OComponent
 
 	public var button:OButtonBase;
 
-	public var value(getValue, setValue):Int;
+	public var value(get_value, set_value):Int;
 	public var _value:Int = 30;
+
 	public var tempValue:Int;
 
-	public var type(getType, setType):Int;
+	public var type(get_type, set_type):Int;
 	public var _type:Int = 0;
 
-	public var max(getMax, setMax):Float;
+	public var max(get_max, set_max):Float;
 	public var _max:Float = 100;
 
-	public var min(getMin, setMin):Float;
+	public var min(get_min, set_min):Float;
 	public var _min:Float = 0;
 
 	private var _rect:Rectangle;
@@ -273,12 +274,12 @@ class Slider extends OComponent
 		return _mouseWheelTarget;
 	}
 
-	private function getMax( ):Float
+	private function get_max( ):Float
 	{
 		return _max;
 	}
 
-	private function setMax( value:Float ):Float
+	private function set_max( value:Float ):Float
 	{
 		if( _max != value )
 		{
@@ -288,12 +289,12 @@ class Slider extends OComponent
 		return value;
 	}
 
-	private function getMin( ):Float
+	private function get_min( ):Float
 	{
 		return _min;
 	}
 
-	private function setMin( value:Float ):Float
+	private function set_min( value:Float ):Float
 	{
 		if( _min != value )
 		{
@@ -302,12 +303,12 @@ class Slider extends OComponent
 		} return value;
 	}
 
-	public function getValue( ):Int
+	public function get_value( ):Int
 	{
 		return _value;
 	}
 
-	public function setValue( value:Int ):Int
+	public function set_value( value:Int ):Int
 	{
 		value = clamp( value );
 
@@ -321,12 +322,24 @@ class Slider extends OComponent
 		return value;
 	}
 
-	public function getType( ):Int
+	public function set_Value( value:Int ):Int
+	{
+		value = clamp( value );
+
+		if( _value != value )
+		{
+			_value = value;
+			invalidate( );
+		}
+		return value;
+	}
+
+	public function get_type( ):Int
 	{
 		return _type;
 	}
 
-	public function setType( value:Int ):Int
+	public function set_type( value:Int ):Int
 	{
 		if( _type != value )
 		{
@@ -361,7 +374,7 @@ class Slider extends OComponent
 //                  Component Style
 //***********************************************************
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return SliderBaseStyle.styleString;
 	}

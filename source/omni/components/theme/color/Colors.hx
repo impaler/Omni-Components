@@ -22,4 +22,6 @@ class Colors
 	static public var STEPPER_BUTTON_OVER:Int = ColorUtils.LIGHT_ORANGE;
 	static public var STEPPER_BUTTON_DOWN:Int = ColorUtils.DARKER_ORANGE;
 
+	static public var LABEL_TEXT:Int = ColorUtils.GRAY;
+
 }

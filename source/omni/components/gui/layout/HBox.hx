@@ -6,7 +6,7 @@ import omni.components.core.OLayout.OLayoutStyle;
 
 class HBox extends OLayout
 {
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return HBoxStyle.styleString;
 	}

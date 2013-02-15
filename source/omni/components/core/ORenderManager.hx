@@ -23,9 +23,9 @@ class ORenderManager
 	public var rendering:Bool;
 	private var renderList:Array<IOComponent>;
 
-	public static var instance(getInstance, null):ORenderManager;
+	public static var instance(get_instance, null):ORenderManager;
 
-	private static function getInstance( ):ORenderManager
+	private static function get_instance( ):ORenderManager
 	{
 		if( instance == null )
 		{

@@ -18,23 +18,23 @@ class OBaseStyle implements IStyle
 	public var defaultPadding:Float;
 	public var defaultState:String;
 
-	public var styleID(getStyleID, setStyleID):String;
+	public var styleID(get_styleId, setStyleID):String;
 
 	public static var STATE_ACTIVE:String = "Active";
 	public static var STATE_DISABLED:String = "Disabled";
 
-	public function getStyleID():String
+	public function get_styleId( ):String
 	{
 		return styleID;
 	}
 
-	public function setStyleID(value:String):String
+	public function setStyleID( value:String ):String
 	{
 		this.styleID = value;
 		return this.styleID;
 	}
 
-	public function new()
+	public function new( )
 	{
 		defaultWidth = 100;
 		defaultHeight = 100;
@@ -46,33 +46,33 @@ class OBaseStyle implements IStyle
 		defaultState = OBaseStyle.STATE_ACTIVE;
 	}
 
-	public function initStyle(value:IOComponent):Void
+	public function initStyle( value:IOComponent ):Void
 	{
-		if(value._width == 0)
+		if( value._width == 0 )
 			value._width = defaultWidth;
 
-		if(value._height == 0)
+		if( value._height == 0 )
 			value._height = defaultHeight;
 
-		if(value._state == null)
+		if( value._state == null )
 			value._state = defaultState;
 
-		if(value._padding == 0)
+		if( value._padding == 0 )
 			value._padding = defaultPadding;
 	}
 
-	public function update(value:IOComponent):Void
+	public function update( value:IOComponent ):Void
 	{
 	}
 
-	public function destroy():Void
+	public function destroy( ):Void
 	{
 
 	}
 
-	public function setMinSizeBitmap(path:String):Void
+	public function setMinSizeBitmap( path:String ):Void
 	{
-		var bitmap = Assets.getBitmapData(path);
+		var bitmap = Assets.getBitmapData( path );
 		minWidth = bitmap.width;
 		minHeight = bitmap.height;
 	}

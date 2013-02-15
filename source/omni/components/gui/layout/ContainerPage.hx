@@ -10,7 +10,7 @@ class ContainerPage extends OComponent
 	public var onClosed:OSignalType<ContainerPage -> Void>;
 	public var onOpened:OSignalType<ContainerPage -> Void>;
 
-	public var pageName(getPageName, setPageName):String;
+	public var pageName(get_pageName, set_pageName):String;
 	public var _pageName:String;
 
 	public var container:TabbedContainer;
@@ -41,7 +41,7 @@ class ContainerPage extends OComponent
 		onClosed.dispatch( this );
 	}
 
-	public function getPageName( ):String
+	public function get_pageName( ):String
 	{
 		if( _pageName == null )
 		{
@@ -51,7 +51,7 @@ class ContainerPage extends OComponent
 		return _pageName;
 	}
 
-	public function setPageName( value:String ):String
+	public function set_pageName( value:String ):String
 	{
 		if( _pageName == null )
 		{
@@ -64,7 +64,7 @@ class ContainerPage extends OComponent
 //                  Component Style
 //***********************************************************
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return ContainerPageStyle.styleString;
 	}

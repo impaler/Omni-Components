@@ -1,54 +1,54 @@
 package omni.components.gui.layout;
 
+import omni.components.core.OLayout;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OComponent;
 import omni.components.style.OBackgroundStyle;
 
 import nme.display.Sprite;
 
-class StretchLayout extends Layout
+class StretchLayout extends OLayout
 {
 
-	override public function add(comp:IOComponent):Void
+	override public function add( comp:IOComponent ):Void
 	{
-		super.add(comp);
-		invalidate();
+		super.add( comp );
+		invalidate( );
 	}
 
-	override public function getHeight():Float
+	override public function getHeight( ):Float
 	{
-		
 		return _height;
 	}
 
-	override public function getWidth():Float
+	override public function getWidth( ):Float
 	{
 		return _width;
 	}
 
-	override public function draw():Void
+	override public function draw( ):Void
 	{
 
-		for(i in 0...components.length)
+		for( i in 0...components.length )
 		{
 			var current = cast (components[i], IOComponent);
-			
+
 //			current._width = current.widthPercent / components.length / _width
 
 		}
 
-		super.draw();
+		super.draw( );
 	}
 
-	public function setDirection(value:Int):Int
+	public function setDirection( value:Int ):Int
 	{
 		_direction = value;
-		invalidate();
+		invalidate( );
 
 		return _direction;
 	}
 
-	override public function getStyleId():String
+	override public function get_styleId( ):String
 	{
 		return StretchLayoutStyle.styleString;
 	}
@@ -57,14 +57,14 @@ class StretchLayout extends Layout
 /**
 * StretchLayoutStyle
 */
-class StretchLayoutStyle extends LayoutStyle
+class StretchLayoutStyle extends OLayoutStyle
 {
 
 	public static var styleString:String = "StretchLayoutStyle";
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 		styleID = styleString;
 	}
 }

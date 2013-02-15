@@ -2,7 +2,7 @@ package omni.components.theme.android4;
 
 import omni.components.theme.color.Colors;
 import omni.components.core.OLayout;
-import omni.components.theme.color.controls.ColorScrollBar;
+import omni.components.theme.color.controls.ColorScrollSlider;
 import omni.components.theme.bloom.BloomScrollBar;
 import omni.components.theme.color.Color;
 import omni.components.style.OBaseStyle;
@@ -18,8 +18,8 @@ class Android4ScrollContainer extends ScrollContainerStyle
 	{
 		super( );
 
-		hScrollStyle = new ColorScrollBar();
-		vScrollStyle = new ColorScrollBar();
+		hScrollStyle = new ColorScrollSlider();
+		vScrollStyle = new ColorScrollSlider();
 
 		var bgColor = new BrushColorFill ();
 		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );

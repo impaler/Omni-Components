@@ -14,7 +14,7 @@ class Button extends OButtonBase
 
 	public var label:Label;
 
-	public var labelText(getLabelText, setLabelText):String;
+	public var labelText(get_labelText, set_labelText):String;
 	public var _labelText:String = "";
 
 	public var icon:Icon;
@@ -35,7 +35,7 @@ class Button extends OButtonBase
 
 	}
 
-	public function setLabelText( value:String ):String
+	public function set_labelText( value:String ):String
 	{
 		if( _labelText != value )
 		{
@@ -45,7 +45,7 @@ class Button extends OButtonBase
 		return _labelText;
 	}
 
-	public function getLabelText( ):String
+	public function get_labelText( ):String
 	{
 		return _labelText;
 	}
@@ -85,7 +85,7 @@ class Button extends OButtonBase
 		return cast(_style, ButtonStyle);
 	}
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return ButtonStyle.styleString;
 	}

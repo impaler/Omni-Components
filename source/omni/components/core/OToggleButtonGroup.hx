@@ -97,21 +97,21 @@ class OToggleButtonGroup extends OComponent
 //                  Properties
 //***********************************************************
 
-	override public function getHeight( ):Float
+	override public function get_height( ):Float
 	{
-		return layout.getHeight( );
+		return layout.get_height( );
 	}
 
-	override public function getWidth( ):Float
+	override public function get_width( ):Float
 	{
-		return layout.getWidth( );
+		return layout.get_width( );
 	}
 
 //***********************************************************
 //                  Component Style
 //***********************************************************
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return OToggleButtonGroupStyle.styleString;
 	}

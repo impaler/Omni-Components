@@ -23,6 +23,8 @@ class Orange extends Color
 		Colors.STEPPER_BUTTON_ACTIVE = ColorUtils.HALO_ORANGE;
 		Colors.STEPPER_BUTTON_OVER = ColorUtils.LIGHT_GRAY;
 		Colors.STEPPER_BUTTON_DOWN = ColorUtils.DARKER_ORANGE;
+
+		Colors.LABEL_TEXT = ColorUtils.HALO_ORANGE;
 	}
 
 }

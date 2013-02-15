@@ -1,5 +1,6 @@
 package omni.components.theme.color;
 
+import omni.components.theme.color.controls.ColorScrollBar;
 import omni.components.core.OTheme;
 import omni.components.theme.color.text.ColorLabel;
 import omni.components.theme.color.text.ColorInputField;
@@ -20,7 +21,7 @@ import omni.components.theme.color.layout.ColorContainerPage;
 import omni.components.theme.color.layout.ColorLayout;
 import omni.components.theme.color.controls.ColorTabButton;
 import omni.components.theme.color.controls.ColorSlider;
-import omni.components.theme.color.controls.ColorScrollBar;
+import omni.components.theme.color.controls.ColorScrollSlider;
 import omni.components.theme.color.controls.ColorRadioButton;
 import omni.components.theme.color.controls.ColorNumericStepper;
 import omni.components.theme.color.controls.ColorCheckBox;
@@ -56,6 +57,7 @@ class Color extends OTheme
 		addStyle( ColorOToggleButtonGroup );
 
 		addStyle( ColorSlider );
+		addStyle( ColorScrollSlider );
 		addStyle( ColorScrollBar );
 		addStyle( ColorScrollBarButton );
 		addStyle( ColorScrollContainer );

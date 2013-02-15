@@ -30,7 +30,7 @@ class ColorTextBase extends TextBaseStyle
 		restrict = "0-9.\\-";
 		fontSize = 50;
 		type = TextFieldType.DYNAMIC;
-		fontColor = ColorUtils.ORANGE_BRIGHT;
+		fontColor = Colors.LABEL_TEXT;
 		defaultText = "Orange Text";
 
 	}

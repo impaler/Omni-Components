@@ -20,32 +20,32 @@ interface IOComponent implements IDestroyable
 /**
 * The base display object of the component
 **/
-	public var sprite(getSprite, null):Sprite;
-	private function getSprite( ):Sprite;
+	public var sprite(get_sprite, null):Sprite;
+	private function get_sprite( ):Sprite;
 
 /**
 * The string that describes the current component state
 * Eg Disabled, Enabled etc
 **/
-	public var state(getState, setState):String;
+	public var state(get_state, set_state):String;
 	public var _state:String;
-	private function setState( value:String ):String;
-	private function getState( ):String;
+	private function set_state( value:String ):String;
+	private function get_state( ):String;
 
 /**
 * The components style object required by all components to draw
 **/
-	public var style(getStyle, setStyle):IStyle;
+	public var style(get_style, set_style):IStyle;
 	private var _style:IStyle;
-	private function setStyle( value:IStyle ):IStyle;
-	private function getStyle( ):IStyle;
+	private function set_style( value:IStyle ):IStyle;
+	private function get_style( ):IStyle;
 	public function setStyleClass( value:Class<IStyle> ):IStyle;
 
 /**
 * The components styleID used to get the appropriate IStyle
 **/
-	public var styleId(getStyleId, null):String;
-	public function getStyleId( ):String;
+	public var styleId(get_styleId, null):String;
+	public function get_styleId( ):String;
 
 /**
 * The place where a component style is initiated
@@ -80,8 +80,8 @@ interface IOComponent implements IDestroyable
 /**
 * Track the Theme changes or not
 **/
-	public var trackTheme(default, setTrackTheme):Bool;
-	public function setTrackTheme (value:Bool):Bool;
+	public var trackTheme(default, set_trackTheme):Bool;
+	public function set_trackTheme (value:Bool):Bool;
 
 /**
 * Let the component change theme based on the core default changes
@@ -138,16 +138,16 @@ interface IOComponent implements IDestroyable
 /**
 * The base x dimension of a component
 **/
-	public var x(getX, setX):Float;
-	private function setX( value:Float ):Float;
-	private function getX( ):Float;
+	public var x(get_x, set_x):Float;
+	private function set_x( value:Float ):Float;
+	private function get_x( ):Float;
 
 /**
 * The base y dimension of a component
 **/
-	public var y(getY, setY):Float;
-	private function setY( value:Float ):Float;
-	private function getY( ):Float;
+	public var y(get_y, set_y):Float;
+	private function set_y( value:Float ):Float;
+	private function get_y( ):Float;
 
 /**
 * Move the component
@@ -157,28 +157,28 @@ interface IOComponent implements IDestroyable
 /**
 * The base height dimension of a component
 **/
-	public var height(getHeight, setHeight):Float;
-	private function setHeight( value:Float ):Float;
-	private function getHeight( ):Float;
+	public var height(get_height, set_height):Float;
+	private function set_height( value:Float ):Float;
+	private function get_height( ):Float;
 
 /**
 * The base height dimension without invalidation
 **/
-	public var _height(default, set_Height):Float;
-	private function set_Height( value:Float ):Float;
+	public var _height(default, set__height):Float;
+	private function set__height( value:Float ):Float;
 
 /**
 * The base width dimension of a component
 **/
-	public var width(getWidth, setWidth):Float;
-	private function setWidth( value:Float ):Float;
-	private function getWidth( ):Float;
+	public var width(get_width, set_width):Float;
+	private function set_width( value:Float ):Float;
+	private function get_width( ):Float;
 
 /**
 * The base width dimension without invalidation
 **/
-	public var _width(default, set_Width):Float;
-	private function set_Width( value:Float ):Float;
+	public var _width(default, set__width):Float;
+	private function set__width( value:Float ):Float;
 
 /**
 * Resize the component
@@ -193,15 +193,15 @@ interface IOComponent implements IDestroyable
 /**
 * Basic padding value for simple layouts
 **/
-	public var padding(getPadding, setPadding):Float;
-	private function setPadding( value:Float ):Float;
-	private function getPadding( ):Float;
+	public var padding(get_padding, set_padding):Float;
+	private function set_padding( value:Float ):Float;
+	private function get_padding( ):Float;
 
 /**
 * Basic padding value without invalidation
 **/
-	public var _padding(default, set_Padding):Float;
-	private function set_Padding( value:Float ):Float;
+	public var _padding(default, set__padding):Float;
+	private function set__padding( value:Float ):Float;
 
 //***********************************************************
 //                  Debug

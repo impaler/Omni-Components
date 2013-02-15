@@ -21,48 +21,48 @@ class OTextBase extends OComponent
 
 	public var textField(default, null):TextField;
 
-	public var format(getFormat, setFormat):TextFormat;
+	public var format(get_format, set_format):TextFormat;
 	public var _format:TextFormat;
 
-	public var text(getText, setText):String;
+	public var text(get_text, set_text):String;
 	public var _text:String;
 
-	public var fontName(getFontName, setFontName):String;
+	public var fontName(get_fontName, set_fontName):String;
 	public var _fontName:String;
 
-	public var fontSize(getFontSize, setFontSize):Int;
+	public var fontSize(get_fontSize, set_fontSize):Int;
 	public var _fontSize:Int;
 
-	public var selectable(getSelectable, setSelectable):Bool;
+	public var selectable(get_selectable, set_selectable):Bool;
 	public var _selectable:Bool;
 
-	public var multiline(getMultiline, setMultiline):Bool;
+	public var multiline(get_multiline, set_multiline):Bool;
 	public var _multiline:Bool;
 
-	public var wordWrap(getWordWrap, setWordWrap):Bool;
+	public var wordWrap(get_wordWrap, set_wordWrap):Bool;
 	public var _wordWrap:Bool;
 
 #if ( flash || js )
-	public var restrict(getRestrict, setRestrict):String;
+	public var restrict(get_restrict, set_restrict):String;
 	public var _restrict:String;
 #end
 
-	public var type(getType, setType):String;
+	public var type(get_type, set_type):String;
 	public var _type:String;
 
-	public var align(getAlign, setAlign):String;
+	public var align(get_align, set_align):String;
 	public var _align:String;
 
-	public var fontColor(getFontColor, setFontColor):Int;
+	public var fontColor(get_fontColor, set_fontColor):Int;
 	public var _fontColor:Int;
 
-	public var fontBold(getFontBold, setFontBold):Bool;
+	public var fontBold(get_fontBold, set_fontBold):Bool;
 	public var _fontBold:Bool;
 
-	public var fontItalic(getFontItalic, setFontItalic):Bool;
+	public var fontItalic(get_fontItalic, set_fontItalic):Bool;
 	public var _fontItalic:Bool;
 
-	public var fontUnderline(getFontUnderline, setFontUnderline):Bool;
+	public var fontUnderline(get_fontUnderline, set_fontUnderline):Bool;
 	public var _fontUnderline:Bool;
 
 	override public function destroy( ):Void
@@ -126,17 +126,17 @@ class OTextBase extends OComponent
 //                  Properties
 //***********************************************************
 
-	override public function getWidth( ):Float
+	override public function get_width( ):Float
 	{
 		return textField.width;
 	}
 
-	override public function getHeight( ):Float
+	override public function get_height( ):Float
 	{
 		return textField.height;
 	}
 
-	public function setFontName( value:String ):String
+	public function set_fontName( value:String ):String
 	{
 		if( value != _fontName )
 		{
@@ -150,12 +150,12 @@ class OTextBase extends OComponent
 		}
 	}
 
-	public function getFontName( ):String
+	public function get_fontName( ):String
 	{
 		return _fontName;
 	}
 
-	public function setText( value:String ):String
+	public function set_text( value:String ):String
 	{
 		if( _text != value )
 		{
@@ -166,12 +166,12 @@ class OTextBase extends OComponent
 		return _text;
 	}
 
-	public function getText( ):String
+	public function get_text( ):String
 	{
 		return _text;
 	}
 
-	public function setFormat( value:TextFormat ):TextFormat
+	public function set_format( value:TextFormat ):TextFormat
 	{
 		_format = value;
 		updateTextFormat( );
@@ -179,12 +179,12 @@ class OTextBase extends OComponent
 		return _format;
 	}
 
-	public function getFormat( ):TextFormat
+	public function get_format( ):TextFormat
 	{
 		return _format;
 	}
 
-	public function setFontSize( value:Int ):Int
+	public function set_fontSize( value:Int ):Int
 	{
 		_fontSize = value;
 		updateTextFormat( );
@@ -192,12 +192,12 @@ class OTextBase extends OComponent
 		return _fontSize;
 	}
 
-	public function getFontSize( ):Int
+	public function get_fontSize( ):Int
 	{
 		return _fontSize;
 	}
 
-	public function setType( value:String ):String
+	public function set_type( value:String ):String
 	{
 //todo
 		_type = value;
@@ -206,12 +206,12 @@ class OTextBase extends OComponent
 		return _type;
 	}
 
-	public function getType( ):String
+	public function get_type( ):String
 	{
 		return _type;
 	}
 
-	public function setAlign( value:String ):String
+	public function set_align( value:String ):String
 	{
 //todo
 		_align = value;
@@ -220,7 +220,7 @@ class OTextBase extends OComponent
 		return _align;
 	}
 
-	public function getAlign( ):String
+	public function get_align( ):String
 	{
 		return _align;
 	}
@@ -239,7 +239,7 @@ class OTextBase extends OComponent
 //		return _autoSize;
 //	}
 
-	public function setFontColor( value:Int ):Int
+	public function set_fontColor( value:Int ):Int
 	{
 //todo
 		_fontColor = value;
@@ -248,12 +248,12 @@ class OTextBase extends OComponent
 		return _fontColor;
 	}
 
-	public function getFontColor( ):Int
+	public function get_fontColor( ):Int
 	{
 		return _fontColor;
 	}
 
-	public function setSelectable( value:Bool )
+	public function set_selectable( value:Bool )
 	{
 		if( _selectable != value )
 		{
@@ -266,12 +266,12 @@ class OTextBase extends OComponent
 		return _selectable;
 	}
 
-	public function getSelectable( ):Bool
+	public function get_selectable( ):Bool
 	{
 		return _selectable;
 	}
 
-	public function setMultiline( value:Bool )
+	public function set_multiline( value:Bool )
 	{
 		if( _multiline != value )
 		{
@@ -284,12 +284,12 @@ class OTextBase extends OComponent
 		return _multiline;
 	}
 
-	public function getMultiline( ):Bool
+	public function get_multiline( ):Bool
 	{
 		return _multiline;
 	}
 
-	public function setWordWrap( value:Bool )
+	public function set_wordWrap( value:Bool )
 	{
 		if( _wordWrap != value )
 		{
@@ -302,7 +302,7 @@ class OTextBase extends OComponent
 		return _wordWrap;
 	}
 
-	public function getWordWrap( ):Bool
+	public function get_wordWrap( ):Bool
 	{
 		return _wordWrap;
 	}
@@ -312,7 +312,9 @@ class OTextBase extends OComponent
 
 	
 
-	public function setRestrict( value:String )
+	
+
+	public function set_restrict( value:String )
 	{
 		if( _restrict != value )
 		{
@@ -325,18 +327,18 @@ class OTextBase extends OComponent
 		return _restrict;
 	}
 
-	public function getRestrict( ):String
+	public function get_restrict( ):String
 	{
 		return _restrict;
 	}
 #end
 
-	public function getFontBold( ):Bool
+	public function get_fontBold( ):Bool
 	{
 		return _fontBold;
 	}
 
-	public function setFontBold( value:Bool ):Bool
+	public function set_fontBold( value:Bool ):Bool
 	{
 		if( _fontBold != value )
 		{
@@ -346,12 +348,12 @@ class OTextBase extends OComponent
 		return _fontBold;
 	}
 
-	public function getFontItalic( ):Bool
+	public function get_fontItalic( ):Bool
 	{
 		return _fontItalic;
 	}
 
-	public function setFontItalic( value:Bool ):Bool
+	public function set_fontItalic( value:Bool ):Bool
 	{
 		if( _fontItalic != value )
 		{
@@ -361,12 +363,12 @@ class OTextBase extends OComponent
 		return _fontBold;
 	}
 
-	public function getFontUnderline( ):Bool
+	public function get_fontUnderline( ):Bool
 	{
 		return _fontUnderline;
 	}
 
-	public function setFontUnderline( value:Bool ):Bool
+	public function set_fontUnderline( value:Bool ):Bool
 	{
 		if( _fontUnderline != value )
 		{
@@ -380,7 +382,7 @@ class OTextBase extends OComponent
 //                  Component Style
 //***********************************************************
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return TextBaseStyle.styleString;
 	}

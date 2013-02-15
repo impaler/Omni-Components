@@ -1,11 +1,12 @@
 package omni.components.gui.layout;
 
+import omni.components.gui.controls.ScrollBar;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.signals.OCoreEvent;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.core.OCore;
-import omni.components.gui.controls.ScrollBar;
+import omni.components.gui.controls.ScrollSlider;
 import omni.components.core.OLayout;
 import omni.utils.Tween;
 import omni.utils.ComponentUtils;
@@ -23,8 +24,12 @@ class ScrollContainer extends OLayout
 	private var h_scrollBar_enabled:Bool = true;
 	private var v_scrollBar_enabled:Bool = true;
 
-	private var h_scrollBar:ScrollBar;
-	private var v_scrollBar:ScrollBar;
+	public var hScrollBar:ScrollBar;
+	public var vScrollBar:ScrollBar;
+
+//	private var h_scrollBar:ScrollSlider;
+//	private var v_scrollBar:ScrollSlider;
+
 	public var contentComponent:IOComponent;
 
 	private var _rect:Rectangle;
@@ -92,14 +97,18 @@ class ScrollContainer extends OLayout
 
 		var thisStyle = cast(_style, ScrollContainerStyle);
 
-		h_scrollBar = new ScrollBar( thisStyle.hScrollStyle );
-		h_scrollBar.type = OLayout.HORIZONTALLY;
+//		h_scrollBar = new ScrollBar( thisStyle.hScrollStyle );
+		hScrollBar = new ScrollBar();
+//		h_scrollBar = hScrollBar.scrollSlider;
+		hScrollBar.type = OLayout.HORIZONTALLY;
 //todo in style
-		h_scrollBar.step = _scrollStep;
+		hScrollBar.sliderStep = _scrollStep;
 
-		v_scrollBar = new ScrollBar( thisStyle.vScrollStyle );
-		v_scrollBar.type = OLayout.VERTICALLY;
-		v_scrollBar.step = _scrollStep;
+//		v_scrollBar = new ScrollSlider( thisStyle.vScrollStyle );
+		vScrollBar = new ScrollBar();
+//		v_scrollBar = vScrollBar.scrollSlider;
+		vScrollBar.type = OLayout.VERTICALLY;
+		vScrollBar.sliderStep = _scrollStep;
 
 		mouseUp = new OSignalMouse(OSignalMouse.UP, nme.Lib.stage);
 
@@ -107,11 +116,12 @@ class ScrollContainer extends OLayout
 
 	override public function enableSignals( ):Void
 	{
-		h_scrollBar.onChange.add( handleHScrollBarMove );
-		v_scrollBar.onChange.add( handleVScrollBarMove );
+		hScrollBar.onChange.add( handleHScrollBarMove );
+		vScrollBar.onChange.add( handleVScrollBarMove );
 
-		h_scrollBar.button.mouseDown.add( handleHScrollBarDown );
-		v_scrollBar.button.mouseDown.add( handleVScrollBarDown );
+//todo
+		hScrollBar.scrollSlider.button.mouseDown.add( handleHScrollBarDown );
+		vScrollBar.scrollSlider.button.mouseDown.add( handleVScrollBarDown );
 
 		mouseUp.add( handleRelease );
 
@@ -122,10 +132,12 @@ class ScrollContainer extends OLayout
 
 	override public function disableSignals( ):Void
 	{
-		h_scrollBar.onChange.remove( handleHScrollBarMove );
-		v_scrollBar.onChange.remove( handleVScrollBarMove );
+		hScrollBar.onChange.remove( handleHScrollBarMove );
+		vScrollBar.onChange.remove( handleVScrollBarMove );
 
 		mouseUp.remove( handleRelease );
+
+//todo slider buttons
 
 //		disableTween();
 	}
@@ -254,7 +266,7 @@ class ScrollContainer extends OLayout
 //			 
 //		}
 
-		v_scrollBar.value -= e.delta > 0 ? v_scrollBar.step : - v_scrollBar.step;
+		vScrollBar.value -= e.delta > 0 ? vScrollBar.sliderStep : - vScrollBar.sliderStep;
 
 		if( OCore.instance.updateAfterEvent )
 			e.updateAfterEvent( );
@@ -344,20 +356,33 @@ class ScrollContainer extends OLayout
 						contentComponent.y = nme.Lib.stage.mouseY - _yOffset;
 
 				}
-				else if(
-				_xTouchOffset - nme.Lib.stage.mouseX > touchTolerance
-				|| _xTouchOffset - nme.Lib.stage.mouseX < - touchTolerance
-				|| _yTouchOffset - nme.Lib.stage.mouseY > touchTolerance
-				|| _yTouchOffset - nme.Lib.stage.mouseY < - touchTolerance )
+				else
+//				if( _ySpeed < 2 && _ySpeed < 2 )
 				{
-
-					_draggingInit = true;
-					target.mouseChildren = false;
+					if(
+					_xTouchOffset - nme.Lib.stage.mouseX > touchTolerance
+					|| _xTouchOffset - nme.Lib.stage.mouseX < - touchTolerance
+					|| _yTouchOffset - nme.Lib.stage.mouseY > touchTolerance
+					|| _yTouchOffset - nme.Lib.stage.mouseY < - touchTolerance )
+					{
+						_draggingInit = true;
+						target.mouseChildren = false;
 //					disableChildComponentEvents( );
+					}
 
 				}
+//				else
+//				{
+//					_draggingInit = true;
+//					target.mouseChildren = false;
+////					disableChildComponentEvents( );
+//				}
 
 			}
+
+//			nme.Lib.trace(_ySpeed + " - " +_ySpeed);
+//			nme.Lib.trace(Std.int(Math.abs(_ySpeed*1000)) + " - " + Std.int(Math.abs(_ySpeed*1000)));
+
 			updateScrollBarsFromChange( );
 		}
 	}
@@ -382,7 +407,7 @@ class ScrollContainer extends OLayout
 
 		if( v_scrollBar_enabled )
 		{
-			contentComponent.y = - v_scrollBar.value;
+			contentComponent.y = - vScrollBar.value;
 		}
 
 		checkXPosition( false );
@@ -395,7 +420,7 @@ class ScrollContainer extends OLayout
 
 		if( h_scrollBar_enabled )
 		{
-			contentComponent.x = - h_scrollBar.value;
+			contentComponent.x = - hScrollBar.value;
 		}
 
 		checkYPosition( false );
@@ -413,8 +438,9 @@ class ScrollContainer extends OLayout
 //todo shouldnt need this as _value clamp should take care in scrollbar???
 			if( _scrollY < 0 ) _scrollY = 0;
 
-			v_scrollBar._value = Std.int( _scrollY );
-			v_scrollBar.refreshButton( );
+			vScrollBar._value = Std.int( _scrollY );
+//todo
+			vScrollBar.scrollSlider.refreshButton( );
 		}
 
 		if( h_scrollBar_enabled )
@@ -423,8 +449,9 @@ class ScrollContainer extends OLayout
 			_scrollX = - contentComponent.x;
 			if( _scrollX < 0 ) _scrollX = 0;
 
-			h_scrollBar._value = Std.int( _scrollX );
-			h_scrollBar.refreshButton( );
+			hScrollBar._value = Std.int( _scrollX );
+//todo
+			hScrollBar.scrollSlider.refreshButton( );
 		}
 
 		checkXPosition( false );
@@ -440,6 +467,8 @@ class ScrollContainer extends OLayout
 
 	private inline function limitSpeed( ):Void
 	{
+		_speedLimit = 4;
+
 //if the content is out of bounds limit it's speed
 		if( ! isValidY( ) )
 		{
@@ -531,8 +560,9 @@ class ScrollContainer extends OLayout
 //todo shouldnt need this as _value clamp should take care in scrollbar???
 			if( _scrollY < 0 ) _scrollY = 0;
 
-			v_scrollBar._value = Std.int( _scrollY );
-			v_scrollBar.refreshButton( );
+			vScrollBar._value = Std.int( _scrollY );
+//todo
+			vScrollBar.refreshButton( );
 		}
 
 		if( h_scrollBar_enabled )
@@ -540,8 +570,9 @@ class ScrollContainer extends OLayout
 			_scrollX = - contentComponent.x;
 			if( _scrollX < 0 ) _scrollX = 0;
 
-			h_scrollBar._value = Std.int( _scrollX );
-			h_scrollBar.refreshButton( );
+			hScrollBar._value = Std.int( _scrollX );
+//todo null
+			hScrollBar.refreshButton( );
 		}
 	}
 
@@ -569,7 +600,7 @@ class ScrollContainer extends OLayout
 		if( contentComponent.y < ylimit )
 		{
 			isValid = false;
-			v_scrollBar.barNeeded ? _yPos = ylimit : _yPos = 0;
+			vScrollBar.barNeeded ? _yPos = ylimit : _yPos = 0;
 		}
 
 		return isValid;
@@ -599,12 +630,12 @@ class ScrollContainer extends OLayout
 		if( contentComponent.x < xlimit )
 		{
 			isValid = false;
-			h_scrollBar.barNeeded ? _xPos = xlimit : _xPos = 0;
+			hScrollBar.barNeeded ? _xPos = xlimit : _xPos = 0;
 		}
 		return isValid;
 	}
 
-	override public function setDirection( value:Int ):Int
+	override public function set_direction( value:Int ):Int
 	{
 		_direction = value;
 
@@ -626,8 +657,8 @@ class ScrollContainer extends OLayout
 
 	public function updateScrollBars( ):Void
 	{
-		h_scrollBar.move( 0, _height - _scrollButtonSize );
-		v_scrollBar.move( _width - _scrollButtonSize, 0 );
+		hScrollBar.move( 0, _height - _scrollButtonSize );
+		vScrollBar.move( _width - _scrollButtonSize, 0 );
 
 		updateContentSize( );
 
@@ -636,58 +667,58 @@ class ScrollContainer extends OLayout
 			if( v_scrollBar_enabled )
 			{
 				_rect.width = _width - _scrollButtonSize;
-				h_scrollBar.pageSize = Std.int( _rect.width );
+				hScrollBar.pageSize = Std.int( _rect.width );
 				_rect.height = _height - _scrollButtonSize;
-				v_scrollBar.pageSize = Std.int( _rect.height );
+				vScrollBar.pageSize = Std.int( _rect.height );
 
-				h_scrollBar._size( _width - _scrollButtonSize, _scrollButtonSize );
-				v_scrollBar._size( _scrollButtonSize, _height - _scrollButtonSize );
+				hScrollBar._size( _width - _scrollButtonSize, _scrollButtonSize );
+				vScrollBar._size( _scrollButtonSize, _height - _scrollButtonSize );
 
-				if( ! v_scrollBar.barNeeded )
+				if( ! vScrollBar.barNeeded )
 				{
-					if( v_scrollBar.sprite.parent != null ) sprite.removeChild( v_scrollBar.sprite );
+					if( vScrollBar.sprite.parent != null ) sprite.removeChild( vScrollBar.sprite );
 					_rect.width = _width;
-					h_scrollBar.pageSize = Std.int( _rect.width );
-					h_scrollBar._size( _width, _scrollButtonSize );
+					hScrollBar.pageSize = Std.int( _rect.width );
+					hScrollBar._size( _width, _scrollButtonSize );
 				}
 				else
 				{
-					if( v_scrollBar.sprite.parent == null ) sprite.addChild( v_scrollBar.sprite );
+					if( vScrollBar.sprite.parent == null ) sprite.addChild( vScrollBar.sprite );
 				}
 
-				if( ! h_scrollBar.barNeeded )
+				if( ! hScrollBar.barNeeded )
 				{
-					if( h_scrollBar.sprite.parent != null ) sprite.removeChild( h_scrollBar.sprite );
+					if( hScrollBar.sprite.parent != null ) sprite.removeChild( hScrollBar.sprite );
 					_rect.height = _height;
-					v_scrollBar.pageSize = Std.int( _rect.height );
-					v_scrollBar._size( _scrollButtonSize, _height );
+					vScrollBar.pageSize = Std.int( _rect.height );
+					vScrollBar._size( _scrollButtonSize, _height );
 				}
 				else
 				{
-					if( h_scrollBar.sprite.parent == null ) sprite.addChild( h_scrollBar.sprite );
+					if( hScrollBar.sprite.parent == null ) sprite.addChild( hScrollBar.sprite );
 				}
 			}
 			else
 			{
 				_rect.width = _width;
-				h_scrollBar.pageSize = Std.int( _rect.width );
+				hScrollBar.pageSize = Std.int( _rect.width );
 				_rect.height = _height - _scrollButtonSize;
-				v_scrollBar.pageSize = Std.int( _rect.height );
-				h_scrollBar._size( _width, _scrollButtonSize );
+				vScrollBar.pageSize = Std.int( _rect.height );
+				hScrollBar._size( _width, _scrollButtonSize );
 
-				v_scrollBar._size( 0, 0 );
+				vScrollBar._size( 0, 0 );
 
-				if( v_scrollBar.sprite.parent != null ) sprite.removeChild( v_scrollBar.sprite );
+				if( vScrollBar.sprite.parent != null ) sprite.removeChild( vScrollBar.sprite );
 
-				if( ! h_scrollBar.barNeeded )
+				if( ! hScrollBar.barNeeded )
 				{
-					if( h_scrollBar.sprite.parent != null ) sprite.removeChild( h_scrollBar.sprite );
+					if( hScrollBar.sprite.parent != null ) sprite.removeChild( hScrollBar.sprite );
 					_rect.height = _height;
-					v_scrollBar.pageSize = Std.int( _rect.height );
+					vScrollBar.pageSize = Std.int( _rect.height );
 				}
 				else
 				{
-					if( h_scrollBar.sprite.parent == null ) sprite.addChild( h_scrollBar.sprite );
+					if( hScrollBar.sprite.parent == null ) sprite.addChild( hScrollBar.sprite );
 				}
 			}
 		}
@@ -696,45 +727,45 @@ class ScrollContainer extends OLayout
 			if( v_scrollBar_enabled )
 			{
 				_rect.width = _width - _scrollButtonSize;
-				h_scrollBar.pageSize = Std.int( _rect.width );
+				hScrollBar.pageSize = Std.int( _rect.width );
 				_rect.height = _height;
-				v_scrollBar.pageSize = Std.int( _rect.height );
+				vScrollBar.pageSize = Std.int( _rect.height );
 
-				h_scrollBar._size( 0, 0 );
-				v_scrollBar._size( _scrollButtonSize, _height );
+				hScrollBar._size( 0, 0 );
+				vScrollBar._size( _scrollButtonSize, _height );
 
-				if( ! v_scrollBar.barNeeded )
+				if( ! vScrollBar.barNeeded )
 				{
-					if( v_scrollBar.sprite.parent != null ) sprite.removeChild( v_scrollBar.sprite );
+					if( vScrollBar.sprite.parent != null ) sprite.removeChild( vScrollBar.sprite );
 					_rect.width = _width;
-					h_scrollBar.pageSize = Std.int( _rect.width );
+					hScrollBar.pageSize = Std.int( _rect.width );
 				}
 				else
 				{
-					if( v_scrollBar.sprite.parent == null ) sprite.addChild( v_scrollBar.sprite );
+					if( vScrollBar.sprite.parent == null ) sprite.addChild( vScrollBar.sprite );
 				}
 			}
 			else
 			{
 				_rect.width = _width;
-				h_scrollBar.pageSize = Std.int( _rect.width );
+				hScrollBar.pageSize = Std.int( _rect.width );
 				_rect.height = _height;
-				v_scrollBar.pageSize = Std.int( _rect.height );
+				vScrollBar.pageSize = Std.int( _rect.height );
 
-				h_scrollBar._size( 0, 0 );
-				v_scrollBar._size( 0, 0 );
+				hScrollBar._size( 0, 0 );
+				vScrollBar._size( 0, 0 );
 
-				if( ! v_scrollBar.barNeeded )
+				if( ! vScrollBar.barNeeded )
 				{
-					if( v_scrollBar.sprite.parent != null ) sprite.removeChild( v_scrollBar.sprite );
+					if( vScrollBar.sprite.parent != null ) sprite.removeChild( vScrollBar.sprite );
 				}
 				else
 				{
-					if( v_scrollBar.sprite.parent == null ) sprite.addChild( v_scrollBar.sprite );
+					if( vScrollBar.sprite.parent == null ) sprite.addChild( vScrollBar.sprite );
 				}
 			}
 
-			if( h_scrollBar.sprite.parent != null ) sprite.removeChild( h_scrollBar.sprite );
+			if( hScrollBar.sprite.parent != null ) sprite.removeChild( hScrollBar.sprite );
 		}
 
 		target.scrollRect = _rect;
@@ -747,17 +778,17 @@ class ScrollContainer extends OLayout
 			var height = Std.int( contentComponent.height );
 			var width = Std.int( contentComponent.width );
 
-			h_scrollBar.contentSize = width;
-			v_scrollBar.contentSize = height;
+			hScrollBar.contentSize = width;
+			vScrollBar.contentSize = height;
 		}
 	}
 
-	override public function getHeight( ):Float
+	override public function get_height( ):Float
 	{
 		return _height;
 	}
 
-	override public function getWidth( ):Float
+	override public function get_width( ):Float
 	{
 		return _width;
 	}
@@ -766,7 +797,7 @@ class ScrollContainer extends OLayout
 //                  Component Style
 //***********************************************************
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return ScrollContainerStyle.styleString;
 	}
@@ -777,8 +808,8 @@ class ScrollContainerStyle extends OLayoutStyle
 
 	public static var styleString:String = "ScrollContainerStyle";
 
-	public var hScrollStyle:ScrollBarStyle;
-	public var vScrollStyle:ScrollBarStyle;
+	public var hScrollStyle:ScrollSliderStyle;
+	public var vScrollStyle:ScrollSliderStyle;
 
 	public function new( )
 	{

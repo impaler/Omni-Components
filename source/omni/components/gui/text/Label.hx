@@ -9,20 +9,20 @@ import nme.text.TextFieldAutoSize;
 class Label extends OTextBase
 {
 
-	override public function createMembers():Void
+	override public function createMembers( ):Void
 	{
-		super.createMembers();
+		super.createMembers( );
 
 		textField.autoSize = TextFieldAutoSize.LEFT;
 		textField.type = TextFieldType.DYNAMIC;
 		textField.mouseEnabled = false;
 	}
 
-	//***********************************************************
-	//                  Component Style
-	//***********************************************************
+//***********************************************************
+//                  Component Style
+//***********************************************************
 
-	override public function getStyleId():String
+	override public function get_styleId( ):String
 	{
 		return LabelStyle.styleString;
 	}
@@ -33,18 +33,18 @@ class LabelStyle extends TextBaseStyle
 
 	public static var styleString:String = "LabelStyle";
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 		styleID = styleString;
 	}
 
-	override public function update(value:IOComponent):Void
+	override public function update( value:IOComponent ):Void
 	{
 		var textBase = cast ( value, OTextBase);
 
-		textBase.updateTextFieldProperties();
-		textBase.updateTextFormat();
+		textBase.updateTextFieldProperties( );
+		textBase.updateTextFormat( );
 
 		textBase._width = textBase.textField.width;
 		textBase._height = textBase.textField.height;

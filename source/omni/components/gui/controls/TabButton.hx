@@ -41,7 +41,7 @@ class TabButton extends OToggleButton
 //                  Component Style
 //***********************************************************
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return TabButtonStyle.styleString;
 	}

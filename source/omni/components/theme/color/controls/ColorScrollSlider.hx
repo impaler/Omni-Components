@@ -1,15 +1,12 @@
-package omni.components.theme.bloom;
+package omni.components.theme.color.controls;
 
-import omni.components.theme.color.Colors;
-import omni.components.theme.color.controls.ColorScrollBarButton;
-import omni.components.theme.color.Color;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.controls.ScrollSlider.ScrollSliderStyle;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
 import omni.utils.ColorUtils;
 
-class BloomScrollBar extends ScrollSliderStyle
+class ColorScrollSlider extends ScrollSliderStyle
 {
 	public function new( )
 	{
@@ -17,13 +14,26 @@ class BloomScrollBar extends ScrollSliderStyle
 
 		buttonStyle = new ColorScrollBarButton();
 
+		decreaseButtonStyle = new ColorScrollBarButton();
+		increaseButtonStyle = new ColorScrollBarButton();
+
 		var bgColor = new BrushColorFill ();
 		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
 		setBackgroundBrush( bgColor );
 
-		defaultWidth = 20;
-		defaultHeight = 180;
-		defaultPadding = 10;
+		defaultVHeight = 120;
+		defaultVWidth = 20;
+
+		defaultHHeight = 20;
+		defaultHWidth = 120;
+
+		defaultValue = 50;
+
+		defaultPadding = 0;
+		minWidth = 10;
+		minHeight = 10;
+		maxWidth = 2000;
+		maxHeight = 2000;
 
 	}
 

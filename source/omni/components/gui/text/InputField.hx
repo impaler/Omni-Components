@@ -9,9 +9,9 @@ import nme.text.TextFieldAutoSize;
 class InputField extends OTextBase
 {
 
-	override public function createComponentMembers():Void
+	override public function createComponentMembers( ):Void
 	{
-		super.createComponentMembers();
+		super.createComponentMembers( );
 
 		textField.autoSize = TextFieldAutoSize.NONE;
 		textField.type = TextFieldType.INPUT;
@@ -19,11 +19,11 @@ class InputField extends OTextBase
 
 	}
 
-	//***********************************************************
-	//                  Component Style
-	//***********************************************************
+//***********************************************************
+//                  Component Style
+//***********************************************************
 
-	override public function getStyleId():String
+	override public function get_styleId( ):String
 	{
 		return InputFieldStyle.styleString;
 	}
@@ -34,18 +34,18 @@ class InputFieldStyle extends TextBaseStyle
 
 	public static var styleString:String = "InputFieldStyle";
 
-	public function new()
+	public function new( )
 	{
-		super();
+		super( );
 		styleID = styleString;
 	}
 
-	override public function update(value:IOComponent):Void
+	override public function update( value:IOComponent ):Void
 	{
 		var textBase = cast ( value, OTextBase);
 
-		textBase.updateTextFieldProperties();
-		textBase.updateTextFormat();
+		textBase.updateTextFieldProperties( );
+		textBase.updateTextFormat( );
 
 		textBase.textField.width = textBase._width;
 		textBase.textField.height = textBase._height;

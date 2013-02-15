@@ -10,7 +10,7 @@ import omni.components.style.OBackgroundStyle;
 
 class OToggleButton extends Button
 {
-	public var value(get, set):Bool;
+	public var value(get_value, set_value):Bool;
 	public var _value:Bool;
 
 	public var onChange:OSignalType<OToggleButton -> Void>;
@@ -91,12 +91,12 @@ class OToggleButton extends Button
 //                  Properties
 //***********************************************************
 
-	public function set( b:Bool ):Bool
+	public function set_value( b:Bool ):Bool
 	{
 		return setValue( b );
 	}
 
-	public function get( ):Bool
+	public function get_value( ):Bool
 	{
 		return _value;
 	}
@@ -133,7 +133,7 @@ class OToggleButton extends Button
 //                  Style
 //***********************************************************
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return OToggleButtonStyle.styleString;
 	}

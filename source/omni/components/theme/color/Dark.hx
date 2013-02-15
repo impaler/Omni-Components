@@ -23,6 +23,9 @@ class Dark extends Color
 		Colors.STEPPER_BUTTON_ACTIVE = ColorUtils.BLACK;
 		Colors.STEPPER_BUTTON_OVER = ColorUtils.LIGHT_GRAY;
 		Colors.STEPPER_BUTTON_DOWN = ColorUtils.GRAY;
+
+		Colors.LABEL_TEXT = ColorUtils.GRAY;
+
 	}
 
 }

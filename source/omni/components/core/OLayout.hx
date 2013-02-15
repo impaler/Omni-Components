@@ -9,10 +9,10 @@ import nme.display.Sprite;
 
 class OLayout extends OComponent
 {
-	public var direction(default, setDirection):Int;
+	public var direction(default, set_direction):Int;
 	public var _direction:Int;
 
-	public var scrollRectEnabled(getScrollRectEnabled, setScrollRectEnabled):Bool;
+	public var scrollRectEnabled(get_scrollRectEnabled, set_scrollRectEnabled):Bool;
 	public var _scrollRectEnabled:Bool = false;
 
 	public var _scrollRect:Rectangle;
@@ -37,7 +37,7 @@ class OLayout extends OComponent
 		invalidate( false );
 	}
 
-	override public function getHeight( ):Float
+	override public function get_height( ):Float
 	{
 		if( ! _scrollRectEnabled )
 		{
@@ -74,15 +74,15 @@ class OLayout extends OComponent
 				last = Std.int( last + padding * 2 );
 			}
 
-			return set_Height( last );
+			return set__height( last );
 		}
 		else
 		{
-			return super.getHeight( );
+			return super.get_height( );
 		}
 	}
 
-	override public function getWidth( ):Float
+	override public function get_width( ):Float
 	{
 		if( ! _scrollRectEnabled )
 		{
@@ -116,12 +116,12 @@ class OLayout extends OComponent
 				last += (padding * widths.length + padding);
 			}
 
-			return set_Width( last );
+			return set__width( last );
 
 		}
 		else
 		{
-			return super.getWidth( );
+			return super.get_width( );
 		}
 	}
 
@@ -159,7 +159,7 @@ class OLayout extends OComponent
 		super.draw( );
 	}
 
-	public function setDirection( value:Int ):Int
+	public function set_direction( value:Int ):Int
 	{
 		_direction = value;
 		invalidate( );
@@ -167,19 +167,19 @@ class OLayout extends OComponent
 		return _direction;
 	}
 
-	public function getScrollRectEnabled( ):Bool
+	public function get_scrollRectEnabled( ):Bool
 	{
 		return _scrollRectEnabled;
 	}
 
-	public function setScrollRectEnabled( b:Bool ):Bool
+	public function set_scrollRectEnabled( b:Bool ):Bool
 	{
 		_scrollRectEnabled = b;
 		if( ! _scrollRectEnabled ) sprite.scrollRect = null;
 		return _scrollRectEnabled;
 	}
 
-	override public function getStyleId( ):String
+	override public function get_styleId( ):String
 	{
 		return OLayoutStyle.styleString;
 	}
