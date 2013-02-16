@@ -33,6 +33,12 @@ interface IOComponent implements IDestroyable
 	private function get_state( ):String;
 
 /**
+* Method to set the active state of a component
+* State on active, off active etc
+**/
+	public function setActiveState( ):Void;
+
+/**
 * The components style object required by all components to draw
 **/
 	public var style(get_style, set_style):IStyle;

@@ -91,6 +91,12 @@ class OToggleButton extends Button
 //                  Properties
 //***********************************************************
 
+	override public function setActiveState( ):Void
+	{
+		this._state = getOutState( );
+		invalidate( );
+	}
+
 	public function set_value( b:Bool ):Bool
 	{
 		return setValue( b );

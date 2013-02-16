@@ -65,7 +65,7 @@ class OToggleButtonGroup extends OComponent
 //                  Component Methods
 //***********************************************************
 
-	public function setActive( button:OToggleButton ):Void
+	public function setActiveButton( button:OToggleButton ):Void
 	{
 		button.set_Value( true );
 		_target = button;

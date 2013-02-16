@@ -1,5 +1,6 @@
 package omni.components.core;
 
+import omni.components.style.OBaseStyle;
 import omni.utils.UtilNumbers;
 import omni.utils.ComponentUtils;
 import omni.components.core.interfaces.IStyle;
@@ -69,6 +70,12 @@ class OComponent implements IOComponent
 	private function get_state( ):String
 	{
 		return _state;
+	}
+
+	public function setActiveState( ):Void
+	{
+		this._state = OBaseStyle.STATE_ACTIVE;
+		invalidate( );
 	}
 
 	public var style(get_style, set_style):IStyle;

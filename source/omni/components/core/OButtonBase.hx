@@ -68,8 +68,6 @@ class OButtonBase extends OComponent
 	{
 		if( _listening )
 		{
-			state = OBaseStyle.STATE_ACTIVE;
-
 			_isDown = false;
 			_isOver = false;
 
