@@ -60,7 +60,7 @@ class TabButtonGroup extends OToggleButtonGroup
 		return button;
 	}
 
-	public function setActiveButton( button:TabButton ):Void
+	public function setActiveTabButton( button:TabButton ):Void
 	{
 		_target = button;
 		button.set_Value( true );
