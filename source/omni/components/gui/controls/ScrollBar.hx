@@ -16,10 +16,9 @@ class ScrollBar extends OComponent
 {
 	public var increaseButton:ScrollBarButton;
 	public var decreaseButton:ScrollBarButton;
-	
+
 	private var _increasing:Bool;
 	private var _timer:Timer;
-	private var _delay:Float;
 
 	public var scrollSlider:ScrollSlider;
 
@@ -31,9 +30,7 @@ class ScrollBar extends OComponent
 
 	public var sliderStep(default, set_sliderStep):Int;
 	public var _sliderStep:Int;
-	
-	public var buttonStep:Int;
-	
+
 	public var value(get_value, set_value):Int;
 	public var _value:Int;
 
@@ -47,6 +44,10 @@ class ScrollBar extends OComponent
 	public var contentSize(default, set_contentSize):Int;
 	public var pageSize(default, set_pageSize):Int;
 
+	public var _buttonStep:Int;
+	private var _buttonMovementInterval:Float;
+	private var _intialButtonMovementDelay:Float;
+
 	public var onChange(default, null):OSignalType<Int -> Void>;
 
 //***********************************************************
@@ -58,8 +59,9 @@ class ScrollBar extends OComponent
 		onChange = new OSignalType<Int -> Void>();
 
 		_sliderStep = 10;
-		buttonStep = 30;
-		_delay = 20;
+		_buttonStep = 50;
+		_buttonMovementInterval = 100;
+		_intialButtonMovementDelay = 1000;
 		enableScrollButtons = true;
 		enableScrollSlider = true;
 		_max = 100;
@@ -77,14 +79,12 @@ class ScrollBar extends OComponent
 
 	override public function enableSignals( ):Void
 	{
-//		super.enableSignals( );
-
 		if( ! _listening )
 		{
 			scrollSlider.onChange.add( handleOnChange );
 
-			increaseButton.onClick.add( handleOnIncrease );
-			decreaseButton.onClick.add( handleOnDecrease );
+			increaseButton.mouseDown.add( handleOnIncrease );
+			decreaseButton.mouseDown.add( handleOnDecrease );
 
 			_listening = true;
 		}
@@ -92,14 +92,12 @@ class ScrollBar extends OComponent
 
 	override public function disableSignals( ):Void
 	{
-//		super.disableSignals( );
-
 		if( _listening )
 		{
-			scrollSlider.onChange.add( handleOnChange );
+			scrollSlider.onChange.remove( handleOnChange );
 
-//		increaseButton.onClick.add( handleOnChange );
-//		decreaseButton.onClick.add( handleOnChange );
+			increaseButton.mouseDown.remove( handleOnIncrease );
+			decreaseButton.mouseDown.remove( handleOnDecrease );
 
 			_listening = false;
 		}
@@ -110,20 +108,20 @@ class ScrollBar extends OComponent
 		super.drawMembers( );
 
 		scrollSlider.width = width - (increaseButton.width + decreaseButton.width);
-		scrollSlider.height = height  - (increaseButton.height + decreaseButton.height);
+		scrollSlider.height = height - (increaseButton.height + decreaseButton.height);
 
 		if( _type == Slider.VERTICALLY )
 		{
 			increaseButton._width = width;
 			decreaseButton._width = width;
-			increaseButton.y = height-increaseButton.height;
+			increaseButton.y = height - increaseButton.height;
 			scrollSlider.y = decreaseButton.height;
 		}
 		else
 		{
 			increaseButton._height = _height;
 			decreaseButton._height = _height;
-			increaseButton.x = width-increaseButton.width;
+			increaseButton.x = width - increaseButton.width;
 			scrollSlider.x = decreaseButton._width;
 		}
 
@@ -135,42 +133,41 @@ class ScrollBar extends OComponent
 
 	public function handleOnChange( value:Int ):Void
 	{
-		set_value(value);
+		set_value( value );
 	}
-	
-	public function handleOnIncrease( ?button:OButtonBase ):Void
+
+	public function handleOnIncrease( ?e:OSignalMouse ):Void
 	{
 		_increasing = true;
-		set_value(_value + buttonStep);
-		OCore.instance.onStageMouseUp.add(handleStageUp);
-		
-		_timer.delay = _delay;
+		set_value( _value + _buttonStep );
+		OCore.instance.onStageMouseUp.addOnce( handleMouseUp );
+
+		_timer.reset( );
 		_timer.start( );
 	}
-	
-	public function handleOnDecrease( ?button:OButtonBase ):Void
+
+	public function handleOnDecrease( ?e:OSignalMouse ):Void
 	{
 		_increasing = false;
-		set_value(_value - buttonStep);
-		OCore.instance.onStageMouseUp.add(handleStageUp);
-		
-//		_timer.reset( );
-		_timer.delay = _delay;
+		set_value( _value - _buttonStep );
+		OCore.instance.onStageMouseUp.addOnce( handleMouseUp );
+
+		_timer.reset( );
 		_timer.start( );
 	}
-	
-	public function handleStageUp( ?m:OSignalMouse ):Void
+
+	private function handleMouseUp( ?e:OSignalMouse ):Void
 	{
 		_timer.stop( );
-		_timer.delay = 100;
+		_timer.delay = _intialButtonMovementDelay;
 	}
-	
+
 	public function handleTimerTick( ?t:TimerEvent ):Void
 	{
-		_increasing ? set_value(_value + buttonStep) : set_value(_value - buttonStep);
-		_timer.delay = _delay;
+		_timer.delay = _buttonMovementInterval;
+		_increasing ? set_value( _value + _buttonStep ) : set_value( _value - _buttonStep );
 	}
-	
+
 //***********************************************************
 //                  Component Methods
 //***********************************************************
@@ -178,10 +175,7 @@ class ScrollBar extends OComponent
 	public function refreshButton( ):Void
 	{
 		scrollSlider._value = _value;
-		scrollSlider.refreshButton();
-//		scrollSlider.updateValueOnMouseMove();
-		
-		
+		scrollSlider.refreshButton( );
 	}
 
 	public function createScrollButtons( ):Void
@@ -193,8 +187,8 @@ class ScrollBar extends OComponent
 		decreaseButton = new ScrollBarButton();
 //		decreaseButton.step = _step;
 		add( decreaseButton );
-		
-		_timer = new Timer(100);
+
+		_timer = new Timer(_intialButtonMovementDelay);
 		_timer.addEventListener( TimerEvent.TIMER, handleTimerTick );
 
 	}
@@ -379,8 +373,8 @@ class ScrollBarStyle extends OBaseStyle
 {
 	public static var styleString:String = "ScrollLayoutBarsStyle";
 
-	public var horizontalBar:ScrollBarButtonStyle;
-	public var verticalBar:ScrollBarButtonStyle;
+	public var increaseButton:ScrollBarButtonStyle;
+	public var decreaseButton:ScrollBarButtonStyle;
 
 	public function new( )
 	{
