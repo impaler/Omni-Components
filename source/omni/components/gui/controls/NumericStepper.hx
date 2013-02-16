@@ -96,23 +96,23 @@ class NumericStepper extends OComponent
 		nme.Lib.trace( "down" );
 		value += step;
 
+		OCore.instance.onStageMouseUp.addOnce( handleMouseUp );
 		_increasing = true;
 		_timer.reset( );
 		_timer.start( );
-		OCore.instance.onStageMouseUp.addOnce( onMouseUp );
 	}
 
 	private function onDecreaseClick( ?e:OSignalMouse ):Void
 	{
 		value -= step;
 
+		OCore.instance.onStageMouseUp.addOnce( handleMouseUp );
 		_increasing = false;
 		_timer.reset( );
 		_timer.start( );
-		OCore.instance.onStageMouseUp.addOnce( onMouseUp );
 	}
 
-	private function onMouseUp( ?e:OSignalMouse ):Void
+	private function handleMouseUp( ?e:OSignalMouse ):Void
 	{
 		_timer.stop( );
 		_timer.delay = 1000;
