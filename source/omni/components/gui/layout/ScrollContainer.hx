@@ -1,5 +1,6 @@
 package omni.components.gui.layout;
 
+import omni.components.style.OBaseStyle;
 import omni.components.gui.controls.ScrollBar;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
@@ -27,13 +28,12 @@ class ScrollContainer extends OLayout
 	public var hScrollBar:ScrollBar;
 	public var vScrollBar:ScrollBar;
 
-//	private var h_scrollBar:ScrollSlider;
-//	private var v_scrollBar:ScrollSlider;
-
 	public var contentComponent:IOComponent;
 
-	private var _rect:Rectangle;
+	public var _xSpeed:Float = 0;
+	public var _ySpeed:Float = 0;
 
+	private var _rect:Rectangle;
 	private var _scrollStep:Int;
 	private var _scrollButtonSize:Int;
 	private var _xOffset:Float = 0;
@@ -45,8 +45,6 @@ class ScrollContainer extends OLayout
 	private var _xPos:Float;
 	private var _xCache:Float = 0;
 	private var _yCache:Float = 0;
-	private var _xSpeed:Float = 0;
-	private var _ySpeed:Float = 0;
 	private var _tweenBackSpeed:Int = 0;
 	private var _speedLimit:Float = 0;
 	private var _ratio:Float = 0;
@@ -61,6 +59,8 @@ class ScrollContainer extends OLayout
 	private var _yTouchOffset:Float = 0;
 	private var _tweenX:Bool = true;
 	private var _tweenY:Bool = true;
+	private var _mouseWheelV:Bool = true;
+	private var _isValidTemp:Bool;
 
 	private var mouseTargetDown:OSignalMouse;
 	private var mouseUp:OSignalMouse;
@@ -82,12 +82,13 @@ class ScrollContainer extends OLayout
 //todo tween needs a refactor for initial press tolerance and better behaviour
 		_scrollButtonSize = 10;
 		_scrollStep = 20;
-		_tweenBackSpeed = 4;
+		_tweenBackSpeed = 2;
 		_speedLimit = 1;
 		_ratio = .8;
 //		_ratio = .8;
 		_decel = .96;
 //		_decel = .92;
+		_mouseWheelV = true;
 
 		_rect = new Rectangle(0, 0, 0, 0);
 
@@ -97,16 +98,11 @@ class ScrollContainer extends OLayout
 
 		var thisStyle = cast(_style, ScrollContainerStyle);
 
-//		h_scrollBar = new ScrollBar( thisStyle.hScrollStyle );
-		hScrollBar = new ScrollBar();
-//		h_scrollBar = hScrollBar.scrollSlider;
+		hScrollBar = new ScrollBar(thisStyle.hScrollStyle);
 		hScrollBar.type = OLayout.HORIZONTALLY;
-//todo in style
 		hScrollBar.sliderStep = _scrollStep;
 
-//		v_scrollBar = new ScrollSlider( thisStyle.vScrollStyle );
-		vScrollBar = new ScrollBar();
-//		v_scrollBar = vScrollBar.scrollSlider;
+		vScrollBar = new ScrollBar(thisStyle.vScrollStyle);
 		vScrollBar.type = OLayout.VERTICALLY;
 		vScrollBar.sliderStep = _scrollStep;
 
@@ -119,7 +115,6 @@ class ScrollContainer extends OLayout
 		hScrollBar.onChange.add( handleHScrollBarMove );
 		vScrollBar.onChange.add( handleVScrollBarMove );
 
-//todo
 		hScrollBar.scrollSlider.button.mouseDown.add( handleHScrollBarDown );
 		vScrollBar.scrollSlider.button.mouseDown.add( handleVScrollBarDown );
 
@@ -136,16 +131,16 @@ class ScrollContainer extends OLayout
 		vScrollBar.onChange.remove( handleVScrollBarMove );
 
 		mouseUp.remove( handleRelease );
-
-//todo slider buttons
-
-//		disableTween();
 	}
 
 	override public function invalidate( recursive:Bool = true ):Void
 	{
-		updateScrollBars( );
 		super.invalidate( recursive );
+
+		updateScrollBars( );
+
+		hScrollBar.drawNow( );
+		vScrollBar.drawNow( );
 	}
 
 	override public function draw( ):Void
@@ -161,7 +156,8 @@ class ScrollContainer extends OLayout
 			for( o in contentComponent.components )
 			{
 //todo check for save non core events that might have been added
-//				o.disableSignals( );
+				o.disableSignals( );
+				o.setActiveState( );
 			}
 		}
 
@@ -174,7 +170,7 @@ class ScrollContainer extends OLayout
 		{
 			for( o in contentComponent.components )
 			{
-//				o.enableSignals( );
+				o.enableSignals( );
 			}
 		}
 
@@ -256,17 +252,17 @@ class ScrollContainer extends OLayout
 	public function handleMouseWheel( ?e:OSignalMouse ):Void
 	{
 		target.mouseChildren = true;
-		_scrollBarMove = true;
-//		if(_type == Layout.HORIZONTALLY)
-//		{
-//			//todo
-//		}
-//		else
-//		{
-//			 
-//		}
 
-		vScrollBar.value -= e.delta > 0 ? vScrollBar.sliderStep : - vScrollBar.sliderStep;
+		_scrollBarMove = true;
+
+		if( _mouseWheelV )
+		{
+			vScrollBar.value -= e.delta > 0 ? vScrollBar.sliderStep : - vScrollBar.sliderStep;
+		}
+		else
+		{
+			hScrollBar.value -= e.delta > 0 ? hScrollBar.sliderStep : - hScrollBar.sliderStep;
+		}
 
 		if( OCore.instance.updateAfterEvent )
 			e.updateAfterEvent( );
@@ -290,7 +286,7 @@ class ScrollContainer extends OLayout
 
 	private function handleRelease( e:OSignalMouse ):Void
 	{
-//		enableChildComponentEvents();
+		enableChildComponentEvents( );
 
 		target.mouseChildren = true;
 		_draggingInit = false;
@@ -333,20 +329,20 @@ class ScrollContainer extends OLayout
 				if( _tweenY )
 					contentComponent.y += (_ySpeed *= _decel);
 
-//				nme.Lib.trace (Math.round(_xSpeed));
-//				nme.Lib.trace (Math.round(_ySpeed));
 				if( ! isTweening( ) )
 				{
 					checkYPosition( );
 					checkXPosition( );
 				}
+
+				roundSpeed( );
 			}
 			else
 			{
 				_xCache = contentComponent.x;
 				_yCache = contentComponent.y;
 
-				var touchTolerance = 6;
+				var touchTolerance = 10;
 
 				if( _draggingInit == true || isTweening( ) )
 				{
@@ -356,49 +352,69 @@ class ScrollContainer extends OLayout
 						contentComponent.y = nme.Lib.stage.mouseY - _yOffset;
 
 				}
-				else
-//				if( _ySpeed < 2 && _ySpeed < 2 )
+				else if( Std.int( _ySpeed * 10 ) == 0 && Std.int( _xSpeed * 10 ) == 0 )
 				{
 					if(
 					_xTouchOffset - nme.Lib.stage.mouseX > touchTolerance
 					|| _xTouchOffset - nme.Lib.stage.mouseX < - touchTolerance
 					|| _yTouchOffset - nme.Lib.stage.mouseY > touchTolerance
-					|| _yTouchOffset - nme.Lib.stage.mouseY < - touchTolerance )
+					|| _yTouchOffset - nme.Lib.stage.mouseY < - touchTolerance
+					)
 					{
 						_draggingInit = true;
 						target.mouseChildren = false;
-//					disableChildComponentEvents( );
+						disableChildComponentEvents( );
 					}
-
 				}
-//				else
-//				{
-//					_draggingInit = true;
-//					target.mouseChildren = false;
-////					disableChildComponentEvents( );
-//				}
-
+				else
+				{
+					_draggingInit = true;
+					target.mouseChildren = false;
+				}
 			}
-
-//			nme.Lib.trace(_ySpeed + " - " +_ySpeed);
-//			nme.Lib.trace(Std.int(Math.abs(_ySpeed*1000)) + " - " + Std.int(Math.abs(_ySpeed*1000)));
 
 			updateScrollBarsFromChange( );
 		}
+	}
+/*
+	public function insideLimit( value:Float, negative:Float, positive:Float ):Bool
+	{
+		
+		   _xTouchOffset - nme.Lib.stage.mouseX > value
+		|| _xTouchOffset - nme.Lib.stage.mouseX < - value
+		|| _yTouchOffset - nme.Lib.stage.mouseY > value
+		|| _yTouchOffset - nme.Lib.stage.mouseY < - value 
+		
+		
+	}
+	*/
+
+	public inline function roundSpeed( ):Void
+	{
+		if( Std.int( _xSpeed * 10 ) == 0 )
+		{
+			_xSpeed = 0;
+		}
+
+		if( Std.int( _ySpeed * 10 ) == 0 )
+		{
+			_ySpeed = 0;
+		}
+
 	}
 
 	public function handleHScrollBarDown( e:OSignalMouse ):Void
 	{
 		_scrollBarMove = true;
 		target.mouseChildren = false;
-//		disableChildComponentEvents( );
+		disableChildComponentEvents( );
 	}
 
 	public function handleVScrollBarDown( e:OSignalMouse ):Void
 	{
 		_scrollBarMove = true;
 		target.mouseChildren = false;
-//		disableChildComponentEvents( );
+		disableChildComponentEvents( );
 	}
 
 	private function handleVScrollBarMove( e:Dynamic = null ):Void
@@ -467,7 +483,7 @@ class ScrollContainer extends OLayout
 
 	private inline function limitSpeed( ):Void
 	{
-		_speedLimit = 4;
+		_speedLimit = 10;
 
 //if the content is out of bounds limit it's speed
 		if( ! isValidY( ) )
@@ -483,7 +499,7 @@ class ScrollContainer extends OLayout
 		}
 	}
 
-	private function isTweening( ):Bool
+	private inline function isTweening( ):Bool
 	{
 		var limit = 10;
 		if( Math.round( _ySpeed ) < limit || Math.round( _xSpeed ) < limit )
@@ -496,7 +512,7 @@ class ScrollContainer extends OLayout
 		}
 	}
 
-	public function animateToxPos( ):Void
+	public inline function animateToxPos( ):Void
 	{
 		if( ! _removeAnimateXBackAnimating && _tweenX )
 		{
@@ -505,7 +521,7 @@ class ScrollContainer extends OLayout
 		}
 	}
 
-	public function animateXBack( e:Event ):Void
+	public inline function animateXBack( e:Event ):Void
 	{
 		contentComponent.x += (_xPos - contentComponent.x) / _tweenBackSpeed;
 
@@ -524,7 +540,7 @@ class ScrollContainer extends OLayout
 		}
 	}
 
-	public function animateToYPos( ):Void
+	public inline function animateToYPos( ):Void
 	{
 		if( ! _removeAnimateYBackAnimating && _tweenY )
 		{
@@ -533,7 +549,7 @@ class ScrollContainer extends OLayout
 		}
 	}
 
-	public function animateYBack( e:Event ):Void
+	public inline function animateYBack( e:Event ):Void
 	{
 		contentComponent.y += (_yPos - contentComponent.y) / _tweenBackSpeed;
 
@@ -552,7 +568,7 @@ class ScrollContainer extends OLayout
 		}
 	}
 
-	public function updateScrollBarsFromChange( ):Void
+	public inline function updateScrollBarsFromChange( ):Void
 	{
 		if( v_scrollBar_enabled )
 		{
@@ -576,7 +592,7 @@ class ScrollContainer extends OLayout
 		}
 	}
 
-	public function checkYPosition( animate:Bool = true ):Void
+	public inline function checkYPosition( animate:Bool = true ):Void
 	{
 		var isValid = isValidY( );
 
@@ -588,51 +604,54 @@ class ScrollContainer extends OLayout
 
 	private inline function isValidY( ):Bool
 	{
-		var isValid = true;
+		_isValidTemp = true;
+
 		if( contentComponent.y > 0 )
 		{
 			_yPos = 0;
-			isValid = false;
+			_isValidTemp = false;
 		}
 
-		var ylimit = - (contentComponent.height - _rect.height);
+		tempFloat = - (contentComponent.height - _rect.height);
 
-		if( contentComponent.y < ylimit )
+		if( contentComponent.y < tempFloat )
 		{
-			isValid = false;
-			vScrollBar.barNeeded ? _yPos = ylimit : _yPos = 0;
+			_isValidTemp = false;
+			vScrollBar.barNeeded ? _yPos = tempFloat : _yPos = 0;
 		}
 
-		return isValid;
+		return _isValidTemp;
 	}
 
-	public function checkXPosition( animate:Bool = true ):Void
+	public inline function checkXPosition( animate:Bool = true ):Void
 	{
-		var isValid = isValidX( );
+		_isValidTemp = isValidX( );
 
-		if( ! isValid )
+		if( ! _isValidTemp )
 		{
 			animate ? animateToxPos( ) : contentComponent.x = _xPos;
 		}
 	}
 
+	private var tempFloat:Float;
+
 	private function isValidX( ):Bool
 	{
-		var isValid = true;
+		_isValidTemp = true;
 		if( contentComponent.x > 0 )
 		{
 			_xPos = 0;
-			isValid = false;
+			_isValidTemp = false;
 		}
 
-		var xlimit = - (contentComponent.width - _rect.width);
+		tempFloat = - (contentComponent.width - _rect.width);
 
-		if( contentComponent.x < xlimit )
+		if( contentComponent.x < tempFloat )
 		{
-			isValid = false;
-			hScrollBar.barNeeded ? _xPos = xlimit : _xPos = 0;
+			_isValidTemp = false;
+			hScrollBar.barNeeded ? _xPos = tempFloat : _xPos = 0;
 		}
-		return isValid;
+		return _isValidTemp;
 	}
 
 	override public function set_direction( value:Int ):Int
@@ -655,7 +674,7 @@ class ScrollContainer extends OLayout
 		return _direction;
 	}
 
-	public function updateScrollBars( ):Void
+	public inline function updateScrollBars( ):Void
 	{
 		hScrollBar.move( 0, _height - _scrollButtonSize );
 		vScrollBar.move( _width - _scrollButtonSize, 0 );
@@ -771,15 +790,12 @@ class ScrollContainer extends OLayout
 		target.scrollRect = _rect;
 	}
 
-	public function updateContentSize( ):Void
+	public inline function updateContentSize( ):Void
 	{
 		if( contentComponent != null )
 		{
-			var height = Std.int( contentComponent.height );
-			var width = Std.int( contentComponent.width );
-
-			hScrollBar.contentSize = width;
-			vScrollBar.contentSize = height;
+			hScrollBar.contentSize = Std.int( contentComponent.width );
+			vScrollBar.contentSize = Std.int( contentComponent.height );
 		}
 	}
 
@@ -808,8 +824,8 @@ class ScrollContainerStyle extends OLayoutStyle
 
 	public static var styleString:String = "ScrollContainerStyle";
 
-	public var hScrollStyle:ScrollSliderStyle;
-	public var vScrollStyle:ScrollSliderStyle;
+	public var hScrollStyle:ScrollBarStyle;
+	public var vScrollStyle:ScrollBarStyle;
 
 	public function new( )
 	{

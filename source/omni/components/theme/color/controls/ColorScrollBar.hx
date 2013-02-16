@@ -13,14 +13,8 @@ class ColorScrollBar extends ScrollBarStyle
 	{
 		super( );
 
-//		buttonStyle = new ColorScrollBarButton();
-
-//		public var horizontalBar:ScrollBarButtonStyle;
-//		public var verticalBar:ScrollBarButtonStyle;
-
-//		var bgColor = new BrushColorFill ();
-//		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
-//		setBackgroundBrush( bgColor );
+		increaseButton = new ColorScrollBarButton();
+		decreaseButton = new ColorScrollBarButton();
 
 		defaultWidth = 300;
 		defaultHeight = 20;

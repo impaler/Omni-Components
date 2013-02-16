@@ -1,5 +1,6 @@
 package omni.components.theme.color.layout;
 
+import omni.components.theme.color.controls.ColorScrollBar;
 import omni.components.core.OLayout;
 import omni.components.theme.color.controls.ColorScrollSlider;
 import omni.components.style.OBaseStyle;
@@ -16,8 +17,8 @@ class ColorScrollContainer extends ScrollContainerStyle
 	{
 		super( );
 
-		hScrollStyle = new ColorScrollSlider();
-		vScrollStyle = new ColorScrollSlider();
+		hScrollStyle = new ColorScrollBar();
+		vScrollStyle = new ColorScrollBar();
 
 		var bgColor = new BrushColorFill ();
 		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
