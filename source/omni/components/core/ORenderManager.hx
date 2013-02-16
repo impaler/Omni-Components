@@ -51,19 +51,12 @@ class ORenderManager
 
 	private function renderLater( ):Void
 	{
-		var st:Stage = nme.Lib.current.stage;
-
-		st.addEventListener( Event.RENDER, _render, false, 0, true );
-		st.invalidate( );
+		nme.Lib.current.stage.addEventListener( Event.ENTER_FRAME, _render );
 	}
 
-	private function _render( e:Dynamic = null ):Void
+	private function _render( ?e:Event ):Void
 	{
-		if( e != null )
-		{
-			var st:Stage = nme.Lib.current.stage;
-			st.removeEventListener( Event.RENDER, _render );
-		}
+		nme.Lib.current.stage.removeEventListener( Event.ENTER_FRAME, _render );
 
 		var i:Int;
 		var n:Int;
