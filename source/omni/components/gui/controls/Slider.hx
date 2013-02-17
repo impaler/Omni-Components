@@ -32,7 +32,7 @@ class Slider extends OComponent
 	public var value(get_value, set_value):Int;
 	public var _value:Int = 30;
 
-	public var tempValue:Int;
+	public var tempValue:Int = 0;
 
 	public var type(get_type, set_type):Int;
 	public var _type:Int = 0;
@@ -385,7 +385,7 @@ class SliderBaseStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "SliderBaseStyle";
 
-	public var buttonStyle:ScrollBarButtonStyle;
+	public var buttonStyle:OButtonBaseStyle;
 
 	public var defaultVHeight:Float;
 	public var defaultVWidth:Float;

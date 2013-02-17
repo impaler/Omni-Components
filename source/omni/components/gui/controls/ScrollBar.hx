@@ -1,16 +1,18 @@
 package omni.components.gui.controls;
 
-import omni.components.core.signals.OSignalMouse;
 import omni.components.core.OCore;
-import nme.events.TimerEvent;
-import nme.utils.Timer;
+import omni.components.core.OComponent;
+import omni.components.core.signals.OSignalMouse;
 import omni.components.core.OButtonBase;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.OLayout;
-import flash.display.Bitmap;
 import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
+import omni.components.gui.controls.Slider.SliderBaseStyle;
 import omni.components.style.OBaseStyle;
-import omni.components.core.OComponent;
+
+import flash.display.Bitmap;
+import nme.events.TimerEvent;
+import nme.utils.Timer;
 
 class ScrollBar extends OComponent
 {
@@ -32,7 +34,7 @@ class ScrollBar extends OComponent
 	public var _sliderStep:Int;
 
 	public var value(get_value, set_value):Int;
-	public var _value:Int;
+	public var _value:Int = 0;
 
 	public var max(get_max, set_max):Float;
 	public var _max:Float;
@@ -180,11 +182,12 @@ class ScrollBar extends OComponent
 
 	public function createScrollButtons( ):Void
 	{
-		increaseButton = new ScrollBarButton();
+		var styleAs = cast (_style, ScrollBarStyle);
+		increaseButton = new ScrollBarButton(styleAs.increaseButton);
 //		increaseButton.step = _step;
 		add( increaseButton );
 
-		decreaseButton = new ScrollBarButton();
+		decreaseButton = new ScrollBarButton(styleAs.decreaseButton);
 //		decreaseButton.step = _step;
 		add( decreaseButton );
 
@@ -195,7 +198,9 @@ class ScrollBar extends OComponent
 
 	public function createScrollSlider( ):Void
 	{
-		scrollSlider = new ScrollSlider();
+
+		var styleAs = cast (_style, ScrollBarStyle);
+		scrollSlider = new ScrollSlider(styleAs.slider);
 		scrollSlider.step = _sliderStep;
 		scrollSlider._min = _min;
 		scrollSlider._max = _max;
@@ -375,6 +380,7 @@ class ScrollBarStyle extends OBaseStyle
 
 	public var increaseButton:ScrollBarButtonStyle;
 	public var decreaseButton:ScrollBarButtonStyle;
+	public var slider:SliderBaseStyle;
 
 	public function new( )
 	{
