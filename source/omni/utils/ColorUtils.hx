@@ -58,4 +58,64 @@ class ColorUtils
 
 	public static var HALO_BLUE:Int = 0x2BF5F5;
 
+	public static function getRGBWith( r:Int, g:Int, n:Int ):Int
+	{
+		var red:Int = r;
+		var green:Int = g;
+		var blue:Int = n;
+		if( red > 255 )
+		{
+			red = 255;
+		}
+		if( green > 255 )
+		{
+			green = 255;
+		}
+		if( blue > 255 )
+		{
+			blue = 255;
+		}
+		return (red << 16) + (green << 8) + blue;
+	}
+
+	public static function darker( rgb:Int, factor:Float = 0.7 ):Int
+	{
+		var r:Int = returnRedFromInt( rgb );
+		var g:Int = returnGreenFromInt( rgb );
+		var b:Int = returnBlueFromInt( rgb );
+		return getRGBWith( Std.int( r * factor ), Std.int( g * factor ), Std.int( b * factor ) );
+	}
+
+	public static function brighter( rgb:Int, factor:Float = .2 ):Int
+	{
+		var r:Int = returnRedFromInt( rgb );
+		var g:Int = returnGreenFromInt( rgb );
+		var b:Int = returnBlueFromInt( rgb );
+
+		var i:Int = Math.floor( 1.0 / (1.0 - factor) );
+		if( r == 0 && g == 0 && b == 0 )
+		{
+			return getRGBWith( Std.int( i ), Std.int( i ), Std.int( i ) );
+		}
+		if( r > 0 && r < i ) r = i;
+		if( g > 0 && g < i ) g = i;
+		if( b > 0 && b < i ) b = i;
+
+		return getRGBWith( Std.int( r / factor ), Std.int( g / factor ), Std.int( b / factor ) );
+	}
+
+	public static function returnRedFromInt( rgb:Int ):Int
+	{
+		return (rgb & 0x00FF0000) >> 16;
+	}
+
+	public static function returnGreenFromInt( rgb:Int ):Int
+	{
+		return (rgb & 0x0000FF00) >> 8;
+	}
+
+	public static function returnBlueFromInt( rgb:Int ):Int
+	{
+		return (rgb & 0x000000FF);
+	}
 }
