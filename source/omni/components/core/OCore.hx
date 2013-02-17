@@ -1,5 +1,6 @@
 package omni.components.core;
 
+import nme.display.DisplayObjectContainer;
 import com.eclecticdesignstudio.motion.MotionPath.IComponentPath;
 import omni.components.core.signals.OCoreEvent;
 import omni.components.core.signals.OSignalMouse;
@@ -105,17 +106,25 @@ class OCore
 		return themeInstance;
 	}
 
-	public static function addChild( component:IOComponent ):IOComponent
+	public static var parentDisplayObject:DisplayObjectContainer;
+
+	public static function addChild( component:IOComponent, ?parent:DisplayObjectContainer ):IOComponent
 	{
-		Lib.current.stage.addChild( component.sprite );
+		if( parent == null )
+			parentDisplayObject = Lib.current.stage;
+
+		parentDisplayObject.addChild( component.sprite );
 		return component;
 	}
 
-	public static function removeChild( component:IOComponent ):IOComponent
+	public static function removeChild( component:IOComponent, ?parent:DisplayObjectContainer ):IOComponent
 	{
-		if( component.sprite.parent == nme.Lib.stage )
+		if( parent == null )
+			parent = parentDisplayObject;
+
+		if( component.sprite.parent == parent )
 		{
-			Lib.current.stage.removeChild( component.sprite );
+			parent.removeChild( component.sprite );
 		}
 		return component;
 	}
