@@ -28,11 +28,12 @@ class ScrollContainer extends OLayout
 	public var hScrollBar:ScrollBar;
 	public var vScrollBar:ScrollBar;
 
+	public var currentLayout:OLayout;
+
 	public var contentComponent:IOComponent;
 
-	public var _xSpeed:Float = 0;
-	public var _ySpeed:Float = 0;
-
+	private var _xSpeed:Float = 0;
+	private var _ySpeed:Float = 0;
 	private var _rect:Rectangle;
 	private var _scrollStep:Int;
 	private var _scrollButtonSize:Int;
@@ -61,18 +62,17 @@ class ScrollContainer extends OLayout
 	private var _tweenY:Bool = true;
 	private var _mouseWheelV:Bool = true;
 	private var _isValidTemp:Bool;
+	private var tempFloat:Float;
+	private var tweenEnabled:Bool;
 
-	private var mouseTargetDown:OSignalMouse;
-	private var mouseUp:OSignalMouse;
-	private var mouseWheel:OSignalMouse;
-	private var dragEnterFrame:OCoreEvent;
+	public var mouseTargetDown:OSignalMouse;
+	public var mouseUp:OSignalMouse;
+	public var mouseWheel:OSignalMouse;
+	public var dragEnterFrame:OCoreEvent;
 
-	public var tweenEnabled:Bool;
-
-	public function setMouseChildrenOnContent( ):Void
-	{
-//todo use overlay blocking sprite for html5 doesnt support mouseChildren
-	}
+//***********************************************************
+//                  Component Core
+//***********************************************************
 
 	override public function createMembers( ):Void
 	{
@@ -148,9 +148,40 @@ class ScrollContainer extends OLayout
 		coreDraw( );
 	}
 
+//***********************************************************
+//                  Component Methods
+//***********************************************************
+
+	override public function add( comp:IOComponent ):IOComponent
+	{
+		_isLayout = true;
+
+		contentComponent = comp;
+
+		target.buttonMode = true;
+		target.addChild( comp.sprite );
+		this.components.push( comp );
+
+		if( mouseTargetDown != null ) mouseTargetDown.removeAll( );
+		mouseTargetDown = new OSignalMouse (OSignalMouse.DOWN, comp.sprite);
+		mouseTargetDown.add( handleDownContent );
+
+		if( mouseWheel != null ) mouseWheel.removeAll( );
+		mouseWheel = new OSignalMouse (OSignalMouse.WHEEL, comp.sprite);
+		mouseWheel.add( handleMouseWheel );
+
+		invalidate( );
+
+		return comp;
+	}
+
+	public function setMouseChildrenOnContent( ):Void
+	{
+//todo use overlay blocking sprite for html5 doesnt support mouseChildren
+	}
+
 	public function disableChildComponentEvents( ):Void
 	{
-
 		if( _isLayout )
 		{
 			for( o in contentComponent.components )
@@ -160,12 +191,10 @@ class ScrollContainer extends OLayout
 				o.setActiveState( );
 			}
 		}
-
 	}
 
 	public function enableChildComponentEvents( ):Void
 	{
-
 		if( _isLayout )
 		{
 			for( o in contentComponent.components )
@@ -173,7 +202,6 @@ class ScrollContainer extends OLayout
 				o.enableSignals( );
 			}
 		}
-
 	}
 
 	public function enableTween( ):Void
@@ -188,8 +216,6 @@ class ScrollContainer extends OLayout
 		tweenEnabled = false;
 		dragEnterFrame.destroy( );
 	}
-
-	public var currentLayout:OLayout;
 
 	public function addToLayout( comp:IOComponent ):Void
 	{
@@ -221,28 +247,6 @@ class ScrollContainer extends OLayout
 		currentLayout = new HBox(style);
 		add( currentLayout );
 		return cast (currentLayout, HBox);
-	}
-
-//think about limiting this to on layout ????
-
-	override public function add( comp:IOComponent ):Void
-	{
-		_isLayout = true;
-
-		contentComponent = comp;
-
-		target.addChild( comp.sprite );
-		this.components.push( comp );
-
-		if( mouseTargetDown != null ) mouseTargetDown.removeAll( );
-		mouseTargetDown = new OSignalMouse (OSignalMouse.DOWN, comp.sprite);
-		mouseTargetDown.add( handleDownContent );
-
-		if( mouseWheel != null ) mouseWheel.removeAll( );
-		mouseWheel = new OSignalMouse (OSignalMouse.WHEEL, comp.sprite);
-		mouseWheel.add( handleMouseWheel );
-
-		invalidate( );
 	}
 
 //***********************************************************
@@ -346,9 +350,10 @@ class ScrollContainer extends OLayout
 
 				if( _draggingInit == true || isTweening( ) )
 				{
-					if( _tweenX )
+					if( h_scrollBar_enabled && _tweenX )
 						contentComponent.x = nme.Lib.stage.mouseX - _xOffset;
-					if( _tweenY )
+
+					if( v_scrollBar_enabled && _tweenY )
 						contentComponent.y = nme.Lib.stage.mouseY - _yOffset;
 
 				}
@@ -375,32 +380,6 @@ class ScrollContainer extends OLayout
 
 			updateScrollBarsFromChange( );
 		}
-	}
-/*
-	public function insideLimit( value:Float, negative:Float, positive:Float ):Bool
-	{
-		
-		   _xTouchOffset - nme.Lib.stage.mouseX > value
-		|| _xTouchOffset - nme.Lib.stage.mouseX < - value
-		|| _yTouchOffset - nme.Lib.stage.mouseY > value
-		|| _yTouchOffset - nme.Lib.stage.mouseY < - value 
-		
-		
-	}
-	*/
-
-	public inline function roundSpeed( ):Void
-	{
-		if( Std.int( _xSpeed * 10 ) == 0 )
-		{
-			_xSpeed = 0;
-		}
-
-		if( Std.int( _ySpeed * 10 ) == 0 )
-		{
-			_ySpeed = 0;
-		}
-
 	}
 
 	public function handleHScrollBarDown( e:OSignalMouse ):Void
@@ -485,7 +464,6 @@ class ScrollContainer extends OLayout
 	{
 		_speedLimit = 10;
 
-//if the content is out of bounds limit it's speed
 		if( ! isValidY( ) )
 		{
 			if( _ySpeed > _speedLimit ) _ySpeed = _speedLimit;
@@ -497,6 +475,20 @@ class ScrollContainer extends OLayout
 			if( _xSpeed > _speedLimit ) _xSpeed = _speedLimit;
 			if( _xSpeed < - _speedLimit ) _xSpeed = - _speedLimit;
 		}
+	}
+
+	public inline function roundSpeed( ):Void
+	{
+		if( Std.int( _xSpeed * 10 ) == 0 )
+		{
+			_xSpeed = 0;
+		}
+
+		if( Std.int( _ySpeed * 10 ) == 0 )
+		{
+			_ySpeed = 0;
+		}
+
 	}
 
 	private inline function isTweening( ):Bool
@@ -512,6 +504,25 @@ class ScrollContainer extends OLayout
 		}
 	}
 
+	private inline function tween( currentValue:Float, targetValue:Float, tweenValue:Float = 0.4 ):Float
+	{
+		if( currentValue != targetValue )
+		{
+			tempFloat = targetValue - currentValue;
+			currentValue += tempFloat * tweenValue;
+			tempFloat = tempFloat < 0 ? - tempFloat : tempFloat;
+			if( tempFloat < 1 )
+			{
+				currentValue = targetValue;
+			}
+			return currentValue;
+		}
+		else
+		{
+			return currentValue;
+		}
+	}
+
 	public inline function animateToxPos( ):Void
 	{
 		if( ! _removeAnimateXBackAnimating && _tweenX )
@@ -523,8 +534,7 @@ class ScrollContainer extends OLayout
 
 	public inline function animateXBack( e:Event ):Void
 	{
-		contentComponent.x += (_xPos - contentComponent.x) / _tweenBackSpeed;
-
+		contentComponent.x = tween( contentComponent.x, _xPos );
 		if( contentComponent.x == _xPos )
 		{
 			removeanimateXBack( );
@@ -551,8 +561,7 @@ class ScrollContainer extends OLayout
 
 	public inline function animateYBack( e:Event ):Void
 	{
-		contentComponent.y += (_yPos - contentComponent.y) / _tweenBackSpeed;
-
+		contentComponent.y = tween( contentComponent.y, _yPos );
 		if( contentComponent.y == _yPos )
 		{
 			removeanimateYBack( );
@@ -633,8 +642,6 @@ class ScrollContainer extends OLayout
 		}
 	}
 
-	private var tempFloat:Float;
-
 	private function isValidX( ):Bool
 	{
 		_isValidTemp = true;
@@ -650,6 +657,9 @@ class ScrollContainer extends OLayout
 		{
 			_isValidTemp = false;
 			hScrollBar.barNeeded ? _xPos = tempFloat : _xPos = 0;
+//            todo align center???			
+//            hScrollBar.barNeeded ? _xPos = tempFloat : _xPos =  _width*.5 - contentComponent._width*.5;
+
 		}
 		return _isValidTemp;
 	}
@@ -798,6 +808,10 @@ class ScrollContainer extends OLayout
 			vScrollBar.contentSize = Std.int( contentComponent.height );
 		}
 	}
+
+//***********************************************************
+//                  Properties
+//***********************************************************
 
 	override public function get_height( ):Float
 	{
