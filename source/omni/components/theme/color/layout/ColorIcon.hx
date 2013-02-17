@@ -1,5 +1,6 @@
 package omni.components.theme.color.layout;
 
+import omni.components.core.OStates;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.layout.Icon.IconStyle;
@@ -13,8 +14,8 @@ class ColorIcon extends IconStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
-		bgColor.setColorState( OBaseStyle.STATE_DISABLED, Colors.DISABLED );
+		bgColor.setColorState( OStates.ACTIVE, Colors.BG );
+		bgColor.setColorState( OStates.DISABLED, Colors.DISABLED );
 		setBackgroundBrush( bgColor );
 
 //todo test

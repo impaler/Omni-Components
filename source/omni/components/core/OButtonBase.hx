@@ -106,14 +106,14 @@ class OButtonBase extends OComponent
 	public function handleMouseDown( ?e:OSignalMouse ):Void
 	{
 		_isDown = true;
-		state = OButtonBaseStyle.STATE_DOWN;
+		state = OStates.DOWN;
 	}
 
 	public function handleMouseUp( ?e:OSignalMouse ):Void
 	{
 		_isDown = false;
-		state = OBaseStyle.STATE_ACTIVE;
-		_isOver ? state = OButtonBaseStyle.STATE_OVER : state = OBaseStyle.STATE_ACTIVE;
+		state = OStates.ACTIVE;
+		_isOver ? state = OStates.OVER : state = OStates.ACTIVE;
 	}
 
 	public function handleMouseOut( ?e:OSignalMouse ):Void
@@ -121,13 +121,13 @@ class OButtonBase extends OComponent
 		_isOver = false;
 
 		if( _isDown == false )
-			state = OBaseStyle.STATE_ACTIVE;
+			state = OStates.ACTIVE;
 	}
 
 	public function handleMouseOver( ?e:OSignalMouse ):Void
 	{
 		_isOver = true;
-		state = OButtonBaseStyle.STATE_OVER;
+		state = OStates.OVER;
 	}
 
 //***********************************************************
@@ -143,9 +143,6 @@ class OButtonBase extends OComponent
 class OButtonBaseStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "OButtonBaseStyle";
-
-	public static var STATE_OVER:String = "STATE_OVER";
-	public static var STATE_DOWN:String = "STATE_DOWN";
 
 	public function new( )
 	{

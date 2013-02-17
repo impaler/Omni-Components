@@ -68,6 +68,8 @@ class OCore
 
 	public var defaultTheme:OTheme;
 
+	public var disableScrolling:Bool = false;
+
 //todo put theme id per component
 	public var storedThemes:Hash<OTheme>;
 

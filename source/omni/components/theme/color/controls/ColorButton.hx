@@ -1,5 +1,6 @@
 package omni.components.theme.color.controls;
 
+import omni.components.core.OStates;
 import nme.Assets;
 import omni.components.gui.layout.Icon.IconStyle;
 import omni.components.gui.text.Label.LabelStyle;
@@ -26,10 +27,10 @@ class ColorButton extends ButtonStyle
 //		icon.sprite = createTestIconSprite();
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.ACTIVE );
-		bgColor.setColorState( OBaseStyle.STATE_DISABLED, Colors.DISABLED );
-		bgColor.setColorState( OButtonBaseStyle.STATE_OVER, Colors.OVER );
-		bgColor.setColorState( OButtonBaseStyle.STATE_DOWN, Colors.DOWN );
+		bgColor.setColorState( OStates.ACTIVE, Colors.ACTIVE );
+		bgColor.setColorState( OStates.DISABLED, Colors.DISABLED );
+		bgColor.setColorState( OStates.OVER, Colors.OVER );
+		bgColor.setColorState( OStates.DOWN, Colors.DOWN );
 		setBackgroundBrush( bgColor );
 
 		defaultWidth = 200;

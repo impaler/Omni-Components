@@ -1,5 +1,6 @@
 package omni.components.theme.color.layout;
 
+import omni.components.core.OStates;
 import omni.components.gui.layout.HBox.HBoxStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -15,7 +16,7 @@ class ColorHBox extends HBoxStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG_LAYOUT );
+		bgColor.setColorState( OStates.ACTIVE, Colors.BG_LAYOUT );
 		setBackgroundBrush( bgColor );
 		defaultWidth = 300;
 		defaultHeight = 300;

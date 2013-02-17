@@ -1,5 +1,6 @@
 package omni.components.gui.controls;
 
+import omni.components.core.OStates;
 import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
 import omni.utils.UtilNumbers;
 import omni.components.gui.controls.Slider;
@@ -22,9 +23,6 @@ import nme.events.MouseEvent;
 
 class Slider extends OComponent
 {
-	public static var VERTICALLY:Int = 0;
-	public static var HORIZONTALLY:Int = 1;
-
 	public var step:Int = 10;
 
 	public var button:OButtonBase;
@@ -34,8 +32,8 @@ class Slider extends OComponent
 
 	public var tempValue:Int = 0;
 
-	public var type(get_type, set_type):Int;
-	public var _type:Int = 0;
+	public var type(get_type, set_type):String;
+	public var _type:String = "HORIZONTAL";
 
 	public var max(get_max, set_max):Float;
 	public var _max:Float = 100;
@@ -119,6 +117,8 @@ class Slider extends OComponent
 
 	public function handleMouseDown( ?e:OSignalMouse ):Void
 	{
+		OCore.instance.disableScrolling = true;
+
 		button.handleMouseDown( e );
 
 		updateButtonLocationFromDown( );
@@ -132,12 +132,16 @@ class Slider extends OComponent
 
 	public function handleButtonDown( e:OSignalMouse ):Void
 	{
+		OCore.instance.disableScrolling = true;
 		buttonClick = true;
 		OCore.instance.onStageMouseLeave.add( handleLeftStage );
 	}
 
 	public function handleMouseUp( ?e:OSignalMouse ):Void
 	{
+		if( OCore.instance.disableScrolling )
+			OCore.instance.disableScrolling = false;
+
 		button.handleMouseUp( e );
 		button.stopDrag( );
 
@@ -147,6 +151,7 @@ class Slider extends OComponent
 		updateValueFromButtonLocation( );
 
 		onChange.dispatch( value );
+
 	}
 
 	public function handleMouseWheel( ?e:OSignalMouse ):Void
@@ -168,13 +173,13 @@ class Slider extends OComponent
 	{
 		if( buttonClick == false )
 		{
-			if( _type == HORIZONTALLY )
+			if( _type == OStates.HORIZONTAL )
 			{
 				var maxlocation = Math.min( this.width - button.width, this.mouseX - button.width / 2 );
 				button.x = UtilNumbers.clamp( (this.mouseX - button.width / 2), 0, maxlocation );
 			}
 
-			if( _type == VERTICALLY )
+			if( _type == OStates.VERTICAL )
 			{
 				var maxlocation = Math.min( this.height - button.height, this.mouseY - button.height / 2 );
 				button.y = UtilNumbers.clamp( (this.mouseY - button.height / 2), 0, maxlocation );
@@ -187,7 +192,7 @@ class Slider extends OComponent
 	{
 		tempValue = _value;
 
-		if( _type == Slider.HORIZONTALLY )
+		if( _type == OStates.HORIZONTAL )
 		{
 			tempValue = clamp( Std.int( button.x / (_width - _height) * (_max - _min) + _min ) );
 		}
@@ -211,7 +216,7 @@ class Slider extends OComponent
 
 	public function refreshButton( ):Void
 	{
-		if( _type == Slider.HORIZONTALLY )
+		if( _type == OStates.HORIZONTAL )
 		{
 			button._height = _height;
 			button._width = _height;
@@ -229,7 +234,7 @@ class Slider extends OComponent
 
 	public function updateValueFromButtonLocation( ):Void
 	{
-		if( _type == Slider.HORIZONTALLY )
+		if( _type == OStates.HORIZONTAL )
 		{
 			_value = clamp( Std.int( ((this.mouseX - (Std.int( _height ) >> 1)) / (_width - _height)) * (_max - _min) + _min ) );
 		}
@@ -334,19 +339,19 @@ class Slider extends OComponent
 		return value;
 	}
 
-	public function get_type( ):Int
+	public function get_type( ):String
 	{
 		return _type;
 	}
 
-	public function set_type( value:Int ):Int
+	public function set_type( value:String ):String
 	{
 		if( _type != value )
 		{
 			_type = value;
 
 			var styleAs = cast (_style, SliderBaseStyle);
-			if( _type == Slider.VERTICALLY )
+			if( _type == OStates.VERTICAL )
 			{
 				_width = styleAs.defaultVWidth;
 			}
@@ -355,7 +360,7 @@ class Slider extends OComponent
 				_width = styleAs.defaultHWidth;
 			}
 
-			if( _type == Slider.VERTICALLY )
+			if( _type == OStates.VERTICAL )
 			{
 				_height = styleAs.defaultVHeight;
 			}
@@ -393,7 +398,7 @@ class SliderBaseStyle extends OBackgroundStyle
 	public var defaultHHeight:Float;
 	public var defaultHWidth:Float;
 
-	public var defaultType:Int;
+	public var defaultType:String;
 
 	public var defaultStep:Int;
 	public var defaultValue:Int;
@@ -405,7 +410,7 @@ class SliderBaseStyle extends OBackgroundStyle
 		super( );
 		styleID = styleString;
 
-		defaultType = 0;
+		defaultType = OStates.HORIZONTAL;
 		defaultStep = 10;
 		defaultValue = 0;
 		defaultMax = 100;
@@ -426,7 +431,7 @@ class SliderBaseStyle extends OBackgroundStyle
 
 		if( value._width == defaultWidth && value._height == defaultHeight )
 		{
-			if( defaultType == Slider.VERTICALLY )
+			if( defaultType == OStates.VERTICAL )
 			{
 				value._width = defaultVWidth;
 			}
@@ -435,7 +440,7 @@ class SliderBaseStyle extends OBackgroundStyle
 				value._width = defaultHWidth;
 			}
 
-			if( defaultType == Slider.VERTICALLY )
+			if( defaultType == OStates.VERTICAL )
 			{
 				value._height = defaultVHeight;
 			}

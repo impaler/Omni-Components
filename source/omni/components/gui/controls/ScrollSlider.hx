@@ -1,5 +1,6 @@
 package omni.components.gui.controls;
 
+import omni.components.core.OStates;
 import omni.components.style.OBackgroundStyle;
 import omni.components.core.OButtonBase;
 import omni.components.core.signals.OSignalMouse;
@@ -58,7 +59,7 @@ class ScrollSlider extends Slider
 
 	override public function handleMouseWheel( ?e:OSignalMouse ):Void
 	{
-		if( _type == OLayout.HORIZONTALLY )
+		if( _type == OStates.HORIZONTAL )
 		{
 			value += e.delta > 0 ? step : - step;
 		}
@@ -81,7 +82,7 @@ class ScrollSlider extends Slider
 		{
 			barNeeded = true;
 
-			if( _type == Slider.HORIZONTALLY )
+			if( _type == OStates.HORIZONTAL )
 			{
 				_realSize = Std.int( (pageSize * _width) / (_max + pageSize) );
 				button._size( Math.max( _realSize, _minSize ), _height );
@@ -115,7 +116,7 @@ class ScrollSlider extends Slider
 	{
 		tempValue = _value;
 
-		if( _type == Slider.HORIZONTALLY )
+		if( _type == OStates.HORIZONTAL )
 		{
 			tempValue = clamp( Math.ceil( button.sprite.x / _rect.width * _max ) );
 		}
@@ -135,7 +136,7 @@ class ScrollSlider extends Slider
 	{
 		tempValue = _value;
 
-		if( _type == Slider.HORIZONTALLY )
+		if( _type == OStates.HORIZONTAL )
 		{
 			tempValue = Math.ceil( button.x / _rect.width * _max );
 		}

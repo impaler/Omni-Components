@@ -63,8 +63,8 @@ class NumericStepper extends OComponent
 		_decrease.trackTheme = false;
 		add( _decrease );
 
-		_timer = new Timer(1000);
-		_timer.addEventListener( TimerEvent.TIMER, onTimerTick );
+//_timer = new Timer(1000);
+//_timer.addEventListener( TimerEvent.TIMER, onTimerTick );
 	}
 
 	override public function enableSignals( ):Void
@@ -93,17 +93,18 @@ class NumericStepper extends OComponent
 
 	private function onIncreaseClick( ?e:OSignalMouse ):Void
 	{
-		nme.Lib.trace( "down" );
+		nme.Lib.trace( "onIncreaseClick" );
 		value += step;
 
 		OCore.instance.onStageMouseUp.addOnce( handleMouseUp );
 		_increasing = true;
-		_timer.reset( );
-		_timer.start( );
+//_timer.reset( );
+//_timer.start( );
 	}
 
 	private function onDecreaseClick( ?e:OSignalMouse ):Void
 	{
+		nme.Lib.trace( "onDecreaseClick" );
 		value -= step;
 
 		OCore.instance.onStageMouseUp.addOnce( handleMouseUp );
@@ -140,7 +141,6 @@ class NumericStepper extends OComponent
 		_decrease.y = _height * .5;
 
 		ComponentUtils.VAlignToOther( _textBase, this );
-
 	}
 
 	public function fixValue( ):Void
@@ -223,8 +223,6 @@ class NumericStepperStyle extends OBackgroundStyle
 {
 
 	public static var styleString:String = "NumericStepperStyle";
-
-	public static var STATE_ACTIVE:String = "STATE_ACTIVE";
 
 	public var increaseButtonStyle:OButtonBaseStyle;
 	public var decreaseButtonStyle:OButtonBaseStyle;

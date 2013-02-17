@@ -1,5 +1,6 @@
 package omni.components.theme.color.layout;
 
+import omni.components.core.OStates;
 import omni.components.gui.layout.ContainerPage.ContainerPageStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -15,7 +16,7 @@ class ColorContainerPage extends ContainerPageStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, ColorUtils.GREEN );
+		bgColor.setColorState( OStates.ACTIVE, ColorUtils.GREEN );
 		setBackgroundBrush( bgColor );
 
 //		defaultDirection = Layout.VERTICALLY;

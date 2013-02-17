@@ -74,17 +74,17 @@ class OToggleButton extends Button
 
 	public function getValueState( ):String
 	{
-		return value ? state = OToggleButtonStyle.STATE_ON : OToggleButtonStyle.STATE_OFF;
+		return value ? state = OStates.ON : OStates.OFF;
 	}
 
 	private function getOutState( ):String
 	{
-		return value ? OToggleButtonStyle.STATE_ON : OToggleButtonStyle.STATE_OFF;
+		return value ? OStates.ON : OStates.OFF;
 	}
 
 	private function getOverState( ):String
 	{
-		return value ? OToggleButtonStyle.STATE_ON_OVER : OToggleButtonStyle.STATE_OFF_OVER;
+		return value ? OStates.ON_OVER : OStates.OFF_OVER;
 	}
 
 //***********************************************************
@@ -151,14 +151,6 @@ class OToggleButtonStyle extends ButtonStyle
 
 	public static var styleString:String = "OToggleButtonStyle";
 
-	public static var STATE_ON:String = "STATE_ON";
-	public static var STATE_ON_OVER:String = "STATE_ON_OVER";
-
-	public static var STATE_OFF:String = "STATE_OFF";
-	public static var STATE_OFF_OVER:String = "STATE_OFF_OVER";
-
-	public static var STATE_DISABLED:String = "STATE_DISABLED_ON";
-
 	public function new( )
 	{
 		super( );
@@ -173,7 +165,7 @@ class OToggleButtonStyle extends ButtonStyle
 		var styleAs = cast (value, OToggleButton);
 
 		styleAs._value = false;
-		styleAs._value ? styleAs._state = STATE_ON : styleAs._state = STATE_OFF;
+		styleAs._value ? styleAs._state = OStates.ON : styleAs._state = OStates.OFF;
 	}
 
 }

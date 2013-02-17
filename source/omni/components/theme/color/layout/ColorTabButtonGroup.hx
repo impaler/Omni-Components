@@ -1,5 +1,6 @@
 package omni.components.theme.color.layout;
 
+import omni.components.core.OStates;
 import omni.components.gui.layout.TabButtonGroup.TabButtonGroupStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -15,11 +16,10 @@ class ColorTabButtonGroup extends TabButtonGroupStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG_LAYOUT );
+		bgColor.setColorState( OStates.ACTIVE, Colors.BG_LAYOUT );
 		setBackgroundBrush( bgColor );
 
-//todo
-//		defaultDirection = Layout.HORIZONTALLY;
+//		defaultDirection = OStates.HORIZONTAL;
 
 		defaultWidth = 300;
 		defaultHeight = 60;

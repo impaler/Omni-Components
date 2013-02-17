@@ -1,5 +1,6 @@
 package omni.components.theme.color.layout;
 
+import omni.components.core.OStates;
 import omni.components.gui.layout.TabbedContainer.TabbedContainerStyle;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -15,10 +16,9 @@ class ColorTabbedContainer extends TabbedContainerStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG_LAYOUT );
+		bgColor.setColorState( OStates.ACTIVE, Colors.BG_LAYOUT );
 		setBackgroundBrush( bgColor );
 
-//		defaultDirection = Layout.VERTICALLY;
 		defaultWidth = 300;
 		defaultHeight = 300;
 		defaultPadding = 10;

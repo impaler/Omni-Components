@@ -1,5 +1,6 @@
 package omni.components.style;
 
+import omni.components.core.OStates;
 import nme.Assets;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
@@ -19,9 +20,6 @@ class OBaseStyle implements IStyle
 	public var defaultState:String;
 
 	public var styleID(get_styleId, setStyleID):String;
-
-	public static var STATE_ACTIVE:String = "Active";
-	public static var STATE_DISABLED:String = "Disabled";
 
 	public function get_styleId( ):String
 	{
@@ -43,7 +41,7 @@ class OBaseStyle implements IStyle
 		minWidth = 0;
 		minHeight = 0;
 		defaultPadding = 0;
-		defaultState = OBaseStyle.STATE_ACTIVE;
+		defaultState = OStates.ACTIVE;
 	}
 
 	public function initStyle( value:IOComponent ):Void

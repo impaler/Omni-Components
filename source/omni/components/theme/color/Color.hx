@@ -8,9 +8,9 @@ import omni.components.theme.color.text.ColorInputField;
 import omni.components.theme.color.controls.ColorScrollBarButton;
 import omni.components.theme.color.core.ColorOToggleButtonGroup;
 import omni.components.theme.color.core.ColorOToggleButton;
-import omni.components.theme.color.core.ColorTextBase;
-import omni.components.theme.color.core.ColorComponent;
-import omni.components.theme.color.core.ColorButtonBase;
+import omni.components.theme.color.core.ColorOTextBase;
+import omni.components.theme.color.core.ColorOComponent;
+import omni.components.theme.color.core.ColorOButtonBase;
 import omni.components.theme.color.layout.ColorVBox;
 import omni.components.theme.color.layout.ColorTabButtonGroup;
 import omni.components.theme.color.layout.ColorTabbedContainer;
@@ -38,9 +38,9 @@ class Color extends OTheme
 
 		setupColors( );
 
-		addStyle( ColorComponent );
+		addStyle( ColorOComponent );
 
-		addStyle( ColorButtonBase );
+		addStyle( ColorOButtonBase );
 		addStyle( ColorButton );
 		addStyle( ColorOToggleButton );
 		addStyle( ColorCheckBox );
@@ -69,7 +69,7 @@ class Color extends OTheme
 
 		addStyle( ColorNumericStepper );
 
-		addStyle( ColorTextBase );
+		addStyle( ColorOTextBase );
 		addStyle( ColorLabel );
 		addStyle( ColorInputField );
 

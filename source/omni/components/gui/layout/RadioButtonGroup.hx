@@ -13,6 +13,7 @@ import omni.components.style.OBackgroundStyle;
 
 class RadioButtonGroup extends OToggleButtonGroup
 {
+//todo disable all off force one on
 
 //***********************************************************
 //                  Component Core

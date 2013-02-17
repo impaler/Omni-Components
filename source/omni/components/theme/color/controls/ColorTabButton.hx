@@ -1,5 +1,6 @@
 package omni.components.theme.color.controls;
 
+import omni.components.core.OStates;
 import omni.components.gui.controls.TabButton.TabButtonStyle;
 import omni.components.gui.text.Label.LabelStyle;
 import omni.components.core.OToggleButton.OToggleButtonStyle;
@@ -22,13 +23,13 @@ class ColorTabButton extends TabButtonStyle
 
 		var bgColor = new BrushColorFill ();
 
-		bgColor.setColorState( OToggleButtonStyle.STATE_ON, Colors.ON );
-		bgColor.setColorState( OToggleButtonStyle.STATE_ON_OVER, Colors.ON_OVER );
+		bgColor.setColorState( OStates.ON, Colors.ON );
+		bgColor.setColorState( OStates.ON_OVER, Colors.ON_OVER );
 
-		bgColor.setColorState( OToggleButtonStyle.STATE_OFF, Colors.OFF );
-		bgColor.setColorState( OToggleButtonStyle.STATE_OFF_OVER, Colors.OFF_OVER );
+		bgColor.setColorState( OStates.OFF, Colors.OFF );
+		bgColor.setColorState( OStates.OFF_OVER, Colors.OFF_OVER );
 
-		bgColor.setColorState( OToggleButtonStyle.STATE_DISABLED, Colors.DISABLED );
+		bgColor.setColorState( OStates.DISABLED, Colors.DISABLED );
 
 		setBackgroundBrush( bgColor );
 

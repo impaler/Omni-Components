@@ -9,8 +9,8 @@ import nme.display.Sprite;
 
 class OLayout extends OComponent
 {
-	public var direction(default, set_direction):Int;
-	public var _direction:Int;
+	public var direction(default, set_direction):String;
+	public var _direction:String;
 
 	public var scrollRectEnabled(get_scrollRectEnabled, set_scrollRectEnabled):Bool;
 	public var _scrollRectEnabled:Bool = false;
@@ -18,9 +18,6 @@ class OLayout extends OComponent
 	public var _scrollRect:Rectangle;
 
 	public var target:Sprite;
-
-	public static var VERTICALLY:Int = 0;
-	public static var HORIZONTALLY:Int = 1;
 
 	override public function createMembers( ):Void
 	{
@@ -49,7 +46,7 @@ class OLayout extends OComponent
 			for( i in 0...components.length )
 			{
 				var current = cast (components[i], IOComponent);
-				if( _direction == HORIZONTALLY )
+				if( _direction == OStates.HORIZONTAL )
 				{
 					heights.push( current.height + current.padding * 2 );
 				}
@@ -66,7 +63,7 @@ class OLayout extends OComponent
 				}
 			}
 
-			if( _direction == HORIZONTALLY )
+			if( _direction == OStates.HORIZONTAL )
 			{
 				for( i in 0...heights.length )
 				{
@@ -98,7 +95,7 @@ class OLayout extends OComponent
 				widths.push( current.width + (current.padding * 2) + padding * 2 );
 			}
 
-			if( _direction == VERTICALLY )
+			if( _direction == OStates.VERTICAL )
 			{
 				for( i in 0...widths.length )
 				{
@@ -107,7 +104,7 @@ class OLayout extends OComponent
 				}
 			}
 
-			if( _direction == HORIZONTALLY )
+			if( _direction == OStates.HORIZONTAL )
 			{
 				for( i in 0...widths.length )
 				{
@@ -135,14 +132,14 @@ class OLayout extends OComponent
 		{
 			var current = cast (components[i], IOComponent);
 
-			if( _direction == HORIZONTALLY )
+			if( _direction == OStates.HORIZONTAL )
 			{
 				current.y = padding + current.padding;
 				current.x = last;
 				if( i == 0 )current.x += current.padding;
 				last = current.x + current.width + padding + current.padding;
 			}
-			else if( _direction == VERTICALLY )
+			else if( _direction == OStates.VERTICAL )
 			{
 				current.x = current.padding + padding;
 				current.y = last;
@@ -161,7 +158,7 @@ class OLayout extends OComponent
 		super.draw( );
 	}
 
-	public function set_direction( value:Int ):Int
+	public function set_direction( value:String ):String
 	{
 		_direction = value;
 		invalidate( );
@@ -191,13 +188,13 @@ class OLayoutStyle extends OBackgroundStyle
 {
 
 	public static var styleString:String = "LayoutStyle";
-	public var defaultDirection:Int;
+	public var defaultDirection:String;
 	public var defaultScrollRect:Bool;
 
 	public function new( )
 	{
 		super( );
-		defaultDirection = OLayout.VERTICALLY;
+		defaultDirection = OStates.VERTICAL;
 		defaultScrollRect = false;
 		styleID = styleString;
 	}

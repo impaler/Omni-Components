@@ -1,5 +1,6 @@
 package omni.components.theme.color.controls;
 
+import omni.components.core.OStates;
 import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
 import omni.components.core.OButtonBase.OButtonBaseStyle;
 import omni.components.style.OBaseStyle;
@@ -14,10 +15,10 @@ class ColorScrollSliderButton extends ScrollBarButtonStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.SCROLLBAR_SLIDER_BUTTON_ACTIVE );
-		bgColor.setColorState( OBaseStyle.STATE_DISABLED, Colors.DISABLED );
-		bgColor.setColorState( OButtonBaseStyle.STATE_OVER, Colors.SCROLLBAR_SLIDER_BUTTON_OVER );
-		bgColor.setColorState( OButtonBaseStyle.STATE_DOWN, Colors.SCROLLBAR_SLIDER_BUTTON_DOWN );
+		bgColor.setColorState( OStates.ACTIVE, Colors.SCROLLBAR_SLIDER_BUTTON_ACTIVE );
+		bgColor.setColorState( OStates.DISABLED, Colors.DISABLED );
+		bgColor.setColorState( OStates.OVER, Colors.SCROLLBAR_SLIDER_BUTTON_OVER );
+		bgColor.setColorState( OStates.DOWN, Colors.SCROLLBAR_SLIDER_BUTTON_DOWN );
 		setBackgroundBrush( bgColor );
 
 		defaultWidth = 20;

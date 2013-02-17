@@ -1,5 +1,6 @@
 package omni.components.gui.layout;
 
+import omni.components.core.OStates;
 import omni.components.core.OLayout;
 import omni.components.core.OLayout.OLayoutStyle;
 
@@ -20,7 +21,7 @@ class VBoxStyle extends OLayoutStyle
 	{
 		super( );
 		styleID = styleString;
-		defaultDirection = OLayout.VERTICALLY;
+		defaultDirection = OStates.VERTICAL;
 	}
 
 }

@@ -1,5 +1,6 @@
 package omni.components.gui.controls;
 
+import omni.components.core.OStates;
 import omni.components.core.OCore;
 import omni.components.core.OComponent;
 import omni.components.core.signals.OSignalMouse;
@@ -27,8 +28,8 @@ class ScrollBar extends OComponent
 	public var enableScrollButtons:Bool;
 	public var enableScrollSlider:Bool;
 
-	public var type(get_type, set_type):Int;
-	public var _type:Int;
+	public var type(get_type, set_type):String;
+	public var _type:String;
 
 	public var sliderStep(default, set_sliderStep):Int;
 	public var _sliderStep:Int;
@@ -112,7 +113,7 @@ class ScrollBar extends OComponent
 		scrollSlider.width = width - (increaseButton.width + decreaseButton.width);
 		scrollSlider.height = height - (increaseButton.height + decreaseButton.height);
 
-		if( _type == Slider.VERTICALLY )
+		if( _type == OStates.VERTICAL )
 		{
 			increaseButton._width = width;
 			decreaseButton._width = width;
@@ -239,7 +240,7 @@ class ScrollBar extends OComponent
 		return _sliderStep;
 	}
 
-	public function set_type( value:Int ):Int
+	public function set_type( value:String ):String
 	{
 		if( _type != value )
 		{
@@ -251,7 +252,7 @@ class ScrollBar extends OComponent
 		return _type;
 	}
 
-	public function get_type( ):Int
+	public function get_type( ):String
 	{
 		return _type;
 	}

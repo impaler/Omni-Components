@@ -99,33 +99,38 @@ class OScreen implements IDestroyable
 		return label;
 	}
 
-	public function addOButtonBase( clickHandler:Dynamic, args:Array<Dynamic> ):OButtonBase
+	public function addOButtonBase( ?clickHandler:Dynamic, ?args:Array<Dynamic>, ?style:IStyle ):OButtonBase
 	{
-		var component = addCompClass( OButtonBase );
+		var component = addCompClass( OButtonBase, style );
 		addToLayout( component );
 		component.drawNow( );
 		var button = cast (component, OButtonBase);
 
-		button.onClick.add(
-			function( e:OButtonBase )
-			{
-				Reflect.callMethod( e, clickHandler, args );
-			}
-		);
+		if( clickHandler != null )
+		{
+			if( args == null ) args = [];
+
+			button.onClick.add(
+				function( e:OButtonBase )
+				{
+					Reflect.callMethod( e, clickHandler, args );
+				}
+			);
+		}
 
 		return button;
 	}
 
-	public function addSlider( ):Slider
+	public function addSlider( ?style:IStyle ):Slider
 	{
-		var component = addCompClass( Slider );
+		var component = addCompClass( Slider, style );
 		addToLayout( component );
 		return cast (component, Slider);
 	}
 
-	public function addNumericStepper( ):NumericStepper
+	public function addNumericStepper( ?style:IStyle ):NumericStepper
 	{
-		var component = addCompClass( NumericStepper );
+		var component = addCompClass( NumericStepper, style );
 		addToLayout( component );
 		return cast (component, NumericStepper);
 	}

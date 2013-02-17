@@ -1,5 +1,6 @@
 package omni.components.gui.layout;
 
+import omni.components.core.OStates;
 import omni.components.style.OBaseStyle;
 import omni.components.gui.controls.ScrollBar;
 import omni.components.core.interfaces.IStyle;
@@ -70,6 +71,9 @@ class ScrollContainer extends OLayout
 	public var mouseWheel:OSignalMouse;
 	public var dragEnterFrame:OCoreEvent;
 
+	public var hAlign:String;
+	public var vAlign:String;
+
 //***********************************************************
 //                  Component Core
 //***********************************************************
@@ -99,15 +103,14 @@ class ScrollContainer extends OLayout
 		var thisStyle = cast(_style, ScrollContainerStyle);
 
 		hScrollBar = new ScrollBar(thisStyle.hScrollStyle);
-		hScrollBar.type = OLayout.HORIZONTALLY;
+		hScrollBar.type = OStates.HORIZONTAL;
 		hScrollBar.sliderStep = _scrollStep;
 
 		vScrollBar = new ScrollBar(thisStyle.vScrollStyle);
-		vScrollBar.type = OLayout.VERTICALLY;
+		vScrollBar.type = OStates.VERTICAL;
 		vScrollBar.sliderStep = _scrollStep;
 
 		mouseUp = new OSignalMouse(OSignalMouse.UP, nme.Lib.stage);
-
 	}
 
 	override public function enableSignals( ):Void
@@ -187,7 +190,7 @@ class ScrollContainer extends OLayout
 			for( o in contentComponent.components )
 			{
 //todo check for save non core events that might have been added
-				o.disableSignals( );
+//				o.disableSignals( );
 				o.setActiveState( );
 			}
 		}
@@ -199,7 +202,8 @@ class ScrollContainer extends OLayout
 		{
 			for( o in contentComponent.components )
 			{
-				o.enableSignals( );
+//todo
+//o.enableSignals( );
 			}
 		}
 	}
@@ -274,111 +278,132 @@ class ScrollContainer extends OLayout
 
 	private function handleDownContent( e:OSignalMouse ):Void
 	{
-		nme.Lib.trace( "down" );
-		_down = true;
-		_drag = false;
-		_xSpeed = 0;
-		_xSpeed = 0;
-		removeanimateXBack( );
-		removeanimateYBack( );
-		_xOffset = e.event.stageX - contentComponent.x;
-		_yOffset = e.event.stageY - contentComponent.y;
-		_xTouchOffset = nme.Lib.stage.mouseX;
-		_yTouchOffset = nme.Lib.stage.mouseY;
-		_drag = true;
+		if( ! OCore.instance.disableScrolling )
+		{
+			_down = true;
+			_drag = false;
+			_xSpeed = 0;
+			_xSpeed = 0;
+			removeanimateXBack( );
+			removeanimateYBack( );
+			_xOffset = e.event.stageX - contentComponent.x;
+			_yOffset = e.event.stageY - contentComponent.y;
+			_xTouchOffset = nme.Lib.stage.mouseX;
+			_yTouchOffset = nme.Lib.stage.mouseY;
+			_drag = true;
+		}
+		else
+		{
+			resetPosition( );
+		}
 	}
 
 	private function handleRelease( e:OSignalMouse ):Void
 	{
-		enableChildComponentEvents( );
-
-		target.mouseChildren = true;
-		_draggingInit = false;
-		_drag = false;
-
-		if( tweenEnabled )
+		if( OCore.instance.disableScrolling )
 		{
-			if( _down )
-			{
-				if( _tweenX )
-					_xSpeed = (contentComponent.x - _xCache) * _ratio;
+			resetPosition( );
+		}
+		else
+		{
+			enableChildComponentEvents( );
 
-				if( _tweenY )
-					_ySpeed = (contentComponent.y - _yCache) * _ratio;
-			}
-			_down = false;
+			target.mouseChildren = true;
+			_draggingInit = false;
+			_drag = false;
 
-			if( _scrollBarMove )
+			if( tweenEnabled )
 			{
-				_xSpeed = 0;
-				_ySpeed = 0;
+				if( _down )
+				{
+					if( _tweenX )
+						_xSpeed = (contentComponent.x - _xCache) * _ratio;
+
+					if( _tweenY )
+						_ySpeed = (contentComponent.y - _yCache) * _ratio;
+				}
+				_down = false;
+
+				if( _scrollBarMove )
+				{
+					_xSpeed = 0;
+					_ySpeed = 0;
+				}
+				_scrollBarMove = false;
 			}
-			_scrollBarMove = false;
 		}
 	}
 
 	private function handleRenderDrag( e:OCoreEvent ):Void
 	{
-		if( ! _scrollBarMove )
+		if( ! OCore.instance.disableScrolling )
 		{
-			removeanimateYBack( );
-			removeanimateXBack( );
 
-			if( ! _drag )
+			if( ! _scrollBarMove )
 			{
-				limitSpeed( );
+				removeanimateYBack( );
+				removeanimateXBack( );
 
-				if( _tweenX )
-					contentComponent.x += (_xSpeed *= _decel);
-				if( _tweenY )
-					contentComponent.y += (_ySpeed *= _decel);
-
-				if( ! isTweening( ) )
+				if( ! _drag )
 				{
-					checkYPosition( );
-					checkXPosition( );
+					limitSpeed( );
+
+					if( _tweenX )
+						contentComponent.x += (_xSpeed *= _decel);
+					if( _tweenY )
+						contentComponent.y += (_ySpeed *= _decel);
+
+					if( ! isTweening( ) )
+					{
+						checkYPosition( );
+						checkXPosition( );
+					}
+
+					roundSpeed( );
 				}
-
-				roundSpeed( );
-			}
-			else
-			{
-				_xCache = contentComponent.x;
-				_yCache = contentComponent.y;
-
-				var touchTolerance = 10;
-
-				if( _draggingInit == true || isTweening( ) )
+				else if( ! OCore.instance.disableScrolling )
 				{
-					if( h_scrollBar_enabled && _tweenX )
-						contentComponent.x = nme.Lib.stage.mouseX - _xOffset;
+					_xCache = contentComponent.x;
+					_yCache = contentComponent.y;
 
-					if( v_scrollBar_enabled && _tweenY )
-						contentComponent.y = nme.Lib.stage.mouseY - _yOffset;
+					var touchTolerance = 10;
 
-				}
-				else if( Std.int( _ySpeed * 10 ) == 0 && Std.int( _xSpeed * 10 ) == 0 )
-				{
-					if(
-					_xTouchOffset - nme.Lib.stage.mouseX > touchTolerance
-					|| _xTouchOffset - nme.Lib.stage.mouseX < - touchTolerance
-					|| _yTouchOffset - nme.Lib.stage.mouseY > touchTolerance
-					|| _yTouchOffset - nme.Lib.stage.mouseY < - touchTolerance
-					)
+					if( _draggingInit == true || isTweening( ) )
+					{
+						if( h_scrollBar_enabled && _tweenX )
+							contentComponent.x = nme.Lib.stage.mouseX - _xOffset;
+
+						if( v_scrollBar_enabled && _tweenY )
+							contentComponent.y = nme.Lib.stage.mouseY - _yOffset;
+
+					}
+					else if( Std.int( _ySpeed * 10 ) == 0 && Std.int( _xSpeed * 10 ) == 0 )
+					{
+						if(
+						_xTouchOffset - nme.Lib.stage.mouseX > touchTolerance
+						|| _xTouchOffset - nme.Lib.stage.mouseX < - touchTolerance
+						|| _yTouchOffset - nme.Lib.stage.mouseY > touchTolerance
+						|| _yTouchOffset - nme.Lib.stage.mouseY < - touchTolerance
+						)
+						{
+							_draggingInit = true;
+							target.mouseChildren = false;
+							disableChildComponentEvents( );
+						}
+					}
+					else
 					{
 						_draggingInit = true;
 						target.mouseChildren = false;
-						disableChildComponentEvents( );
 					}
 				}
-				else
-				{
-					_draggingInit = true;
-					target.mouseChildren = false;
-				}
-			}
 
-			updateScrollBarsFromChange( );
+				updateScrollBarsFromChange( );
+			}
+		}
+		else
+		{
+			resetPosition( );
 		}
 	}
 
@@ -424,41 +449,55 @@ class ScrollContainer extends OLayout
 
 	public function handleDragNoTween( e:OSignalMouse ):Void
 	{
-
-		if( v_scrollBar_enabled )
+		if( ! OCore.instance.disableScrolling )
 		{
-			contentComponent.y = e.event.stageY - _yOffset;
-			_scrollY = - contentComponent.y;
+
+			if( v_scrollBar_enabled )
+			{
+				contentComponent.y = e.event.stageY - _yOffset;
+				_scrollY = - contentComponent.y;
 
 //todo shouldnt need this as _value clamp should take care in scrollbar???
-			if( _scrollY < 0 ) _scrollY = 0;
+				if( _scrollY < 0 ) _scrollY = 0;
 
-			vScrollBar._value = Std.int( _scrollY );
+				vScrollBar._value = Std.int( _scrollY );
 //todo
-			vScrollBar.scrollSlider.refreshButton( );
-		}
+				vScrollBar.scrollSlider.refreshButton( );
+			}
 
-		if( h_scrollBar_enabled )
-		{
-			contentComponent.x = e.event.stageX - _xOffset;
-			_scrollX = - contentComponent.x;
-			if( _scrollX < 0 ) _scrollX = 0;
+			if( h_scrollBar_enabled )
+			{
+				contentComponent.x = e.event.stageX - _xOffset;
+				_scrollX = - contentComponent.x;
+				if( _scrollX < 0 ) _scrollX = 0;
 
-			hScrollBar._value = Std.int( _scrollX );
+				hScrollBar._value = Std.int( _scrollX );
 //todo
-			hScrollBar.scrollSlider.refreshButton( );
+				hScrollBar.scrollSlider.refreshButton( );
+			}
+
+			checkXPosition( false );
+			checkYPosition( false );
+
+			if( OCore.instance.updateAfterEvent )
+				e.updateAfterEvent( );
+
 		}
-
-		checkXPosition( false );
-		checkYPosition( false );
-
-		if( OCore.instance.updateAfterEvent )
-			e.updateAfterEvent( );
 	}
 
 //***********************************************************
 //                  Component Methods
 //***********************************************************
+
+	public inline function resetPosition( ):Void
+	{
+		_xSpeed = 0;
+		_ySpeed = 0;
+		removeanimateXBack( );
+		removeanimateYBack( );
+		checkXPosition( false );
+		checkYPosition( false );
+	}
 
 	private inline function limitSpeed( ):Void
 	{
@@ -664,16 +703,16 @@ class ScrollContainer extends OLayout
 		return _isValidTemp;
 	}
 
-	override public function set_direction( value:Int ):Int
+	override public function set_direction( value:String ):String
 	{
 		_direction = value;
 
-		if( _direction == OLayout.VERTICALLY )
+		if( _direction == OStates.VERTICAL )
 		{
 			h_scrollBar_enabled = false;
 			v_scrollBar_enabled = true;
 		}
-		else if( _direction == OLayout.HORIZONTALLY )
+		else if( _direction == OStates.HORIZONTAL )
 		{
 			h_scrollBar_enabled = true;
 			v_scrollBar_enabled = false;

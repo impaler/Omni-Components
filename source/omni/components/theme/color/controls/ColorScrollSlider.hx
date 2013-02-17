@@ -1,5 +1,6 @@
 package omni.components.theme.color.controls;
 
+import omni.components.core.OStates;
 import omni.components.theme.color.controls.ColorScrollSliderButton;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
@@ -19,7 +20,7 @@ class ColorScrollSlider extends ScrollSliderStyle
 		increaseButtonStyle = new ColorScrollBarButton();
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
+		bgColor.setColorState( OStates.ACTIVE, Colors.BG );
 		setBackgroundBrush( bgColor );
 
 		defaultVHeight = 120;

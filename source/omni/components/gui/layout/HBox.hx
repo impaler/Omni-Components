@@ -1,5 +1,6 @@
 package omni.components.gui.layout;
 
+import omni.components.core.OStates;
 import omni.components.core.OLayout;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OLayout.OLayoutStyle;
@@ -21,6 +22,6 @@ class HBoxStyle extends OLayoutStyle
 	{
 		super( );
 		styleID = styleString;
-		defaultDirection = OLayout.HORIZONTALLY;
+		defaultDirection = OStates.HORIZONTAL;
 	}
 }

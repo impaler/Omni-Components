@@ -14,7 +14,7 @@ class OToggleButtonGroup extends OComponent
 	private var _target:OToggleButton;
 	public var layout:OLayout;
 
-	public var direction:Int;
+	public var direction:String;
 
 	public var onChange:OSignalType<OToggleButtonGroup -> Void>;
 	public var onButtonChange:OSignalType<OToggleButton -> Void>;
@@ -121,12 +121,12 @@ class OToggleButtonGroupStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "OToggleButtonGroupStyle";
 
-	public var defaultDirection:Int;
+	public var defaultDirection:String;
 
 	public function new( )
 	{
 		super( );
-		defaultDirection = OLayout.VERTICALLY;
+		defaultDirection = OStates.VERTICAL;
 		styleID = styleString;
 	}
 

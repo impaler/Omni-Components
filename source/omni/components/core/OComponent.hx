@@ -74,7 +74,7 @@ class OComponent implements IOComponent
 
 	public function setActiveState( ):Void
 	{
-		this._state = OBaseStyle.STATE_ACTIVE;
+		this._state = OStates.ACTIVE;
 		invalidate( );
 	}
 
