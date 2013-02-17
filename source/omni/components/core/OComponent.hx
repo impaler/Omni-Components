@@ -233,10 +233,11 @@ class OComponent implements IOComponent
 
 	public var components:Array <IOComponent>;
 
-	public function add( comp:IOComponent ):Void
+	public function add( comp:IOComponent ):IOComponent
 	{
 		this.components.push( comp );
 		this.sprite.addChild( comp.sprite );
+		return comp;
 	}
 
 	public function remove( comp:IOComponent ):Void

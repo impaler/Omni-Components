@@ -31,9 +31,11 @@ class TabbedContainer extends OComponent
 		onPageChange = new OSignalType<ContainerPage -> Void>();
 	}
 
-	override public function add( comp:IOComponent ):Void
+	override public function add( comp:IOComponent ):IOComponent
 	{
 		this.components.push( comp );
+
+		return comp;
 	}
 
 	override public function remove( comp:IOComponent ):Void
@@ -66,7 +68,7 @@ class TabbedContainer extends OComponent
 		return newPage;
 	}
 
-	public function addPage( page:ContainerPage ):Void
+	public function addPage( page:ContainerPage ):ContainerPage
 	{
 		var button = tabs.addTabButton( page );
 		page.pageButton = button;
@@ -74,6 +76,8 @@ class TabbedContainer extends OComponent
 		page.container = this;
 		add( page );
 		page.y = tabs._height;
+
+		return page;
 	}
 
 	public function removePage( page:ContainerPage ):Void

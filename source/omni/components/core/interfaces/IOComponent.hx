@@ -109,7 +109,7 @@ interface IOComponent implements IDestroyable
 **/
 	public var components:Array <IOComponent>;
 
-	public function add (comp:IOComponent):Void;
+	public function add (comp:IOComponent):IOComponent;
 
 	public function remove(comp:IOComponent):Void;
 

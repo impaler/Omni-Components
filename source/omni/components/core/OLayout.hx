@@ -30,11 +30,13 @@ class OLayout extends OComponent
 		target = this.sprite;
 	}
 
-	override public function add( comp:IOComponent ):Void
+	override public function add( comp:IOComponent ):IOComponent
 	{
 		super.add( comp );
 		comp.drawNow( );
 		invalidate( false );
+
+		return comp;
 	}
 
 	override public function get_height( ):Float
