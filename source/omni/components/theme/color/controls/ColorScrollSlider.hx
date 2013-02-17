@@ -1,5 +1,6 @@
 package omni.components.theme.color.controls;
 
+import omni.components.theme.color.controls.ColorScrollSliderButton;
 import omni.components.style.OBaseStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.controls.ScrollSlider.ScrollSliderStyle;
@@ -12,7 +13,7 @@ class ColorScrollSlider extends ScrollSliderStyle
 	{
 		super( );
 
-		buttonStyle = new ColorScrollBarButton();
+		buttonStyle = new ColorScrollSliderButton();
 
 		decreaseButtonStyle = new ColorScrollBarButton();
 		increaseButtonStyle = new ColorScrollBarButton();

@@ -1,5 +1,6 @@
 package omni.components.theme.color;
 
+import omni.components.theme.color.controls.ColorSliderButton;
 import omni.components.theme.color.controls.ColorScrollBar;
 import omni.components.core.OTheme;
 import omni.components.theme.color.text.ColorLabel;
@@ -58,6 +59,7 @@ class Color extends OTheme
 
 		addStyle( ColorSlider );
 		addStyle( ColorScrollSlider );
+		addStyle( ColorSliderButton );
 		addStyle( ColorScrollBar );
 		addStyle( ColorScrollBarButton );
 		addStyle( ColorScrollContainer );

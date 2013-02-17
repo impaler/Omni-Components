@@ -15,6 +15,7 @@ class ColorScrollBar extends ScrollBarStyle
 
 		increaseButton = new ColorScrollBarButton();
 		decreaseButton = new ColorScrollBarButton();
+		slider = new ColorScrollSlider();
 
 		defaultWidth = 300;
 		defaultHeight = 20;

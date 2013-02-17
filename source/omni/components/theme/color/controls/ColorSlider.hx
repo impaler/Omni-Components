@@ -16,7 +16,7 @@ class ColorSlider extends SliderBaseStyle
 	{
 		super( );
 
-		buttonStyle = new ColorScrollBarButton();
+		buttonStyle = new ColorSliderButton();
 
 		var bgColor = new BrushColorFill ();
 		bgColor.setColorState( OBaseStyle.STATE_ACTIVE, Colors.BG );
