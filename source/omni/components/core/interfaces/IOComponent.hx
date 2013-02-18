@@ -186,6 +186,12 @@ interface IOComponent implements IDestroyable
 	public var _width(default, set__width):Float;
 	private function set__width( value:Float ):Float;
 
+	public var minWidth:Float;
+	public var maxWidth:Float;
+
+	public var minHeight:Float;
+	public var maxHeight:Float;
+
 /**
 * Resize the component
 **/
