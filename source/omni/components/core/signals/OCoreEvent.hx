@@ -46,7 +46,7 @@ class OCoreEvent extends OSignalType<OCoreEvent -> Void>
 
 	public var target:Dynamic;
 	public var type:String;
-	public var e:Event;
+	public var event:Event;
 	public var delta:Int;
 
 	private var displayTarget:DisplayObjectContainer;
@@ -92,7 +92,7 @@ class OCoreEvent extends OSignalType<OCoreEvent -> Void>
 
 	function eventHandler( e:Event )
 	{
-		this.e = e;
+		this.event = e;
 		dispatch( this );
 	}
 
