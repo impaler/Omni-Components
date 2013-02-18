@@ -9,7 +9,7 @@ import omni.components.core.OButtonBase.OButtonBaseStyle;
 import omni.components.style.OBaseStyle;
 import omni.utils.ColorUtils;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OComponent.ComponentStyle;
+import omni.components.core.OComponent.OComponentStyle;
 
 class ColorCheckBox extends CheckBoxStyle
 {
