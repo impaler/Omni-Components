@@ -375,6 +375,12 @@ class OComponent implements IOComponent
 		return _width;
 	}
 
+	public var minWidth:Float;
+	public var maxWidth:Float;
+
+	public var minHeight:Float;
+	public var maxHeight:Float;
+
 	public function size( w:Float, h:Float ):Void
 	{
 		_size( w, h );

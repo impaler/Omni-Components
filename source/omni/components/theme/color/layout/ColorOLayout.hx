@@ -8,7 +8,7 @@ import omni.components.core.OLayout.OLayoutStyle;
 import omni.utils.ColorUtils;
 import nme.geom.Rectangle;
 
-class ColorLayout extends OLayoutStyle
+class ColorOLayout extends OLayoutStyle
 {
 
 	public function new( )

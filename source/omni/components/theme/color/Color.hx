@@ -1,5 +1,6 @@
 package omni.components.theme.color;
 
+import omni.components.theme.color.layout.ColorWindow;
 import omni.components.theme.color.controls.ColorSliderButton;
 import omni.components.theme.color.controls.ColorScrollBar;
 import omni.components.core.OTheme;
@@ -19,7 +20,7 @@ import omni.components.theme.color.layout.ColorIcon;
 import omni.components.theme.color.layout.ColorRadioButtonGroup;
 import omni.components.theme.color.layout.ColorHBox;
 import omni.components.theme.color.layout.ColorContainerPage;
-import omni.components.theme.color.layout.ColorLayout;
+import omni.components.theme.color.layout.ColorOLayout;
 import omni.components.theme.color.controls.ColorTabButton;
 import omni.components.theme.color.controls.ColorSlider;
 import omni.components.theme.color.controls.ColorScrollSlider;
@@ -38,24 +39,27 @@ class Color extends OTheme
 
 		setupColors( );
 
-		addStyle( ColorOComponent );
+		addOComponentStyle( );
+		addOButtonBaseStyle( );
+		addOLayout( );
 
-		addStyle( ColorOButtonBase );
-		addStyle( ColorButton );
 		addStyle( ColorOToggleButton );
+		addStyle( ColorOToggleButtonGroup );
+		addStyle( ColorOTextBase );
+
+		addStyle( ColorWindow );
+
+		addStyle( ColorButton );
 		addStyle( ColorCheckBox );
 		addStyle( ColorRadioButton );
 		addStyle( ColorRadioButtonGroup );
 
-		addStyle( ColorLayout );
 		addStyle( ColorHBox );
 		addStyle( ColorVBox );
 		addStyle( ColorContainerPage );
 		addStyle( ColorTabbedContainer );
 		addStyle( ColorTabButton );
 		addStyle( ColorTabButtonGroup );
-
-		addStyle( ColorOToggleButtonGroup );
 
 		addStyle( ColorSlider );
 		addStyle( ColorScrollSlider );
@@ -69,14 +73,29 @@ class Color extends OTheme
 
 		addStyle( ColorNumericStepper );
 
-		addStyle( ColorOTextBase );
 		addStyle( ColorLabel );
 		addStyle( ColorInputField );
 
+	}
+
+	public function addOComponentStyle( ):Void
+	{
+		addStyle( ColorOComponent );
+	}
+
+	public function addOButtonBaseStyle( ):Void
+	{
+		addStyle( ColorOButtonBase );
+	}
+
+	public function addOLayout( ):Void
+	{
+		addStyle( ColorOLayout );
 	}
 
 	public function setupColors( ):Void
 	{
 
 	}
+
 }

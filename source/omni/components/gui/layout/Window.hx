@@ -1,5 +1,6 @@
 package omni.components.gui.layout;
 
+import omni.components.core.signals.OCoreEvent;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OCore;
@@ -16,8 +17,9 @@ class Window extends OComponent
 	public var onOpened:OSignalType<Window -> Void>;
 	public var onClosed:OSignalType<Window -> Void>;
 
+	public var onResizeDragRender:OCoreEvent;
+	public var onMouseDownHeader:OSignalMouse;
 	public var onMouseMove:OSignalMouse;
-	public var onMouseDown:OSignalMouse;
 	public var onMouseUp:OSignalMouse;
 
 	public var _container:OLayout;
@@ -27,7 +29,6 @@ class Window extends OComponent
 	public var scalerButton:OButtonBase;
 
 	public var moveable:Bool = true;
-//todo stop the width/height
 	public var resizeable:Bool = true;
 	public var liveResize:Bool = true;
 	public var _resizing:Bool = false;
@@ -55,8 +56,10 @@ class Window extends OComponent
 		onOpened = new OSignalType<Window -> Void>();
 		onClosed = new OSignalType<Window -> Void>();
 
+		onResizeDragRender = new OCoreEvent(OCoreEvent.ENTER_FRAME, this.sprite);
 		onMouseMove = OCore.instance.onStageMouseMove;
 		onMouseUp = OCore.instance.onStageMouseUp;
+		onMouseDownHeader = new OSignalMouse(OSignalMouse.DOWN, header.sprite);
 	}
 
 	override public function drawMembers( ):Void
@@ -73,6 +76,7 @@ class Window extends OComponent
 
 	override public function enableSignals( ):Void
 	{
+		onMouseDownHeader.add( handleStartWindowDrag );
 		scalerButton.mouseDown.add( handleScaleWindowMouseDown );
 	}
 
@@ -113,27 +117,49 @@ class Window extends OComponent
 			_xOffset = e.event.stageX - (scalerButton.x);
 			_yOffset = e.event.stageY - (scalerButton.y);
 
-			onMouseMove.add( handleScaleWindowMouseMove );
-			onMouseUp.add( handleScaleWindowMouseUp );
+			onMouseUp.addOnce( handleScaleWindowMouseUp );
+			onResizeDragRender.add( handleScaleWindowResize );
 		}
 	}
 
-	private function handleScaleWindowMouseMove( e:OSignalMouse ):Void
+	private function handleScaleWindowResize( e:OCoreEvent ):Void
 	{
-		scalerButton.x = e.event.stageX - _xOffset;
-		scalerButton.y = e.event.stageY - _yOffset;
+		var targetX = Std.int( nme.Lib.stage.mouseX - _xOffset );
+
+		if( targetX > Std.int( maxWidth - scalerButton.width ) )
+		{
+			targetX = Std.int( maxWidth - scalerButton.width );
+		}
+		else if( targetX < Std.int( minWidth - scalerButton.width ) )
+		{
+			targetX = Std.int( minWidth - scalerButton.width );
+		}
+
+		var targetY = Std.int( nme.Lib.stage.mouseY - _yOffset );
+
+		if( targetY > Std.int( maxHeight - scalerButton.height ) )
+		{
+			targetY = Std.int( maxHeight - scalerButton.height );
+		}
+		else if( targetY < Std.int( minHeight - scalerButton.height ) )
+		{
+			targetY = Std.int( minHeight - scalerButton.height );
+		}
+
+		scalerButton.x = targetX;
+		scalerButton.y = targetY;
 
 		_size( scalerButton.x + scalerButton.width, scalerButton.y + scalerButton.height );
 		drawNow( );
-		e.updateAfterEvent( );
 	}
 
 	private function handleScaleWindowMouseUp( e:OSignalMouse ):Void
 	{
 		_resizing = false;
-		onMouseMove.remove( handleScaleWindowMouseMove );
-		onMouseUp.remove( handleScaleWindowMouseUp );
+
+		onResizeDragRender.remove( handleScaleWindowResize );
 		size( scalerButton.x + scalerButton.width, scalerButton.y + scalerButton.height );
+
 	}
 
 //***********************************************************

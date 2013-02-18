@@ -57,6 +57,13 @@ class OBaseStyle implements IStyle
 
 		if( value._padding == 0 )
 			value._padding = defaultPadding;
+
+		value.minWidth = minWidth;
+		value.maxWidth = maxWidth;
+
+		value.minHeight = minHeight;
+		value.maxHeight = maxHeight;
+
 	}
 
 	public function update( value:IOComponent ):Void
