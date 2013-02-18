@@ -120,11 +120,14 @@ class OComponent implements IOComponent
 		if( style == null )
 		{
 			this._style = OCore.instance.defaultTheme.getStyle( this.styleId );
+			if( this._style == null )
+				throw 'The default theme has no style for the id of ' + this.styleId;
 		}
 		else
 		{
 			this._style = style;
 		}
+
 		this._style.initStyle( this );
 	}
 
@@ -524,12 +527,12 @@ return false;
 
 	public function get_styleId( ):String
 	{
-		return ComponentStyle.styleString;
+		return OComponentStyle.styleString;
 	}
 
 }
 
-class ComponentStyle extends OBackgroundStyle
+class OComponentStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "ComponentStyle";
 
