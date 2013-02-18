@@ -1,6 +1,5 @@
 package omni.examples.components;
 
-import omni.examples.components.tests.ScrollContainerTests;
 import omni.examples.components.tests.Controls;
 import omni.components.theme.color.Orange;
 import omni.components.core.OCore;
@@ -31,7 +30,6 @@ class HelloWorld extends MovieClip
 		OCore.instance.init( Orange );
 
 		var controls = new Controls();
-//		var scroll = new ScrollContainerTests();
 
 	}
 
