@@ -45,10 +45,10 @@ class Slider extends OComponent
 
 	private var buttonClick:Bool = false;
 
-	public var mouseMove:OSignalMouse;
-	public var mouseWheel:OSignalMouse;
-	public var mouseDown:OSignalMouse;
-	public var mouseUp:OSignalMouse;
+	public var onMouseMove:OSignalMouse;
+	public var onMouseWheel:OSignalMouse;
+	public var onMouseDown:OSignalMouse;
+	public var onMouseUp:OSignalMouse;
 
 	public var onChange(default, null):OSignalType<Int -> Void>;
 
@@ -64,10 +64,10 @@ class Slider extends OComponent
 		_rect = new Rectangle();
 
 		onChange = new OSignalType<Int -> Void>();
-		mouseWheel = new OSignalMouse (OSignalMouse.WHEEL, this.sprite);
-		mouseDown = new OSignalMouse (OSignalMouse.DOWN, this.sprite);
-		mouseUp = OCore.instance.onStageMouseUp;
-		mouseMove = OCore.instance.onStageMouseMove;
+		onMouseWheel = new OSignalMouse (OSignalMouse.WHEEL, this.sprite);
+		onMouseDown = new OSignalMouse (OSignalMouse.DOWN, this.sprite);
+		onMouseUp = OCore.instance.onStageMouseUp;
+		onMouseMove = OCore.instance.onStageMouseMove;
 
 		var thisStyle = cast(_style, SliderBaseStyle);
 		button = new OButtonBase(thisStyle.buttonStyle);
@@ -78,26 +78,26 @@ class Slider extends OComponent
 
 	override public function enableSignals( ):Void
 	{
-		button.mouseDown.add( handleButtonDown );
-		mouseWheel.add( handleMouseWheel );
-		mouseDown.add( handleMouseDown );
+		button.onMouseDown.add( handleButtonDown );
+		onMouseWheel.add( handleMouseWheel );
+		onMouseDown.add( handleMouseDown );
 	}
 
 	override public function disableSignals( ):Void
 	{
-		button.mouseDown.remove( handleButtonDown );
-		mouseDown.remove( handleMouseDown );
-		mouseWheel.remove( handleMouseWheel );
+		button.onMouseDown.remove( handleButtonDown );
+		onMouseDown.remove( handleMouseDown );
+		onMouseWheel.remove( handleMouseWheel );
 	}
 
 	override public function destroy( ):Void
 	{
-		mouseWheel.destroy( );
-		mouseDown.destroy( );
+		onMouseWheel.destroy( );
+		onMouseDown.destroy( );
 
-		mouseMove.remove( handleMouseMove );
-		mouseUp.remove( handleMouseUp );
-		button.mouseDown.remove( handleButtonDown );
+		onMouseMove.remove( handleMouseMove );
+		onMouseUp.remove( handleMouseUp );
+		button.onMouseDown.remove( handleButtonDown );
 		OCore.instance.onStageMouseLeave.remove( handleLeftStage );
 
 		super.destroy( );
@@ -126,8 +126,8 @@ class Slider extends OComponent
 
 		button.startDrag( false, _rect );
 
-		mouseMove.add( handleMouseMove );
-		mouseUp.add( handleMouseUp );
+		onMouseMove.add( handleMouseMove );
+		onMouseUp.add( handleMouseUp );
 	}
 
 	public function handleButtonDown( e:OSignalMouse ):Void
@@ -145,8 +145,8 @@ class Slider extends OComponent
 		button.handleMouseUp( e );
 		button.stopDrag( );
 
-		mouseUp.remove( handleMouseUp );
-		mouseMove.remove( handleMouseMove );
+		onMouseUp.remove( handleMouseUp );
+		onMouseMove.remove( handleMouseMove );
 
 		updateValueFromButtonLocation( );
 

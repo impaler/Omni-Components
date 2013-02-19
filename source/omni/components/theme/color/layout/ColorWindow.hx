@@ -31,8 +31,8 @@ class ColorWindow extends WindowStyle
 		defaultWidth = 300;
 		defaultHeight = 300;
 
-		maxWidth = 400;
-		maxHeight = 400;
+		maxWidth = 680;
+		maxHeight = 680;
 		minHeight = 200;
 		minWidth = 200;
 	}

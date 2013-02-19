@@ -42,8 +42,8 @@ class ScrollSlider extends Slider
 		updateValueFromButtonLocation( );
 
 		button.startDrag( false, _rect );
-		mouseMove.add( handleMouseMove );
-		mouseUp.add( handleMouseUp );
+		onMouseMove.add( handleMouseMove );
+		onMouseUp.add( handleMouseUp );
 	}
 
 	override public function handleMouseUp( ?e:OSignalMouse ):Void
@@ -53,8 +53,8 @@ class ScrollSlider extends Slider
 
 		updateValueOnMouseMove( );
 
-		mouseUp.remove( handleMouseUp );
-		mouseMove.remove( handleMouseMove );
+		onMouseUp.remove( handleMouseUp );
+		onMouseMove.remove( handleMouseMove );
 	}
 
 	override public function handleMouseWheel( ?e:OSignalMouse ):Void
