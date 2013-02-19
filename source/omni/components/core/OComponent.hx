@@ -1,13 +1,13 @@
 package omni.components.core;
 
-import omni.components.style.OBaseStyle;
-import omni.utils.UtilNumbers;
-import omni.utils.ComponentUtils;
-import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
+import omni.components.core.interfaces.IStyle;
+import omni.utils.ComponentUtils;
+import omni.utils.UtilNumbers;
 import omni.components.core.signals.OCoreEvent;
 import omni.components.core.signals.OSignalType;
 import omni.components.style.OBackgroundStyle;
+import omni.components.style.OBaseStyle;
 
 import nme.events.Event;
 import nme.display.Sprite;
@@ -541,9 +541,6 @@ return false;
 class OComponentStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "ComponentStyle";
-
-	public static var STATE_OVER:String = "STATE_OVER";
-	public static var STATE_DOWN:String = "STATE_DOWN";
 
 	public function new( )
 	{
