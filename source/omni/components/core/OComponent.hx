@@ -119,7 +119,11 @@ class OComponent implements IOComponent
 		}
 		if( style == null )
 		{
+			if( OCore.instance.defaultTheme == null )
+				throw 'There is no default theme set please use OCore.instance.init( YourThemeClass );';
+
 			this._style = OCore.instance.defaultTheme.getStyle( this.styleId );
+
 			if( this._style == null )
 				throw 'The default theme has no style for the id of ' + this.styleId;
 		}
