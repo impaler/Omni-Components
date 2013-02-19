@@ -1,15 +1,15 @@
 package omni.components.gui.controls;
 
-import omni.utils.ComponentUtils;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OComponent;
-import omni.components.gui.text.Label;
 import omni.components.core.OCore;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.OTextBase;
 import omni.components.core.OButtonBase;
+import omni.components.gui.text.Label;
 import omni.components.style.OBackgroundStyle;
+import omni.utils.ComponentUtils;
 
 import nme.utils.Timer;
 import nme.events.TimerEvent;
@@ -30,24 +30,28 @@ class NumericStepper extends OComponent
 
 	private var _increasing:Bool;
 	private var _timer:Timer;
+	private var _intialButtonTimerDelay:Float;
+	private var _timerInterval:Float;
 
 	public var _textBase:OTextBase;
 	public var _increase:OButtonBase;
 	public var _decrease:OButtonBase;
 
-	public var mouseWheel:OSignalMouse;
+	public var onMouseWheel:OSignalMouse;
 	public var onChange(default, null):OSignalType<Int -> Void>;
 
 	override public function createMembers( ):Void
 	{
-//todo move to style layer and finish TextBase
+//todo move to style layer
 		_max = 1000;
 		_min = - 10;
 		_value = 0;
 		step = 1;
+		_intialButtonTimerDelay = 1000;
+		_timerInterval = 100;
 
 		onChange = new OSignalType();
-		mouseWheel = new OSignalMouse(OSignalMouse.WHEEL, this.sprite);
+		onMouseWheel = new OSignalMouse(OSignalMouse.WHEEL, this.sprite);
 
 		var thisStyle = cast(_style, NumericStepperStyle);
 
@@ -63,48 +67,45 @@ class NumericStepper extends OComponent
 		_decrease.trackTheme = false;
 		add( _decrease );
 
-//_timer = new Timer(1000);
-//_timer.addEventListener( TimerEvent.TIMER, onTimerTick );
+		_timer = new Timer(_intialButtonTimerDelay);
+		_timer.addEventListener( TimerEvent.TIMER, handleTimerTick );
 	}
 
 	override public function enableSignals( ):Void
 	{
-		_increase.mouseDown.add( onIncreaseClick );
-		_decrease.mouseDown.add( onDecreaseClick );
-		mouseWheel.add( onMouseWheel );
+		_increase.onMouseDown.add( handleIncreaseClick );
+		_decrease.onMouseDown.add( handleDecreaseClick );
+		onMouseWheel.add( handleMouseWheel );
 	}
 
 	override public function disableSignals( ):Void
 	{
-		_increase.mouseDown.remove( onIncreaseClick );
-		_decrease.mouseDown.remove( onDecreaseClick );
+		_increase.onMouseDown.remove( handleIncreaseClick );
+		_decrease.onMouseDown.remove( handleDecreaseClick );
 	}
 
-	private function onMouseWheel( ?e:OSignalMouse ):Void
+	private function handleMouseWheel( ?e:OSignalMouse ):Void
 	{
 		value += (e.delta > 0 ? 1 : - 1) * step;
 	}
 
-	private function onTimerTick( e:TimerEvent ):Void
+	private function handleTimerTick( e:TimerEvent ):Void
 	{
-		_timer.delay = 100;
+		_timer.delay = _timerInterval;
 		value += _increasing ? step : - step;
 	}
 
-	private function onIncreaseClick( ?e:OSignalMouse ):Void
+	private function handleIncreaseClick( ?e:OSignalMouse ):Void
 	{
-		nme.Lib.trace( "onIncreaseClick" );
 		value += step;
-
 		OCore.instance.onStageMouseUp.addOnce( handleMouseUp );
 		_increasing = true;
-//_timer.reset( );
-//_timer.start( );
+		_timer.reset( );
+		_timer.start( );
 	}
 
-	private function onDecreaseClick( ?e:OSignalMouse ):Void
+	private function handleDecreaseClick( ?e:OSignalMouse ):Void
 	{
-		nme.Lib.trace( "onDecreaseClick" );
 		value -= step;
 
 		OCore.instance.onStageMouseUp.addOnce( handleMouseUp );
@@ -210,7 +211,6 @@ class NumericStepper extends OComponent
 	{
 		return NumericStepperStyle.styleString;
 	}
-
 }
 
 /**
