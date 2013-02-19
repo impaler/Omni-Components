@@ -19,11 +19,11 @@ import nme.events.MouseEvent;
 */
 class OButtonBase extends OComponent
 {
-	public var mouseOut:OSignalMouse;
-	public var mouseOver:OSignalMouse;
-	public var mouseDown:OSignalMouse;
-	public var mouseUp:OSignalMouse;
-	public var mouseClick:OSignalMouse;
+	public var onMouseOut:OSignalMouse;
+	public var onMouseOver:OSignalMouse;
+	public var onMouseDown:OSignalMouse;
+	public var onMouseUp:OSignalMouse;
+	public var onMouseClick:OSignalMouse;
 
 	public var onClick:OSignalType<OButtonBase -> Void>;
 
@@ -40,11 +40,11 @@ class OButtonBase extends OComponent
 
 		buttonMode = true;
 
-		mouseOut = new OSignalMouse(OSignalMouse.OUT, this.sprite);
-		mouseOver = new OSignalMouse(OSignalMouse.OVER, this.sprite);
-		mouseDown = new OSignalMouse(OSignalMouse.DOWN, this.sprite);
-		mouseUp = new OSignalMouse(OSignalMouse.UP, this.sprite);
-		mouseClick = new OSignalMouse(OSignalMouse.CLICK, this.sprite);
+		onMouseOut = new OSignalMouse(OSignalMouse.OUT, this.sprite);
+		onMouseOver = new OSignalMouse(OSignalMouse.OVER, this.sprite);
+		onMouseDown = new OSignalMouse(OSignalMouse.DOWN, this.sprite);
+		onMouseUp = new OSignalMouse(OSignalMouse.UP, this.sprite);
+		onMouseClick = new OSignalMouse(OSignalMouse.CLICK, this.sprite);
 
 		onClick = new OSignalType<OButtonBase -> Void>();
 	}
@@ -53,11 +53,11 @@ class OButtonBase extends OComponent
 	{
 		if( ! _listening )
 		{
-			mouseOut.add( handleMouseOut );
-			mouseOver.add( handleMouseOver );
-			mouseDown.add( handleMouseDown );
-			mouseUp.add( handleMouseUp );
-			mouseClick.add( handleMouseClick );
+			onMouseOut.add( handleMouseOut );
+			onMouseOver.add( handleMouseOver );
+			onMouseDown.add( handleMouseDown );
+			onMouseUp.add( handleMouseUp );
+			onMouseClick.add( handleMouseClick );
 			OCore.instance.onStageMouseUp.add( handleMouseUp );
 
 			_listening = true;
@@ -71,11 +71,11 @@ class OButtonBase extends OComponent
 			_isDown = false;
 			_isOver = false;
 
-			mouseOut.removeAll( );
-			mouseOver.removeAll( );
-			mouseDown.removeAll( );
-			mouseUp.removeAll( );
-			mouseClick.removeAll( );
+			onMouseOut.removeAll( );
+			onMouseOver.removeAll( );
+			onMouseDown.removeAll( );
+			onMouseUp.removeAll( );
+			onMouseClick.removeAll( );
 			OCore.instance.onStageMouseUp.remove( handleMouseUp );
 
 			_listening = false;
@@ -84,10 +84,10 @@ class OButtonBase extends OComponent
 
 	override public function destroy( ):Void
 	{
-		mouseOut.destroy( );
-		mouseOver.destroy( );
-		mouseDown.destroy( );
-		mouseUp.destroy( );
+		onMouseOut.destroy( );
+		onMouseOver.destroy( );
+		onMouseDown.destroy( );
+		onMouseUp.destroy( );
 		onClick.destroy( );
 		OCore.instance.onStageMouseUp.remove( handleMouseUp );
 
