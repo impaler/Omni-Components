@@ -1,5 +1,7 @@
 package omni.components.style;
 
+import nme.display.BitmapData;
+import omni.components.style.brush.BrushBitmapFill;
 import omni.components.core.OStates;
 import nme.Assets;
 import omni.components.core.interfaces.IOComponent;
@@ -75,11 +77,24 @@ class OBaseStyle implements IStyle
 
 	}
 
-	public function setMinSizeBitmap( path:String ):Void
+	public function setMinSizeBitmap( BitmapBrush:BrushBitmapFill, state:String = "ACTIVE" ):Void
 	{
-		var bitmap = Assets.getBitmapData( path );
+		if (BitmapBrush.images.get(state)==null)
+			throw "setMinSizeBitmap cannot find any bitmaps to determine min size in brush";
+		
+		var bitmap = cast(BitmapBrush.images.get(state), BitmapData);
 		minWidth = bitmap.width;
 		minHeight = bitmap.height;
+	}
+	
+	public function setDefaultSize ( BitmapBrush:BrushBitmapFill, state:String = "ACTIVE" ):Void
+	{
+		if (BitmapBrush.images.get(state)==null)
+			throw "setDefaultSize cannot find any bitmaps to determine the defaultSize in brush";
+		
+		var bitmap = cast(BitmapBrush.images.get(state), BitmapData);
+		defaultWidth = bitmap.width;
+		defaultHeight = bitmap.height;
 	}
 
 }
