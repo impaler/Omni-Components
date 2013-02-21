@@ -62,7 +62,7 @@ class OCore
 
 	public var trackTheme:Bool;
 //causes lag in games, better suited for apps
-	public var updateAfterEvent:Bool = true;
+	public var updateAfterEvent:Bool = false;
 
 	public var onThemeChange:OSignalType<Void -> Void>;
 
