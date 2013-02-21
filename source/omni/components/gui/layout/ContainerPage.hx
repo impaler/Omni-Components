@@ -10,18 +10,34 @@ class ContainerPage extends OComponent
 	public var onClosed:OSignalType<ContainerPage -> Void>;
 	public var onOpened:OSignalType<ContainerPage -> Void>;
 
-	public var pageName(get_pageName, set_pageName):String;
-	public var _pageName:String;
+	public var title(get_pageName, set_pageName):String;
+	public var _title:String;
 
-	public var container:TabbedContainer;
+	public var parentContainer:TabbedContainer;
 	public var pageButton:TabButton;
+	
+	public var container:ContentContainer;
 
 	override public function createMembers( ):Void
 	{
 		onClosed = new OSignalType<ContainerPage -> Void>();
 		onOpened = new OSignalType<ContainerPage -> Void>();
+		
+		container = new ContentContainer();
+		container.parent = this;
 	}
+	
+	override public function drawMembers( ):Void
+	{
+		super.drawMembers( );
 
+		if(container.container != null){
+			container.container._width = width;
+			container.container._height = height;
+			container.container.invalidate( );
+		}
+	}
+	
 	override public function destroy( ):Void
 	{
 		onClosed.destroy( );
@@ -31,33 +47,33 @@ class ContainerPage extends OComponent
 
 	public function open( ):Void
 	{
-		container.sprite.addChild( this.sprite );
+		parentContainer.sprite.addChild( this.sprite );
 		onOpened.dispatch( this );
 	}
 
 	public function close( ):Void
 	{
-		container.sprite.removeChild( this.sprite );
+		parentContainer.sprite.removeChild( this.sprite );
 		onClosed.dispatch( this );
 	}
 
 	public function get_pageName( ):String
 	{
-		if( _pageName == null )
+		if( _title == null )
 		{
-			_pageName = Std.string( compId );
+			_title = Std.string( compId );
 		}
 
-		return _pageName;
+		return _title;
 	}
 
 	public function set_pageName( value:String ):String
 	{
-		if( _pageName == null )
+		if( _title == null )
 		{
-			_pageName = value;
+			_title = value;
 		}
-		return _pageName;
+		return _title;
 	}
 
 //***********************************************************
