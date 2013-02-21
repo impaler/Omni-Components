@@ -10,7 +10,7 @@ import nme.display.BitmapData;
 class BrushBitmapFill implements IBrush
 {
 
-	private var images:Hash<BitmapData>;
+	public var images:Hash<BitmapData>;
 	public var smooth:Bool;
 
 	public function setBitmapState(state:String, path:String):Void
