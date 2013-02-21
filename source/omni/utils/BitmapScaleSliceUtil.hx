@@ -18,11 +18,22 @@ import nme.geom.Rectangle;
 **/
 class BitmapScaleSliceUtil
 {
-
 	public static inline function slice9( target:Sprite, targetWidth:Float, targetHeight:Float, bmp:BitmapData,
-	                                      slice:Array<Int>, smooth:Bool = false ):Sprite
+	                                      slice:Array<Int>, smooth:Bool = false, debuglines:Bool = false ):Sprite
 	{
+		if( slice.length < 4 )
+		{
+			throw 'Error slice9 should contain 4 integers.';
+		}
+
 		target.graphics.clear( );
+
+		if(debuglines){
+			UtilPosition.drawYRegLine( target, slice[0], ColorUtils.BLUE );
+			UtilPosition.drawXRegLine( target, slice[1], ColorUtils.GREEN );
+			UtilPosition.drawXRegLine( target, slice[2], ColorUtils.ORANGE );
+			UtilPosition.drawYRegLine( target, slice[3], ColorUtils.RED );
+		}
 
 		var srcRectRect = new Rectangle();
 		var dstRect = new Rectangle();
