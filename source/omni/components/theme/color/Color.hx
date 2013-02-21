@@ -1,9 +1,10 @@
 package omni.components.theme.color;
 
+import omni.components.core.OTheme;
+import omni.components.theme.color.core.ColorOContainer;
 import omni.components.theme.color.layout.ColorWindow;
 import omni.components.theme.color.controls.ColorSliderButton;
 import omni.components.theme.color.controls.ColorScrollBar;
-import omni.components.core.OTheme;
 import omni.components.theme.color.text.ColorLabel;
 import omni.components.theme.color.text.ColorInputField;
 import omni.components.theme.color.controls.ColorScrollBarButton;
@@ -43,14 +44,17 @@ class Color extends OTheme
 		addOButtonBaseStyle( );
 		addOLayout( );
 
+		addStyle( ColorOContainer );
 		addStyle( ColorOToggleButton );
 		addStyle( ColorOToggleButtonGroup );
-		addStyle( ColorOTextBase );
+		
+		addOTextBaseStyle();
 
 		addStyle( ColorWindow );
 
-		addStyle( ColorButton );
-		addStyle( ColorCheckBox );
+		addButtonStyle();
+		addCheckBoxStyle();
+		
 		addStyle( ColorRadioButton );
 		addStyle( ColorRadioButtonGroup );
 
@@ -61,9 +65,12 @@ class Color extends OTheme
 		addStyle( ColorTabButton );
 		addStyle( ColorTabButtonGroup );
 
-		addStyle( ColorSlider );
+		addSliderStyle();
+		addSliderButtonStyle();
+
+
+
 		addStyle( ColorScrollSlider );
-		addStyle( ColorSliderButton );
 		addStyle( ColorScrollBar );
 		addStyle( ColorScrollBarButton );
 		addStyle( ColorScrollContainer );
@@ -71,13 +78,17 @@ class Color extends OTheme
 		addStyle( ColorIcon );
 		addStyle( ColorProgressBar );
 
-		addStyle( ColorNumericStepper );
+		addNumericStepperStyle();
 
 		addStyle( ColorLabel );
 		addStyle( ColorInputField );
 
 	}
 
+/**
+* Override these helper functions for previewing themes in dev without null errors
+* 
+**/
 	public function addOComponentStyle( ):Void
 	{
 		addStyle( ColorOComponent );
@@ -93,9 +104,39 @@ class Color extends OTheme
 		addStyle( ColorOLayout );
 	}
 
+	public function addOTextBaseStyle( ):Void
+	{
+		addStyle( ColorOTextBase );
+	}
+	
+	public function addButtonStyle( ):Void
+	{
+		addStyle( ColorButton );
+	}
+
+	public function addSliderStyle( ):Void
+	{
+		addStyle( ColorSlider );
+	}
+	
+	public function addSliderButtonStyle( ):Void
+	{
+		addStyle( ColorSliderButton );
+	}
+	
+	public function addNumericStepperStyle( ):Void
+	{
+		addStyle( ColorNumericStepper );
+	}
+	
+	public function addCheckBoxStyle( ):Void
+	{
+		addStyle( ColorCheckBox );
+	}
+	
 	public function setupColors( ):Void
 	{
-
+		//set your overrides on the static color values
 	}
 
 }

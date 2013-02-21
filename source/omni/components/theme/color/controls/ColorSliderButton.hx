@@ -1,5 +1,6 @@
 package omni.components.theme.color.controls;
 
+import omni.components.gui.controls.SliderButton.SliderButtonStyle;
 import omni.components.core.OStates;
 import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
 import omni.components.core.OButtonBase.OButtonBaseStyle;
@@ -8,7 +9,7 @@ import omni.utils.ColorUtils;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OComponent.OComponentStyle;
 
-class ColorSliderButton extends OButtonBaseStyle
+class ColorSliderButton extends SliderButtonStyle
 {
 	public function new( )
 	{

@@ -14,7 +14,7 @@ class ColorScrollSlider extends ScrollSliderStyle
 	{
 		super( );
 
-		buttonStyle = new ColorScrollSliderButton();
+		buttonStyle = new ColorSliderButton();
 
 		decreaseButtonStyle = new ColorScrollBarButton();
 		increaseButtonStyle = new ColorScrollBarButton();

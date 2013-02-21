@@ -24,6 +24,7 @@ class Colors
 	static public var STEPPER_BUTTON_DOWN:Int = ColorUtils.DARKER_ORANGE;
 
 	static public var LABEL_TEXT:Int = ColorUtils.GRAY;
+	static public var INPUT_TEXT:Int = ColorUtils.GRAY;
 
 	static public var SCROLLBAR_BUTTON_ACTIVE:Int = ColorUtils.HALO_BLUE;
 	static public var SCROLLBAR_BUTTON_OVER:Int = ColorUtils.darker( ColorUtils.HALO_BLUE );

@@ -28,7 +28,7 @@ class ColorInputField extends InputFieldStyle
 		wordWrap = false;
 //		restrict = "0-9.\\-";
 		fontSize = 20;
-		fontColor = Colors.LABEL_TEXT;
+		fontColor = Colors.INPUT_TEXT;
 		defaultText = "Orange Input Text";
 
 	}

@@ -7,9 +7,6 @@ import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
 import omni.utils.ColorUtils;
 
-/**
- * OrangeSlider
- */
 class ColorSlider extends SliderBaseStyle
 {
 
