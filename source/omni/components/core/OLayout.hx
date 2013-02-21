@@ -1,35 +1,29 @@
 package omni.components.core;
 
-import nme.geom.Rectangle;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OComponent;
+import omni.components.core.OContainer.OContainerStyle;
 import omni.components.style.OBackgroundStyle;
 
 import nme.display.Sprite;
+import nme.geom.Rectangle;
 
-class OLayout extends OComponent
+class OLayout extends OContainer
 {
 	public var direction(default, set_direction):String;
 	public var _direction:String;
-
-	public var scrollRectEnabled(get_scrollRectEnabled, set_scrollRectEnabled):Bool;
-	public var _scrollRectEnabled:Bool = false;
-
-	public var _scrollRect:Rectangle;
-
-	public var target:Sprite;
 
 	override public function createMembers( ):Void
 	{
 		super.createMembers( );
 
-		_scrollRect = new Rectangle(0, 0, _width, _height);
 		target = this.sprite;
 	}
 
 	override public function add( comp:IOComponent ):IOComponent
 	{
 		super.add( comp );
+
 		comp.drawNow( );
 		invalidate( false );
 
@@ -148,13 +142,6 @@ class OLayout extends OComponent
 			}
 		}
 
-		if( _scrollRectEnabled )
-		{
-			_scrollRect.width = width;
-			_scrollRect.height = height;
-			sprite.scrollRect = _scrollRect;
-		}
-
 		super.draw( );
 	}
 
@@ -166,36 +153,22 @@ class OLayout extends OComponent
 		return _direction;
 	}
 
-	public function get_scrollRectEnabled( ):Bool
-	{
-		return _scrollRectEnabled;
-	}
-
-	public function set_scrollRectEnabled( b:Bool ):Bool
-	{
-		_scrollRectEnabled = b;
-		if( ! _scrollRectEnabled ) sprite.scrollRect = null;
-		return _scrollRectEnabled;
-	}
-
 	override public function get_styleId( ):String
 	{
 		return OLayoutStyle.styleString;
 	}
 }
 
-class OLayoutStyle extends OBackgroundStyle
+class OLayoutStyle extends OContainerStyle
 {
 
-	public static var styleString:String = "LayoutStyle";
+	public static var styleString:String = "OLayoutStyle";
 	public var defaultDirection:String;
-	public var defaultScrollRect:Bool;
 
 	public function new( )
 	{
 		super( );
 		defaultDirection = OStates.VERTICAL;
-		defaultScrollRect = false;
 		styleID = styleString;
 	}
 
@@ -204,7 +177,6 @@ class OLayoutStyle extends OBackgroundStyle
 		var styleAs = cast (value, OLayout);
 
 		styleAs._direction = defaultDirection;
-		styleAs._scrollRectEnabled = defaultScrollRect;
 
 		super.initStyle( value );
 	}
