@@ -1,5 +1,6 @@
 package omni.components.gui.controls;
 
+import omni.components.gui.controls.SliderButton.SliderButtonStyle;
 import omni.components.core.OStates;
 import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
 import omni.utils.UtilNumbers;
@@ -25,7 +26,7 @@ class Slider extends OComponent
 {
 	public var step:Int = 10;
 
-	public var button:OButtonBase;
+	public var button:SliderButton;
 
 	public var value(get_value, set_value):Int;
 	public var _value:Int = 30;
@@ -70,7 +71,7 @@ class Slider extends OComponent
 		onMouseMove = OCore.instance.onStageMouseMove;
 
 		var thisStyle = cast(_style, SliderBaseStyle);
-		button = new OButtonBase(thisStyle.buttonStyle);
+		button = new SliderButton(thisStyle.buttonStyle);
 		add( button );
 
 		sprite.buttonMode = true;
@@ -390,7 +391,7 @@ class SliderBaseStyle extends OBackgroundStyle
 {
 	public static var styleString:String = "SliderBaseStyle";
 
-	public var buttonStyle:OButtonBaseStyle;
+	public var buttonStyle:SliderButtonStyle;
 
 	public var defaultVHeight:Float;
 	public var defaultVWidth:Float;
