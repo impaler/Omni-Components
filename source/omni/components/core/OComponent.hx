@@ -137,15 +137,14 @@ class OComponent implements IOComponent
 
 	public var invalid:Bool;
 
-	public function invalidate( recursive:Bool = true ):Void
+	public function invalidate( recursive:Bool = false ):Void
 	{
 		if( ! this.invalid )
 		{
 			this.invalid = true;
 			ORenderManager.instance.addToRenderList( this );
-
 		}
-//todo is this handled in style
+
 		if( components.length > 0 && recursive )
 		{
 			for( i in 0...components.length )
