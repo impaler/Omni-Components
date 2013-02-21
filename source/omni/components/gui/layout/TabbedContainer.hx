@@ -1,5 +1,7 @@
 package omni.components.gui.layout;
 
+import omni.components.core.OContainer;
+import omni.components.core.OLayout;
 import omni.components.gui.controls.TabButton;
 import omni.components.style.OBackgroundStyle;
 import omni.components.core.interfaces.IStyle;
@@ -7,7 +9,7 @@ import omni.components.core.interfaces.IOComponent;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.OComponent;
 
-class TabbedContainer extends OComponent
+class TabbedContainer extends OContainer
 {
 
 	public var nextPage:ContainerPage = null;
@@ -24,17 +26,32 @@ class TabbedContainer extends OComponent
 
 	override public function createMembers( ):Void
 	{
+		super.createMembers();
+		
 		tabs = new TabButtonGroup();
 		tabs.onTabButtonChange.add( handleTabChange );
 		this.sprite.addChild( tabs.sprite );
 
 		onPageChange = new OSignalType<ContainerPage -> Void>();
+
+		_scrollRectEnabled = true;
 	}
+	
+	override public function drawMembers( ):Void
+	{
+		super.drawMembers( );
+
+		if(currentPage != null){
+			currentPage._width = width;
+			currentPage._height = height - tabs.height;
+			currentPage.invalidate( );
+		}
+	}
+	
 
 	override public function add( comp:IOComponent ):IOComponent
 	{
 		this.components.push( comp );
-
 		return comp;
 	}
 
@@ -62,7 +79,7 @@ class TabbedContainer extends OComponent
 	{
 		var newPage = new ContainerPage(pageStyle);
 		if( name != null )
-			newPage.pageName = name;
+			newPage.title = name;
 		addPage( newPage );
 
 		return newPage;
@@ -72,8 +89,8 @@ class TabbedContainer extends OComponent
 	{
 		var button = tabs.addTabButton( page );
 		page.pageButton = button;
-		button.labelText = page.pageName;
-		page.container = this;
+		button.labelText = page.title;
+		page.parentContainer = this;
 		add( page );
 		page.y = tabs._height;
 
@@ -123,7 +140,9 @@ class TabbedContainer extends OComponent
 
 	public function handlePageOpened( page:ContainerPage ):Void
 	{
+		invalidate();
 		onPageChange.dispatch( cast(page, ContainerPage) );
+		currentPage = page;
 		tabs.setActiveButton( page.pageButton );
 	}
 
@@ -132,7 +151,7 @@ class TabbedContainer extends OComponent
 		for( o in components )
 		{
 			var page = cast(o, ContainerPage);
-			if( page.pageName == name ) return page;
+			if( page.title == name ) return page;
 		}
 		return null;
 	}
