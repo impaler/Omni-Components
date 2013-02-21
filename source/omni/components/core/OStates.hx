@@ -28,5 +28,8 @@ class OStates
 	public static var TOP_RIGHT:String = "TOP_RIGHT";
 	public static var BOTTOM_LEFT:String = "BOTTOM_LEFT";
 	public static var BOTTOM_RIGHT:String = "BOTTOM_RIGHT";
+	
+	public static var AUTO:String = "AUTO";
+	public static var FIXED:String = "FIXED";
 
 }
