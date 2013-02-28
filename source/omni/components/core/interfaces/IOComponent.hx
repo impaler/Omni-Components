@@ -71,7 +71,7 @@ interface IOComponent implements IDestroyable
 /**
 * Draw the component asap
 **/
-	function drawNow(recursive:Bool = true):Void;
+    function drawNow(recursive:Bool = true):Void;
 
 /**
 * The main draw function of each component
@@ -107,9 +107,15 @@ interface IOComponent implements IDestroyable
 /**
 * Array of child components
 **/
-	public var components:Array <IOComponent>;
+	public var members:Array <IOComponent>;
 
 	public function add (comp:IOComponent):IOComponent;
+	public function addFirst (comp:IOComponent):IOComponent;
+	public function addAt (comp:IOComponent, index:Int):IOComponent;
+	public function getMemberIndex (comp:IOComponent):Int;
+
+    public function addToMembers (comp:IOComponent):IOComponent;
+    public function coreAdd(comp:IOComponent):IOComponent;
 
 	public function remove(comp:IOComponent):Void;
 
