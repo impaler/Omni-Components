@@ -3,6 +3,7 @@ package omni.components.core;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.utils.ComponentUtils;
+import omni.utils.UtilPosition;
 import omni.utils.UtilNumbers;
 import omni.components.core.signals.OCoreEvent;
 import omni.components.core.signals.OSignalType;
@@ -37,7 +38,7 @@ class OComponent implements IOComponent
 	{
 		sprite = new Sprite();
 		onResize = new OCoreEvent(OCoreEvent.RESIZE, this.sprite);
-		components = [];
+		members = [];
 	}
 
 	public function onAddedToStage( e:Event ):Void
@@ -92,6 +93,7 @@ class OComponent implements IOComponent
 	{
 		if( this._style != value )
 		{
+            _style = null;
 			stopTrackingTheme( );
 			initStyle( value );
 			invalidate( );
@@ -145,26 +147,26 @@ class OComponent implements IOComponent
 			ORenderManager.instance.addToRenderList( this );
 		}
 
-		if( components.length > 0 && recursive )
+		if( members.length > 0 && recursive )
 		{
-			for( i in 0...components.length )
+			for( i in 0...members.length )
 			{
-				var o = cast (components[i], IOComponent);
+				var o = cast (members[i], IOComponent);
 				o.invalidate( );
 			}
 		}
 	}
 
-	public function drawNow( recursive:Bool = true ):Void
+	public inline function drawNow( recursive:Bool = false ):Void
 	{
 		this.invalid = true;
 		draw( );
 
-		if( components.length > 0 && recursive )
+		if( members.length > 0 && recursive )
 		{
-			for( i in 0...components.length )
+			for( i in 0...members.length )
 			{
-				var o = cast (components[i], IOComponent);
+				var o = cast (members[i], IOComponent);
 				o.drawNow( );
 			}
 		}
@@ -189,7 +191,15 @@ class OComponent implements IOComponent
 
 		drawCount++;
 
+//		debugDraw();
+		
 		this.invalid = false;
+	}
+
+    //todo
+	public function debugDraw( ):Void
+	{
+//		UtilPosition.drawBoxLine(OCore.instance.debugLayer.graphics, sprite);
 	}
 
 	public function onThemeChange( ):Void
@@ -237,18 +247,44 @@ class OComponent implements IOComponent
 
 	public var onResize:OCoreEvent;
 
-	public var components:Array <IOComponent>;
+	public var members:Array <IOComponent>;
 
 	public function add( comp:IOComponent ):IOComponent
 	{
-		this.components.push( comp );
-		this.sprite.addChild( comp.sprite );
-		return comp;
+        this.members.push( comp );
+		return coreAdd(comp);
 	}
+
+    public function addFirst(comp:IOComponent):IOComponent
+    {
+        this.members.unshift (comp);
+        return coreAdd(comp);
+    }
+
+    public function addAt(comp:IOComponent, index:Int):IOComponent
+    {
+        this.members.insert (index, comp);
+        return coreAdd(comp);
+    }
+
+    public function getMemberIndex(comp:IOComponent):Int
+    {
+        return Lambda.indexOf( this.members, comp );
+    }
+
+    public function coreAdd(comp:IOComponent):IOComponent {
+        this.sprite.addChild( comp.sprite );
+        return comp;
+    }
+
+    public function addToMembers(comp:IOComponent):IOComponent {
+        this.members.push( comp );
+        return comp;
+    }
 
 	public function remove( comp:IOComponent ):Void
 	{
-		this.components.remove( comp );
+		this.members.remove( comp );
 		this.sprite.removeChild( comp.sprite );
 	}
 
@@ -294,7 +330,7 @@ class OComponent implements IOComponent
 
 	public function set_x( value:Float ):Float
 	{
-		return x = sprite.x = (value);
+        debugDraw();return x = sprite.x = (value);
 	}
 
 	function get_x( ):Float
@@ -311,7 +347,7 @@ class OComponent implements IOComponent
 
 	public function set_y( value:Float ):Float
 	{
-		return y = sprite.y = (value);
+        debugDraw();return y = sprite.y = (value);
 	}
 
 	public function move( x:Float, y:Float ):Void
@@ -392,8 +428,8 @@ class OComponent implements IOComponent
 
 	public function _size( w:Float, h:Float ):Void
 	{
-		_width = UtilNumbers.clamp( w, this._style.minWidth, this._style.maxWidth );
-		_height = UtilNumbers.clamp( h, this._style.minHeight, this._style.maxHeight );
+        set__width(w);
+        set__height(h);
 	}
 
 	public var padding(get_padding, set_padding):Float;
@@ -429,7 +465,7 @@ class OComponent implements IOComponent
 	public function set_buttonMode( b:Bool ):Bool
 	{
 #if flash
-		//todo new native flash api for cursors
+//todo new native flash api for cursors
 		sprite.buttonMode = b;
 #elseif js
 		sprite.useHandCursor = b;
@@ -476,15 +512,15 @@ return false;
 
 	public function destroy( ):Void
 	{
-		if( components.length > 0 )
+		if( members.length > 0 )
 		{
-			for( o in components )
+			for( o in members )
 			{
 				var comp = cast(o, IOComponent);
 				comp.destroy( );
 				comp = null;
 			}
-			components = null;
+			members = null;
 		}
 //todo
 ////		_style.destroy();
@@ -541,7 +577,7 @@ return false;
 
 }
 
-class OComponentStyle extends OBackgroundStyle
+class OComponentStyle extends OBaseStyle
 {
 	public static var styleString:String = "ComponentStyle";
 
