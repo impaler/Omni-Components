@@ -6,10 +6,16 @@ import omni.components.gui.text.Label;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.core.signals.OSignalType;
 import omni.components.gui.controls.Button;
-import omni.components.style.OBackgroundStyle;
+import omni.components.style.base.OBaseBackgroundStyle;
+import omni.utils.OStates;
 
 class OToggleButton extends Button
 {
+
+//***********************************************************
+//                  Public Variables
+//***********************************************************
+
 	public var value(get_value, set_value):Bool;
 	public var _value:Bool;
 
@@ -17,7 +23,7 @@ class OToggleButton extends Button
 	public var onValueChange:OSignalBool;
 
 //***********************************************************
-//                  Component Core
+//                  Component Overrides
 //***********************************************************
 
 	override public function createComponentMembers( ):Void
@@ -42,13 +48,13 @@ class OToggleButton extends Button
 
 	override public function handleMouseOver( ?e:OSignalMouse ):Void
 	{
-		_isOver = true;
+		isOver = true;
 		state = getOverState( );
 	}
 
 	override public function handleMouseDown( ?e:OSignalMouse ):Void
 	{
-		_isDown = true;
+		isDown = true;
 		_value = ! _value;
 		_state = getValueState( );
 		invalidate( );
@@ -58,31 +64,31 @@ class OToggleButton extends Button
 
 	override public function handleMouseUp( ?e:OSignalMouse ):Void
 	{
-		_isDown = false;
-		_isOver ? state = getOverState( ) : state = getOutState( );
+		isDown = false;
+		isOver ? state = getOverState( ) : state = getOutState( );
 	}
 
 	override public function handleMouseOut( ?e:OSignalMouse ):Void
 	{
-		_isOver = false;
-		if( _isDown == false ) state = getOutState( );
+		isOver = false;
+		if( isDown == false ) state = getOutState( );
 	}
 
 //***********************************************************
 //                  Component Methods
 //***********************************************************
 
-	public function getValueState( ):String
+	public inline function getValueState( ):String
 	{
 		return value ? state = OStates.ON : OStates.OFF;
 	}
 
-	private function getOutState( ):String
+	private inline function getOutState( ):String
 	{
 		return value ? OStates.ON : OStates.OFF;
 	}
 
-	private function getOverState( ):String
+	private inline function getOverState( ):String
 	{
 		return value ? OStates.ON_OVER : OStates.OFF_OVER;
 	}
@@ -96,7 +102,14 @@ class OToggleButton extends Button
 		this._state = getOutState( );
 		invalidate( );
 	}
-
+	
+	public function setOffState( ):Void
+	{
+		value = false;
+		this._state = getValueState( );
+		invalidate( );
+	}
+	
 	public function set_value( b:Bool ):Bool
 	{
 		return setValue( b );
@@ -112,20 +125,10 @@ class OToggleButton extends Button
 		if( _value != b )
 		{
 			_value = b;
+			_state = getValueState( );
 			invalidate( );
 			onValueChange.dispatch( _value );
 			onChange.dispatch( this );
-		}
-		return _value;
-	}
-
-	public function set_Value( b:Bool ):Bool
-	{
-		if( _value != b )
-		{
-			_value = b;
-			_state = getValueState( );
-			invalidate( );
 		}
 		return _value;
 	}

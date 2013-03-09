@@ -1,21 +1,21 @@
 package omni.components.gui.controls;
 
-import omni.components.gui.controls.SliderButton.SliderButtonStyle;
-import omni.components.core.OStates;
-import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
-import omni.utils.UtilNumbers;
-import omni.components.gui.controls.Slider;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
+import omni.components.core.OCore;
+import omni.utils.OStates;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.signals.OCoreEvent;
 import omni.components.core.signals.OSignalMouse;
-import omni.components.style.OBackgroundStyle;
-import omni.components.core.OCore;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.core.OComponent;
 import omni.components.core.OButtonBase;
+import omni.components.gui.controls.SliderButton.SliderButtonStyle;
+import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
+import omni.components.gui.controls.Slider;
+import omni.components.style.base.OBaseBackgroundStyle;
 import omni.utils.ComponentUtils;
+import omni.utils.UtilNumbers;
 
 import nme.display.Sprite;
 import nme.geom.Rectangle;
@@ -24,40 +24,49 @@ import nme.events.MouseEvent;
 
 class Slider extends OComponent
 {
-	public var step:Int = 10;
+//***********************************************************
+//                  Public Variables
+//***********************************************************
 
 	public var button:SliderButton;
 
 	public var value(get_value, set_value):Int;
-	public var _value:Int = 30;
-
-	public var tempValue:Int = 0;
-
-	public var type(get_type, set_type):String;
-	public var _type:String = "HORIZONTAL";
-
-	public var max(get_max, set_max):Float;
-	public var _max:Float = 100;
-
-	public var min(get_min, set_min):Float;
-	public var _min:Float = 0;
-
-	private var _rect:Rectangle;
-
-	private var buttonClick:Bool = false;
-
-	public var onMouseMove:OSignalMouse;
-	public var onMouseWheel:OSignalMouse;
-	public var onMouseDown:OSignalMouse;
-	public var onMouseUp:OSignalMouse;
-
-	public var onChange(default, null):OSignalType<Int -> Void>;
-
-//todo broken in html5
-	private var _mouseWheelTarget(default, setMouseWheelTarget):Sprite;
+    public var type(get_type, set_type):String;
+    public var max(get_max, set_max):Float;
+    public var min(get_min, set_min):Float;
 
 //***********************************************************
-//                  Component Core
+//                  Signals
+//***********************************************************
+
+    public var onMouseMove:OSignalMouse;
+    public var onMouseWheel:OSignalMouse;
+    public var onMouseDown:OSignalMouse;
+    public var onMouseUp:OSignalMouse;
+    public var onChange(default, null):OSignalType<Int -> Void>;
+    //todo wheel broken in html5
+    private var _mouseWheelTarget(default, setMouseWheelTarget):Sprite;
+
+//***********************************************************
+//                  Private Variables
+//***********************************************************
+
+    private var _tempValue:Int = 0;
+    private var _rect:Rectangle;
+    private var _buttonClick:Bool = false;
+
+//***********************************************************
+//                  Style Variables
+//***********************************************************
+
+	public var step:Int = 10;
+	public var _max:Float = 100;
+	public var _type:String = "HORIZONTAL";
+	public var _value:Int = 30;
+    public var _min:Float = 0;
+
+//***********************************************************
+//                  Component Overrides
 //***********************************************************
 
 	override public function createMembers( ):Void
@@ -70,11 +79,11 @@ class Slider extends OComponent
 		onMouseUp = OCore.instance.onStageMouseUp;
 		onMouseMove = OCore.instance.onStageMouseMove;
 
-		var thisStyle = cast(_style, SliderBaseStyle);
-		button = new SliderButton(thisStyle.buttonStyle);
+		button = new SliderButton(styleAs.buttonStyle);
 		add( button );
 
 		sprite.buttonMode = true;
+		buttonMode = true;
 	}
 
 	override public function enableSignals( ):Void
@@ -82,6 +91,7 @@ class Slider extends OComponent
 		button.onMouseDown.add( handleButtonDown );
 		onMouseWheel.add( handleMouseWheel );
 		onMouseDown.add( handleMouseDown );
+		onMouseUp.add( handleMouseUp );
 	}
 
 	override public function disableSignals( ):Void
@@ -104,6 +114,13 @@ class Slider extends OComponent
 		super.destroy( );
 	}
 
+	override public function drawMembers( ):Void
+	{
+		refreshButton( );
+		
+		button.drawNow();
+	}
+
 //***********************************************************
 //                  Event Handlers
 //***********************************************************
@@ -123,19 +140,17 @@ class Slider extends OComponent
 		button.handleMouseDown( e );
 
 		updateButtonLocationFromDown( );
-		updateValueFromButtonLocation( );
+		updateValueOnMouseMove( );
 
 		button.startDrag( false, _rect );
-
+		
 		onMouseMove.add( handleMouseMove );
-		onMouseUp.add( handleMouseUp );
 	}
 
 	public function handleButtonDown( e:OSignalMouse ):Void
 	{
 		OCore.instance.disableScrolling = true;
-		buttonClick = true;
-		OCore.instance.onStageMouseLeave.add( handleLeftStage );
+		_buttonClick = true;
 	}
 
 	public function handleMouseUp( ?e:OSignalMouse ):Void
@@ -143,16 +158,9 @@ class Slider extends OComponent
 		if( OCore.instance.disableScrolling )
 			OCore.instance.disableScrolling = false;
 
-		button.handleMouseUp( e );
 		button.stopDrag( );
-
-		onMouseUp.remove( handleMouseUp );
 		onMouseMove.remove( handleMouseMove );
-
-		updateValueFromButtonLocation( );
-
-		onChange.dispatch( value );
-
+		updateValueOnMouseMove( );
 	}
 
 	public function handleMouseWheel( ?e:OSignalMouse ):Void
@@ -172,7 +180,7 @@ class Slider extends OComponent
 
 	public function updateButtonLocationFromDown( ):Void
 	{
-		if( buttonClick == false )
+		if( _buttonClick == false )
 		{
 			if( _type == OStates.HORIZONTAL )
 			{
@@ -186,33 +194,27 @@ class Slider extends OComponent
 				button.y = UtilNumbers.clamp( (this.mouseY - button.height / 2), 0, maxlocation );
 			}
 		}
-		buttonClick = false;
+		_buttonClick = false;
 	}
 
 	public function updateValueOnMouseMove( ):Void
 	{
-		tempValue = _value;
+		_tempValue = _value;
 
 		if( _type == OStates.HORIZONTAL )
 		{
-			tempValue = clamp( Std.int( button.x / (_width - _height) * (_max - _min) + _min ) );
+			_tempValue = clamp( Std.int( button.x / (_width - _height) * (_max - _min) + _min ) );
 		}
 		else
 		{
-			tempValue = clamp( Std.int( (_height - _width - button.y) / (_height - _width) * (_max - _min) + _min ) );
+			_tempValue = clamp( Std.int( (_height - _width - button.y) / (_height - _width) * (_max - _min) + _min ) );
 		}
 
-		if( _value != tempValue )
+		if( _value != _tempValue )
 		{
-			_value = tempValue;
+			_value = _tempValue;
 			onChange.dispatch( _value );
 		}
-	}
-
-	override public function drawMembers( ):Void
-	{
-		refreshButton( );
-		super.drawMembers( );
 	}
 
 	public function refreshButton( ):Void
@@ -245,12 +247,12 @@ class Slider extends OComponent
 		}
 	}
 
-	private function clampValue( ):Void
+	private inline function clampValue( ):Void
 	{
 		_value = clamp( _value );
 	}
 
-	private function clamp( value:Int ):Int
+	private inline function clamp( value:Int ):Int
 	{
 		if( _max > _min )
 		{
@@ -380,6 +382,13 @@ class Slider extends OComponent
 //                  Component Style
 //***********************************************************
 
+    public var styleAs(get_styleAs, null):SliderBaseStyle;
+
+    public function get_styleAs():SliderBaseStyle
+    {
+        return cast(_style, SliderBaseStyle);
+    }
+
 	override public function get_styleId( ):String
 	{
 		return SliderBaseStyle.styleString;
@@ -387,7 +396,7 @@ class Slider extends OComponent
 
 }
 
-class SliderBaseStyle extends OBackgroundStyle
+class SliderBaseStyle extends OBaseBackgroundStyle
 {
 	public static var styleString:String = "SliderBaseStyle";
 
@@ -403,6 +412,7 @@ class SliderBaseStyle extends OBackgroundStyle
 
 	public var defaultStep:Int;
 	public var defaultValue:Int;
+
 	private var defaultMax:Float;
 	private var defaultMin:Float;
 
@@ -410,12 +420,6 @@ class SliderBaseStyle extends OBackgroundStyle
 	{
 		super( );
 		styleID = styleString;
-
-		defaultType = OStates.HORIZONTAL;
-		defaultStep = 10;
-		defaultValue = 0;
-		defaultMax = 100;
-		defaultMin = 0;
 	}
 
 	override public function initStyle( value:IOComponent ):Void

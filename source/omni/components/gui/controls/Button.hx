@@ -1,5 +1,8 @@
 package omni.components.gui.controls;
 
+import omni.utils.OStates;
+import omni.components.core.OComponentButton;
+import omni.components.core.OComponentButton.OComponentButtonStyle;
 import omni.components.core.interfaces.IBrush;
 import omni.components.core.interfaces.IOComponent;
 import omni.utils.ComponentUtils;
@@ -7,115 +10,153 @@ import omni.components.gui.layout.Icon.IconStyle;
 import omni.components.gui.layout.Icon;
 import omni.components.gui.text.Label;
 import omni.components.core.OButtonBase;
-import omni.components.style.OBackgroundStyle;
+import omni.components.style.base.OBaseBackgroundStyle;
 
-class Button extends OButtonBase
+import nme.display.BitmapData;
+
+class Button extends OComponentButton
 {
 
-	public var label:Label;
+//***********************************************************
+//                  Public Variables
+//***********************************************************
 
-	public var labelText(get_labelText, set_labelText):String;
-	public var _labelText:String = "";
+    public var label:Label;
 
-	public var icon:Icon;
+	public var text(get_text, set_text):String;
+	public var _text:String = "";
 
-	private var _paddingLeft:Int;
+    public var icon:Icon;
 
-	override public function createMembers( ):Void
+//***********************************************************
+//                  Component Overrides
+//***********************************************************
+
+    override public function createMembers():Void
+    {
+        super.createMembers();
+
+        if (styleAsButton.defaultIcon != null)
+            createIcon();
+
+        if (styleAsButton.defaultLabel != null)
+            createLabel();
+    }
+
+//***********************************************************
+//                  Component Methods
+//***********************************************************
+
+    public function setIconFromPath(path:String, scaleToFit:Bool = true):Void
+    {
+        createIcon();
+        icon.setBitmapAsset(path, scaleToFit);
+    }
+
+    public function setIconFromBitmapData(path:BitmapData, scaleToFit:Bool = true):Void
+    {
+        createIcon();
+        icon.setBitmapData(path, scaleToFit);
+    }
+
+    public inline function createLabel():Void
+    {
+        if (label == null)
+        {
+            label = new Label(styleAsButton.defaultLabel);
+            add(label);
+        }
+    }
+
+    public inline function createIcon():Void
+    {
+        if (icon == null)
+        {
+            icon = new Icon(styleAsButton.defaultIcon);
+            add(icon);
+        }
+    }
+
+    public function removeIcon():Void
+    {
+        if (icon != null)
+        {
+            remove(icon);
+            invalidate();
+        }
+    }
+
+    public function removeLabel():Void
+    {
+        if (label != null)
+        {
+            remove(label);
+            invalidate();
+        }
+    }
+
+
+//***********************************************************
+//                  Properties
+//***********************************************************
+
+	public function set_text( value:String ):String
 	{
-		super.createMembers( );
-
-		label = new Label(buttonStyle.labelText);
-		add( label );
-
-		icon = new Icon(buttonStyle.icon);
-		add( icon );
-
-		_paddingLeft = 20;
-
-	}
-
-	public function set_labelText( value:String ):String
-	{
-		if( _labelText != value )
+		if( _text != value )
 		{
-			_labelText = value;
-			label.text = _labelText;
+			createLabel( );
+			_text = value;
+			label.text = _text;
+			invalidate( );
 		}
-		return _labelText;
+		return _text;
 	}
 
-	public function get_labelText( ):String
+	public function get_text( ):String
 	{
-		return _labelText;
-	}
-
-	override public function draw( ):Void
-	{
-		coreDraw( );
-
-		arrangeMembers( );
-	}
-
-	public function arrangeMembers( ):Void
-	{
-
-		if( icon != null )
-		{
-			icon.x = _paddingLeft;
-			ComponentUtils.VAlignToOther( icon, this );
-		}
-
-		if( label != null )
-		{
-			label.x = icon.x + icon._width + _paddingLeft;
-			ComponentUtils.VAlignToOther( label, this );
-		}
-
+		return _text;
 	}
 
 //***********************************************************
 //                  Component Style
 //***********************************************************
 
-	public var buttonStyle(getButtonStyle, null):ButtonStyle;
+    private var styleAsButton(get_styleAsButton, null):ButtonStyle;
 
-	public function getButtonStyle( ):ButtonStyle
-	{
-		return cast(_style, ButtonStyle);
-	}
+    private function get_styleAsButton():ButtonStyle
+    {
+        return cast(_style, ButtonStyle);
+    }
 
-	override public function get_styleId( ):String
-	{
-		return ButtonStyle.styleString;
-	}
+    override public function get_styleId():String
+    {
+        return ButtonStyle.styleString;
+    }
 }
 
-class ButtonStyle extends OButtonBaseStyle
+class ButtonStyle extends OComponentButtonStyle
 {
-	public static var styleString:String = "ButtonStyle";
+    public static var styleString:String = "ButtonStyle";
 
-	public var labelText:LabelStyle;
-	public var icon:IconStyle;
+    public var defaultLabel:ButtonLabelStyle;
+    public var defaultIcon:IconStyle;
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
+}
 
-	override public function update( value:IOComponent ):Void
-	{
-		super.update( value );
+class ButtonLabelStyle extends LabelStyle
+{
 
-		var button = cast(value, Button);
+    public static var styleString:String = "ButtonLabelStyle";
 
-		if( labelText != null )
-			labelText.update( button.label );
-
-		if( icon != null )
-			icon.update( button.icon );
-
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 
 }

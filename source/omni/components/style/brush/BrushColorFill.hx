@@ -22,13 +22,15 @@ class BrushColorFill implements IBrush
 
 	public function update(drawTarget:IOComponent)
 	{
-		var color = colors.get(drawTarget.state);
-
-		var graphics:Graphics = drawTarget.sprite.graphics;
-		graphics.clear();
-		graphics.beginFill(color);
-		graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);
-		graphics.endFill();
+        if(colors.get(drawTarget.state) != null )
+        {
+            var color = colors.get(drawTarget.state);
+            var graphics:Graphics = drawTarget.sprite.graphics;
+            graphics.clear();
+            graphics.beginFill(color);
+            graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);
+            graphics.endFill();
+        }
 	}
 
 	public function destroy():Void

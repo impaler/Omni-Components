@@ -4,7 +4,7 @@ import omni.components.core.interfaces.IDestroyable;
 import omni.components.core.interfaces.IStyle;
 import nme.system.System;
 
-import omni.components.style.OBaseStyle;
+import omni.components.style.base.OBaseStyle;
 
 /**
  * OTheme
@@ -36,6 +36,10 @@ class OTheme implements IDestroyable
 	{
 		var styleInstance:OBaseStyle = cast ( _stylesHash.get( styleID ), OBaseStyle);
 		return styleInstance;
+	}
+
+	public function initTheme(  ):Void
+	{
 	}
 
 	public function destroy( ):Void

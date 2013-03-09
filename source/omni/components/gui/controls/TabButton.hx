@@ -1,41 +1,35 @@
 package omni.components.gui.controls;
 
+import omni.utils.OStates;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.gui.layout.ContainerPage;
 import omni.components.core.OToggleButton;
 
 class TabButton extends OToggleButton
 {
+
+//***********************************************************
+//                  Public Variables
+//***********************************************************
+
 	public var containerPage:ContainerPage;
 
 //***********************************************************
 //                  Event Handlers
 //***********************************************************
 
-//	override public function handleMouseOver( ?e:OSignalMouse ):Void
-//	{
-//		_isOver = true;
-//		state = getOverState( );
-//	}
-//
-//	override public function handleMouseDown( ?e:OSignalMouse ):Void
-//	{
-//		_isDown = true;
-//		_state = getValueState( );
-//		value = ! _value;
-//	}
-//
-//	override public function handleMouseUp( ?e:OSignalMouse ):Void
-//	{
-//		_isDown = false;
-//		_isOver ? state = getOverState( ) : state = getOutState( );
-//	}
-//
-//	override public function handleMouseOut( ?e:OSignalMouse ):Void
-//	{
-//		_isOver = false;
-//		if( _isDown == false ) state = getOutState( );
-//	}
+    override public function handleMouseDown( ?e:OSignalMouse ):Void
+    {
+        isDown = true;
+        if(_value == true)
+        {
+            return;
+        }
+        _state = getValueState( );
+        invalidate( );
+        onValueChange.dispatch( _value );
+        onChange.dispatch( this );
+    }
 
 //***********************************************************
 //                  Component Style

@@ -1,13 +1,16 @@
 package omni.components.core;
 
-import omni.components.core.signals.OSignalType;
+import omni.components.core.OContainer.OContainerStyle;
 import omni.components.core.interfaces.IStyle;
+import omni.components.core.OCore;
+import omni.components.core.signals.OSignalType;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.core.signals.OCoreEvent;
-import omni.components.style.OBaseStyle;
-import omni.components.core.OCore;
-import omni.components.style.OBackgroundStyle;
+import omni.components.style.base.OBaseStyle;
+import omni.components.style.base.OBaseBackgroundStyle;
+import omni.utils.OStates;
 
+import nme.geom.Rectangle;
 import nme.events.Event;
 import nme.events.MouseEvent;
 
@@ -17,8 +20,13 @@ import nme.events.MouseEvent;
 * @description A Generic Button Component intended to be extended upon
 *
 */
-class OButtonBase extends OComponent
+class OButtonBase extends OContainer
 {
+
+//***********************************************************
+//                  Public Variables
+//***********************************************************
+
 	public var onMouseOut:OSignalMouse;
 	public var onMouseOver:OSignalMouse;
 	public var onMouseDown:OSignalMouse;
@@ -27,11 +35,11 @@ class OButtonBase extends OComponent
 
 	public var onClick:OSignalType<OButtonBase -> Void>;
 
-	private var _isOver:Bool = false;
-	private var _isDown:Bool = false;
+	public var isOver:Bool = false;
+	public var isDown:Bool = false;
 
 //***********************************************************
-//                  Component Core
+//                  Component Overrides
 //***********************************************************
 
 	override public function createComponentMembers( ):Void
@@ -47,6 +55,8 @@ class OButtonBase extends OComponent
 		onMouseClick = new OSignalMouse(OSignalMouse.CLICK, this.sprite);
 
 		onClick = new OSignalType<OButtonBase -> Void>();
+		
+		size(width, height);
 	}
 
 	override public function enableSignals( ):Void
@@ -68,8 +78,8 @@ class OButtonBase extends OComponent
 	{
 		if( _listening )
 		{
-			_isDown = false;
-			_isOver = false;
+			isDown = false;
+			isOver = false;
 
 			onMouseOut.removeAll( );
 			onMouseOver.removeAll( );
@@ -105,30 +115,34 @@ class OButtonBase extends OComponent
 
 	public function handleMouseDown( ?e:OSignalMouse ):Void
 	{
-		_isDown = true;
+		isDown = true;
 		state = OStates.DOWN;
 	}
 
 	public function handleMouseUp( ?e:OSignalMouse ):Void
 	{
-		_isDown = false;
+		isDown = false;
 		state = OStates.ACTIVE;
-		_isOver ? state = OStates.OVER : state = OStates.ACTIVE;
+		isOver ? state = OStates.OVER : state = OStates.ACTIVE;
 	}
 
 	public function handleMouseOut( ?e:OSignalMouse ):Void
 	{
-		_isOver = false;
+		isOver = false;
 
-		if( _isDown == false )
+		if( isDown == false )
 			state = OStates.ACTIVE;
 	}
 
 	public function handleMouseOver( ?e:OSignalMouse ):Void
 	{
-		_isOver = true;
+		isOver = true;
 		state = OStates.OVER;
 	}
+
+//***********************************************************
+//                  Properties
+//***********************************************************
 
 //***********************************************************
 //                  Component Style
@@ -140,7 +154,7 @@ class OButtonBase extends OComponent
 	}
 }
 
-class OButtonBaseStyle extends OBackgroundStyle
+class OButtonBaseStyle extends OContainerStyle
 {
 	public static var styleString:String = "OButtonBaseStyle";
 

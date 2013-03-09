@@ -1,5 +1,6 @@
 package omni.utils;
 
+import nme.display.Graphics;
 import nme.display.Sprite;
 import omni.components.core.interfaces.IOComponent;
 import nme.display.DisplayObject;
@@ -88,5 +89,22 @@ class UtilPosition
 		markReg.graphics.endFill( );
 		parent.addChild( markReg );
 	}
-
+	
+	public static inline function drawBoxLine( ?targetGraphics:Graphics, target:Sprite, color:Int = 0xffffff, 
+	                                           line:Float = .4
+	):Void
+	{
+		if(targetGraphics == null)
+		{
+			var markReg:Sprite = new Sprite();
+			target.addChild(markReg);
+			targetGraphics = markReg.graphics;
+		}
+		
+//		targetGraphics.clear( );
+		targetGraphics.lineStyle( line, color );
+		targetGraphics.drawRect(target.x, target.y, target.width, target.height);
+		targetGraphics.endFill( );
+		
+	}
 }

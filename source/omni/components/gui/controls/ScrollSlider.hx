@@ -1,7 +1,7 @@
 package omni.components.gui.controls;
 
-import omni.components.core.OStates;
-import omni.components.style.OBackgroundStyle;
+import omni.utils.OStates;
+import omni.components.style.base.OBaseBackgroundStyle;
 import omni.components.core.OButtonBase;
 import omni.components.core.signals.OSignalMouse;
 import omni.components.core.interfaces.IStyle;
@@ -14,7 +14,11 @@ import flash.events.Event;
 
 class ScrollSlider extends Slider
 {
-	public var _realSize:Int = 0;
+
+//***********************************************************
+//                  Public Variables
+//***********************************************************
+
 	public var contentSize(default, set_contentSize):Int = 0;
 	public var pageSize(default, set_pageSize):Int = 0;
 
@@ -22,6 +26,8 @@ class ScrollSlider extends Slider
 	public var _minSize:Int = 0;
 
 	public var barNeeded(get_barNeeded, set_barNeeded):Bool;
+	
+	public var _realSize:Int = 0;
 
 	private var _working:Bool = true;
 
@@ -114,39 +120,39 @@ class ScrollSlider extends Slider
 
 	override public function updateValueOnMouseMove( ):Void
 	{
-		tempValue = _value;
+		_tempValue = _value;
 
 		if( _type == OStates.HORIZONTAL )
 		{
-			tempValue = clamp( Math.ceil( button.sprite.x / _rect.width * _max ) );
+			_tempValue = clamp( Math.ceil( button.sprite.x / _rect.width * _max ) );
 		}
 		else
 		{
-			tempValue = clamp( Math.ceil( button.sprite.y / _rect.height * _max ) );
+			_tempValue = clamp( Math.ceil( button.sprite.y / _rect.height * _max ) );
 		}
 
-		if( _value != tempValue )
+		if( _value != _tempValue )
 		{
-			_value = tempValue;
+			_value = _tempValue;
 			onChange.dispatch( _value );
 		}
 	}
 
 	override public function updateValueFromButtonLocation( ):Void
 	{
-		tempValue = _value;
+		_tempValue = _value;
 
 		if( _type == OStates.HORIZONTAL )
 		{
-			tempValue = Math.ceil( button.x / _rect.width * _max );
+			_tempValue = Math.ceil( button.x / _rect.width * _max );
 		}
 		else
 		{
-			tempValue = Math.ceil( button.y / _rect.height * _max );
+			_tempValue = Math.ceil( button.y / _rect.height * _max );
 		}
-		if( _value != tempValue )
+		if( _value != _tempValue )
 		{
-			_value = tempValue;
+			_value = _tempValue;
 			onChange.dispatch( _value );
 		}
 	}
@@ -227,7 +233,6 @@ class ScrollSliderStyle extends SliderBaseStyle
 	public function new( )
 	{
 		super( );
-		scrollButtons = false;
 		styleID = styleString;
 	}
 

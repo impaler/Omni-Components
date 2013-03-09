@@ -1,8 +1,11 @@
 Omni Components
 =============
 
+The code here is a WIP
+
+
 A multi-platform ui haxe nme framework with a focus on creating easy themes and styles. 
-This repo is in active development with an aim for to support html5, cpp and flash nme targets.
+This repo is in active development with an aim for to support html5, cpp (Desktop/Mobile), neko and flash nme targets.
 
 ------------
 
@@ -13,10 +16,17 @@ Web
 Desktop
 Mobile
 
-NME [nme] (http://www.haxenme.org/)
+[NME] (http://www.haxenme.org/)
 
 
-Html5 target is in an alpha state and waiting for scrollRect to commited to NME. Its also sometimes limited to browser 
-inconsistencies in each canvas api implementation.
+
+
+
+------------
+
+Known limitations
+
+Html5 target's scrollRect bounds check implementation is currently limited NME. Its also limited to browser 
+inconsistencies in each canvas api implementation. Mousewheel is not yet working in firefox.
 
 Bitmap repeat fill is limited with gpu rendering cacheasbitmap.

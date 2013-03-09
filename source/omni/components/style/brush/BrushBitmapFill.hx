@@ -37,12 +37,15 @@ class BrushBitmapFill implements IBrush
 
 	public function update(drawTarget:IOComponent)
 	{
-		var bitmapdata = images.get(drawTarget.state);
-		var graphics:Graphics = drawTarget.sprite.graphics;
-		graphics.clear();
-		graphics.beginBitmapFill(bitmapdata, null, false, smooth);
-		graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);
-		graphics.endFill();
+        if(images.get(drawTarget.state) != null )
+        {
+            var bitmapdata = images.get(drawTarget.state);
+            var graphics:Graphics = drawTarget.sprite.graphics;
+            graphics.clear();
+            graphics.beginBitmapFill(bitmapdata, null, false, smooth);
+            graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);
+            graphics.endFill();
+        }
 	}
 
 	public function destroy():Void

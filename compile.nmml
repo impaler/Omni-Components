@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 
-    <meta title="Omni Components" package="omni.examples.components" version="0.0.3"/>
+    <meta title="OmniComponents" package="omni.examples.components" version="0.0.3"/>
 
-    <app file="HelloWorld" main="omni.examples.components.HelloWorld" path="export"/>
+    <app file="HelloWorld" main="omni.examples.components.HelloWorld" path="C:/temp/export"/>
 
-    <window width="900" height="900" fps="60" background="0x000000"/>
+    <window width="700" height="660" fps="60" background="0xff2211"/>
     <window orientation="landscape" vsync="true" antialiasing="0" borderless="true" if="cpp"/>
 
     <classpath name="source"/>

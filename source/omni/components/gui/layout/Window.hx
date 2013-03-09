@@ -1,240 +1,421 @@
 package omni.components.gui.layout;
 
-import omni.components.core.signals.OCoreEvent;
+import omni.utils.OStates;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
+import omni.utils.UtilSize.Dimension;
+import omni.utils.UtilSize.Position;
+import omni.components.core.OContainer;
+import omni.components.core.signals.OCoreEvent;
 import omni.components.core.OCore;
 import omni.components.core.OComponent;
 import omni.components.core.OButtonBase;
 import omni.components.core.OLayout;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.signals.OSignalMouse;
-import omni.components.style.OBackgroundStyle;
+import omni.components.style.base.OBaseBackgroundStyle;
+
+import nme.events.MouseEvent;
 
 class Window extends OComponent
 {
 
-	public var onOpened:OSignalType<Window -> Void>;
-	public var onClosed:OSignalType<Window -> Void>;
-
-	public var onResizeDragRender:OCoreEvent;
-	public var onMouseDownHeader:OSignalMouse;
-	public var onMouseMove:OSignalMouse;
-	public var onMouseUp:OSignalMouse;
-
-	public var _container:OLayout;
-
-	public var header:OComponent;
-	public var footer:OComponent;
-	public var scalerButton:OButtonBase;
-
-	public var moveable:Bool = true;
-	public var resizeable:Bool = true;
-	public var liveResize:Bool = true;
-	public var _resizing:Bool = false;
-
-	private var _xOffset:Float = 0;
-	private var _yOffset:Float = 0;
-
 //***********************************************************
-//                  Component Core
+//                  Public Variables
 //***********************************************************
 
-	override public function createMembers( ):Void
-	{
-		var styleAs = cast(_style, WindowStyle);
+    public var onOpened:OSignalType<Window -> Void>;
+    public var onClosed:OSignalType<Window -> Void>;
 
-		header = new OButtonBase(styleAs.header);
-		add( header );
+    public var onStageResize:OCoreEvent;
+    public var onResizeDragRender:OCoreEvent;
+    public var onMouseDownHeader:OSignalMouse;
+    public var onMouseMove:OSignalMouse;
+    public var onMouseUp:OSignalMouse;
 
-		footer = new OButtonBase(styleAs.footer);
-		add( footer );
+    public var content:OContainer;
+    public var paged:PagedContainer;
 
-		scalerButton = new OButtonBase(styleAs.scalerButton);
-		add( scalerButton );
-
-		onOpened = new OSignalType<Window -> Void>();
-		onClosed = new OSignalType<Window -> Void>();
-
-		onResizeDragRender = new OCoreEvent(OCoreEvent.ENTER_FRAME, this.sprite);
-		onMouseMove = OCore.instance.onStageMouseMove;
-		onMouseUp = OCore.instance.onStageMouseUp;
-		onMouseDownHeader = new OSignalMouse(OSignalMouse.DOWN, header.sprite);
-	}
-
-	override public function drawMembers( ):Void
-	{
-		super.drawMembers( );
-
-		header.width = _width;
-		footer.width = _width;
-		footer.y = _height - footer.height;
-		if( ! _resizing )
-			scalerButton.move( _width - scalerButton._width, _height - scalerButton._height );
-
-	}
-
-	override public function enableSignals( ):Void
-	{
-		onMouseDownHeader.add( handleStartWindowDrag );
-		scalerButton.mouseDown.add( handleScaleWindowMouseDown );
-	}
+    public var header:OComponent;
+    public var footer:OComponent;
+    public var scalerButton:OButtonBase;
 
 //***********************************************************
-//                  Event Handlers
+//                  Style Variables
 //***********************************************************
 
-	private function handleStartWindowDrag( ?e:OSignalMouse ):Void
-	{
-		if( moveable )
-		{
-			_xOffset = e.event.stageX - this.x;
-			_yOffset = e.event.stageY - this.y;
-			onMouseMove.add( handleWindowDragMouseMove );
-			onMouseUp.add( handleWindowDragMouseUp );
-		}
-	}
+    public var moveable:Bool;
+    public var resizeable:Bool;
+    public var liveResize:Bool;
+    public var resizeBehaviour:String;
 
-	private function handleWindowDragMouseMove( ?e:OSignalMouse ):Void
-	{
-		this.x = e.event.stageX - _xOffset;
-		this.y = e.event.stageY - _yOffset;
-		e.updateAfterEvent( );
-	}
+    public var containerTopPadding:Int;
+    public var containerLeftPadding:Int;
+    public var containerRightPadding:Int;
 
-	private function handleWindowDragMouseUp( ?e:OSignalMouse ):Void
-	{
-		onMouseMove.remove( handleWindowDragMouseMove );
-		onMouseUp.remove( handleWindowDragMouseUp );
-	}
+//***********************************************************
+//                  Private Variables
+//***********************************************************
 
-	private function handleScaleWindowMouseDown( ?e:OSignalMouse ):Void
-	{
-		if( liveResize )
-		{
-			_resizing = true;
-
-			_xOffset = e.event.stageX - (scalerButton.x);
-			_yOffset = e.event.stageY - (scalerButton.y);
-
-			onMouseUp.addOnce( handleScaleWindowMouseUp );
-			onResizeDragRender.add( handleScaleWindowResize );
-		}
-	}
-
-	private function handleScaleWindowResize( e:OCoreEvent ):Void
-	{
-		var targetX = Std.int( nme.Lib.stage.mouseX - _xOffset );
-
-		if( targetX > Std.int( maxWidth - scalerButton.width ) )
-		{
-			targetX = Std.int( maxWidth - scalerButton.width );
-		}
-		else if( targetX < Std.int( minWidth - scalerButton.width ) )
-		{
-			targetX = Std.int( minWidth - scalerButton.width );
-		}
-
-		var targetY = Std.int( nme.Lib.stage.mouseY - _yOffset );
-
-		if( targetY > Std.int( maxHeight - scalerButton.height ) )
-		{
-			targetY = Std.int( maxHeight - scalerButton.height );
-		}
-		else if( targetY < Std.int( minHeight - scalerButton.height ) )
-		{
-			targetY = Std.int( minHeight - scalerButton.height );
-		}
-
-		scalerButton.x = targetX;
-		scalerButton.y = targetY;
-
-		_size( scalerButton.x + scalerButton.width, scalerButton.y + scalerButton.height );
-		drawNow( );
-	}
-
-	private function handleScaleWindowMouseUp( e:OSignalMouse ):Void
-	{
-		_resizing = false;
-
-		onResizeDragRender.remove( handleScaleWindowResize );
-		size( scalerButton.x + scalerButton.width, scalerButton.y + scalerButton.height );
-
-	}
+    private var _resizing:Bool = false;
+    private var _xOffset:Float = 0;
+    private var _yOffset:Float = 0;
+    private var _previousSize:Dimension;
+    private var _previousPosition:Position;
+    private var _previousMaxWidth:Float;
+    private var _previousMaxHeight:Float;
+    private var _maximized:Bool = false;
 
 //***********************************************************
 //                  Component Methods
 //***********************************************************
 
-	public function open( ):Void
+    public function open():Void
+    {
+        if (this.sprite.parent == null)
+        {
+            OCore.addChild(this);
+        }
+        onOpened.dispatch(this);
+    }
+
+    public function close():Void
+    {
+        if (this.sprite.parent != null)
+        {
+            OCore.removeChild(this);
+        }
+        onClosed.dispatch(this);
+    }
+
+    public function maximize():Void
+    {
+        _previousSize = { width : width, height : height };
+        _previousPosition = { x : x, y : y };
+
+	    _previousMaxHeight = maxHeight;
+	    maxHeight = nme.Lib.stage.stageHeight;
+	    
+	    _previousMaxWidth = maxWidth;
+	    maxWidth = nme.Lib.stage.stageWidth;
+
+	    visible = false;
+	    move(0,0);
+	    size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
+	    visible = true;
+	    _maximized = true;
+    }
+
+	public function restore():Void
 	{
-		onOpened.dispatch( this );
+		if (_previousSize != null)
+		{
+			maxHeight = _previousMaxHeight;
+			maxWidth = _previousMaxWidth;
+			size(_previousSize.width, _previousSize.height);
+		}
+		if (_previousPosition != null)
+		{
+			move(_previousPosition.x,_previousPosition.y);
+		}
+		
+		_maximized = false;
 	}
 
-	public function close( ):Void
+    public function minimize():Void
+    {
+                //todo
+    }
+
+//***********************************************************
+//                  Component Overrides
+//***********************************************************
+
+    override public function createMembers():Void
+    {
+        super.createMembers();
+
+        moveable = styleAsWindow.moveable;
+        resizeable = styleAsWindow.resizeable;
+        liveResize = styleAsWindow.liveResize;
+        containerLeftPadding = styleAsWindow.containerLeftPadding;
+        containerRightPadding = styleAsWindow.containerRightPadding;
+        containerTopPadding = styleAsWindow.containerTopPadding;
+	    resizeBehaviour = styleAsWindow.resizeBehaviour;
+
+        footer = new OButtonBase(styleAsWindow.footer);
+        addToMembers(footer);
+        coreAdd(footer);
+
+        scalerButton = new OButtonBase(styleAsWindow.scalerButton);
+        addToMembers(scalerButton);
+        coreAdd(scalerButton);
+
+        onResizeDragRender = new OCoreEvent(OCoreEvent.ENTER_FRAME, this.sprite);
+        onMouseMove = OCore.instance.onStageMouseMove;
+        onMouseUp = OCore.instance.onStageMouseUp;
+
+        header = new OButtonBase(styleAsWindow.header);
+	    header.sprite.doubleClickEnabled = true;
+	    header.sprite.addEventListener(MouseEvent.DOUBLE_CLICK, handleHeaderDoubleClick);
+	    
+        addToMembers(header);
+        coreAdd(header);
+        header.buttonMode = true;
+
+        setContainerType(styleAsWindow.containerDefault);
+
+        onMouseDownHeader = new OSignalMouse(OSignalMouse.DOWN, header.sprite);
+        onOpened = new OSignalType<Window -> Void>();
+        onClosed = new OSignalType<Window -> Void>();
+	    
+	    setupResizeBehavior();
+    }
+
+	public function setupResizeBehavior( ):Void
 	{
-		onClosed.dispatch( this );
+		onStageResize = OCore.instance.onStageResize;
+		onStageResize.add(handleStageResize);
 	}
 
-	public function addContent( content:IOComponent ):Void
+	public function handleStageResize(e:OCoreEvent):Void
 	{
-		_container.add( content );
+		if (resizeBehaviour == OStates.FIT && _maximized)
+		{
+			maxHeight = nme.Lib.stage.stageHeight;
+			maxWidth = nme.Lib.stage.stageWidth;
+		
+			visible = false;
+		   move(0,0);
+		   size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
+		   visible = true;
+		   _maximized = true;
+		}
 	}
 
-	public function addScrollableLayout( ):Void
+	public function handleHeaderDoubleClick( e:MouseEvent ):Void
 	{
-//_container = new ScrollContainer();
-//add( _container );
+		_maximized ?
+		restore()
+	    :
+		maximize();
 	}
 
-	public function addTabbedScrollableLayout( ):Void
-	{
-//_container = new TabbedContainer();
-//add( _container );
-	}
+    override public function add(comp:IOComponent):IOComponent
+    {
+        content.add(comp);
+        return comp;
+    }
 
-	public function addNewPage( ?name:String, ?pageStyle:IStyle ):ContainerPage
-	{
-//if( Std.is( _container, TabbedContainer ))
-//{
-//_container.addNewPage( name, pageStyle );
-//}
+    override public function drawMembers():Void
+    {
+        super.drawMembers();
 
-		return null;
+        header.width = _width;
 
-	}
+        footer.width = _width;
+        footer.y = _height - footer.height;
 
-	public function addPage( page:ContainerPage ):ContainerPage
-	{
-//if(Std.is( _container, TabbedContainer ) )
-//{
-//_container.addPage( page );
-//}
-		return null;
-	}
+        if (!_resizing)
+            scalerButton.move(_width - scalerButton._width, _height - scalerButton._height);
+
+        content._height = height - containerTopPadding - footer.height - header.height;
+        content._width = width - containerLeftPadding - containerRightPadding;
+        content.y = header.height;
+        content.x = containerLeftPadding;
+
+        content.drawNow();
+    }
+
+    override public function enableSignals():Void
+    {
+        onMouseDownHeader.add(handleStartWindowDrag);
+        scalerButton.onMouseDown.add(handleScaleWindowMouseDown);
+    }
+
+//***********************************************************
+//                  Component Methods
+//***********************************************************
+
+    public function setContainer(containerInstance:OContainer):OContainer
+    {
+        destroyExistingContainer();
+
+        content = containerInstance;
+        content.scrollRectEnabled = true;
+        coreAdd(containerInstance);
+
+        invalidate();
+
+        return containerInstance;
+    }
+
+    public function setPagedContainer(containerInstance:PagedContainer):PagedContainer
+    {
+        paged = containerInstance;
+        setContainer(paged);
+
+        return containerInstance;
+    }
+
+    public function setPagedContainerType(type:Class<PagedContainer>, ?style:IStyle = null):PagedContainer
+    {
+        paged = Type.createInstance(type, [style]);
+        setContainer(paged);
+
+        return paged;
+    }
+
+    public function setContainerType(type:Class<OContainer>):OContainer
+    {
+        var containerInstance = Type.createInstance(type, [null]);
+        setContainer(containerInstance);
+
+        return containerInstance;
+    }
+
+    public function destroyExistingContainer():Void
+    {
+        if ( content != null )
+        {
+            remove(content);
+            content.destroy();
+            content = null;
+        }
+    }
+
+//***********************************************************
+//                  Event Handlers
+//***********************************************************
+
+    private function handleStartWindowDrag(?e:OSignalMouse):Void
+    {
+        if (moveable && !_maximized)
+        {
+            _xOffset = e.event.stageX - this.x;
+            _yOffset = e.event.stageY - this.y;
+            onMouseMove.add(handleWindowDragMouseMove);
+            onMouseUp.add(handleWindowDragMouseUp);
+        }
+    }
+
+    private function handleWindowDragMouseMove(?e:OSignalMouse):Void
+    {
+        this.x = e.event.stageX - _xOffset;
+        this.y = e.event.stageY - _yOffset;
+        e.updateAfterEvent();
+    }
+
+    private function handleWindowDragMouseUp(?e:OSignalMouse):Void
+    {
+        onMouseMove.remove(handleWindowDragMouseMove);
+        onMouseUp.remove(handleWindowDragMouseUp);
+    }
+
+    private function handleScaleWindowMouseDown(?e:OSignalMouse):Void
+    {
+        if (liveResize)
+        {
+            _resizing = true;
+
+            _xOffset = e.event.stageX - (scalerButton.x);
+            _yOffset = e.event.stageY - (scalerButton.y);
+
+            onMouseUp.addOnce(handleScaleWindowMouseUp);
+            onResizeDragRender.add(handleScaleWindowResize);
+        }
+    }
+
+    private function handleScaleWindowResize(e:OCoreEvent):Void
+    {
+        var targetX = Std.int(nme.Lib.stage.mouseX - _xOffset);
+
+        if (targetX > Std.int(maxWidth - scalerButton.width))
+        {
+            targetX = Std.int(maxWidth - scalerButton.width);
+        }
+        else if (targetX < Std.int(minWidth - scalerButton.width))
+        {
+            targetX = Std.int(minWidth - scalerButton.width);
+        }
+
+        var targetY = Std.int(nme.Lib.stage.mouseY - _yOffset);
+
+        if (targetY > Std.int(maxHeight - scalerButton.height))
+        {
+            targetY = Std.int(maxHeight - scalerButton.height);
+        }
+        else if (targetY < Std.int(minHeight - scalerButton.height))
+        {
+            targetY = Std.int(minHeight - scalerButton.height);
+        }
+
+        scalerButton.x = targetX;
+        scalerButton.y = targetY;
+
+        _size(scalerButton.x + scalerButton.width, scalerButton.y + scalerButton.height);
+        drawNow();
+    }
+
+    private function handleScaleWindowMouseUp(e:OSignalMouse):Void
+    {
+        _resizing = false;
+
+        onResizeDragRender.remove(handleScaleWindowResize);
+        size(scalerButton.x + scalerButton.width, scalerButton.y + scalerButton.height);
+    }
 
 //***********************************************************
 //                  Component Style
 //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return WindowStyle.styleString;
-	}
+    public var styleAsWindow(get_styleAsWindow, null):WindowStyle;
+
+    public function get_styleAsWindow():WindowStyle
+    {
+        return cast(_style, WindowStyle);
+    }
+
+    override public function get_styleId():String
+    {
+        return WindowStyle.styleString;
+    }
 
 }
 
-class WindowStyle extends OBackgroundStyle
+class WindowStyle extends OBaseBackgroundStyle
 {
-	public static var styleString:String = "WindowStyle";
+    public static var styleString:String = "WindowStyle";
 
-	public var scalerButton:OButtonBaseStyle;
-	public var header:OComponentStyle;
-	public var footer:OComponentStyle;
+    public var scalerButton:OButtonBaseStyle;
+    public var header:OButtonBaseStyle;
+    public var footer:OButtonBaseStyle;
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public var containerDefault:Class<OContainer>;
+
+    public var moveable:Bool ;
+    public var resizeable:Bool ;
+    public var liveResize:Bool ;
+
+    public var containerTopPadding:Int;
+    public var containerLeftPadding:Int;
+    public var containerRightPadding:Int;
+    public var resizeBehaviour:String;
+
+    public function new()
+    {
+        super();
+        styleID = styleString;
+
+        containerDefault = ContainerContent;
+
+        moveable = true;
+        resizeable = true;
+        liveResize = true;
+	    resizeBehaviour = OStates.FIT;
+
+        containerLeftPadding = 0;
+        containerRightPadding = 0;
+        containerTopPadding = 0;
+    }
 }

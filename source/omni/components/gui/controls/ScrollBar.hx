@@ -1,6 +1,6 @@
 package omni.components.gui.controls;
 
-import omni.components.core.OStates;
+import omni.utils.OStates;
 import omni.components.core.OCore;
 import omni.components.core.OComponent;
 import omni.components.core.signals.OSignalMouse;
@@ -9,7 +9,7 @@ import omni.components.core.signals.OSignalType;
 import omni.components.core.OLayout;
 import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
-import omni.components.style.OBaseStyle;
+import omni.components.style.base.OBaseStyle;
 
 import flash.display.Bitmap;
 import nme.events.TimerEvent;
@@ -17,68 +17,76 @@ import nme.utils.Timer;
 
 class ScrollBar extends OComponent
 {
+//***********************************************************
+//                  Public Variables
+//***********************************************************
+
 	public var increaseButton:ScrollBarButton;
 	public var decreaseButton:ScrollBarButton;
 
-	private var _increasing:Bool;
-	private var _timer:Timer;
-
 	public var scrollSlider:ScrollSlider;
 
-	public var enableScrollButtons:Bool;
-	public var enableScrollSlider:Bool;
+    public var onChange(default, null):OSignalType<Int -> Void>;
 
 	public var type(get_type, set_type):String;
 	public var _type:String;
 
 	public var sliderStep(default, set_sliderStep):Int;
-	public var _sliderStep:Int;
 
-	public var value(get_value, set_value):Int;
-	public var _value:Int = 0;
+    public var value(get_value, set_value):Int;
+    public var _value:Int = 0;
 
-	public var max(get_max, set_max):Float;
-	public var _max:Float;
+    public var max(get_max, set_max):Float;
+    public var _max:Float = 100;
 
-	public var min(get_min, set_min):Float;
-	public var _min:Float;
+    public var min(get_min, set_min):Float;
+    public var _min:Float = 0;
 
-	public var _realSize:Int;
-	public var contentSize(default, set_contentSize):Int;
-	public var pageSize(default, set_pageSize):Int;
+    public var contentSize(default, set_contentSize):Int = 0;
 
-	public var _buttonStep:Int;
-	private var _buttonMovementInterval:Float;
-	private var _initialButtonMovementDelay:Float;
+    public var pageSize(default, set_pageSize):Int = 0;
 
-	public var onChange(default, null):OSignalType<Int -> Void>;
+    public var barNeeded(get_barNeeded, set_barNeeded):Bool;
 
 //***********************************************************
-//                  Component Core
+//                  Style Variables
+//***********************************************************
+
+    private var _sliderStep:Int;
+    private var _buttonStep:Int;
+    private var _buttonMovementInterval:Float;
+    private var _initialButtonMovementDelay:Float;
+    private var _enableScrollButtons:Bool;
+    private var _enableScrollSlider:Bool;
+
+//***********************************************************
+//                  Private Variables
+//***********************************************************
+
+    private var _increasing:Bool;
+    private var _timer:Timer;
+
+//***********************************************************
+//                  Component Overrides
 //***********************************************************
 
 	override public function createMembers( ):Void
 	{
-		onChange = new OSignalType<Int -> Void>();
+        _sliderStep = styleAsScrollBar.sliderStep;
+        _buttonStep = styleAsScrollBar.buttonStep;
+        _buttonMovementInterval = styleAsScrollBar.buttonMovementInterval;
+        _initialButtonMovementDelay = styleAsScrollBar.initialButtonMovementDelay;
 
-//todo style layer
-		_sliderStep = 10;
-		_buttonStep = 50;
-		_buttonMovementInterval = 100;
-		_initialButtonMovementDelay = 1000;
-		enableScrollButtons = true;
-		enableScrollSlider = true;
-		_max = 100;
-		_min = 0;
-		_realSize = 0;
-		contentSize = 0;
-		pageSize = 0;
+        _enableScrollButtons = styleAsScrollBar.enableScrollButtons;
+        _enableScrollSlider = styleAsScrollBar.enableScrollSlider;
 
-		if( enableScrollSlider )
+		if( _enableScrollSlider )
 			createScrollSlider( );
 
-		if( enableScrollButtons )
+		if( _enableScrollButtons )
 			createScrollButtons( );
+
+        onChange = new OSignalType<Int -> Void>();
 	}
 
 	override public function enableSignals( ):Void
@@ -111,8 +119,8 @@ class ScrollBar extends OComponent
 	{
 		super.drawMembers( );
 
-		scrollSlider.width = width - (increaseButton.width + decreaseButton.width);
-		scrollSlider.height = height - (increaseButton.height + decreaseButton.height);
+		scrollSlider._width = width - (increaseButton.width + decreaseButton.width);
+		scrollSlider._height = height - (increaseButton.height + decreaseButton.height);
 
 		if( _type == OStates.VERTICAL )
 		{
@@ -129,6 +137,8 @@ class ScrollBar extends OComponent
 			scrollSlider.x = decreaseButton._width;
 		}
 
+		scrollSlider.drawNow();
+		
 	}
 
 //***********************************************************
@@ -186,11 +196,9 @@ class ScrollBar extends OComponent
 	{
 		var styleAs = cast (_style, ScrollBarStyle);
 		increaseButton = new ScrollBarButton(styleAs.increaseButton);
-//		increaseButton.step = _step;
 		add( increaseButton );
 
 		decreaseButton = new ScrollBarButton(styleAs.decreaseButton);
-//		decreaseButton.step = _step;
 		add( decreaseButton );
 
 		_timer = new Timer(_initialButtonMovementDelay);
@@ -265,11 +273,10 @@ class ScrollBar extends OComponent
 
 	public function set_value( value:Int ):Int
 	{
-		value = clamp( value );
-
-		if( _value != value )
-		{
-			_value = value;
+        if( _value != value )
+        {
+            value = clamp( value );
+            _value = value;
 
 			if( scrollSlider != null )
 				scrollSlider._value = _value;
@@ -317,9 +324,9 @@ class ScrollBar extends OComponent
 		} return value;
 	}
 
-	public var barNeeded(getBarNeeded, setBarNeeded):Bool;
 
-	public function setBarNeeded( value:Bool ):Bool
+
+	public function set_barNeeded( value:Bool ):Bool
 	{
 		barNeeded = value;
 
@@ -329,7 +336,7 @@ class ScrollBar extends OComponent
 		return barNeeded;
 	}
 
-	public function getBarNeeded( ):Bool
+	public function get_barNeeded( ):Bool
 	{
 		_max = Math.max( contentSize - pageSize, 0 );
 
@@ -350,6 +357,8 @@ class ScrollBar extends OComponent
 			contentSize = value;
 			if( scrollSlider != null )
 				scrollSlider.contentSize = contentSize;
+			
+			invalidate();
 		}
 		return value;
 	}
@@ -361,6 +370,8 @@ class ScrollBar extends OComponent
 			pageSize = value;
 			if( scrollSlider != null )
 				scrollSlider.pageSize = pageSize;
+			
+			invalidate();
 		}
 		return value;
 	}
@@ -368,6 +379,13 @@ class ScrollBar extends OComponent
 //***********************************************************
 //                  Component Style
 //***********************************************************
+
+    private var styleAsScrollBar(get_styleAsScrollBar, null):ScrollBarStyle;
+
+    private function get_styleAsScrollBar():ScrollBarStyle
+    {
+        return cast(_style, ScrollBarStyle);
+    }
 
 	override public function get_styleId( ):String
 	{
@@ -382,7 +400,15 @@ class ScrollBarStyle extends OBaseStyle
 
 	public var increaseButton:ScrollBarButtonStyle;
 	public var decreaseButton:ScrollBarButtonStyle;
+
 	public var slider:SliderBaseStyle;
+
+    public var sliderStep:Int;
+    public var buttonStep:Int;
+    public var enableScrollButtons:Bool;
+    public var enableScrollSlider:Bool;
+    public var buttonMovementInterval:Float;
+    public var initialButtonMovementDelay:Float;
 
 	public function new( )
 	{

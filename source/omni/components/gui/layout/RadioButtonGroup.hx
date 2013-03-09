@@ -9,19 +9,10 @@ import omni.components.core.signals.OSignalType;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OToggleButton;
 import omni.components.core.OComponent;
-import omni.components.style.OBackgroundStyle;
+import omni.components.style.base.OBaseBackgroundStyle;
 
 class RadioButtonGroup extends OToggleButtonGroup
 {
-//todo disable all off force one on
-
-//***********************************************************
-//                  Component Core
-//***********************************************************
-
-//***********************************************************
-//                  Event Handlers
-//***********************************************************
 
 //***********************************************************
 //                  Component Methods
@@ -31,15 +22,11 @@ class RadioButtonGroup extends OToggleButtonGroup
 	{
 		var button = new RadioButton(style);
 		button.onChange.add( handleButtonChange );
-		this.components.push( button );
+		this.members.push( button );
 		layout.add( button );
 
 		return button;
 	}
-
-//***********************************************************
-//                  Properties
-//***********************************************************
 
 //***********************************************************
 //                  Component Style

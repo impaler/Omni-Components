@@ -9,6 +9,10 @@ import nme.text.TextFieldAutoSize;
 class Label extends OTextBase
 {
 
+//***********************************************************
+//                  Component Overrides
+//***********************************************************
+
 	override public function createMembers( ):Void
 	{
 		super.createMembers( );

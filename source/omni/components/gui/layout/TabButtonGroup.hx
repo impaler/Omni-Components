@@ -1,6 +1,6 @@
 package omni.components.gui.layout;
 
-import omni.components.core.OStates;
+import omni.utils.OStates;
 import omni.components.core.OLayout;
 import omni.components.core.OToggleButtonGroup;
 import omni.components.core.interfaces.IOComponent;
@@ -12,20 +12,34 @@ import omni.components.core.OLayout.OLayoutStyle;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.OToggleButton;
 import omni.components.core.OComponent;
-import omni.components.style.OBackgroundStyle;
+import omni.components.style.base.OBaseBackgroundStyle;
 
 class TabButtonGroup extends OToggleButtonGroup
 {
+
+//***********************************************************
+//                  Public Variables
+//***********************************************************
+
 	public var onTabButtonChange:OSignalType<TabButton -> Void>;
 
 //***********************************************************
-//                  Component Core
+//                  Component Overrides
 //***********************************************************
 
 	override public function createMembers( ):Void
 	{
-		super.createMembers( );
+		//super.createMembers( );
 
+		var thisStyle = cast(_style, TabButtonGroupStyle);
+		
+		layout = new OLayout(thisStyle.layoutStyle);
+		layout.direction = thisStyle.defaultDirection;
+
+		this.sprite.addChild( layout.sprite );
+
+		onChange = new OSignalType<OToggleButtonGroup -> Void>();
+		onButtonChange = new OSignalType<OToggleButton -> Void>();
 		onTabButtonChange = new OSignalType<TabButton -> Void>();
 	}
 
@@ -50,12 +64,14 @@ class TabButtonGroup extends OToggleButtonGroup
 //                  Component Methods
 //***********************************************************
 
+	//todo mouse wheel change
+
 	public function addTabButton( page:ContainerPage, style:IStyle = null ):TabButton
 	{
 		var button = new TabButton(style);
 		button.containerPage = page;
 		button.onChange.add( handleButtonChange );
-		this.components.push( button );
+		this.members.push( button );
 		layout.add( button );
 
 		return button;
@@ -64,7 +80,8 @@ class TabButtonGroup extends OToggleButtonGroup
 	public function setActiveTabButton( button:TabButton ):Void
 	{
 		_target = button;
-		button.set_Value( true );
+		button.value = true;
+		//button.set_Value( true );
 		update( );
 	}
 
@@ -101,4 +118,13 @@ class TabButtonGroupStyle extends OToggleButtonGroupStyle
 
 		super.initStyle( value );
 	}
+
+	override public function update(value:IOComponent):Void
+	{
+		super.update(value);
+		var comp = cast (value, TabButtonGroup);
+		comp.layout.invalidate();
+		
+	}
+
 }

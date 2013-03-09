@@ -3,7 +3,7 @@ package omni.components.gui.layout;
 import omni.components.core.OLayout;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OComponent;
-import omni.components.style.OBackgroundStyle;
+import omni.components.style.base.OBaseBackgroundStyle;
 
 import nme.display.Sprite;
 
@@ -29,9 +29,9 @@ class StretchLayout extends OLayout
 	override public function draw( ):Void
 	{
 
-		for( i in 0...components.length )
+		for( i in 0...members.length )
 		{
-			var current = cast (components[i], IOComponent);
+			var current = cast (members[i], IOComponent);
 
 //			current._width = current.widthPercent / components.length / _width
 

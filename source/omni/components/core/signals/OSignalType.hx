@@ -6,7 +6,7 @@ import omni.components.core.interfaces.IDestroyable;
 * 
 * NME Based Signal Event System
 * 
-* Provides a basic signal based event system.
+* Provides a basic signal based event system for a custom api and custom features.
 * 
 * Based on work by ralcr/sdk.ralcr and robertpenner/as3-signals
 * 

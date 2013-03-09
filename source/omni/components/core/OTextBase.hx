@@ -3,7 +3,7 @@ package omni.components.core;
 import omni.utils.ColorUtils;
 import omni.utils.ComponentUtils;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.style.OBaseStyle;
+import omni.components.style.base.OBaseStyle;
 
 import nme.Lib;
 import nme.Assets;
@@ -18,6 +18,10 @@ import nme.text.TextFormat;
 
 class OTextBase extends OComponent
 {
+
+//***********************************************************
+//                  Public Variables
+//***********************************************************
 
 	public var textField(default, null):TextField;
 
@@ -65,6 +69,10 @@ class OTextBase extends OComponent
 	public var fontUnderline(get_fontUnderline, set_fontUnderline):Bool;
 	public var _fontUnderline:Bool;
 
+//***********************************************************
+//                  Component Overrides
+//***********************************************************
+
 	override public function destroy( ):Void
 	{
 		super.destroy( );
@@ -78,15 +86,30 @@ class OTextBase extends OComponent
 		super.createComponentMembers( );
 
 		textField = new TextField();
+
+
 		sprite.addChild( textField );
 
 //todo style layer
-		textField.antiAliasType = AntiAliasType.ADVANCED;
-		textField.border = true;
+		textField.antiAliasType = AntiAliasType.NORMAL;
+//      advanced is causeing ugly possible subpixel snapping visible in tweens?
+//		textField.antiAliasType = AntiAliasType.ADVANCED;
+//        textField.border = true;
 		textField.embedFonts = true;
 	}
 
-	public function updateTextFieldProperties( ):Void
+    override public function createMembers():Void
+    {
+        super.createMembers();
+        _text = styleAsTextBase.defaultText;
+        textField.text = _text;
+    }
+
+//***********************************************************
+//                  Component Methods
+//***********************************************************
+
+    public function updateTextFieldProperties( ):Void
 	{
 		textField.selectable = _selectable;
 		textField.multiline = _multiline;
@@ -308,11 +331,6 @@ class OTextBase extends OComponent
 	}
 
 #if (flash || js )
-	
-
-	
-
-	
 
 	public function set_restrict( value:String )
 	{
@@ -382,6 +400,13 @@ class OTextBase extends OComponent
 //                  Component Style
 //***********************************************************
 
+    private var styleAsTextBase(get_styleAsTextBase, null):TextBaseStyle;
+
+    private function get_styleAsTextBase():TextBaseStyle
+    {
+        return cast(_style, TextBaseStyle);
+    }
+
 	override public function get_styleId( ):String
 	{
 		return TextBaseStyle.styleString;
@@ -397,9 +422,14 @@ class TextBaseStyle extends OBaseStyle
 	public var selectable:Bool;
 	public var multiline:Bool;
 	public var wordWrap:Bool;
+
 	public var fontSize:Int;
 	public var fontName:String;
 	public var fontColor:Int;
+	public var fontBold:Bool;
+	public var fontItalic:Bool;
+	public var fontUnderline:Bool;
+
 	public var defaultText:String;
 
 //type dynamic as a workaround for flash/cpp type check inconsistency
@@ -419,8 +449,8 @@ class TextBaseStyle extends OBaseStyle
 		fontSize = 15;
 		var font = Assets.getFont( "assets/themes/color/text/roboto-regular.ttf" );
 		fontName = font.fontName;
-		fontColor = ColorUtils.BLACK;
-		defaultText = "Hello World";
+		fontColor = ColorUtils.GRAY;
+		defaultText = "OTextBase";
 	}
 
 	public override function initStyle( value:IOComponent ):Void
@@ -440,8 +470,8 @@ class TextBaseStyle extends OBaseStyle
 #if (flash || js)
 		textComponent._restrict = restrict;
 #end
-		if( defaultText != null && textComponent._text == null )
-			textComponent._text = defaultText;
+//		if( defaultText != null && textComponent._text == null )
+//			textComponent._text = defaultText;
 	}
 
 	override public function update( value:IOComponent ):Void

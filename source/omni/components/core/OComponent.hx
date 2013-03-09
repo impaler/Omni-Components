@@ -7,9 +7,8 @@ import omni.utils.UtilPosition;
 import omni.utils.UtilNumbers;
 import omni.components.core.signals.OCoreEvent;
 import omni.components.core.signals.OSignalType;
-import omni.components.style.OBackgroundStyle;
-import omni.components.style.OBaseStyle;
-
+import omni.components.style.base.OBaseStyle;
+import omni.utils.OStates;
 import nme.events.Event;
 import nme.display.Sprite;
 import nme.geom.Rectangle;
@@ -18,20 +17,27 @@ class OComponent implements IOComponent
 {
 
 //***********************************************************
-//                  Component Core
+//                  Component Overrides
 //***********************************************************
 
-	public function new( style:IStyle = null )
+	public function new( ?style:IStyle = null )
 	{
 		compId = OCore.instance.getNextID;
 		createComponentMembers( );
 		initStyle( style );
 		createMembers( );
-		if( style == null )
+
+        if( style == null )
 			startTrackingTheme( );
+
+        this._style.initStyleComponent( this );
 		enableSignals( );
 
 		sprite.addEventListener( Event.ADDED_TO_STAGE, onAddedToStage );
+/*		if(sprite!=null)
+	  {
+	      invalidate( );
+	  }*/
 	}
 
 	public function createComponentMembers( ):Void
@@ -43,9 +49,12 @@ class OComponent implements IOComponent
 
 	public function onAddedToStage( e:Event ):Void
 	{
-		sprite.removeEventListener( Event.ADDED_TO_STAGE, onAddedToStage );
-		invalidate( );
+        if(sprite!=null)
+        {
+            sprite.removeEventListener( Event.ADDED_TO_STAGE, onAddedToStage );
+            invalidate( );
 //		OCore.log("Added to stage");
+        }
 	}
 
 	public var sprite(get_sprite, null):Sprite;
@@ -84,7 +93,7 @@ class OComponent implements IOComponent
 
 	public function setStyleClass( value:Class<IStyle> ):IStyle
 	{
-		var styleInstance = Type.createInstance( value, [] );
+		var styleInstance = Type.createInstance( value, [null] );
 		this.style = styleInstance;
 		return this.style;
 	}
@@ -112,10 +121,12 @@ class OComponent implements IOComponent
 
 	public var styleId(get_styleId, null):String;
 
-	public function initStyle( style:IStyle = null ):Void
+	public function initStyle( style:IStyle = null):Void
 	{
+        var first = true;
 		if( this._style != null )
 		{
+            first = false;
 			this._style.destroy( );
 			this._style = null;
 		}
@@ -128,13 +139,18 @@ class OComponent implements IOComponent
 
 			if( this._style == null )
 				throw 'The default theme has no style for the id of ' + this.styleId;
+
+            this._style.initStyle( this );
 		}
 		else
 		{
 			this._style = style;
+            this._style.initStyle( this );
+            if(!first)
+			this._style.initStyleComponent( this );
 		}
 
-		this._style.initStyle( this );
+
 	}
 
 	public var invalid:Bool;
@@ -181,6 +197,8 @@ class OComponent implements IOComponent
 	{
 		if( ! this.invalid )
 			return;
+
+        drawPostStyle();
 
 		if( this._style != null )
 		{
@@ -240,20 +258,29 @@ class OComponent implements IOComponent
 
 //todo
 //			var styleType = Type.getClass(this._style);
-//			this._style = Type.createInstance(styleType, []);
+//			this._style = Type.createInstance(styleType, [null]);
 //			this.trackTheme = false;
 		}
 	}
 
 	public var onResize:OCoreEvent;
 
+    public var parentComponent:IOComponent;
+
 	public var members:Array <IOComponent>;
 
 	public function add( comp:IOComponent ):IOComponent
 	{
         this.members.push( comp );
-		return coreAdd(comp);
+        return coreAdd(comp);
 	}
+
+    public function addType(comp:Class<IOComponent>, ?style:IStyle = null):IOComponent
+    {
+        var compInstance = Type.createInstance(comp, [style]);
+        this.members.push( compInstance );
+        return coreAdd(compInstance);
+    }
 
     public function addFirst(comp:IOComponent):IOComponent
     {
@@ -273,6 +300,7 @@ class OComponent implements IOComponent
     }
 
     public function coreAdd(comp:IOComponent):IOComponent {
+        comp.parentComponent = this;
         this.sprite.addChild( comp.sprite );
         return comp;
     }
@@ -285,6 +313,8 @@ class OComponent implements IOComponent
 	public function remove( comp:IOComponent ):Void
 	{
 		this.members.remove( comp );
+
+        if ( comp.sprite.parent == this.sprite )
 		this.sprite.removeChild( comp.sprite );
 	}
 
@@ -298,6 +328,11 @@ class OComponent implements IOComponent
 	{
 //override me
 	}
+
+    public function drawPostStyle( ):Void
+    {
+//override me
+    }
 
 	public function drawMembers( ):Void
 	{
@@ -379,8 +414,8 @@ class OComponent implements IOComponent
 	{
 		if( _height != h )
 		{
-			h = UtilNumbers.clamp( h, _style.minHeight, _style.maxHeight );
-			_height = (h);
+			h = UtilNumbers.clamp( h, minHeight, maxHeight );
+			_height = h;
 		}
 		return _height;
 	}
@@ -403,8 +438,8 @@ class OComponent implements IOComponent
 	{
 		if( _width != w )
 		{
-			w = UtilNumbers.clamp( w, this._style.minWidth, this._style.maxWidth );
-			_width = (w);
+			w = UtilNumbers.clamp( w, minWidth, maxWidth );
+			_width = w;
 		}
 		return _width;
 	}
@@ -526,8 +561,10 @@ return false;
 ////		_style.destroy();
 		_style = null;
 
-		if( sprite.parent != null )
-			sprite.parent.removeChild( sprite );
+//		if( sprite.parent != null )
+//			sprite.parent.removeChild( sprite );
+        if(parentComponent != null)
+            parentComponent.remove(this);
 
 		sprite = null;
 

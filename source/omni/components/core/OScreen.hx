@@ -24,7 +24,15 @@ class OScreen implements IDestroyable
 	public var components:Array<IOComponent>;
 
 	public var activeLayout:OLayout;
-
+	
+	//todo ideas
+	//Toolbar Header
+	//HotKey: Assign a hot key for showing / hiding the GUI
+	//Context Menu: Toggle the GUI from a context menu item
+	//Message: Pulse a message to the user in the toolbar
+	//Show Toggle: Display a toggle when the GUI is hidden
+	//Save Settings: Generate AS3 code to commit your current values
+	
 //***********************************************************
 //                  Core
 //***********************************************************

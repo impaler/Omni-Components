@@ -2,31 +2,44 @@ package omni.components.core;
 
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
-import OLayout.OLayoutStyle;
+import omni.components.style.base.OBaseStyle;
+import omni.components.core.OLayout.OLayoutStyle;
 import omni.components.core.OToggleButton;
 import omni.components.core.signals.OSignalType;
 import omni.components.core.OToggleButton;
 import omni.components.core.OComponent;
-import omni.components.style.OBackgroundStyle;
+import omni.components.style.base.OBaseBackgroundStyle;
+import omni.utils.OStates;
 
 class OToggleButtonGroup extends OComponent
 {
-	private var _target:OToggleButton;
-	public var layout:OLayout;
 
-	public var direction:String;
+//***********************************************************
+//                  Public Variables
+//***********************************************************
+
+	public var layout:OLayout;
 
 	public var onChange:OSignalType<OToggleButtonGroup -> Void>;
 	public var onButtonChange:OSignalType<OToggleButton -> Void>;
+	
+	private var _target:OToggleButton;
 
 //***********************************************************
-//                  Component Core
+//                  Style Variables
+//***********************************************************
+
+	public var direction:String;
+
+//***********************************************************
+//                  Component Overrides
 //***********************************************************
 
 	override public function createMembers( ):Void
 	{
-		layout = new OLayout();
 		var thisStyle = cast(_style, OToggleButtonGroupStyle);
+		
+		layout = new OLayout(thisStyle.layoutStyle);
 		layout.direction = thisStyle.defaultDirection;
 
 		this.sprite.addChild( layout.sprite );
@@ -67,7 +80,7 @@ class OToggleButtonGroup extends OComponent
 
 	public function setActiveButton( button:OToggleButton ):Void
 	{
-		button.set_Value( true );
+		button.value = true;
 		_target = button;
 		update( );
 	}
@@ -76,7 +89,7 @@ class OToggleButtonGroup extends OComponent
 	{
 		var button = new OToggleButton(style);
 		button.onChange.add( handleButtonChange );
-		this.components.push( button );
+		this.members.push( button );
 		layout.add( button );
 
 		return button;
@@ -84,12 +97,12 @@ class OToggleButtonGroup extends OComponent
 
 	private function update( ):Void
 	{
-		for( o in components )
+		for( o in members )
 		{
 			var comp = cast(o, OToggleButton);
 
 			if( comp != _target )
-				comp.setValue( false );
+				comp.value = false;
 		}
 	}
 
@@ -117,17 +130,17 @@ class OToggleButtonGroup extends OComponent
 	}
 }
 
-class OToggleButtonGroupStyle extends OBackgroundStyle
+class OToggleButtonGroupStyle extends OBaseStyle
 {
 	public static var styleString:String = "OToggleButtonGroupStyle";
 
 	public var defaultDirection:String;
+	public var layoutStyle:OLayoutStyle;
 
 	public function new( )
 	{
 		super( );
-		defaultDirection = OStates.VERTICAL;
-		styleID = styleString;
+        styleID = styleString;
 	}
 
 	override public function initStyle( value:IOComponent ):Void

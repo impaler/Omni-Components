@@ -3,7 +3,7 @@ package omni.components.style.brush;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
 import omni.utils.ComponentUtils;
-import omni.utils.BitmapScaleSliceUtil;
+import omni.utils.BitmapScaleSliceUtily;
 
 class BrushBitmapScale9Fill extends BrushBitmapFill
 {
@@ -18,10 +18,13 @@ class BrushBitmapScale9Fill extends BrushBitmapFill
 
 	override public function update( drawTarget:IOComponent )
 	{
+        if(images.get(drawTarget.state) != null )
+        {
 		var bitmapdata = images.get( drawTarget.state );
 
-		BitmapScaleSliceUtil.slice9( drawTarget.sprite, drawTarget.width, drawTarget.height, bitmapdata, scaleRect,
+		BitmapScaleSliceUtily.slice9( drawTarget.sprite, drawTarget.width, drawTarget.height, bitmapdata, scaleRect,
 		                             smooth, debuglines );
+        }
 	}
 
 	override public function destroy( ):Void

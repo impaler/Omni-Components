@@ -1,14 +1,13 @@
 package omni.components.core;
 
-import nme.display.DisplayObjectContainer;
-import com.eclecticdesignstudio.motion.MotionPath.IComponentPath;
 import omni.components.core.signals.OCoreEvent;
 import omni.components.core.signals.OSignalMouse;
-import nme.system.System;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.signals.OSignalType;
-//import omni.components.core.signals.OSignal;
+import omni.utils.OStates;
 
+import nme.system.System;
+import nme.display.DisplayObjectContainer;
 import nme.Lib;
 import nme.display.Sprite;
 import nme.display.Stage;
@@ -29,6 +28,8 @@ class OCore
 #end
 	}
 
+    public var debugLayer:Sprite;
+
 	private var id:Int = 0;
 	public var getNextID(getID, null):Int;
 
@@ -37,9 +38,9 @@ class OCore
 		return id++;
 	}
 
-	public static var instance(getInstance, null):OCore;
+	public static var instance(get_instance, null):OCore;
 
-	private static function getInstance( ):OCore
+	private static function get_instance( ):OCore
 	{
 		if( instance == null )
 		{
@@ -75,7 +76,7 @@ class OCore
 
 	public function init( theme:Class<OTheme>, trackTheme:Bool = true ):Void
 	{
-		defaultTheme = Type.createInstance( theme, [] );
+		defaultTheme = initTheme(theme);
 		this.trackTheme = trackTheme;
 
 		onThemeChange = new OSignalType();
@@ -85,20 +86,32 @@ class OCore
 		enterframe = new OCoreEvent(OCoreEvent.ENTER_FRAME, stage);
 		onStageResize = new OCoreEvent(OCoreEvent.RESIZE, stage);
 
+        debugLayer = new Sprite();
+        stage.addChild(debugLayer);
 	}
 
-	public function changeTheme( theme:Class<OTheme> ):Void
+	public function initTheme( theme:Class<OTheme> ):OTheme
 	{
-		defaultTheme.destroy( );
-		defaultTheme = null;
-		defaultTheme = Type.createInstance( theme, [] );
+		var themeInstance = cast( Type.createInstance( theme, [] ), OTheme);
+		themeInstance.initTheme();
+		
+		return themeInstance;
+	}
+
+	public function changeDefaultTheme( theme:Class<OTheme> ):Void
+	{
+        if (defaultTheme!=null)
+        {
+            defaultTheme.destroy( );
+            defaultTheme = null;
+        }
+		defaultTheme = initTheme(theme);
 		onThemeChange.dispatch( );
-		System.gc( );
 	}
 
 	public function addTheme( theme:Class<OTheme> ):Void
 	{
-		var themeInstance = Type.createInstance( theme, [] );
+		var themeInstance = Type.createInstance( theme, [null] );
 		storedThemes.set( "test", themeInstance );
 	}
 
@@ -116,6 +129,9 @@ class OCore
 			parentDisplayObject = Lib.current.stage;
 
 		parentDisplayObject.addChild( component.sprite );
+
+        if( parent == null && OCore.instance.debugLayer !=null)
+            Lib.current.stage.setChildIndex(OCore.instance.debugLayer,Lib.current.stage.numChildren-1);
 		return component;
 	}
 

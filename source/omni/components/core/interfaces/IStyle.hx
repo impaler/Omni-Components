@@ -27,6 +27,9 @@ interface IStyle implements IDestroyable
 	**/
 	function initStyle (value:IOComponent):Void;
 
+
+    function initStyleComponent( value:IOComponent ):Void;
+
 	/**
 	* 	update
 	 * 	

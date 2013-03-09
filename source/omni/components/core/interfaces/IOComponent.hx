@@ -14,7 +14,7 @@ interface IOComponent implements IDestroyable
 {
 
 //***********************************************************
-//                  Component Core
+//                  Component Overrides
 //***********************************************************
 
 /**
@@ -109,6 +109,8 @@ interface IOComponent implements IDestroyable
 **/
 	public var members:Array <IOComponent>;
 
+    public var parentComponent:IOComponent;
+
 	public function add (comp:IOComponent):IOComponent;
 	public function addFirst (comp:IOComponent):IOComponent;
 	public function addAt (comp:IOComponent, index:Int):IOComponent;
@@ -132,6 +134,11 @@ interface IOComponent implements IDestroyable
 * The function to override to update the child object of a component
 **/
 	public function drawMembers ():Void;
+
+/**
+* The function to override to conduct operations just before the main draw is called
+**/
+	public function drawPostStyle ():Void;
 
 /**
 * The suggested place for where Events are enabled
