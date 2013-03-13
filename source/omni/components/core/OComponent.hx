@@ -5,8 +5,8 @@ import omni.components.core.interfaces.IStyle;
 import omni.utils.ComponentUtils;
 import omni.utils.UtilPosition;
 import omni.utils.UtilNumbers;
-import omni.components.core.signals.OCoreEvent;
-import omni.components.core.signals.OSignalType;
+import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalType;
 import omni.components.style.base.OBaseStyle;
 import omni.utils.OStates;
 import nme.events.Event;
@@ -275,7 +275,7 @@ class OComponent implements IOComponent
         return coreAdd(comp);
 	}
 
-    public function addType(comp:Class<IOComponent>, ?style:IStyle = null):IOComponent
+    public function addType(comp:Class<IOComponent>, ?style:IStyle = null):Dynamic
     {
         var compInstance = Type.createInstance(comp, [style]);
         this.members.push( compInstance );
@@ -520,6 +520,19 @@ class OComponent implements IOComponent
 return false;
 #end
 	}
+	
+	public var mouseChildren(get_mouseChildren, set_mouseChildren):Bool;
+
+	public function set_mouseChildren( b:Bool ):Bool
+	{
+		sprite.mouseChildren = b;
+		return b;
+	}
+
+	public function get_mouseChildren( ):Bool
+	{
+		return sprite.mouseChildren;
+	}
 
 	public function startDrag( lockCenter:Bool = false, ?bounds:Rectangle ):Void
 	{
@@ -558,11 +571,10 @@ return false;
 			members = null;
 		}
 //todo
-////		_style.destroy();
+//	if(customStyle)
+//		_style.destroy();
 		_style = null;
-
-//		if( sprite.parent != null )
-//			sprite.parent.removeChild( sprite );
+		
         if(parentComponent != null)
             parentComponent.remove(this);
 
