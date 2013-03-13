@@ -1,9 +1,9 @@
 package omni.components.core;
 
-import omni.components.core.signals.OCoreEvent;
-import omni.components.core.signals.OSignalMouse;
+import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalMouse;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.core.signals.OSignalType;
+import omni.utils.signals.OSignalType;
 import omni.utils.OStates;
 
 import nme.system.System;
@@ -29,6 +29,8 @@ class OCore
 	}
 
     public var debugLayer:Sprite;
+    public var popupsLayer:Sprite;
+    public var windowsLayer:Sprite;
 
 	private var id:Int = 0;
 	public var getNextID(getID, null):Int;
@@ -80,14 +82,19 @@ class OCore
 		this.trackTheme = trackTheme;
 
 		onThemeChange = new OSignalType();
-		onStageMouseMove = new OSignalMouse(OSignalMouse.MOVE, stage);
-		onStageMouseUp = new OSignalMouse(OSignalMouse.UP, stage);
+		onStageMouseMove = new OSignalMouse(OSignalMouse.MOUSE_MOVE, stage);
+		onStageMouseUp = new OSignalMouse(OSignalMouse.MOUSE_UP, stage);
 		onStageMouseLeave = new OCoreEvent(OCoreEvent.MOUSE_LEAVE, stage);
 		enterframe = new OCoreEvent(OCoreEvent.ENTER_FRAME, stage);
 		onStageResize = new OCoreEvent(OCoreEvent.RESIZE, stage);
 
         debugLayer = new Sprite();
-        stage.addChild(debugLayer);
+		popupsLayer = new Sprite();
+        windowsLayer = new Sprite();
+		
+        stage.addChild(windowsLayer);
+		stage.addChild(popupsLayer);
+		stage.addChild(debugLayer);
 	}
 
 	public function initTheme( theme:Class<OTheme> ):OTheme

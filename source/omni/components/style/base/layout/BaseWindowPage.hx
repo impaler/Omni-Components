@@ -1,6 +1,8 @@
 package omni.components.style.base.layout;
 
+import omni.components.gui.layout.window.WindowPage;
 import omni.components.core.OContainerPage;
+import omni.components.gui.layout.window.WindowPage.WindowPageStyle;
 import omni.utils.OStates;
 import omni.components.core.OContainerContent;
 import omni.components.core.OContainerPage.OContainerPageStyle;
@@ -9,7 +11,7 @@ import omni.components.core.OLayout.OLayoutStyle;
 import omni.utils.ColorUtils;
 import nme.geom.Rectangle;
 
-class BaseContainerPage extends OContainerPageStyle
+class BaseWindowPage extends WindowPageStyle
 {
 
 	public function new( )
@@ -17,11 +19,6 @@ class BaseContainerPage extends OContainerPageStyle
 		super( );
 		
 		defaultContainerType = OContainerContent;
-
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, ColorUtils.GREEN );
-		setBackgroundBrush( bgColor );
-
 		defaultWidth = 400;
 		defaultHeight = 400;
 		defaultPadding = 10;

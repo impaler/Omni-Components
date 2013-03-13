@@ -10,7 +10,7 @@ class BaseColors
 	static public var ACTIVE:Int = ColorUtils.DARKER_ORANGE;
 
 	static public var ON:Int = ColorUtils.ORANGE;
-	static public var ON_OVER:Int = ColorUtils.DARKER_ORANGE;
+	static public var ON_OVER:Int = ColorUtils.brighter(ColorUtils.ORANGE);
 	
 	static public var OFF:Int = ColorUtils.LIGHT_ORANGE;
 	static public var OFF_OVER:Int = ColorUtils.ORANGE;

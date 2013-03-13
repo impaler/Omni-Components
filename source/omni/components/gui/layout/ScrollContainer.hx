@@ -6,8 +6,8 @@ import omni.components.style.base.OBaseStyle;
 import omni.components.gui.controls.ScrollBar;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.core.signals.OCoreEvent;
-import omni.components.core.signals.OSignalMouse;
+import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalMouse;
 import omni.components.core.OCore;
 import omni.components.gui.controls.ScrollSlider;
 import omni.components.core.OLayout;
@@ -137,12 +137,12 @@ class ScrollContainer extends OContainer
             target.buttonMode = true;
 
             if (mouseTargetDown != null) mouseTargetDown.removeAll();
-            mouseTargetDown = new OSignalMouse (OSignalMouse.DOWN, comp.sprite);
+            mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, comp.sprite);
             mouseTargetDown.add(handleDownContent);
         }
 
         if (mouseWheel != null) mouseWheel.removeAll();
-        mouseWheel = new OSignalMouse (OSignalMouse.WHEEL, comp.sprite);
+        mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, comp.sprite);
         mouseWheel.add(handleMouseWheel);
 
         invalidate();

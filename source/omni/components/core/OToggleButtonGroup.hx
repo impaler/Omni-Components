@@ -5,7 +5,7 @@ import omni.components.core.interfaces.IOComponent;
 import omni.components.style.base.OBaseStyle;
 import omni.components.core.OLayout.OLayoutStyle;
 import omni.components.core.OToggleButton;
-import omni.components.core.signals.OSignalType;
+import omni.utils.signals.OSignalType;
 import omni.components.core.OToggleButton;
 import omni.components.core.OComponent;
 import omni.components.style.base.OBaseBackgroundStyle;
@@ -78,7 +78,7 @@ class OToggleButtonGroup extends OComponent
 //                  Component Methods
 //***********************************************************
 
-	public function setActiveButton( button:OToggleButton ):Void
+	public function setActiveButton( button:Dynamic ):Void
 	{
 		button.value = true;
 		_target = button;

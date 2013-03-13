@@ -1,6 +1,6 @@
 package omni.examples.components.tests.previewer.pages;
 
-import omni.components.gui.layout.SpriteContainer;
+import omni.components.gui.layout.containers.SpriteContainer;
 import omni.utils.OStates;
 import omni.utils.UtilBitmapData;
 import omni.utils.ColorUtils;

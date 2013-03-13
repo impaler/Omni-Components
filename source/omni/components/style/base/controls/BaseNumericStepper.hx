@@ -6,7 +6,7 @@ import omni.utils.ColorUtils;
 import omni.components.core.OLayout.OLayoutStyle;
 import omni.components.core.OComponentButton.OComponentButtonStyle;
 import omni.components.core.OComponentButton.OComponentButtonLayoutStyle;
-import omni.components.gui.layout.SpriteContainer;
+import omni.components.gui.layout.containers.SpriteContainer;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.gui.layout.Icon.IconStyle;
 import omni.components.gui.controls.Button.ButtonStyle;

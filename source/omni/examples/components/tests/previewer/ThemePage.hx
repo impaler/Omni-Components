@@ -1,13 +1,14 @@
 package omni.examples.components.tests.previewer;
 
-import omni.components.style.base.text.BaseLabel;
-import omni.components.gui.layout.ContainerPage;
-import omni.components.core.signals.OSignalType;
-import omni.components.gui.text.Label;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.gui.layout.PagedContainer;
+import omni.components.gui.layout.window.WindowPage;
+import omni.components.core.OContainerPage;
+import omni.components.gui.text.Label;
+import omni.components.gui.layout.containers.PagedContainer;
+import omni.components.style.base.text.BaseLabel;
+import omni.utils.signals.OSignalType;
 
-class ThemePage extends ContainerPage
+class ThemePage extends WindowPage
 {
 
     public function addTest(comp:IOComponent, text:String, ?signal:OSignalType<Dynamic -> Dynamic>,

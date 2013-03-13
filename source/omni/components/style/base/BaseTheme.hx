@@ -12,19 +12,25 @@ import omni.components.style.base.controls.BaseCheckBox;
 import omni.components.style.base.controls.BaseScrollBar;
 import omni.components.style.base.controls.BaseSliderButton;
 import omni.components.style.base.controls.BaseNumericStepperButton;
-import omni.components.style.base.core.BaseContentContainer;
+import omni.components.style.base.controls.BaseSlideToggle;
+
+import omni.components.style.base.core.BaseOContainer;
 import omni.components.style.base.core.BaseOComponent;
+import omni.components.style.base.core.BaseOContentContainer;
 import omni.components.style.base.core.BaseOToggleButton;
 import omni.components.style.base.core.BaseOTextBase;
-import omni.components.style.base.core.BaseOContainer;
 import omni.components.style.base.core.BaseOComponentButtonLayout;
 import omni.components.style.base.core.BaseOToggleButtonGroup;
 import omni.components.style.base.core.BaseOComponentButton;
 import omni.components.style.base.core.BaseOButtonBase;
+import omni.components.style.base.core.BaseOLayout;
+
+import omni.components.style.base.layout.BaseWindowPage;
 import omni.components.style.base.layout.BaseContainerPage;
 import omni.components.style.base.layout.BaseTabButtonGroup;
 import omni.components.style.base.layout.BaseWindow;
-import omni.components.style.base.layout.BaseOLayout;
+import omni.components.style.base.layout.BaseWindowHeader;
+import omni.components.style.base.layout.BaseWindowTabbedContainer;
 import omni.components.style.base.layout.BaseRadioButtonGroup;
 import omni.components.style.base.layout.BaseTabbedContainer;
 import omni.components.style.base.layout.BaseHBox;
@@ -32,9 +38,11 @@ import omni.components.style.base.layout.BaseVBox;
 import omni.components.style.base.layout.BaseIcon;
 import omni.components.style.base.layout.BaseSpriteContainer;
 import omni.components.style.base.layout.BaseScrollContainer;
+
 import omni.components.style.base.text.BaseLabel;
 import omni.components.style.base.text.BaseInputField;
 import omni.components.style.base.text.BaseButtonLabel;
+
 import omni.components.core.OTheme;
 
 class BaseTheme extends OTheme
@@ -51,13 +59,16 @@ class BaseTheme extends OTheme
 		addOLayout( );
 
 		addStyle( BaseOContainer );
-		addStyle( BaseContentContainer );
+		addStyle( BaseOContentContainer );
 		addStyle( BaseOToggleButton );
 		addStyle( BaseOToggleButtonGroup );
+		addStyle( BaseSlideToggle );
 		
 		addOTextBaseStyle();
 
 		addStyle( BaseWindow );
+		addStyle( BaseWindowHeader );
+		addStyle( BaseWindowTabbedContainer );
 
 		addButtonStyle();
 		addCheckBoxStyle();
@@ -71,6 +82,7 @@ class BaseTheme extends OTheme
 		addStyle( BaseHBox );
 		addStyle( BaseVBox );
 		addStyle( BaseContainerPage );
+		addStyle( BaseWindowPage );
 		addStyle( BaseTabbedContainer );
 		addStyle( BaseTabButton );
 		addStyle( BaseTabButtonGroup );

@@ -1,5 +1,6 @@
 package omni.components.style.base.layout;
 
+import omni.components.gui.layout.window.WindowTabbedContainer;
 import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.style.base.BaseColors;
 import omni.utils.OStates;
@@ -9,7 +10,7 @@ import omni.components.core.OLayout.OLayoutStyle;
 import omni.utils.ColorUtils;
 import nme.geom.Rectangle;
 
-class BaseTabbedContainer extends PagedContainerStyle
+class BaseWindowTabbedContainer extends WindowTabbedContainerStyle
 {
 
 	public function new( )

@@ -1,10 +1,10 @@
 package omni.components.core;
 
-import omni.components.core.signals.OSignalBool;
+import omni.utils.signals.OSignalBool;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.gui.text.Label;
-import omni.components.core.signals.OSignalMouse;
-import omni.components.core.signals.OSignalType;
+import omni.utils.signals.OSignalMouse;
+import omni.utils.signals.OSignalType;
 import omni.components.gui.controls.Button;
 import omni.components.style.base.OBaseBackgroundStyle;
 import omni.utils.OStates;

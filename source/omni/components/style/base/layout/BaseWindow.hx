@@ -1,14 +1,16 @@
 package omni.components.style.base.layout;
 
+import omni.components.core.OContainerContent;
 import omni.components.style.base.controls.BaseWindowScalerButton;
 import omni.components.style.base.core.BaseOButtonBase;
 import omni.components.style.base.BaseColors;
-import omni.components.gui.layout.Window.WindowStyle;
-import omni.utils.OStates;
+import omni.components.gui.layout.window.Window.WindowStyle;
+import omni.components.style.base.layout.BaseWindowHeader;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OLayout;
 import omni.components.core.OLayout.OLayoutStyle;
 import omni.utils.ColorUtils;
+import omni.utils.OStates;
 import nme.geom.Rectangle;
 
 class BaseWindow extends WindowStyle
@@ -18,7 +20,7 @@ class BaseWindow extends WindowStyle
 	{
 		super( );
 
-		header = new BaseOButtonBase();
+		header = new BaseWindowHeader();
 		footer = new BaseOButtonBase();
 
 		scalerButton = new BaseWindowScalerButton();
@@ -34,6 +36,17 @@ class BaseWindow extends WindowStyle
 		maxHeight = 680;
 		minHeight = 200;
 		minWidth = 200;
+		
+		containerDefault = OContainerContent;
+		
+		moveable = true;
+		resizeable = true;
+		liveResize = true;
+		resizeBehaviour = OStates.FIT;
+		
+		containerLeftPadding = 10;
+		containerRightPadding = 10;
+		containerTopPadding = 10;
 	}
 
 }

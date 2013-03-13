@@ -1,5 +1,6 @@
 package omni.examples.components.tests.previewer;
 
+import omni.components.gui.layout.window.WindowTabbedContainer;
 import omni.examples.components.tests.previewer.pages.ToggleButtonsPage;
 import nme.Assets;
 import nme.display.Bitmap;
@@ -10,11 +11,11 @@ import omni.examples.components.tests.previewer.pages.BitmapDataResizeUtilPage;
 import omni.examples.components.tests.previewer.pages.IconsPage;
 import omni.examples.components.tests.previewer.pages.SlidersPage;
 
-import omni.components.gui.layout.PagedContainer;
+import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.core.OCore;
 import omni.components.core.OTheme;
-import omni.components.gui.layout.ContainerPage;
-import omni.components.gui.layout.Window;
+import omni.components.core.OContainerPage;
+import omni.components.gui.layout.window.Window;
 
 class ThemePreview
 {
@@ -27,7 +28,7 @@ class ThemePreview
 		window = new Window();
 		//window.size( 700, 700 );
 
-		var paged = window.setPagedContainerType( PagedContainer );
+		var paged = window.setPagedContainerType( WindowTabbedContainer );
 
 		var sliders = addTestPage( SlidersPage );
 		addTestPage( IconsPage );

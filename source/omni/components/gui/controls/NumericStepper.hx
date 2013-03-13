@@ -7,8 +7,8 @@ import omni.components.core.OComponentButton.OComponentButtonStyle;
 import omni.components.gui.controls.Button.ButtonStyle;
 import omni.components.core.OComponent;
 import omni.components.core.OCore;
-import omni.components.core.signals.OSignalMouse;
-import omni.components.core.signals.OSignalType;
+import omni.utils.signals.OSignalMouse;
+import omni.utils.signals.OSignalType;
 import omni.components.core.OTextBase;
 import omni.components.core.OButtonBase;
 import omni.components.gui.text.Label;
@@ -70,7 +70,7 @@ class NumericStepper extends OComponent
         _timerInterval = styleAsNumericStepper.timerInterval;
 
         onChange = new OSignalType();
-        onMouseWheel = new OSignalMouse(OSignalMouse.WHEEL, this.sprite);
+        onMouseWheel = new OSignalMouse(OSignalMouse.MOUSE_WHEEL, this.sprite);
 
         textBase = new Label(styleAsNumericStepper.textStyle);
         //textBase.trackTheme = false;

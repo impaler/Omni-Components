@@ -1,7 +1,7 @@
-package omni.components.gui.layout;
+package omni.components.gui.layout.containers;
 
 import nme.display.Sprite;
-import omni.components.core.signals.OCoreEvent;
+import omni.utils.signals.OCoreEvent;
 import nme.display.Sprite;
 import omni.components.style.base.OBaseStyle;
 import omni.components.core.OComponent;

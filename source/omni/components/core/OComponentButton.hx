@@ -73,7 +73,7 @@ class OComponentButton extends OButtonBase
         if (sizeMethodWidth == OStates.AUTO)
         {
             scrollRectEnabled = false;
-            this._width = layout.width;
+	        layout.x = padding;
         }
         else if (sizeMethodWidth == OStates.FIXED)
         {
@@ -138,7 +138,7 @@ class OComponentButton extends OButtonBase
     {
         if (sizeMethodWidth == OStates.AUTO)
         {
-            return layout.width;
+            return layout.width  + padding * 2;
         } else
         {
             return super.get_width();
@@ -149,7 +149,7 @@ class OComponentButton extends OButtonBase
     {
         if (sizeMethodHeight == OStates.AUTO)
         {
-            return layout.height;
+            return layout.height + padding * 2;
         } else
         {
             return super.get_height();

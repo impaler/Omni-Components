@@ -5,11 +5,11 @@ import omni.components.core.OLayout;
 import omni.components.core.OToggleButtonGroup;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
-import omni.components.gui.layout.ContainerPage;
+import omni.components.core.OContainerPage;
 import omni.components.gui.controls.TabButton;
 import omni.components.core.OToggleButtonGroup.OToggleButtonGroupStyle;
 import omni.components.core.OLayout.OLayoutStyle;
-import omni.components.core.signals.OSignalType;
+import omni.utils.signals.OSignalType;
 import omni.components.core.OToggleButton;
 import omni.components.core.OComponent;
 import omni.components.style.base.OBaseBackgroundStyle;
@@ -29,8 +29,6 @@ class TabButtonGroup extends OToggleButtonGroup
 
 	override public function createMembers( ):Void
 	{
-		//super.createMembers( );
-
 		var thisStyle = cast(_style, TabButtonGroupStyle);
 		
 		layout = new OLayout(thisStyle.layoutStyle);
@@ -66,7 +64,7 @@ class TabButtonGroup extends OToggleButtonGroup
 
 	//todo mouse wheel change
 
-	public function addTabButton( page:ContainerPage, style:IStyle = null ):TabButton
+	public function addTabButton( page:OContainerPage, style:IStyle = null ):TabButton
 	{
 		var button = new TabButton(style);
 		button.containerPage = page;
@@ -81,7 +79,6 @@ class TabButtonGroup extends OToggleButtonGroup
 	{
 		_target = button;
 		button.value = true;
-		//button.set_Value( true );
 		update( );
 	}
 

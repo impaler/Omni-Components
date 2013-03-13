@@ -1,5 +1,6 @@
-package omni.components.gui.layout;
+package omni.components.core;
 
+import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OCore;
@@ -9,7 +10,7 @@ import omni.components.core.OLayout;
 
 import nme.display.Sprite;
 
-class ContainerContent extends OContainer
+class OContainerContent extends OContainer
 {
 
 //***********************************************************
@@ -110,22 +111,22 @@ class ContainerContent extends OContainer
 //                  Component Style
 //***********************************************************
 
-	private var styleAsContentContainerStyle(get_styleAsContainerContentStyle, null):ContainerContentStyle;
+	private var styleAsContentContainerStyle(get_styleAsContainerContentStyle, null):OContainerContentStyle;
 
-	private function get_styleAsContainerContentStyle( ):ContainerContentStyle
+	private function get_styleAsContainerContentStyle( ):OContainerContentStyle
 	{
-		return cast(_style, ContainerContentStyle);
+		return cast(_style, OContainerContentStyle);
 	}
 
 	override public function get_styleId( ):String
 	{
-		return ContainerContentStyle.styleString;
+		return OContainerContentStyle.styleString;
 	}
 }
 
-class ContainerContentStyle extends OContainerStyle
+class OContainerContentStyle extends OContainerStyle
 {
-	public static var styleString:String = "ContainerContentStyle";
+	public static var styleString:String = "OContainerContentStyle";
 
 	public var defaultLayoutType:Class<OLayout>;
 	public var defaultContainerType:Class<OContainer>;

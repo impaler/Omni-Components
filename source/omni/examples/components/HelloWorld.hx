@@ -1,5 +1,10 @@
 package omni.examples.components;
 
+import omni.examples.components.tests.Shapes;
+import omni.utils.UtilShapes;
+import nme.display.Shape;
+import omni.examples.components.tests.MouseStageOut;
+import omni.components.gui.controls.SlideToggle;
 import omni.components.core.OButtonBase;
 import omni.components.gui.controls.Slider;
 import omni.components.core.OCore;
@@ -30,8 +35,20 @@ class HelloWorld extends MovieClip
 		
 		super( );
 
-        //var themePreview = new ThemePreview(Dark);
-        var themePreview = new ThemePreview(Orange);
+//        var themePreview = new ThemePreview(Dark);
+//        var themePreview = new ThemePreview(Orange);
+	
+	
+	
+		addChild ( new Shapes() );
+	
+//		OCore.instance.init(Orange);
+//
+//        var test = new MouseStageOut();
+
+		//
+		//var toggle = new SlideToggle();
+		//OCore.addChild(toggle);
 		
 	}
 

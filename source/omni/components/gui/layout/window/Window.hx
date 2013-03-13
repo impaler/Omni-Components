@@ -1,18 +1,21 @@
-package omni.components.gui.layout;
+package omni.components.gui.layout.window;
 
-import omni.utils.OStates;
+import omni.components.gui.layout.window.WindowHeader.WindowHeaderStyle;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
+import omni.components.gui.layout.containers.PagedContainer;
+import omni.components.core.OContainerContent;
+import omni.utils.OStates;
 import omni.utils.UtilSize.Dimension;
 import omni.utils.UtilSize.Position;
 import omni.components.core.OContainer;
-import omni.components.core.signals.OCoreEvent;
+import omni.utils.signals.OCoreEvent;
 import omni.components.core.OCore;
 import omni.components.core.OComponent;
 import omni.components.core.OButtonBase;
 import omni.components.core.OLayout;
-import omni.components.core.signals.OSignalType;
-import omni.components.core.signals.OSignalMouse;
+import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignalMouse;
 import omni.components.style.base.OBaseBackgroundStyle;
 
 import nme.events.MouseEvent;
@@ -36,7 +39,7 @@ class Window extends OComponent
     public var content:OContainer;
     public var paged:PagedContainer;
 
-    public var header:OComponent;
+    public var header:WindowHeader;
     public var footer:OComponent;
     public var scalerButton:OButtonBase;
 
@@ -64,7 +67,7 @@ class Window extends OComponent
     private var _previousPosition:Position;
     private var _previousMaxWidth:Float;
     private var _previousMaxHeight:Float;
-    private var _maximized:Bool = false;
+    public var _maximized:Bool = false;
 
 //***********************************************************
 //                  Component Methods
@@ -102,17 +105,23 @@ class Window extends OComponent
 	    visible = false;
 	    move(0,0);
 	    size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
-	    visible = true;
-	    _maximized = true;
+		visible = true;
+		_maximized = true;
+
+	    if(liveResize)
+		    scalerButton.visible = false;
     }
 
 	public function restore():Void
 	{
 		if (_previousSize != null)
 		{
-			maxHeight = _previousMaxHeight;
-			maxWidth = _previousMaxWidth;
-			size(_previousSize.width, _previousSize.height);
+				maxHeight = _previousMaxHeight;
+				maxWidth = _previousMaxWidth;
+				size(_previousSize.width, _previousSize.height);
+
+			if(liveResize)
+			scalerButton.visible = true;
 		}
 		if (_previousPosition != null)
 		{
@@ -155,17 +164,18 @@ class Window extends OComponent
         onMouseMove = OCore.instance.onStageMouseMove;
         onMouseUp = OCore.instance.onStageMouseUp;
 
-        header = new OButtonBase(styleAsWindow.header);
+        header = new WindowHeader(styleAsWindow.header);
+        header.window = this;
 	    header.sprite.doubleClickEnabled = true;
 	    header.sprite.addEventListener(MouseEvent.DOUBLE_CLICK, handleHeaderDoubleClick);
-	    
+
         addToMembers(header);
         coreAdd(header);
         header.buttonMode = true;
 
         setContainerType(styleAsWindow.containerDefault);
 
-        onMouseDownHeader = new OSignalMouse(OSignalMouse.DOWN, header.sprite);
+        onMouseDownHeader = new OSignalMouse(OSignalMouse.MOUSE_DOWN, header.sprite);
         onOpened = new OSignalType<Window -> Void>();
         onClosed = new OSignalType<Window -> Void>();
 	    
@@ -184,12 +194,10 @@ class Window extends OComponent
 		{
 			maxHeight = nme.Lib.stage.stageHeight;
 			maxWidth = nme.Lib.stage.stageWidth;
-		
-			visible = false;
-		   move(0,0);
-		   size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
-		   visible = true;
-		   _maximized = true;
+			
+			move(0,0);
+			size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
+			_maximized = true;
 		}
 	}
 
@@ -211,10 +219,11 @@ class Window extends OComponent
     {
         super.drawMembers();
 
-        header.width = _width;
-
         footer.width = _width;
         footer.y = _height - footer.height;
+
+        header.width = _width;
+        header.drawNow();
 
         if (!_resizing)
             scalerButton.move(_width - scalerButton._width, _height - scalerButton._height);
@@ -314,7 +323,7 @@ class Window extends OComponent
 
     private function handleScaleWindowMouseDown(?e:OSignalMouse):Void
     {
-        if (liveResize)
+        if (liveResize && !_maximized)
         {
             _resizing = true;
 
@@ -388,14 +397,14 @@ class WindowStyle extends OBaseBackgroundStyle
     public static var styleString:String = "WindowStyle";
 
     public var scalerButton:OButtonBaseStyle;
-    public var header:OButtonBaseStyle;
+    public var header:WindowHeaderStyle;
     public var footer:OButtonBaseStyle;
 
     public var containerDefault:Class<OContainer>;
 
-    public var moveable:Bool ;
-    public var resizeable:Bool ;
-    public var liveResize:Bool ;
+    public var moveable:Bool;
+    public var resizeable:Bool;
+    public var liveResize:Bool;
 
     public var containerTopPadding:Int;
     public var containerLeftPadding:Int;
@@ -406,16 +415,5 @@ class WindowStyle extends OBaseBackgroundStyle
     {
         super();
         styleID = styleString;
-
-        containerDefault = ContainerContent;
-
-        moveable = true;
-        resizeable = true;
-        liveResize = true;
-	    resizeBehaviour = OStates.FIT;
-
-        containerLeftPadding = 0;
-        containerRightPadding = 0;
-        containerTopPadding = 0;
     }
 }

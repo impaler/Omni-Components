@@ -5,9 +5,6 @@ import omni.components.core.OToggleButton;
 
 class RadioButton extends OToggleButton
 {
-
-	public var currentSelection:Bool = false;
-
 	override public function handleMouseDown( ?e:OSignalMouse ):Void
 	{
 		if( !_value )

@@ -80,7 +80,8 @@ class OLayout extends OContainer
 
                 if (_horizontalVAlign == OStates.MIDDLE)
                 {
-                    current.y = ((highestMember * .5) - (current.height * .5));
+                 if ( highestMember < _height )
+                    current.y = ((_height * .5) - (current.height * .5));
 	                
                 } else if (_horizontalVAlign == OStates.TOP)
                 {
@@ -88,7 +89,8 @@ class OLayout extends OContainer
 
                 } else if (_horizontalVAlign == OStates.BOTTOM)
                 {
-                    current.y = highestMember - current.height;
+                    if ( highestMember < _height )
+                        current.y = highestMember - current.height;
                 }
             }
             else if (_direction == OStates.VERTICAL)

@@ -3,9 +3,9 @@ package omni.components.core;
 import omni.components.core.OContainer.OContainerStyle;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OCore;
-import omni.components.core.signals.OSignalType;
-import omni.components.core.signals.OSignalMouse;
-import omni.components.core.signals.OCoreEvent;
+import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignalMouse;
+import omni.utils.signals.OCoreEvent;
 import omni.components.style.base.OBaseStyle;
 import omni.components.style.base.OBaseBackgroundStyle;
 import omni.utils.OStates;
@@ -48,10 +48,10 @@ class OButtonBase extends OContainer
 
 		buttonMode = true;
 
-		onMouseOut = new OSignalMouse(OSignalMouse.OUT, this.sprite);
-		onMouseOver = new OSignalMouse(OSignalMouse.OVER, this.sprite);
-		onMouseDown = new OSignalMouse(OSignalMouse.DOWN, this.sprite);
-		onMouseUp = new OSignalMouse(OSignalMouse.UP, this.sprite);
+		onMouseOut = new OSignalMouse(OSignalMouse.MOUSE_OUT, this.sprite);
+		onMouseOver = new OSignalMouse(OSignalMouse.MOUSE_OVER, this.sprite);
+		onMouseDown = new OSignalMouse(OSignalMouse.MOUSE_DOWN, this.sprite);
+		onMouseUp = OCore.instance.onStageMouseUp;
 		onMouseClick = new OSignalMouse(OSignalMouse.CLICK, this.sprite);
 
 		onClick = new OSignalType<OButtonBase -> Void>();
@@ -68,7 +68,6 @@ class OButtonBase extends OContainer
 			onMouseDown.add( handleMouseDown );
 			onMouseUp.add( handleMouseUp );
 			onMouseClick.add( handleMouseClick );
-			OCore.instance.onStageMouseUp.add( handleMouseUp );
 
 			_listening = true;
 		}
@@ -86,7 +85,6 @@ class OButtonBase extends OContainer
 			onMouseDown.removeAll( );
 			onMouseUp.removeAll( );
 			onMouseClick.removeAll( );
-			OCore.instance.onStageMouseUp.remove( handleMouseUp );
 
 			_listening = false;
 		}
@@ -99,7 +97,6 @@ class OButtonBase extends OContainer
 		onMouseDown.destroy( );
 		onMouseUp.destroy( );
 		onClick.destroy( );
-		OCore.instance.onStageMouseUp.remove( handleMouseUp );
 
 		super.destroy( );
 	}

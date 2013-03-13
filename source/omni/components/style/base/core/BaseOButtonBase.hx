@@ -11,11 +11,11 @@ class BaseOButtonBase extends OButtonBaseStyle
 	{
 		super( );
 
-		defaultWidth = 120;
-        defaultHeight = 40;
+		defaultWidth = 10;
+        defaultHeight = 10;
 		
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.ACTIVE );
+		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG );
 		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
 		bgColor.setColorState( OStates.OVER, BaseColors.OVER );
 		bgColor.setColorState( OStates.DOWN, BaseColors.DOWN );

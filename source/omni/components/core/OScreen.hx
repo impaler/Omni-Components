@@ -7,7 +7,7 @@ import omni.components.gui.layout.HBox;
 import omni.components.gui.layout.VBox;
 import omni.components.gui.text.Label;
 import omni.components.core.OLayout;
-import omni.components.core.signals.OSignalMouse;
+import omni.utils.signals.OSignalMouse;
 import omni.components.gui.controls.NumericStepper;
 import omni.components.gui.controls.Slider;
 import omni.components.core.OButtonBase;

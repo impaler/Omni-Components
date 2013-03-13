@@ -2,14 +2,14 @@ package omni.components.gui.controls;
 
 import nme.events.TimerEvent;
 import nme.utils.Timer;
-import omni.components.core.signals.OSignalInt;
-import omni.components.core.signals.OSignalVoid;
+import omni.utils.signals.OSignalInt;
+import omni.utils.signals.OSignalVoid;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
 import nme.display.Sprite;
 import omni.components.style.base.OBaseBackgroundStyle;
 import omni.components.core.OComponent;
-import omni.components.core.signals.OSignalType;
+import omni.utils.signals.OSignalType;
 
 class ProgressBar extends OComponent
 {

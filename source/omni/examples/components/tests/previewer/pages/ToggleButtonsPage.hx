@@ -16,15 +16,9 @@ class ToggleButtonsPage extends ThemePage
 		super.createMembers( );
 
 		title = "Toggle Buttons";
-
-		var defaultOToggleButton = new OToggleButton();
-		addTest( defaultOToggleButton, "Default defaultOToggleButton" );
 		
 		var defaultCheckBox = new CheckBox();
 		addTest( defaultCheckBox, "Default CheckBox" );
-		
-		var defaultRadioButton = new RadioButton();
-		addTest( defaultRadioButton, "Default RadioButton" );
 
 		var defaultRadioButtonGroup = new RadioButtonGroup();
 		defaultRadioButtonGroup.addButton();

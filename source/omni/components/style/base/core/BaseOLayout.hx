@@ -1,4 +1,4 @@
-package omni.components.style.base.layout;
+package omni.components.style.base.core;
 
 import omni.components.style.base.BaseColors;
 import omni.utils.OStates;

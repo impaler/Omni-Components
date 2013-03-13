@@ -19,10 +19,10 @@ class BaseTabButton extends TabButtonStyle
 	{
 		super( );
 		
-		defaultHeight = 40;
+		defaultHeight = 70;
 		defaultWidth = 220;
 		defaultSizeMethodWidth = OStates.AUTO;
-		defaultSizeMethodHeight = OStates.FIXED;
+		defaultSizeMethodHeight = OStates.AUTO;
 		
 		var bgColor = new BrushColorFill ();
 

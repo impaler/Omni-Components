@@ -1,5 +1,6 @@
 package omni.components.style.base.controls;
 
+import omni.components.style.base.core.BaseOComponentButtonLayout;
 import omni.components.style.base.BaseColors;
 import omni.components.gui.controls.Button.ButtonLabelStyle;
 import omni.utils.OStates;
@@ -21,27 +22,22 @@ class BaseRadioButton extends RadioButtonStyle
 		textStyle.defaultText = "Radio!";
 		textStyle.fontSize = 18;
 		defaultLabel = textStyle;
+		
+		layoutStyle = new BaseOComponentButtonLayout();
 
 		var bgColor = new BrushColorFill ();
 
 		bgColor.setColorState( OStates.ON, BaseColors.ON );
 		bgColor.setColorState( OStates.ON_OVER, BaseColors.ON_OVER );
-
-		bgColor.setColorState( OStates.OFF, BaseColors.OFF_OVER );
+		bgColor.setColorState( OStates.OFF, BaseColors.OFF );
 		bgColor.setColorState( OStates.OFF_OVER, BaseColors.OFF_OVER );
-
 		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-
 		setBackgroundBrush( bgColor );
 
-		defaultState = OStates.OFF;
+		defaultSizeMethodWidth = OStates.AUTO;
+		defaultSizeMethodHeight = OStates.AUTO;
+		
+		defaultHeight = 40;
 
-		defaultWidth = 200;
-		defaultHeight = 50;
-		minWidth = 10;
-		minHeight = 10;
-		maxWidth = 2000;
-		maxHeight = 2000;
-		defaultPadding = 0;
 	}
 }

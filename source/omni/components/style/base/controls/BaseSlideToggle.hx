@@ -1,12 +1,13 @@
-package omni.components.style.base.core;
+package omni.components.style.base.controls;
 
+import omni.components.gui.controls.SlideToggle.SlideToggleStyle;
 import omni.components.style.base.BaseColors;
 import omni.utils.OStates;
 import omni.components.style.base.text.BaseButtonLabel;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OToggleButton.OToggleButtonStyle;
 
-class BaseOToggleButton extends OToggleButtonStyle
+class BaseSlideToggle extends SlideToggleStyle
 {
 	public function new( )
 	{
@@ -22,7 +23,12 @@ class BaseOToggleButton extends OToggleButtonStyle
 		setBackgroundBrush( bgColor );
 		
 		defaultLabel = null;
+		//black in bg
 		layoutStyle = null;
 		defaultState = OStates.OFF;
+		
+		
+		defaultWidth = 500;
+	
 	}
 }

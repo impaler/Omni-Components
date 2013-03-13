@@ -1,8 +1,8 @@
 package omni.components.gui.controls;
 
 import omni.utils.OStates;
-import omni.components.core.signals.OSignalMouse;
-import omni.components.gui.layout.ContainerPage;
+import omni.utils.signals.OSignalMouse;
+import omni.components.core.OContainerPage;
 import omni.components.core.OToggleButton;
 
 class TabButton extends OToggleButton
@@ -12,7 +12,7 @@ class TabButton extends OToggleButton
 //                  Public Variables
 //***********************************************************
 
-	public var containerPage:ContainerPage;
+	public var containerPage:OContainerPage;
 
 //***********************************************************
 //                  Event Handlers

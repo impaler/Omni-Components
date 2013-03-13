@@ -21,3 +21,24 @@ class TextArea {
 	//		align = Std.string( value );
 	//		return align;
 	//	}
+
+//
+//private function onScrollBarChange(e:Event = null):void {
+//	_textBase.scrollV = _scrollBar.value + 1;
+//	moving = false;
+//}
+//
+//private function onScrollBarMove(e:Event = null):void {
+//	_textBase.scrollV = _scrollBar.value + 1;
+//	moving = true;
+//}
+
+
+//private function onTextChange(e:Event = null):void {
+//	_scrollBar.pageSize = _textBase.numLines - _textBase.maxScrollV + 1;
+//	_scrollBar.contentSize = _textBase.numLines;
+//}
+//
+//private function onTextScroll(e:Event = null):void {
+//	if (!moving) _scrollBar.value = _textBase.scrollV - 1;
+//}

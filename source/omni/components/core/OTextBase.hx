@@ -130,7 +130,8 @@ class OTextBase extends OComponent
 //		_fontUnderline,
 
 		_format = new TextFormat(
-		_fontName, _fontSize, _fontColor, null, //todo			_fontBold,
+		_fontName, _fontSize, _fontColor, 
+		null, //todo			_fontBold,
 		null, //todo			_fontItalic,
 		null, //todo			_fontUnderline,
 		null, //todo			_fontURL,

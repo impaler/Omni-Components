@@ -1,6 +1,6 @@
 package omni.components.core.interfaces;
 
-import omni.components.core.signals.OSignalType;
+import omni.utils.signals.OSignalType;
 import nme.display.Sprite;
 import nme.events.Event;
 

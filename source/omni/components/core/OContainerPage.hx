@@ -1,5 +1,6 @@
-package omni.components.gui.layout;
+package omni.components.core;
 
+import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OLayout;
 import omni.components.core.OContainer;
@@ -7,19 +8,19 @@ import omni.utils.OStates;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.gui.controls.TabButton;
 import omni.components.style.base.OBaseBackgroundStyle;
-import omni.components.core.signals.OSignalType;
+import omni.utils.signals.OSignalType;
 import omni.components.core.OComponent;
 
-class ContainerPage extends OComponent {
+class OContainerPage extends OComponent {
 
 //***********************************************************
 //                  Public Variables
 //***********************************************************
 
-    public var onClosed:OSignalType<ContainerPage -> Void>;
-    public var onOpened:OSignalType<ContainerPage -> Void>;
+    public var onClosed:OSignalType<OContainerPage -> Void>;
+    public var onOpened:OSignalType<OContainerPage -> Void>;
 
-    public var title(get_pageName, set_pageName):String;
+    public var title(get_title, set_title):String;
     public var _title:String;
 
     public var parentContainer:PagedContainer;
@@ -34,8 +35,8 @@ class ContainerPage extends OComponent {
     override public function createMembers():Void {
         super.createMembers();
 
-        onClosed = new OSignalType<ContainerPage -> Void>();
-        onOpened = new OSignalType<ContainerPage -> Void>();
+        onClosed = new OSignalType<OContainerPage -> Void>();
+        onOpened = new OSignalType<OContainerPage -> Void>();
 
         var type = styleAsContainerPageStyle.defaultContainerType;
         setContainerType(type);
@@ -106,14 +107,14 @@ class ContainerPage extends OComponent {
 //                  Properties
 //***********************************************************
 
-    public function get_pageName():String {
+    public function get_title():String {
         if (_title == null) {
             _title = Std.string(compId);
         }
         return _title;
     }
 
-    public function set_pageName(value:String):String {
+    public function set_title(value:String):String {
         if (_title == null) {
             _title = value;
         }
@@ -124,21 +125,21 @@ class ContainerPage extends OComponent {
 //                  Component Style
 //***********************************************************
 
-    private var styleAsContainerPageStyle(get_styleAsContainerPageStyle, null):ContainerPageStyle;
+    private var styleAsContainerPageStyle(get_styleAsContainerPageStyle, null):OContainerPageStyle;
 
-    private function get_styleAsContainerPageStyle( ):ContainerPageStyle
+    private function get_styleAsContainerPageStyle( ):OContainerPageStyle
     {
-        return cast(_style, ContainerPageStyle);
+        return cast(_style, OContainerPageStyle);
     }
 
     override public function get_styleId():String {
-        return ContainerPageStyle.styleString;
+        return OContainerPageStyle.styleString;
     }
 }
 
-class ContainerPageStyle extends OBaseBackgroundStyle {
+class OContainerPageStyle extends OBaseBackgroundStyle {
 
-    public static var styleString:String = "ContainerPageStyle";
+    public static var styleString:String = "OContainerPageStyle";
 
     public var defaultContainerType:Class<OContainer>;
 
