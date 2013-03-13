@@ -4,10 +4,10 @@ import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OCore;
 import omni.utils.OStates;
-import omni.components.core.signals.OSignalType;
-import omni.components.core.signals.OCoreEvent;
-import omni.components.core.signals.OSignalMouse;
-import omni.components.core.signals.OSignalMouse;
+import omni.utils.signals.OSignalType;
+import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalMouse;
+import omni.utils.signals.OSignalMouse;
 import omni.components.core.OComponent;
 import omni.components.core.OButtonBase;
 import omni.components.gui.controls.SliderButton.SliderButtonStyle;
@@ -74,8 +74,8 @@ class Slider extends OComponent
 		_rect = new Rectangle();
 
 		onChange = new OSignalType<Int -> Void>();
-		onMouseWheel = new OSignalMouse (OSignalMouse.WHEEL, this.sprite);
-		onMouseDown = new OSignalMouse (OSignalMouse.DOWN, this.sprite);
+		onMouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, this.sprite);
+		onMouseDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, this.sprite);
 		onMouseUp = OCore.instance.onStageMouseUp;
 		onMouseMove = OCore.instance.onStageMouseMove;
 
