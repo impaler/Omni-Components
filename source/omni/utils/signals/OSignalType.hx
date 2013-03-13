@@ -1,4 +1,4 @@
-package omni.components.core.signals;
+package omni.utils.signals;
 
 import omni.components.core.interfaces.IDestroyable;
 
@@ -53,7 +53,6 @@ class OSignalType<T> implements IDestroyable
 			if( Reflect.compareMethods( l, listener ) )
 			{
 				listeners.remove( l );
-//todo Using listener instead of l will not work (tested in js haxe 2.9)
 				break;
 			}
 		}
