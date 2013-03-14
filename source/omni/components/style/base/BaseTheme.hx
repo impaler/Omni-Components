@@ -16,7 +16,7 @@ import omni.components.style.base.controls.BaseSlideToggle;
 
 import omni.components.style.base.core.BaseOContainer;
 import omni.components.style.base.core.BaseOComponent;
-import omni.components.style.base.core.BaseOContentContainer;
+import omni.components.style.base.core.BaseOContainerContent;
 import omni.components.style.base.core.BaseOToggleButton;
 import omni.components.style.base.core.BaseOTextBase;
 import omni.components.style.base.core.BaseOComponentButtonLayout;
@@ -59,20 +59,20 @@ class BaseTheme extends OTheme
 		addOLayout( );
 
 		addStyle( BaseOContainer );
-		addStyle( BaseOContentContainer );
+		addStyle( BaseOContainerContent );
 		addStyle( BaseOToggleButton );
 		addStyle( BaseOToggleButtonGroup );
 		addStyle( BaseSlideToggle );
-		
-		addOTextBaseStyle();
+
+		addOTextBaseStyle( );
 
 		addStyle( BaseWindow );
 		addStyle( BaseWindowHeader );
 		addStyle( BaseWindowTabbedContainer );
 
-		addButtonStyle();
-		addCheckBoxStyle();
-		
+		addButtonStyle( );
+		addCheckBoxStyle( );
+
 		addStyle( BaseOComponentButton );
 		addStyle( BaseOComponentButtonLayout );
 
@@ -87,8 +87,8 @@ class BaseTheme extends OTheme
 		addStyle( BaseTabButton );
 		addStyle( BaseTabButtonGroup );
 
-		addSliderStyle();
-		addSliderButtonStyle();
+		addSliderStyle( );
+		addSliderButtonStyle( );
 
 		addStyle( BaseScrollSlider );
 		addStyle( BaseScrollBar );
@@ -98,7 +98,7 @@ class BaseTheme extends OTheme
 		addStyle( BaseIcon );
 		addStyle( BaseProgressBar );
 
-		addNumericStepperStyle();
+		addNumericStepperStyle( );
 
 		addStyle( BaseLabel );
 		addStyle( BaseInputField );
@@ -111,6 +111,7 @@ class BaseTheme extends OTheme
 * Override these helper functions for previewing themes in dev without null errors
 * 
 **/
+
 	public function addOComponentStyle( ):Void
 	{
 		addStyle( BaseOComponent );
@@ -130,7 +131,7 @@ class BaseTheme extends OTheme
 	{
 		addStyle( BaseOTextBase );
 	}
-	
+
 	public function addButtonStyle( ):Void
 	{
 		addStyle( BaseButton );
@@ -141,26 +142,26 @@ class BaseTheme extends OTheme
 	{
 		addStyle( BaseSlider );
 	}
-	
+
 	public function addSliderButtonStyle( ):Void
 	{
 		addStyle( BaseSliderButton );
 	}
-	
+
 	public function addNumericStepperStyle( ):Void
 	{
 		addStyle( BaseNumericStepper );
 		addStyle( BaseNumericStepperButton );
 	}
-	
+
 	public function addCheckBoxStyle( ):Void
 	{
 		addStyle( BaseCheckBox );
 	}
-	
+
 	public function setupColors( ):Void
 	{
-		//set your overrides on the static Base values
+//set your overrides on the static Base values
 	}
 
 }
