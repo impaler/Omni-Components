@@ -26,45 +26,45 @@ class ScrollBar extends OComponent
 
 	public var scrollSlider:ScrollSlider;
 
-    public var onChange(default, null):OSignalType<Int -> Void>;
+	public var onChange(default, null):OSignalType<Int -> Void>;
 
 	public var type(get_type, set_type):String;
 	public var _type:String;
 
 	public var sliderStep(default, set_sliderStep):Int;
 
-    public var value(get_value, set_value):Int;
-    public var _value:Int = 0;
+	public var value(get_value, set_value):Int;
+	public var _value:Int = 0;
 
-    public var max(get_max, set_max):Float;
-    public var _max:Float = 100;
+	public var max(get_max, set_max):Float;
+	public var _max:Float = 100;
 
-    public var min(get_min, set_min):Float;
-    public var _min:Float = 0;
+	public var min(get_min, set_min):Float;
+	public var _min:Float = 0;
 
-    public var contentSize(default, set_contentSize):Int = 0;
+	public var contentSize(default, set_contentSize):Int = 0;
 
-    public var pageSize(default, set_pageSize):Int = 0;
+	public var pageSize(default, set_pageSize):Int = 0;
 
-    public var barNeeded(get_barNeeded, set_barNeeded):Bool;
+	public var barNeeded(get_barNeeded, set_barNeeded):Bool;
 
 //***********************************************************
 //                  Style Variables
 //***********************************************************
 
-    private var _sliderStep:Int;
-    private var _buttonStep:Int;
-    private var _buttonMovementInterval:Float;
-    private var _initialButtonMovementDelay:Float;
-    private var _enableScrollButtons:Bool;
-    private var _enableScrollSlider:Bool;
+	private var _sliderStep:Int;
+	private var _buttonStep:Int;
+	private var _buttonMovementInterval:Float;
+	private var _initialButtonMovementDelay:Float;
+	private var _enableScrollButtons:Bool;
+	private var _enableScrollSlider:Bool;
 
 //***********************************************************
 //                  Private Variables
 //***********************************************************
 
-    private var _increasing:Bool;
-    private var _timer:Timer;
+	private var _increasing:Bool;
+	private var _timer:Timer;
 
 //***********************************************************
 //                  Component Overrides
@@ -72,13 +72,13 @@ class ScrollBar extends OComponent
 
 	override public function createMembers( ):Void
 	{
-        _sliderStep = styleAsScrollBar.sliderStep;
-        _buttonStep = styleAsScrollBar.buttonStep;
-        _buttonMovementInterval = styleAsScrollBar.buttonMovementInterval;
-        _initialButtonMovementDelay = styleAsScrollBar.initialButtonMovementDelay;
+		_sliderStep = styleAsScrollBar.sliderStep;
+		_buttonStep = styleAsScrollBar.buttonStep;
+		_buttonMovementInterval = styleAsScrollBar.buttonMovementInterval;
+		_initialButtonMovementDelay = styleAsScrollBar.initialButtonMovementDelay;
 
-        _enableScrollButtons = styleAsScrollBar.enableScrollButtons;
-        _enableScrollSlider = styleAsScrollBar.enableScrollSlider;
+		_enableScrollButtons = styleAsScrollBar.enableScrollButtons;
+		_enableScrollSlider = styleAsScrollBar.enableScrollSlider;
 
 		if( _enableScrollSlider )
 			createScrollSlider( );
@@ -86,7 +86,7 @@ class ScrollBar extends OComponent
 		if( _enableScrollButtons )
 			createScrollButtons( );
 
-        onChange = new OSignalType<Int -> Void>();
+		onChange = new OSignalType<Int -> Void>();
 	}
 
 	override public function enableSignals( ):Void
@@ -119,11 +119,9 @@ class ScrollBar extends OComponent
 	{
 		super.drawMembers( );
 
-		scrollSlider._width = width - (increaseButton.width + decreaseButton.width);
-		scrollSlider._height = height - (increaseButton.height + decreaseButton.height);
-
 		if( _type == OStates.VERTICAL )
 		{
+			scrollSlider._height = height - (increaseButton.height + decreaseButton.height);
 			increaseButton._width = width;
 			decreaseButton._width = width;
 			increaseButton.y = height - increaseButton.height;
@@ -131,14 +129,14 @@ class ScrollBar extends OComponent
 		}
 		else
 		{
+			scrollSlider._width = width - (increaseButton.width + decreaseButton.width);
 			increaseButton._height = _height;
 			decreaseButton._height = _height;
 			increaseButton.x = width - increaseButton.width;
 			scrollSlider.x = decreaseButton._width;
 		}
 
-		scrollSlider.drawNow();
-		
+		scrollSlider.drawNow( );
 	}
 
 //***********************************************************
@@ -208,7 +206,6 @@ class ScrollBar extends OComponent
 
 	public function createScrollSlider( ):Void
 	{
-
 		var styleAs = cast (_style, ScrollBarStyle);
 		scrollSlider = new ScrollSlider(styleAs.slider);
 		scrollSlider.step = _sliderStep;
@@ -273,10 +270,10 @@ class ScrollBar extends OComponent
 
 	public function set_value( value:Int ):Int
 	{
-        if( _value != value )
-        {
-            value = clamp( value );
-            _value = value;
+		if( _value != value )
+		{
+			value = clamp( value );
+			_value = value;
 
 			if( scrollSlider != null )
 				scrollSlider._value = _value;
@@ -324,8 +321,6 @@ class ScrollBar extends OComponent
 		} return value;
 	}
 
-
-
 	public function set_barNeeded( value:Bool ):Bool
 	{
 		barNeeded = value;
@@ -357,8 +352,8 @@ class ScrollBar extends OComponent
 			contentSize = value;
 			if( scrollSlider != null )
 				scrollSlider.contentSize = contentSize;
-			
-			invalidate();
+
+			invalidate( );
 		}
 		return value;
 	}
@@ -370,8 +365,8 @@ class ScrollBar extends OComponent
 			pageSize = value;
 			if( scrollSlider != null )
 				scrollSlider.pageSize = pageSize;
-			
-			invalidate();
+
+			invalidate( );
 		}
 		return value;
 	}
@@ -380,12 +375,12 @@ class ScrollBar extends OComponent
 //                  Component Style
 //***********************************************************
 
-    private var styleAsScrollBar(get_styleAsScrollBar, null):ScrollBarStyle;
+	private var styleAsScrollBar(get_styleAsScrollBar, null):ScrollBarStyle;
 
-    private function get_styleAsScrollBar():ScrollBarStyle
-    {
-        return cast(_style, ScrollBarStyle);
-    }
+	private function get_styleAsScrollBar( ):ScrollBarStyle
+	{
+		return cast(_style, ScrollBarStyle);
+	}
 
 	override public function get_styleId( ):String
 	{
@@ -403,12 +398,12 @@ class ScrollBarStyle extends OBaseStyle
 
 	public var slider:SliderBaseStyle;
 
-    public var sliderStep:Int;
-    public var buttonStep:Int;
-    public var enableScrollButtons:Bool;
-    public var enableScrollSlider:Bool;
-    public var buttonMovementInterval:Float;
-    public var initialButtonMovementDelay:Float;
+	public var sliderStep:Int;
+	public var buttonStep:Int;
+	public var enableScrollButtons:Bool;
+	public var enableScrollSlider:Bool;
+	public var buttonMovementInterval:Float;
+	public var initialButtonMovementDelay:Float;
 
 	public function new( )
 	{

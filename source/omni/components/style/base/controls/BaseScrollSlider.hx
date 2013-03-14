@@ -19,7 +19,7 @@ class BaseScrollSlider extends ScrollSliderStyle
 		increaseButtonStyle = new BaseScrollBarButton();
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, ColorUtils.BLUE );
+		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG );
 		setBackgroundBrush( bgColor );
 
 		defaultVHeight = 120;
@@ -30,7 +30,7 @@ class BaseScrollSlider extends ScrollSliderStyle
 
 		defaultValue = 50;
 
-		scrollButtons = false;
+		scrollButtons = true;
 
 	}
 

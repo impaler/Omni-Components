@@ -9,7 +9,7 @@ import omni.components.gui.layout.ScrollContainer;
 import omni.components.core.OContainerContent.OContainerContentStyle;
 import omni.components.style.brush.BrushColorFill;
 
-class BaseOContentContainer extends OContainerContentStyle
+class BaseOContainerContent extends OContainerContentStyle
 {
 	public function new( )
 	{
@@ -18,14 +18,14 @@ class BaseOContentContainer extends OContainerContentStyle
 		defaultWidth = 300;
 		defaultHeight = 300;
 		defaultScrollRect = true;
-		
-		//todo Vbox object for Content Containers
+
+//todo Vbox object for Content Containers
 		defaultLayoutType = VBox;
 		defaultContainerType = ScrollContainer;
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, ColorUtils.GREEN);
+		bgColor.setColorState( OStates.ACTIVE, ColorUtils.GREEN );
 		setBackgroundBrush( bgColor );
-	
+
 	}
 }
