@@ -79,7 +79,11 @@ class OContainer extends OComponent
 	public function set_scrollRectEnabled( b:Bool ):Bool
 	{
 		_scrollRectEnabled = b;
-		if( ! _scrollRectEnabled ) target.scrollRect = null;
+		if( ! _scrollRectEnabled ) {
+			target.scrollRect = null;
+			invalidate();
+		}
+		
 		return _scrollRectEnabled;
 	}
 
