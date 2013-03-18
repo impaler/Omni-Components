@@ -93,6 +93,7 @@ class OContainerPage extends OComponent {
 	}
 
     public function open():Void {
+	    pageButton.value = true;
         parentContainer.sprite.addChild(this.sprite);
         onOpened.dispatch(this);
     }
