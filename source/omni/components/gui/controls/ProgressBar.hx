@@ -1,5 +1,6 @@
 package omni.components.gui.controls;
 
+import omni.components.core.OContainer;
 import nme.events.TimerEvent;
 import nme.utils.Timer;
 import omni.utils.signals.OSignalInt;
@@ -24,7 +25,7 @@ class ProgressBar extends OComponent
 	public var value(get_value, set_value):Int;
 	public var _value:Int = 0;
 
-	public var progressImage:OComponent;
+	public var progressImage:OContainer;
 
 //***********************************************************
 //                  Component Methods
@@ -48,7 +49,8 @@ class ProgressBar extends OComponent
 		onComplete = new OSignalVoid();
 		onProgress = new OSignalInt();
 
-		progressImage = new OComponent();
+		var sty = cast(_style, ProgressBarStyle );
+		progressImage = new OContainer(sty.progress);
 		add( progressImage );
 	}
 
@@ -59,6 +61,7 @@ class ProgressBar extends OComponent
 
 		progressImage._width = (_width * _value) * 0.01;
 		progressImage._height = _height;
+		progressImage.drawNow();
 	}
 
 //***********************************************************
@@ -96,7 +99,7 @@ class ProgressBar extends OComponent
 
 	public function handleTimer( e:TimerEvent ):Void
 	{
-		this.value = this.value + 1;
+		this.value += 1;
 		if( this.value == 100 ) this.value = 0;
 	}
 
@@ -114,35 +117,12 @@ class ProgressBarStyle extends OBaseBackgroundStyle
 {
 	public static var styleString:String = "ProgressBarStyle";
 
-	public var progress:IBrush;
+	public var progress:OContainerStyle;
 
 	public function new( )
 	{
 		super( );
 		styleID = styleString;
-	}
-
-	public function setProgressBrush( value:IBrush ):Void
-	{
-		progress = cast ( value, IBrush);
-	}
-
-	override public function update( value:IOComponent ):Void
-	{
-		if( progress != null )
-			progress.update( value );
-
-		super.update( value );
-	}
-
-	override public function destroy( ):Void
-	{
-		if( progress != null )
-		{
-			progress.destroy( );
-			progress = null;
-		}
-		super.destroy( );
 	}
 
 }
