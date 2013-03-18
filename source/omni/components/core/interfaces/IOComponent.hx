@@ -112,6 +112,7 @@ interface IOComponent implements IDestroyable
     public var parentComponent:IOComponent;
 
 	public function add (comp:IOComponent):IOComponent;
+	public function addType(comp:Class<IOComponent>, ?style:IStyle = null):Dynamic;
 	public function addFirst (comp:IOComponent):IOComponent;
 	public function addAt (comp:IOComponent, index:Int):IOComponent;
 	public function getMemberIndex (comp:IOComponent):Int;
