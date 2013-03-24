@@ -43,6 +43,9 @@ class OSignalMouse extends OSignalType<OSignalMouse -> Void>
 		this.target = target;
 		this.delta = 0;
 		this.displayTarget = target;
+		
+		if (type == DOUBLE_CLICK)
+			target.doubleClickEnabled = true;
 
 		addEventListener( pos );
 	}
