@@ -18,12 +18,12 @@ class BaseHBox extends HBoxStyle
 		defaultDirection = OStates.HORIZONTAL;
 		defaultHorizontalVAlign = OStates.MIDDLE;
 		defaultScrollRect = false;
-		defaultWidth = 300;
-		defaultHeight = 300;
+		defaultWidth = 120;
+		defaultHeight = 60;
 		defaultPadding = 10;
 		
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
+		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_HBOX );
 		setBackgroundBrush( bgColor );
 	}
 

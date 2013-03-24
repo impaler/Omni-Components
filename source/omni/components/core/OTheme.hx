@@ -11,13 +11,20 @@ import omni.components.style.base.OBaseStyle;
  */
 class OTheme implements IDestroyable
 {
+	#if haxe3 
+	var _stylesHash:Map<String,OBaseStyle>;
+	#else
+	var _stylesHash:Hash<OBaseStyle>;
+	#end
 
 	public function new( )
 	{
+		#if haxe3 
+		_stylesHash = new Map();
+		#else
 		_stylesHash = new Hash();
+		#end
 	}
-
-	var _stylesHash:Hash<OBaseStyle>;
 
 	public var themeName(get_themeName, null):String;
 

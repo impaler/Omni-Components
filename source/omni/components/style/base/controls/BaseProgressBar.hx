@@ -1,5 +1,6 @@
 package omni.components.style.base.controls;
 
+import omni.components.core.OContainer.OContainerStyle;
 import omni.components.style.base.BaseColors;
 import omni.utils.ColorUtils;
 import omni.utils.OStates;
@@ -21,12 +22,14 @@ class BaseProgressBar extends ProgressBarStyle
 		bgColor.setColorState( OStates.DOWN, BaseColors.DOWN );
 		setBackgroundBrush( bgColor );
 
+		
 		var bgColor = new BrushColorFill ();
 		bgColor.setColorState( OStates.ACTIVE, ColorUtils.HALO_BLUE );
 		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
 		bgColor.setColorState( OStates.OVER, BaseColors.OVER );
 		bgColor.setColorState( OStates.DOWN, BaseColors.DOWN );
-		setProgressBrush( bgColor );
+		var cont = new OContainerStyle();
+		cont.setBackgroundBrush( bgColor );
 		
 		
 		defaultWidth = 300;

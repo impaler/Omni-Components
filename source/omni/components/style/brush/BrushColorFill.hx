@@ -8,11 +8,19 @@ import nme.display.Graphics;
 
 class BrushColorFill implements IBrush
 {
+	#if haxe3 
+	public var colors:Map<String,Int>;
+	#else
 	public var colors:Hash<Int>;
+	#end
 
 	public function new()
 	{
+		#if haxe3 
+		colors = new Map();
+		#else
 		colors = new Hash();
+		#end
 	}
 
 	public function setColorState(state:String, color:Int):Void

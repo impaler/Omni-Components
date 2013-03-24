@@ -1,5 +1,10 @@
 package omni.examples.components.tests.previewer;
 
+import omni.components.gui.layout.TabButtonGroup;
+import omni.examples.components.tests.previewer.pages.VBoxPage;
+import omni.examples.components.tests.previewer.pages.HBoxPage;
+import omni.examples.components.tests.previewer.pages.ProgressPage;
+import omni.components.gui.controls.ProgressBar;
 import omni.components.gui.layout.window.WindowTabbedContainer;
 import omni.examples.components.tests.previewer.pages.ToggleButtonsPage;
 import nme.Assets;
@@ -20,36 +25,32 @@ import omni.components.gui.layout.window.Window;
 class ThemePreview
 {
 	public var window:Window;
+	public var tabb:WindowTabbedContainer;
 
 	public function new( theme:Class<OTheme> )
 	{
 		OCore.instance.init( theme );
 
 		window = new Window();
-		//window.size( 700, 700 );
 
-		var paged = window.setPagedContainerType( WindowTabbedContainer );
-
+		addTestPage( HBoxPage );
+		addTestPage( VBoxPage );
 		var sliders = addTestPage( SlidersPage );
 		addTestPage( IconsPage );
 		addTestPage( NumericStepperPage );
 		addTestPage( ButtonsPage );
 		addTestPage( ToggleButtonsPage );
-//addTestPage(BitmapDataResizeUtilPage);
-
-		window.paged.openFirstPage();
-//window.paged.openPage(sliders);
-//window.paged.openPreviousPage();
-//window.paged.openNextPage();
-	
+		addTestPage( ProgressPage );
+		
 		window.open( );
-		window.maximize();
-
 	}
 
 	public function addTestPage( type:Class<ThemePage> ):ThemePage
 	{
 		var page = Type.createInstance( type, [null] );
+		if ( window.paged == null )
+			window.setPagedContainerType(WindowTabbedContainer);
+		
 		window.paged.addPage( page );
 		return page;
 	}

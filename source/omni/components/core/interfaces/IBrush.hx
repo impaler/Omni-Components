@@ -8,10 +8,9 @@ import nme.display.Sprite;
 *   @description the interface to draw a component visually
 *
 **/
-interface IBrush implements IDestroyable
+
+interface IBrush #if haxe3 extends #else implements #end IDestroyable
 {
-
 	function update(target:IOComponent):Void;
-
 }
 

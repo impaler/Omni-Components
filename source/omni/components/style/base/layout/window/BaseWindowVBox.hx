@@ -1,5 +1,6 @@
-package omni.components.style.base.layout;
+package omni.components.style.base.layout.window;
 
+import omni.components.gui.layout.window.WindowVBox.WindowVBoxStyle;
 import omni.utils.OStates;
 import omni.components.style.base.BaseColors;
 import omni.components.gui.layout.VBox.VBoxStyle;
@@ -8,7 +9,7 @@ import omni.components.core.OLayout;
 import omni.utils.ColorUtils;
 import nme.geom.Rectangle;
 
-class BaseVBox extends VBoxStyle
+class BaseWindowVBox extends WindowVBoxStyle
 {
 
 	public function new( )
@@ -18,12 +19,9 @@ class BaseVBox extends VBoxStyle
 		defaultDirection = OStates.VERTICAL;
 		defaultVerticalHAlign = OStates.MIDDLE;
 		defaultScrollRect = false;
-		defaultWidth = 60;
-		defaultHeight = 120;
-		defaultPadding = 10;
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_VBOX );
+		bgColor.setColorState( OStates.ACTIVE, ColorUtils.RED );
 		setBackgroundBrush( bgColor );
 	}
 

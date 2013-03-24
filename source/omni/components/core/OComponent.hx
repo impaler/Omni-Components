@@ -361,11 +361,12 @@ class OComponent implements IOComponent
 //                  Dimensions / Positions
 //***********************************************************
 
-	public var x(get_x, set_x):Float;
+	#if haxe3 @:isVar #end public var x(get_x, set_x):Float;
 
 	public function set_x( value:Float ):Float
 	{
-        debugDraw();return x = sprite.x = (value);
+        debugDraw();
+		return x = sprite.x = value;
 	}
 
 	function get_x( ):Float
@@ -373,7 +374,7 @@ class OComponent implements IOComponent
 		return sprite.x;
 	}
 
-	public var y(get_y, set_y):Float;
+	#if haxe3 @:isVar #end public var y(get_y, set_y):Float;
 
 	function get_y( ):Float
 	{
@@ -382,7 +383,8 @@ class OComponent implements IOComponent
 
 	public function set_y( value:Float ):Float
 	{
-        debugDraw();return y = sprite.y = (value);
+        debugDraw();
+		return y = sprite.y = value;
 	}
 
 	public function move( x:Float, y:Float ):Void
@@ -533,7 +535,20 @@ return false;
 	{
 		return sprite.mouseChildren;
 	}
+	
+	public var mouseEnabled(get_mouseEnabled, set_mouseEnabled):Bool;
 
+	public function set_mouseEnabled( b:Bool ):Bool
+	{
+		sprite.mouseEnabled = b;
+		return b;
+	}
+
+	public function get_mouseEnabled( ):Bool
+	{
+		return sprite.mouseEnabled;
+	}
+	
 	public function startDrag( lockCenter:Bool = false, ?bounds:Rectangle ):Void
 	{
 		sprite.startDrag( false, bounds );

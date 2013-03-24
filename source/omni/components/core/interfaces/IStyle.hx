@@ -6,7 +6,7 @@ package omni.components.core.interfaces;
  * @description the main Interface pattern for the Component style system
  *
  */
-interface IStyle implements IDestroyable
+interface IStyle #if haxe3 extends #else implements #end IDestroyable
 {
 	var defaultWidth:Float;
 	var defaultHeight:Float;

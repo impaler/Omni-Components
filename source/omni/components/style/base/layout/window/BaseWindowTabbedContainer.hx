@@ -1,4 +1,4 @@
-package omni.components.style.base.layout;
+package omni.components.style.base.layout.window;
 
 import omni.components.gui.layout.window.WindowTabbedContainer;
 import omni.components.gui.layout.containers.PagedContainer;

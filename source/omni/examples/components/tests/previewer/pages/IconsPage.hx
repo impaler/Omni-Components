@@ -1,5 +1,6 @@
 package omni.examples.components.tests.previewer.pages;
 
+import omni.components.gui.layout.HBox;
 import omni.utils.ColorUtils;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.layout.Icon.IconStyle;
@@ -39,6 +40,27 @@ class IconsPage extends ThemePage
         setBitmap.setBitmap(ThemePreview.testJPGBitmap());
         addTest(setBitmap, "Icon setBitmap()");
 
+	    var i = 0;
+	    while( i < 1 ) {
+	    
+	        var h = new HBox();
+		    
+		    var r = 0;
+		    while( r < 3 ) {
+				var setBitmap = new Icon();
+			    setBitmap.size(300,300);
+				setBitmap.setBitmap(ThemePreview.testJPGBitmap());
+			    h.add(setBitmap);
+			    r++;
+		    }
+		    
+		    
+			addTest(h, "Icon setBitmap()");
+		    
+	    	i++;
+	    }
+	    
+	    
         var bitmapIconPadding = new Icon();
         bitmapIconPadding.setBitmap(ThemePreview.testJPGBitmap());
         bitmapIconPadding.bitmapPadding = 20;

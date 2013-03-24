@@ -68,6 +68,23 @@ class UtilShapes {
 			throw new Error( "The UtilShapes Class cannot be instanicated." );
 		}
 
+		public static function drawCross(target : Graphics, x:Int=0, y:Int=0, width:Int=100, height:Int=100, bgColor:Int=0xFFFFFF, bgAlpha:Float=1, lineThickness:Float=1, lineColor:Int=0x000000, lineAlpha:Float=1):Void
+		{
+			target.beginFill(bgColor, bgAlpha);
+			target.drawRect(x, y, width, height);
+			target.endFill();
+			 
+			target.lineStyle(lineThickness, lineColor, lineAlpha);
+			target.moveTo(x,y);
+			target.lineTo(x+width, y);
+			target.lineTo(x+width, y+height);
+			target.lineTo(x, y+height);
+			target.lineTo(x, y);
+			target.lineTo(x+width, y+height);
+			target.moveTo(x+width, y);
+			target.lineTo(x, y+height);
+		}
+	
 		/**
 		 * drawDash
 		 * Draws a dashed line from the point x1,y1 to the point x2,y2

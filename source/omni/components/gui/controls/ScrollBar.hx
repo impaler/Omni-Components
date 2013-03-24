@@ -31,7 +31,7 @@ class ScrollBar extends OComponent
 	public var type(get_type, set_type):String;
 	public var _type:String;
 
-	public var sliderStep(default, set_sliderStep):Int;
+	#if haxe3 @:isVar #end public var sliderStep(get_sliderStep, set_sliderStep):Int;
 
 	public var value(get_value, set_value):Int;
 	public var _value:Int = 0;
@@ -42,11 +42,11 @@ class ScrollBar extends OComponent
 	public var min(get_min, set_min):Float;
 	public var _min:Float = 0;
 
-	public var contentSize(default, set_contentSize):Int = 0;
+	#if haxe3 @:isVar #end public var contentSize(default, set_contentSize):Int = 0;
 
-	public var pageSize(default, set_pageSize):Int = 0;
+	#if haxe3 @:isVar #end public var pageSize(default, set_pageSize):Int = 0;
 
-	public var barNeeded(get_barNeeded, set_barNeeded):Bool;
+	#if haxe3 @:isVar #end public var barNeeded(get_barNeeded, set_barNeeded):Bool;
 
 //***********************************************************
 //                  Style Variables
@@ -243,6 +243,11 @@ class ScrollBar extends OComponent
 			if( scrollSlider != null )
 				scrollSlider.step = _sliderStep;
 		}
+		return _sliderStep;
+	}
+	
+	public function get_sliderStep( ):Int
+	{
 		return _sliderStep;
 	}
 

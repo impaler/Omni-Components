@@ -9,8 +9,12 @@ import nme.display.BitmapData;
 
 class BrushBitmapFill implements IBrush
 {
-
+	#if haxe3 
+	public var images:Map<String,BitmapData>;
+	#else
 	public var images:Hash<BitmapData>;
+	#end
+
 	public var smooth:Bool;
 
 	public function setBitmapState(state:String, path:String):Void
@@ -32,7 +36,11 @@ class BrushBitmapFill implements IBrush
 	public function new()
 	{
 		smooth = false;
+		#if haxe3 
+		images = new Map();
+		#else
 		images = new Hash();
+		#end
 	}
 
 	public function update(drawTarget:IOComponent)

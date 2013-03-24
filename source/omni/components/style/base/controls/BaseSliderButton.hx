@@ -16,10 +16,10 @@ class BaseSliderButton extends SliderButtonStyle
 		super( );
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.SCROLLBAR_BUTTON_ACTIVE );
+		bgColor.setColorState( OStates.ACTIVE, BaseColors.SLIDER_BUTTON_ACTIVE );
 		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-		bgColor.setColorState( OStates.OVER, BaseColors.SCROLLBAR_BUTTON_OVER );
-		bgColor.setColorState( OStates.DOWN, BaseColors.SCROLLBAR_BUTTON_DOWN );
+		bgColor.setColorState( OStates.OVER,	BaseColors.SLIDER_BUTTON_OVER );
+		bgColor.setColorState( OStates.DOWN, BaseColors.SLIDER_BUTTON_DOWN );
 		setBackgroundBrush( bgColor );
 
 		defaultWidth = 20;

@@ -54,7 +54,7 @@ class OContainer extends OComponent
 
 	override public function draw( ):Void
 	{
-		if( scrollRectEnabled )
+		if( _scrollRectEnabled )
 		{
 			_scrollRect.width = width;
 			_scrollRect.height = height;

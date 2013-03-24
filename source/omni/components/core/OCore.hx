@@ -33,9 +33,9 @@ class OCore
     public var windowsLayer:Sprite;
 
 	private var id:Int = 0;
-	public var getNextID(getID, null):Int;
+	public var getNextID(get_getNextID, null):Int;
 
-	public function getID( ):Int
+	public function get_getNextID( ):Int
 	{
 		return id++;
 	}
@@ -74,7 +74,12 @@ class OCore
 	public var disableScrolling:Bool = false;
 
 //todo put theme id per component
+
+	#if haxe3 
+	public var storedThemes:Map<String,OTheme>;
+	#else
 	public var storedThemes:Hash<OTheme>;
+	#end
 
 	public function init( theme:Class<OTheme>, trackTheme:Bool = true ):Void
 	{

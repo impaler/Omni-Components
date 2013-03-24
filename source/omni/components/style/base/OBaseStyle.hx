@@ -21,14 +21,14 @@ class OBaseStyle implements IStyle
 	public var defaultPadding:Float;
 	public var defaultState:String;
 
-	public var styleID(get_styleId, setStyleID):String;
+	#if haxe3 @:isVar #end public var styleID(get_styleID, set_styleID):String;
 
-	public function get_styleId( ):String
+	public function get_styleID( ):String
 	{
 		return styleID;
 	}
 
-	public function setStyleID( value:String ):String
+	public function set_styleID( value:String ):String
 	{
 		this.styleID = value;
 		return this.styleID;

@@ -35,24 +35,24 @@ class PagedContainer extends OContainer
 		super.createMembers();
 		
 		tabs = new TabButtonGroup();
-		tabs.onTabButtonChange.add( handleTabChange );
-		tabs.height = 50;
 		this.sprite.addChild( tabs.sprite );
 
 		onPageChange = new OSignalType<OContainerPage -> Void>();
 
-		_scrollRectEnabled = true;
+		_scrollRectEnabled = false;
+		
+		tabs.onTabButtonChange.add( handleTabChange );
 	}
 	
 	override public function drawMembers( ):Void
 	{
 		super.drawMembers( );
-
+		
 		if(currentPage != null){
 			currentPage._width = width;
 			currentPage._height = height - tabs.height;
 			currentPage.y = tabs.height;
-			currentPage.invalidate( );
+			currentPage.drawNow( );
 		}
 	}
 
@@ -101,7 +101,7 @@ class PagedContainer extends OContainer
 		
 		page.parentContainer = this;
 		add( page );
-
+		
 		openPage(page);
 		
 		return page;

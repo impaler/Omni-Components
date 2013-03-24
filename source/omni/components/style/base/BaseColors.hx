@@ -5,34 +5,38 @@ import omni.utils.ColorUtils;
 
 class BaseColors
 {
+	static public var DISABLED:Int;
+	static public var ACTIVE:Int;
 
-	static public var DISABLED:Int = ColorUtils.GRAY;
-	static public var ACTIVE:Int = ColorUtils.DARKER_ORANGE;
-
-	static public var ON:Int = ColorUtils.ORANGE;
-	static public var ON_OVER:Int = ColorUtils.brighter(ColorUtils.ORANGE);
+	static public var ON:Int;
+	static public var ON_OVER:Int;
 	
-	static public var OFF:Int = ColorUtils.LIGHT_ORANGE;
-	static public var OFF_OVER:Int = ColorUtils.ORANGE;
+	static public var OFF:Int;
+	static public var OFF_OVER:Int;
 
-	static public var OVER:Int = ColorUtils.ORANGE_BRIGHT;
-	static public var DOWN:Int = ColorUtils.ORANGE;
-	static public var BG:Int = ColorUtils.GRAY;
-	static public var BG_LAYOUT:Int = ColorUtils.BLACK;
+	static public var OVER:Int;
+	static public var DOWN:Int;
+	static public var BG:Int;
+	static public var BG_LAYOUT:Int;
+	static public var BG_HBOX:Int;
+	static public var BG_VBOX:Int;
 
-	static public var STEPPER_BUTTON_ACTIVE:Int = ColorUtils.HALO_ORANGE;
-	static public var STEPPER_BUTTON_OVER:Int = ColorUtils.LIGHT_ORANGE;
-	static public var STEPPER_BUTTON_DOWN:Int = ColorUtils.DARKER_ORANGE;
+	static public var STEPPER_BUTTON_ACTIVE:Int;
+	static public var STEPPER_BUTTON_OVER:Int;
+	static public var STEPPER_BUTTON_DOWN:Int;
+	
+	static public var SLIDER_BUTTON_ACTIVE:Int;
+	static public var SLIDER_BUTTON_OVER:Int;
+	static public var SLIDER_BUTTON_DOWN:Int;
 
-	static public var LABEL_TEXT:Int = ColorUtils.GRAY;
-	static public var INPUT_TEXT:Int = ColorUtils.GRAY;
+	static public var LABEL_TEXT:Int;
+	static public var INPUT_TEXT:Int;
 
-	static public var SCROLLBAR_BUTTON_ACTIVE:Int = ColorUtils.HALO_BLUE;
-	static public var SCROLLBAR_BUTTON_OVER:Int = ColorUtils.darker( ColorUtils.HALO_BLUE );
-	static public var SCROLLBAR_BUTTON_DOWN:Int = ColorUtils.brighter( ColorUtils.HALO_BLUE );
+	static public var SCROLLBAR_BUTTON_ACTIVE:Int;
+	static public var SCROLLBAR_BUTTON_OVER:Int;
+	static public var SCROLLBAR_BUTTON_DOWN:Int;
 
-	static public var SCROLLBAR_SLIDER_BUTTON_ACTIVE:Int = ColorUtils.GREEN;
-	static public var SCROLLBAR_SLIDER_BUTTON_OVER:Int = ColorUtils.darker( ColorUtils.GREEN );
-	static public var SCROLLBAR_SLIDER_BUTTON_DOWN:Int = ColorUtils.brighter( ColorUtils.GREEN );
-
+	static public var SCROLLBAR_SLIDER_BUTTON_ACTIVE:Int;
+	static public var SCROLLBAR_SLIDER_BUTTON_OVER:Int;
+	static public var SCROLLBAR_SLIDER_BUTTON_DOWN:Int;
 }

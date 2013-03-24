@@ -1,5 +1,6 @@
-package omni.components.style.base.layout;
+package omni.components.style.base.layout.window;
 
+import omni.components.style.base.controls.BaseButton;
 import omni.components.gui.controls.Button.ButtonStyle;
 import omni.components.gui.controls.Button.ButtonLabelStyle;
 import omni.utils.ColorUtils;
@@ -17,17 +18,35 @@ class BaseWindowHeader extends WindowHeaderStyle
 		super( );
 
 		var label = new LabelStyle();
-		label.fontSize = 30;
+		label.fontSize = 10;
 		label.fontColor = ColorUtils.BLACK;
 		titleLabelStyle = label;
 
-		var close = new ButtonStyle();
+		var close = new BaseButton();
+		close.defaultIcon = null;
 		close.defaultLabel = new ButtonLabelStyle();
-		close.defaultLabel.fontSize = 30;
+		close.defaultLabel.fontSize = 10;
 		close.defaultLabel.fontColor = ColorUtils.BLACK;
 		close.defaultLabel.defaultText = "Close";
 		closeButton = close;
-
+		
+		
+		var max = new BaseButton();
+		max.defaultIcon = null;
+		max.defaultLabel = new ButtonLabelStyle();
+		max.defaultLabel.fontSize = 10;
+		max.defaultLabel.fontColor = ColorUtils.BLACK;
+		max.defaultLabel.defaultText = "Max";
+		maximizeButton = max;
+		
+		var min = new BaseButton();
+		min.defaultIcon = null;
+		min.defaultLabel = new ButtonLabelStyle();
+		min.defaultLabel.fontSize = 10;
+		min.defaultLabel.fontColor = ColorUtils.BLACK;
+		min.defaultLabel.defaultText = "Min";
+		minimizeButton = min;
+		
 		defaultWidth = 120;
 		defaultHeight = 40;
 

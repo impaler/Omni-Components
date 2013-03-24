@@ -12,6 +12,9 @@ class BaseTabButtonGroup extends TabButtonGroupStyle
 		super( );
 
 		layoutStyle = new BaseOLayout();
+		
+		layoutStyle.defaultScrollRect = false;
+		
         layoutStyle.background  = null;
 	}
 

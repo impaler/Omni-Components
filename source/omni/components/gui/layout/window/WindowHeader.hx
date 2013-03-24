@@ -9,17 +9,36 @@ import omni.components.gui.layout.window.Window;
 
 class WindowHeader extends OButtonBase
 {
+
+//***********************************************************
+//                  Public Variables
+//***********************************************************
+
 	public var window:Window;
 
 	public var leftLayout:HBox;
 	public var rightLayout:HBox;
 
 	public var closeButton:Button;
-	public var maximizeButton:OButtonBase;
-	public var minimizeButton:OButtonBase;
+	public var maximizeButton:Button;
+	public var minimizeButton:Button;
 
 	public var title:Label;
 
+//***********************************************************
+//                  Style Variables
+//***********************************************************
+
+//***********************************************************
+//                  Signals
+//***********************************************************
+
+	public var doubleClick:OSignalMouse;
+
+//***********************************************************
+//                  Component Overrides
+//***********************************************************
+	
 	override public function createMembers( ):Void
 	{
 		super.createMembers( );
@@ -27,34 +46,67 @@ class WindowHeader extends OButtonBase
 		scrollRectEnabled = true;
 
 		leftLayout = new HBox();
+		leftLayout.mouseChildren = false;
+		leftLayout.mouseEnabled = false;
 		add( leftLayout );
 
 		title = leftLayout.addType( Label, styleAsWindow.titleLabelStyle );
 		title.text = "Window Title";
 
-		this.mouseChildren = false;
-
 		rightLayout = new HBox();
 		add( rightLayout );
-
-		closeButton = rightLayout.addType( Button );
-
-		closeButton.onMouseDown.add( handlerCloseButtonDown );
-
-		maximizeButton = rightLayout.addType( OButtonBase );
-		maximizeButton.onMouseDown.add( handlerMaximizeButtonDown );
-
-		minimizeButton = rightLayout.addType( OButtonBase );
-		minimizeButton.onMouseDown.add( handlerMinimizeButtonDown );
-
+		
+		if(styleAsWindow.minimizeButton != null){
+			minimizeButton = rightLayout.addType( Button, styleAsWindow.minimizeButton );
+		}
+		
+		if(styleAsWindow.maximizeButton != null){
+			maximizeButton = rightLayout.addType( Button, styleAsWindow.maximizeButton );
+		}
+		
+		if(styleAsWindow.closeButton != null)
+		{
+			closeButton = rightLayout.addType( Button, styleAsWindow.closeButton );
+		}
+		
+		
+		doubleClick = new OSignalMouse( OSignalMouse.DOUBLE_CLICK, this.sprite);
 	}
 
+	override public function enableSignals( ):Void
+	{
+		super.enableSignals();
+		
+		doubleClick.add (handleHeaderDoubleClick);
+
+		if(minimizeButton!=null)
+			minimizeButton.onMouseDown.add( handlerMinimizeButtonDown );
+
+		if ( maximizeButton!=null)
+		maximizeButton.onMouseDown.add( handlerMaximizeButtonDown );
+		
+		if(closeButton!=null)
+			closeButton.onMouseDown.add( handlerCloseButtonDown );
+	}
+	
 	override public function drawMembers( ):Void
 	{
 		super.drawMembers( );
 
 		rightLayout.drawNow( );
 		rightLayout.x = _width - rightLayout._width;
+	}
+	
+//***********************************************************
+//                  Event Handlers
+//***********************************************************
+	
+	public function handleHeaderDoubleClick( e:OSignalMouse ):Void
+	{
+		window._maximized ?
+		window.restore()
+	    :
+	    window.maximize();
 	}
 
 	public function handlerCloseButtonDown( e:OSignalMouse ):Void
@@ -120,6 +172,8 @@ class WindowHeaderStyle extends OButtonBaseStyle
 
 	public var titleLabelStyle:LabelStyle;
 	public var closeButton:ButtonStyle;
+	public var maximizeButton:ButtonStyle;
+	public var minimizeButton:ButtonStyle;
 
 	override public function new( )
 	{

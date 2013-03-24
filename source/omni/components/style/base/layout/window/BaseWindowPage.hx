@@ -1,5 +1,6 @@
-package omni.components.style.base.layout;
+package omni.components.style.base.layout.window;
 
+import omni.components.gui.layout.window.WindowContentContainer;
 import omni.components.gui.layout.window.WindowPage;
 import omni.components.core.OContainerPage;
 import omni.components.gui.layout.window.WindowPage.WindowPageStyle;
@@ -18,7 +19,7 @@ class BaseWindowPage extends WindowPageStyle
 	{
 		super( );
 		
-		defaultContainerType = OContainerContent;
+		defaultContainerType = WindowContentContainer;
 		defaultWidth = 400;
 		defaultHeight = 400;
 		defaultPadding = 10;

@@ -21,7 +21,7 @@ class BaseScrollContainer extends ScrollContainerStyle
 		vScrollStyle = new BaseScrollBar();
 
 		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG );
+		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
 		setBackgroundBrush( bgColor );
 
 		defaultWidth = 300;

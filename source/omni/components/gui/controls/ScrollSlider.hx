@@ -19,13 +19,13 @@ class ScrollSlider extends Slider
 //                  Public Variables
 //***********************************************************
 
-	public var contentSize(default, set_contentSize):Int = 0;
-	public var pageSize(default, set_pageSize):Int = 0;
+	#if haxe3 @:isVar #end public var contentSize(default, set_contentSize):Int = 0;
+	#if haxe3 @:isVar #end public var pageSize(default, set_pageSize):Int = 0;
 
 	public var minSize(get_minSize, set_minSize):Int;
 	public var _minSize:Int = 0;
 
-	public var barNeeded(get_barNeeded, set_barNeeded):Bool;
+	#if haxe3 @:isVar #end public var barNeeded(get_barNeeded, set_barNeeded):Bool;
 	
 	public var _realSize:Int = 0;
 

@@ -156,4 +156,15 @@ class ComponentUtils
 		return bitmapTestDouble;
 	}
 
+
+	public static inline function throwAlignmentError( validItems:Array<String>, value:String ):Void
+	{
+		var errorMessage = "The HorizontalVAlign value :: " + value + " :: is invalid please use one of ";
+		for( o in validItems )
+		{
+			errorMessage += " :: " + o;
+		}
+		throw errorMessage + " ::";
+	}
+
 }

@@ -132,7 +132,7 @@ class Icon extends OComponent
 
     public function resizeBitmap():Void
     {
-        if (resizeBitmapData)
+        if (resizeBitmapData && bitmap!=null)
         {
             setBitmap(bitmap, true);
         } else

@@ -10,7 +10,7 @@ import nme.events.Event;
  * @description The base interface for all component types
  * 
  */
-interface IOComponent implements IDestroyable
+interface IOComponent #if haxe3 extends #else implements #end IDestroyable
 {
 
 //***********************************************************

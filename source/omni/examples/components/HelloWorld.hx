@@ -1,27 +1,24 @@
 package omni.examples.components;
 
-import omni.examples.components.tests.Shapes;
-import omni.utils.UtilShapes;
-import nme.display.Shape;
-import omni.examples.components.tests.MouseStageOut;
-import omni.components.gui.controls.SlideToggle;
-import omni.components.core.OButtonBase;
-import omni.components.gui.controls.Slider;
-import omni.components.core.OCore;
-import omni.components.theme.colors.Dark;
+//import omni.examples.components.tests.Shapes;
+//import omni.utils.UtilShapes;
+//import nme.display.Shape;
+//import omni.components.gui.controls.SlideToggle;
+//import omni.components.core.OButtonBase;
+//import omni.components.gui.controls.Slider;
+//import omni.components.core.OCore;
+//import omni.components.theme.colors.Dark;
+//import omni.components.theme.colors.Orange;
+//import omni.examples.components.tests.previewer.ThemePreview;
+
 import omni.components.theme.colors.Orange;
 import omni.examples.components.tests.previewer.ThemePreview;
-
 import nme.Lib;
 import nme.display.StageScaleMode;
 import nme.display.Sprite;
 import nme.display.StageAlign;
 import nme.text.TextField;
 import nme.display.MovieClip;
-
-#if cpp
-import hxcpp.DebugSocket;
-#end
 
 class HelloWorld extends MovieClip
 {
@@ -36,20 +33,16 @@ class HelloWorld extends MovieClip
 		super( );
 
 //        var themePreview = new ThemePreview(Dark);
-//        var themePreview = new ThemePreview(Orange);
-	
-	
-	
-		addChild ( new Shapes() );
-	
-//		OCore.instance.init(Orange);
-//
-//        var test = new MouseStageOut();
+        var themePreview = new ThemePreview(Orange);
 
-		//
-		//var toggle = new SlideToggle();
-		//OCore.addChild(toggle);
+		//OCore.instance.init(Orange);
+		//OCore.addChild(new Slider());
+	
+		//nme.Lib.stage.addChild(new Bitmap(Assets.getBitmapData( "assets/tests/test.jpg" )));
+
+		nme.Lib.trace( "boo" );
 		
+	
 	}
 
 	public static function main( )

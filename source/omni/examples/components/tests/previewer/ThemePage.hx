@@ -33,9 +33,10 @@ class ThemePage extends WindowPage
         add(label);
 
         signal.add(
-            function(?value:Dynamic)
+            function(value:Dynamic):Dynamic
             {
                 label.text = valueText + Std.string(value);
+	            return null;
             }
         );
     }

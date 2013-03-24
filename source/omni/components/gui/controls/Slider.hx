@@ -45,7 +45,7 @@ class Slider extends OComponent
     public var onMouseUp:OSignalMouse;
     public var onChange(default, null):OSignalType<Int -> Void>;
     //todo wheel broken in html5
-    private var _mouseWheelTarget(default, setMouseWheelTarget):Sprite;
+    private var _mouseWheelTarget(default, set__mouseWheelTarget):Sprite;
 
 //***********************************************************
 //                  Private Variables
@@ -276,7 +276,7 @@ class Slider extends OComponent
 		return _mouseWheelTarget;
 	}
 
-	public function setMouseWheelTarget( value:Sprite ):Sprite
+	public function set__mouseWheelTarget( value:Sprite ):Sprite
 	{
 		_mouseWheelTarget = value;
 		return _mouseWheelTarget;

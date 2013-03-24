@@ -88,7 +88,7 @@ class OContainerPage extends OComponent {
 	{
 		container = Type.createInstance( type, [null] );
 		setContainer(container);
-		
+
 		return container;
 	}
 

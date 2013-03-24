@@ -434,7 +434,7 @@ class TextBaseStyle extends OBaseStyle
 	public var defaultText:String;
 
 //type dynamic as a workaround for flash/cpp type check inconsistency
-	public var type(default, setType):Dynamic;
+	public var type(default, set_type):Dynamic;
 
 //todo Restrict is not available on cpp neko yet?
 	public var restrict:String;
@@ -486,7 +486,7 @@ class TextBaseStyle extends OBaseStyle
 		textBase.textField.height = textBase._height;
 	}
 
-	public function setType( value:Dynamic ):String
+	public function set_type( value:Dynamic ):String
 	{
 		type = Std.string( value );
 		return type;

@@ -77,12 +77,11 @@ class OContainerContent extends OContainer
             container = null;
         }
     }
-
 	
 	public function createLayoutBaseType( type:Class<OLayout> ):Void
 	{
 		destroyExistingLayout( );
-//todo pass on the content of a layout??
+		
 		currentLayout = Type.createInstance( type, [null] );
 		currentLayout.scrollRectEnabled = false;
 
@@ -111,9 +110,9 @@ class OContainerContent extends OContainer
 //                  Component Style
 //***********************************************************
 
-	private var styleAsContentContainerStyle(get_styleAsContainerContentStyle, null):OContainerContentStyle;
+	private var styleAsContentContainerStyle(get_styleAsContentContainerStyle, null):OContainerContentStyle;
 
-	private function get_styleAsContainerContentStyle( ):OContainerContentStyle
+	private function get_styleAsContentContainerStyle( ):OContainerContentStyle
 	{
 		return cast(_style, OContainerContentStyle);
 	}
