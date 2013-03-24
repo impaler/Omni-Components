@@ -13,12 +13,14 @@ import com.eclecticdesignstudio.motion.easing.Elastic;
 import com.eclecticdesignstudio.motion.easing.Back;
 import com.eclecticdesignstudio.motion.easing.Quart;
 import com.eclecticdesignstudio.motion.easing.Cubic;
-import com.eclecticdesignstudio.motion.easing.Sine;/**
+import com.eclecticdesignstudio.motion.easing.Sine;
+
 /**
 * Shortcuts for Actuate
 * Type safe and static refs to Ease Types
 * 
 **/
+
 class ActuateUtil
 {
 	public static var Quad_easeInOut = "Quad.easeInOut";
@@ -68,7 +70,7 @@ class ActuateUtil
 	                                      overwrite:Bool = true,
 	                                      customActuator:Class<GenericActuator> = null ):IGenericActuator
 	{
-		return tween(target, duration, {x:xpos, y:ypos}, easing, overwrite, customActuator).on;
+		return tween(target, duration, {x:xpos, y:ypos}, easing, overwrite, customActuator);
 	}
 
 	public static inline function tweenAlpha( target:Dynamic, duration:Float, alpha:Float,
