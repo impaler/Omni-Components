@@ -29,7 +29,7 @@ class BitmapDataResizeUtilPage extends ThemePage
 
         var bitmap = ThemePreview.testJPGBitmapData();
 
-//Test Defaults
+        //Test Defaults
 
         var bitmp = UtilBitmapData.fitIntoRectBitmapData(bitmap, 100, 50);
         layoutArray.add(bitmp);
@@ -37,14 +37,12 @@ class BitmapDataResizeUtilPage extends ThemePage
         var bitmp = UtilBitmapData.fitIntoRectBitmapData(bitmap, 50, 100);
         layoutArray.add(bitmp);
 
-//Test Alignments on Fit
+        //Test Alignments on Fit
 
-        var bitmp = UtilBitmapData.fitIntoRectBitmapData(bitmap, 50, 100, OStates.TOP, false, false,
-        ColorUtils.randomColor());
+        var bitmp = UtilBitmapData.fitIntoRectBitmapData(bitmap, 50, 100, OStates.TOP, false, false, ColorUtils.randomColor());
         layoutArray.add(bitmp);
 
-        var bitmp = UtilBitmapData.fitIntoRectBitmapData(bitmap, 50, 100, OStates.MIDDLE, false, false,
-        ColorUtils.randomColor());
+        var bitmp = UtilBitmapData.fitIntoRectBitmapData(bitmap, 50, 100, OStates.MIDDLE, false, false, ColorUtils.randomColor());
         layoutArray.add(bitmp);
 
         var bitmp = UtilBitmapData.fitIntoRectBitmapData(bitmap, 50, 100, OStates.BOTTOM, false, false, ColorUtils.randomColor());
@@ -59,7 +57,7 @@ class BitmapDataResizeUtilPage extends ThemePage
         var bitmp = UtilBitmapData.fitIntoRectBitmapData(bitmap, 100, 50, OStates.LEFT, false, false, ColorUtils.randomColor());
         layoutArray.add(bitmp);
 
-//Test Alignments on Fill
+        //Test Alignments on Fill
 
         var layoutArray = new LayoutArray(OStates.HORIZONTAL);
         nme.Lib.stage.addChild(layoutArray);

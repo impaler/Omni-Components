@@ -10,23 +10,23 @@ import omni.components.core.OComponent.OComponentStyle;
 
 class BaseScrollSliderButton extends ScrollBarButtonStyle
 {
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.SCROLLBAR_SLIDER_BUTTON_ACTIVE );
-		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-		bgColor.setColorState( OStates.OVER, BaseColors.SCROLLBAR_SLIDER_BUTTON_OVER );
-		bgColor.setColorState( OStates.DOWN, BaseColors.SCROLLBAR_SLIDER_BUTTON_DOWN );
-		setBackgroundBrush( bgColor );
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.SCROLLBAR_SLIDER_BUTTON_ACTIVE);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        bgColor.setColorState(OStates.OVER, BaseColors.SCROLLBAR_SLIDER_BUTTON_OVER);
+        bgColor.setColorState(OStates.DOWN, BaseColors.SCROLLBAR_SLIDER_BUTTON_DOWN);
+        setBackgroundBrush(bgColor);
 
-		defaultWidth = 20;
-		defaultHeight = 20;
-		minWidth = 10;
-		minHeight = 10;
-		maxWidth = 2000;
-		maxHeight = 2000;
-		defaultPadding = 0;
-	}
+        defaultWidth = 20;
+        defaultHeight = 20;
+        minWidth = 10;
+        minHeight = 10;
+        maxWidth = 2000;
+        maxHeight = 2000;
+        defaultPadding = 0;
+    }
 }

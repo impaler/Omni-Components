@@ -12,20 +12,20 @@ import nme.geom.Rectangle;
 class BaseContainerPage extends OContainerPageStyle
 {
 
-	public function new( )
-	{
-		super( );
-		
-		defaultContainerType = OContainerContent;
+    public function new()
+    {
+        super();
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, ColorUtils.GREEN );
-		setBackgroundBrush( bgColor );
+        defaultContainerType = OContainerContent;
 
-		defaultWidth = 400;
-		defaultHeight = 400;
-		defaultPadding = 10;
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, ColorUtils.GREEN);
+        setBackgroundBrush(bgColor);
 
-	}
+        defaultWidth = 400;
+        defaultHeight = 400;
+        defaultPadding = 10;
+
+    }
 
 }

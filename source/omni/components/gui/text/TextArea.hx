@@ -1,6 +1,8 @@
 package omni.components.gui.text;
-class TextArea {
-    public function new() {
+class TextArea
+{
+    public function new()
+    {
     }
 }
 
@@ -9,18 +11,17 @@ class TextArea {
 //	public var _autoSize:String;
 
 
+//todo look at Textarea component
+//	public var align(default, setAlign):Dynamic;
+//the dimensions are not suitable for any size method
+//	public var autoSize(default, null):Dynamic = "left";
 
-	//todo look at Textarea component
-	//	public var align(default, setAlign):Dynamic;
-	//the dimensions are not suitable for any size method
-	//	public var autoSize(default, null):Dynamic = "left";
-
-	//todo textarea
-	//	public function setAlign( value:Dynamic ):Dynamic
-	//	{
-	//		align = Std.string( value );
-	//		return align;
-	//	}
+//todo textarea
+//	public function setAlign( value:Dynamic ):Dynamic
+//	{
+//		align = Std.string( value );
+//		return align;
+//	}
 
 //
 //private function onScrollBarChange(e:Event = null):void {

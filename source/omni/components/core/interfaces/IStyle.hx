@@ -8,34 +8,34 @@ package omni.components.core.interfaces;
  */
 interface IStyle #if haxe3 extends #else implements #end IDestroyable
 {
-	var defaultWidth:Float;
-	var defaultHeight:Float;
-	var defaultPadding:Float;
-	var defaultState:String;
+    var defaultWidth:Float;
+    var defaultHeight:Float;
+    var defaultPadding:Float;
+    var defaultState:String;
 
-	var minHeight:Float;
-	var maxHeight:Float;
+    var minHeight:Float;
+    var maxHeight:Float;
 
-	var minWidth:Float;
-	var maxWidth:Float;
+    var minWidth:Float;
+    var maxWidth:Float;
 
-	/**
+    /**
 	* 	initStyle
 	 * 	
 	 * 	@description The post initiate method used to set objects for the components style
 	* 	
 	**/
-	function initStyle (value:IOComponent):Void;
+    function initStyle (value:IOComponent):Void;
 
 
     function initStyleComponent( value:IOComponent ):Void;
 
-	/**
+    /**
 	* 	update
 	 * 	
 	 * 	@description The update method used refresh and draw the component based on state etc
 	* 	
 	**/
-	function update (value:IOComponent):Void;
+    function update (value:IOComponent):Void;
 
 }

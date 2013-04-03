@@ -8,23 +8,23 @@ import omni.utils.ColorUtils;
 
 class BaseScrollBar extends ScrollBarStyle
 {
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		defaultWidth = 300;
-		defaultHeight = 20;
-		sliderStep = 10;
-		buttonStep = 50;
-		buttonMovementInterval = 100;
-		initialButtonMovementDelay = 1000;
-		enableScrollSlider = true;
-		enableScrollButtons = true;
+        defaultWidth = 300;
+        defaultHeight = 20;
+        sliderStep = 10;
+        buttonStep = 50;
+        buttonMovementInterval = 100;
+        initialButtonMovementDelay = 1000;
+        enableScrollSlider = true;
+        enableScrollButtons = true;
 
-		increaseButton = new BaseScrollBarButton();
-		decreaseButton = new BaseScrollBarButton();
-		slider = new BaseScrollSlider();
+        increaseButton = new BaseScrollBarButton();
+        decreaseButton = new BaseScrollBarButton();
+        slider = new BaseScrollSlider();
 
-	}
+    }
 
 }

@@ -7,23 +7,23 @@ import omni.components.core.OContainerContent;
 class WindowContentContainer extends OContainerContent
 {
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return WindowContentContainerStyle.styleString;
-	}
+    override public function get_styleId():String
+    {
+        return WindowContentContainerStyle.styleString;
+    }
 }
 
 class WindowContentContainerStyle extends OContainerContentStyle
 {
-	public static var styleString:String = "WindowContentContainerStyle";
+    public static var styleString:String = "WindowContentContainerStyle";
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 }

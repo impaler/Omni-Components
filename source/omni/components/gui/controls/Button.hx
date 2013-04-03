@@ -17,20 +17,20 @@ import nme.display.BitmapData;
 class Button extends OComponentButton
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
     public var label:Label;
 
-	public var text(get_text, set_text):String;
-	public var _text:String = "";
+    public var text(get_text, set_text):String;
+    public var _text:String = "";
 
     public var icon:Icon;
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
     override public function createMembers():Void
     {
@@ -43,20 +43,26 @@ class Button extends OComponentButton
             createLabel();
     }
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
     public function setIconFromPath(path:String, scaleToFit:Bool = true):Void
     {
         createIcon();
         icon.setBitmapAsset(path, scaleToFit);
+        layout.widthInvalid = true;
+        layout.heightInvalid = true;
+        invalidate();
     }
 
     public function setIconFromBitmapData(path:BitmapData, scaleToFit:Bool = true):Void
     {
         createIcon();
         icon.setBitmapData(path, scaleToFit);
+        layout.widthInvalid = true;
+        layout.heightInvalid = true;
+        invalidate();
     }
 
     public inline function createLabel():Void
@@ -96,30 +102,33 @@ class Button extends OComponentButton
     }
 
 
-//***********************************************************
-//                  Properties
-//***********************************************************
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
-	public function set_text( value:String ):String
-	{
-		if( _text != value )
-		{
-			createLabel( );
-			_text = value;
-			label.text = _text;
-			invalidate( );
-		}
-		return _text;
-	}
+    public function set_text(value:String):String
+    {
+        if (_text != value)
+        {
+            createLabel();
 
-	public function get_text( ):String
-	{
-		return _text;
-	}
+            _text = value;
+            label.text = _text;
+            layout.widthInvalid = true;
+            layout.heightInvalid = true;
+            invalidate();
+        }
+        return _text;
+    }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    public function get_text():String
+    {
+        return _text;
+    }
+
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
     private var styleAsButton(get_styleAsButton, null):ButtonStyle;
 

@@ -10,15 +10,15 @@ import nme.events.Event;
 class SpriteContainer extends OComponent
 {
 
-//***********************************************************
-//                  Style Variables
-//***********************************************************
+    //***********************************************************
+    //                  Style Variables
+    //***********************************************************
 
     public var contentSprite:Sprite;
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
     override public function createMembers():Void
     {
@@ -28,9 +28,9 @@ class SpriteContainer extends OComponent
             setSprite(styleAsSprite.sprite);
     }
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
     public function setSprite(newSprite:Sprite):Void
     {
@@ -62,16 +62,17 @@ class SpriteContainer extends OComponent
         }
     }
 
-//***********************************************************
-//                  Properties
-//***********************************************************
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
     override public function get_height():Float
     {
         if (contentSprite != null)
         {
             return contentSprite.height;
-        } else
+        }
+        else
         {
             return 0;
         }
@@ -82,15 +83,16 @@ class SpriteContainer extends OComponent
         if (contentSprite != null)
         {
             return contentSprite.width;
-        } else
+        }
+        else
         {
             return 0;
         }
     }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
     public var styleAsSprite(get_styleAsSprite, null):SpriteContainerStyle;
 

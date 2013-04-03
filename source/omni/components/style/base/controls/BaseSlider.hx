@@ -10,28 +10,28 @@ import omni.utils.ColorUtils;
 class BaseSlider extends SliderBaseStyle
 {
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		defaultStep = 10;
-		defaultValue = 0;
-		defaultMax = 100;
-		defaultMin = 0;
-		defaultType = OStates.HORIZONTAL;
-		defaultValue = 50;
-		
-		defaultVHeight = 120;
-		defaultVWidth = 20;
+        defaultStep = 10;
+        defaultValue = 0;
+        defaultMax = 100;
+        defaultMin = 0;
+        defaultType = OStates.HORIZONTAL;
+        defaultValue = 50;
 
-		defaultHHeight = 20;
-		defaultHWidth = 120;
-		
-		buttonStyle = new BaseSliderButton();
+        defaultVHeight = 120;
+        defaultVWidth = 20;
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG );
-		setBackgroundBrush( bgColor );
-	}
+        defaultHHeight = 20;
+        defaultHWidth = 120;
+
+        buttonStyle = new BaseSliderButton();
+
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);
+        setBackgroundBrush(bgColor);
+    }
 
 }

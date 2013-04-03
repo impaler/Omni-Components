@@ -9,20 +9,20 @@ import omni.components.core.OComponent.OComponentStyle;
 
 class BaseWindowScalerButton extends OButtonBaseStyle
 {
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		defaultWidth = 20;
-		defaultHeight = 20;
-		defaultPadding = 0;
-		
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.ACTIVE );
-		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-		bgColor.setColorState( OStates.OVER, BaseColors.OVER );
-		bgColor.setColorState( OStates.DOWN, BaseColors.DOWN );
-		setBackgroundBrush( bgColor );
+        defaultWidth = 20;
+        defaultHeight = 20;
+        defaultPadding = 0;
 
-	}
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        bgColor.setColorState(OStates.OVER, BaseColors.OVER);
+        bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
+        setBackgroundBrush(bgColor);
+
+    }
 }

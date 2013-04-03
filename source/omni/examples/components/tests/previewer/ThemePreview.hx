@@ -24,50 +24,50 @@ import omni.components.gui.layout.window.Window;
 
 class ThemePreview
 {
-	public var window:Window;
-	public var tabb:WindowTabbedContainer;
+    public var window:Window;
+    public var tabb:WindowTabbedContainer;
 
-	public function new( theme:Class<OTheme> )
-	{
-		OCore.instance.init( theme );
+    public function new(theme:Class<OTheme>)
+    {
+        OCore.instance.init(theme);
 
-		window = new Window();
+        window = new Window();
 
-		addTestPage( HBoxPage );
-		addTestPage( VBoxPage );
-		var sliders = addTestPage( SlidersPage );
-		addTestPage( IconsPage );
-		addTestPage( NumericStepperPage );
-		addTestPage( ButtonsPage );
-		addTestPage( ToggleButtonsPage );
-		addTestPage( ProgressPage );
-		
-		window.open( );
-	}
+        addTestPage(HBoxPage);
+        addTestPage(VBoxPage);
+        addTestPage(SlidersPage);
+        addTestPage(IconsPage);
+        addTestPage(NumericStepperPage);
+        addTestPage(ButtonsPage);
+        addTestPage(ToggleButtonsPage);
+        addTestPage(ProgressPage);
 
-	public function addTestPage( type:Class<ThemePage> ):ThemePage
-	{
-		var page = Type.createInstance( type, [null] );
-		if ( window.paged == null )
-			window.setPagedContainerType(WindowTabbedContainer);
-		
-		window.paged.addPage( page );
-		return page;
-	}
+        window.open();
+    }
 
-	public static function testJPGPath( ):String
-	{
-		return "assets/tests/test.jpg";
-	}
+    public function addTestPage(type:Class<ThemePage>):ThemePage
+    {
+        var page = Type.createInstance(type, [null]);
+        if (window.paged == null)
+            window.setPagedContainerType(WindowTabbedContainer);
 
-	public static function testJPGBitmapData( ):BitmapData
-	{
-		return Assets.getBitmapData( "assets/tests/test.jpg" );
-	}
+        window.paged.addPage(page);
+        return page;
+    }
 
-	public static function testJPGBitmap( ):Bitmap
-	{
-		return new Bitmap(Assets.getBitmapData( "assets/tests/test.jpg" ));
-	}
+    public static function testJPGPath():String
+    {
+        return "assets/tests/test.jpg";
+    }
+
+    public static function testJPGBitmapData():BitmapData
+    {
+        return Assets.getBitmapData("assets/tests/test.jpg");
+    }
+
+    public static function testJPGBitmap():Bitmap
+    {
+        return new Bitmap(Assets.getBitmapData("assets/tests/test.jpg"));
+    }
 
 }

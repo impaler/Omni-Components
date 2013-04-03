@@ -9,26 +9,26 @@ import omni.components.core.OToggleButton.OToggleButtonStyle;
 
 class BaseSlideToggle extends SlideToggleStyle
 {
-	public function new( )
-	{
-		super( );
-		
-		var bgColor = new BrushColorFill ();
+    public function new()
+    {
+        super();
 
-		bgColor.setColorState( OStates.ON, BaseColors.ON );
-		bgColor.setColorState( OStates.ON_OVER, BaseColors.ON_OVER );
-		bgColor.setColorState( OStates.OFF, BaseColors.OFF );
-		bgColor.setColorState( OStates.OFF_OVER, BaseColors.OFF_OVER );
-		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-		setBackgroundBrush( bgColor );
-		
-		defaultLabel = null;
-		//black in bg
-		layoutStyle = null;
-		defaultState = OStates.OFF;
-		
-		
-		defaultWidth = 500;
-	
-	}
+        var bgColor = new BrushColorFill ();
+
+        bgColor.setColorState(OStates.ON, BaseColors.ON);
+        bgColor.setColorState(OStates.ON_OVER, BaseColors.ON_OVER);
+        bgColor.setColorState(OStates.OFF, BaseColors.OFF);
+        bgColor.setColorState(OStates.OFF_OVER, BaseColors.OFF_OVER);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        setBackgroundBrush(bgColor);
+
+        defaultLabel = null;
+        //black in bg
+        layoutStyle = null;
+        defaultState = OStates.OFF;
+
+
+        defaultWidth = 500;
+
+    }
 }

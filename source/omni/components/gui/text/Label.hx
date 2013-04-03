@@ -9,49 +9,49 @@ import nme.text.TextFieldAutoSize;
 class Label extends OTextBase
 {
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
-	override public function createMembers( ):Void
-	{
-		super.createMembers( );
+    override public function createMembers():Void
+    {
+        super.createMembers();
 
-		textField.autoSize = TextFieldAutoSize.LEFT;
-		textField.type = TextFieldType.DYNAMIC;
-		textField.mouseEnabled = false;
-	}
+        textField.autoSize = TextFieldAutoSize.LEFT;
+        textField.type = TextFieldType.DYNAMIC;
+        textField.mouseEnabled = false;
+    }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return LabelStyle.styleString;
-	}
+    override public function get_styleId():String
+    {
+        return LabelStyle.styleString;
+    }
 }
 
 class LabelStyle extends TextBaseStyle
 {
 
-	public static var styleString:String = "LabelStyle";
+    public static var styleString:String = "LabelStyle";
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 
-	override public function update( value:IOComponent ):Void
-	{
-		var textBase = cast ( value, OTextBase);
+    override public function update(value:IOComponent):Void
+    {
+        var textBase = cast ( value, OTextBase);
 
-		textBase.updateTextFieldProperties( );
-		textBase.updateTextFormat( );
+        textBase.updateTextFieldProperties();
+        textBase.updateTextFormat();
 
-		textBase._width = textBase.textField.width;
-		textBase._height = textBase.textField.height;
-	}
+        textBase._width = textBase.textField.width;
+        textBase._height = textBase.textField.height;
+    }
 
 }

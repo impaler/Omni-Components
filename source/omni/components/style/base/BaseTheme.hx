@@ -50,122 +50,122 @@ import omni.components.core.OTheme;
 class BaseTheme extends OTheme
 {
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		setupColors( );
+        setupColors();
 
-		addOComponentStyle( );
-		addOButtonBaseStyle( );
-		addOLayout( );
+        addOComponentStyle();
+        addOButtonBaseStyle();
+        addOLayout();
 
-		addStyle( BaseOContainer );
-		addStyle( BaseOContainerContent );
-		addStyle( BaseOToggleButton );
-		addStyle( BaseOToggleButtonGroup );
-		addStyle( BaseSlideToggle );
+        addStyle(BaseOContainer);
+        addStyle(BaseOContainerContent);
+        addStyle(BaseOToggleButton);
+        addStyle(BaseOToggleButtonGroup);
+        addStyle(BaseSlideToggle);
 
-		addOTextBaseStyle( );
+        addOTextBaseStyle();
 
-		addStyle( BaseWindow );
-		addStyle( BaseWindowHeader );
-		addStyle( BaseWindowTabbedContainer );
-		addStyle( BaseWindowContainer );
-		addStyle( BaseWindowVBox );
+        addStyle(BaseWindow);
+        addStyle(BaseWindowHeader);
+        addStyle(BaseWindowTabbedContainer);
+        addStyle(BaseWindowContainer);
+        addStyle(BaseWindowVBox);
 
-		addButtonStyle( );
-		addCheckBoxStyle( );
+        addButtonStyle();
+        addCheckBoxStyle();
 
-		addStyle( BaseOComponentButton );
-		addStyle( BaseOComponentButtonLayout );
+        addStyle(BaseOComponentButton);
+        addStyle(BaseOComponentButtonLayout);
 
-		addStyle( BaseRadioButton );
-		addStyle( BaseRadioButtonGroup );
+        addStyle(BaseRadioButton);
+        addStyle(BaseRadioButtonGroup);
 
-		addStyle( BaseHBox );
-		addStyle( BaseVBox );
-		addStyle( BaseContainerPage );
-		addStyle( BaseWindowPage );
-		addStyle( BaseTabbedContainer );
-		addStyle( BaseTabButton );
-		addStyle( BaseTabButtonGroup );
+        addStyle(BaseHBox);
+        addStyle(BaseVBox);
+        addStyle(BaseContainerPage);
+        addStyle(BaseWindowPage);
+        addStyle(BaseTabbedContainer);
+        addStyle(BaseTabButton);
+        addStyle(BaseTabButtonGroup);
 
-		addSliderStyle( );
-		addSliderButtonStyle( );
+        addSliderStyle();
+        addSliderButtonStyle();
 
-		addStyle( BaseScrollSlider );
-		addStyle( BaseScrollBar );
-		addStyle( BaseScrollBarButton );
-		addStyle( BaseScrollContainer );
+        addStyle(BaseScrollSlider);
+        addStyle(BaseScrollBar);
+        addStyle(BaseScrollBarButton);
+        addStyle(BaseScrollContainer);
 
-		addStyle( BaseIcon );
-		addStyle( BaseProgressBar );
+        addStyle(BaseIcon);
+        addStyle(BaseProgressBar);
 
-		addNumericStepperStyle( );
+        addNumericStepperStyle();
 
-		addStyle( BaseLabel );
-		addStyle( BaseInputField );
+        addStyle(BaseLabel);
+        addStyle(BaseInputField);
 
-		addStyle( BaseSpriteContainer );
+        addStyle(BaseSpriteContainer);
 
-	}
+    }
 
-/**
+    /**
 * Override these helper functions for previewing themes in dev without null errors
 * 
 **/
 
-	public function addOComponentStyle( ):Void
-	{
-		addStyle( BaseOComponent );
-	}
+    public function addOComponentStyle():Void
+    {
+        addStyle(BaseOComponent);
+    }
 
-	public function addOButtonBaseStyle( ):Void
-	{
-		addStyle( BaseOButtonBase );
-	}
+    public function addOButtonBaseStyle():Void
+    {
+        addStyle(BaseOButtonBase);
+    }
 
-	public function addOLayout( ):Void
-	{
-		addStyle( BaseOLayout );
-	}
+    public function addOLayout():Void
+    {
+        addStyle(BaseOLayout);
+    }
 
-	public function addOTextBaseStyle( ):Void
-	{
-		addStyle( BaseOTextBase );
-	}
+    public function addOTextBaseStyle():Void
+    {
+        addStyle(BaseOTextBase);
+    }
 
-	public function addButtonStyle( ):Void
-	{
-		addStyle( BaseButton );
-		addStyle( BaseButtonLabel );
-	}
+    public function addButtonStyle():Void
+    {
+        addStyle(BaseButton);
+        addStyle(BaseButtonLabel);
+    }
 
-	public function addSliderStyle( ):Void
-	{
-		addStyle( BaseSlider );
-	}
+    public function addSliderStyle():Void
+    {
+        addStyle(BaseSlider);
+    }
 
-	public function addSliderButtonStyle( ):Void
-	{
-		addStyle( BaseSliderButton );
-	}
+    public function addSliderButtonStyle():Void
+    {
+        addStyle(BaseSliderButton);
+    }
 
-	public function addNumericStepperStyle( ):Void
-	{
-		addStyle( BaseNumericStepper );
-		addStyle( BaseNumericStepperButton );
-	}
+    public function addNumericStepperStyle():Void
+    {
+        addStyle(BaseNumericStepper);
+        addStyle(BaseNumericStepperButton);
+    }
 
-	public function addCheckBoxStyle( ):Void
-	{
-		addStyle( BaseCheckBox );
-	}
+    public function addCheckBoxStyle():Void
+    {
+        addStyle(BaseCheckBox);
+    }
 
-	public function setupColors( ):Void
-	{
-//set your overrides on the static Base values
-	}
+    public function setupColors():Void
+    {
+        //set your overrides on the static Base values
+    }
 
 }

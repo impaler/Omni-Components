@@ -21,16 +21,16 @@ class ProgressPage extends ThemePage
         var defaultProgressBar = new ProgressBar();
         addTest(defaultProgressBar, "Default ProgressBar");
 
-	    var demoProgressBar = new ProgressBar();
+        var demoProgressBar = new ProgressBar();
         addTest(demoProgressBar, "Demo ProgressBar");
-	    demoProgressBar.startTestMode(10);
+        demoProgressBar.startTestMode(10);
 
     }
 
     public function testBGBrush():BrushColorFill
     {
         var bgColor = new BrushColorFill ();
-        bgColor.setColorState( OStates.ACTIVE, ColorUtils.randomColor() );
+        bgColor.setColorState(OStates.ACTIVE, ColorUtils.randomColor());
         return bgColor;
     }
 }

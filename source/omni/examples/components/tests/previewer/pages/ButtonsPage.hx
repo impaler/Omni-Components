@@ -6,33 +6,38 @@ import omni.components.gui.controls.Button;
 class ButtonsPage extends ThemePage
 {
 
-	override public function createMembers( ):Void
-	{
+    override public function createMembers():Void
+    {
+        super.createMembers();
 
-		super.createMembers( );
+        title = "Buttons";
 
-		title = "Buttons";
-
-		var defaultButton = new Button();
-		addTest( defaultButton, "Default Button" );
+        var defaultButton = new Button();
+        addTest(defaultButton, "Default Button");
 
         var buttonSize = new Button();
-        buttonSize.sizeMethodHeight = OStates.FIXED;
-        buttonSize.sizeMethodWidth = OStates.FIXED;
-        buttonSize.size(400,60);
-        addTest( buttonSize, "Button 200 x 60" );
+        buttonSize.heightSizeMethod = OStates.FIXED;
+        buttonSize.widthSizeMethod = OStates.FIXED;
+        buttonSize.hAlign = OStates.MIDDLE;
+        buttonSize.vAlign = OStates.MIDDLE;
+        buttonSize.size(400, 100);
+        addTest(buttonSize, "Button Fixed Size 400 x 100, Middle V and H align");
 
         var buttonSize = new Button();
         buttonSize.text = "SET YOUR BUTTON TEXT!";
-        addTest( buttonSize, "Button custom text" );
-
-        var buttonSize = new Button();
-        buttonSize.removeIcon();
-        addTest( buttonSize, "Button Icon Only" );
+        buttonSize.topPadding = 20;
+        buttonSize.leftPadding = 20;
+        buttonSize.rightPadding = 20;
+        buttonSize.bottomPadding = 20;
+        addTest(buttonSize, "Text set with 20 padding");
 
         var buttonSize = new Button();
         buttonSize.removeLabel();
-        addTest( buttonSize, "Button Label Only" );
+        addTest(buttonSize, "Button Icon Only");
+
+        var buttonSize = new Button();
+        buttonSize.removeIcon();
+        addTest(buttonSize, "Button Label Only");
 
     }
 

@@ -11,21 +11,21 @@ import omni.components.style.brush.BrushColorFill;
 
 class BaseOContainerContent extends OContainerContentStyle
 {
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		defaultWidth = 300;
-		defaultHeight = 300;
-		defaultScrollRect = true;
+        //defaultWidth = 300;
+        //defaultHeight = 300;
+        //defaultScrollRect = true;
 
-//todo Vbox object for Content Containers
-		defaultLayoutType = VBox;
-		defaultContainerType = ScrollContainer;
+        //todo Vbox object for Content Containers
+        defaultLayoutType = VBox;
+        defaultContainerType = ScrollContainer;
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, ColorUtils.GREEN );
-		setBackgroundBrush( bgColor );
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, ColorUtils.GREEN);
+        setBackgroundBrush(bgColor);
 
-	}
+    }
 }

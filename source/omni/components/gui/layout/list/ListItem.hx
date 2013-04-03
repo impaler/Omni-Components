@@ -4,24 +4,24 @@ import omni.components.core.OComponent.OComponentStyle;
 
 class ListItem extends OComponent
 {
-	
-//***********************************************************
-//                  Component Style
-//***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return ListItemStyle.styleString;
-	}
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
+
+    override public function get_styleId():String
+    {
+        return ListItemStyle.styleString;
+    }
 }
 
 class ListItemStyle extends OComponentStyle
 {
-	public static var styleString:String = "ListStyle";
+    public static var styleString:String = "ListStyle";
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 }

@@ -1,5 +1,7 @@
 package omni.components.core;
 
+import omni.components.gui.layout.VBox;
+import omni.components.gui.layout.HBox;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.style.base.OBaseStyle;
@@ -14,141 +16,148 @@ import omni.utils.OStates;
 class OToggleButtonGroup extends OComponent
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
-	public var layout:OLayout;
+    public var layout:OLayout;
 
-	public var onChange:OSignalType<OToggleButtonGroup -> Void>;
-	public var onButtonChange:OSignalType<OToggleButton -> Void>;
-	
-	private var _target:OToggleButton;
+    public var onChange:OSignalType<OToggleButtonGroup -> Void>;
+    public var onButtonChange:OSignalType<OToggleButton -> Void>;
 
-//***********************************************************
-//                  Style Variables
-//***********************************************************
+    private var _target:OToggleButton;
 
-	public var direction:String;
+    //***********************************************************
+    //                  Style Variables
+    //***********************************************************
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    public var direction:String;
 
-	override public function createMembers( ):Void
-	{
-		var thisStyle = cast(_style, OToggleButtonGroupStyle);
-		
-		layout = new OLayout(thisStyle.layoutStyle);
-		layout.direction = thisStyle.defaultDirection;
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
-		this.sprite.addChild( layout.sprite );
+    override public function createMembers():Void
+    {
+        var thisStyle = cast(_style, OToggleButtonGroupStyle);
 
-		onChange = new OSignalType<OToggleButtonGroup -> Void>();
-		onButtonChange = new OSignalType<OToggleButton -> Void>();
-	}
+        if (thisStyle.defaultDirection == OStates.HORIZONTAL)
+        {
+            layout = new HBox(thisStyle.layoutStyle);
+        }
+        else if (thisStyle.defaultDirection == OStates.VERTICAL)
+        {
+            layout = new VBox(thisStyle.layoutStyle);
+        }
 
-	override public function destroy( ):Void
-	{
-		onChange.destroy( );
-		onButtonChange.destroy( );
-		layout.destroy( );
-		_target = null;
+        this.sprite.addChild(layout.sprite);
 
-		super.destroy( );
-	}
+        onChange = new OSignalType<OToggleButtonGroup -> Void>();
+        onButtonChange = new OSignalType<OToggleButton -> Void>();
+    }
 
-//***********************************************************
-//                  Event Handlers
-//***********************************************************
+    override public function destroy():Void
+    {
+        onChange.destroy();
+        onButtonChange.destroy();
+        layout.destroy();
+        _target = null;
 
-	public function handleButtonChange( button:OToggleButton ):Void
-	{
-		if( button._value )
-		{
-			_target = button;
-			update( );
-		}
+        super.destroy();
+    }
 
-		onChange.dispatch( this );
-		onButtonChange.dispatch( button );
-	}
+    //***********************************************************
+    //                  Event Handlers
+    //***********************************************************
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    public function handleButtonChange(button:OToggleButton):Void
+    {
+        if (button._value)
+        {
+            _target = button;
+            update();
+        }
 
-	public function setActiveButton( button:Dynamic ):Void
-	{
-		button.value = true;
-		_target = button;
-		update( );
-	}
+        onChange.dispatch(this);
+        onButtonChange.dispatch(button);
+    }
 
-	public function addButton( style:IStyle = null ):OToggleButton
-	{
-		var button = new OToggleButton(style);
-		button.onChange.add( handleButtonChange );
-		this.members.push( button );
-		layout.add( button );
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
-		return button;
-	}
+    public function setActiveButton(button:Dynamic):Void
+    {
+        button.value = true;
+        _target = button;
+        update();
+    }
 
-	private function update( ):Void
-	{
-		for( o in members )
-		{
-			var comp = cast(o, OToggleButton);
+    public function addButton(style:IStyle = null):OToggleButton
+    {
+        var button = new OToggleButton(style);
+        button.group = this;
+        button.onChange.add(handleButtonChange);
+        this.members.push(button);
+        layout.add(button);
 
-			if( comp != _target )
-				comp.value = false;
-		}
-	}
+        return button;
+    }
 
-//***********************************************************
-//                  Properties
-//***********************************************************
+    private function update():Void
+    {
+        for (o in members)
+        {
+            var comp = cast(o, OToggleButton);
 
-	override public function get_height( ):Float
-	{
-		return layout.get_height( );
-	}
+            if (comp != _target)
+                comp.value = false;
+        }
+    }
 
-	override public function get_width( ):Float
-	{
-		return layout.get_width( );
-	}
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    override public function get_height():Float
+    {
+        return layout.get_height();
+    }
 
-	override public function get_styleId( ):String
-	{
-		return OToggleButtonGroupStyle.styleString;
-	}
+    override public function get_width():Float
+    {
+        return layout.get_width();
+    }
+
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
+
+    override public function get_styleId():String
+    {
+        return OToggleButtonGroupStyle.styleString;
+    }
 }
 
 class OToggleButtonGroupStyle extends OBaseStyle
 {
-	public static var styleString:String = "OToggleButtonGroupStyle";
+    public static var styleString:String = "OToggleButtonGroupStyle";
 
-	public var defaultDirection:String;
-	public var layoutStyle:OLayoutStyle;
+    public var defaultDirection:String;
+    public var layoutStyle:OLayoutStyle;
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
         styleID = styleString;
-	}
+    }
 
-	override public function initStyle( value:IOComponent ):Void
-	{
-		var styleAs = cast (value, OToggleButtonGroup);
+    override public function initStyle(value:IOComponent):Void
+    {
+        var styleAs = cast (value, OToggleButtonGroup);
 
-		styleAs.direction = defaultDirection;
+        styleAs.direction = defaultDirection;
 
-		super.initStyle( value );
-	}
+        super.initStyle(value);
+    }
 }

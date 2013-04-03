@@ -8,29 +8,29 @@ import nme.display.Graphics;
 
 class BrushColorFill implements IBrush
 {
-	#if haxe3 
+    #if haxe3
 	public var colors:Map<String,Int>;
 	#else
-	public var colors:Hash<Int>;
-	#end
+    public var colors:Hash<Int>;
+    #end
 
-	public function new()
-	{
-		#if haxe3 
+    public function new()
+    {
+        #if haxe3
 		colors = new Map();
 		#else
-		colors = new Hash();
-		#end
-	}
+        colors = new Hash();
+        #end
+    }
 
-	public function setColorState(state:String, color:Int):Void
-	{
-		colors.set(state, color);
-	}
+    public function setColorState(state:String, color:Int):Void
+    {
+        colors.set(state, color);
+    }
 
-	public function update(drawTarget:IOComponent)
-	{
-        if(colors.get(drawTarget.state) != null )
+    public function update(drawTarget:IOComponent)
+    {
+        if (colors.get(drawTarget.state) != null)
         {
             var color = colors.get(drawTarget.state);
             var graphics:Graphics = drawTarget.sprite.graphics;
@@ -39,11 +39,11 @@ class BrushColorFill implements IBrush
             graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);
             graphics.endFill();
         }
-	}
+    }
 
-	public function destroy():Void
-	{
-		colors = null;
-	}
+    public function destroy():Void
+    {
+        colors = null;
+    }
 
 }

@@ -7,22 +7,22 @@ import omni.components.core.OToggleButtonGroup;
 class BaseOToggleButtonGroup extends OToggleButtonGroupStyle
 {
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		defaultDirection = OStates.VERTICAL;
-		
-		//todo autosize
-		defaultWidth = 300;
-		defaultHeight = 300;
-		defaultPadding = 10;
+        defaultDirection = OStates.VERTICAL;
 
-//                   todo
-//		var bgColor = new BrushColorFill ();
-//		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
-//		setBackgroundBrush( bgColor );
+        //todo autosize
+        defaultWidth = 300;
+        defaultHeight = 300;
+        defaultPadding = 10;
 
-	}
+        //                   todo
+        //		var bgColor = new BrushColorFill ();
+        //		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
+        //		setBackgroundBrush( bgColor );
+
+    }
 
 }

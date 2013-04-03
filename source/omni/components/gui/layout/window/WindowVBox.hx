@@ -5,24 +5,24 @@ import omni.components.gui.layout.VBox.VBoxStyle;
 class WindowVBox extends VBox
 {
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return WindowVBoxStyle.styleString;
-	}
+    override public function get_styleId():String
+    {
+        return WindowVBoxStyle.styleString;
+    }
 }
 
 class WindowVBoxStyle extends VBoxStyle
 {
-	public static var styleString:String = "WindowVBoxStyle";
+    public static var styleString:String = "WindowVBoxStyle";
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 
 }

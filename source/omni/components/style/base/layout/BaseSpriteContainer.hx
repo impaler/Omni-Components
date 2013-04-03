@@ -9,8 +9,8 @@ import omni.components.core.OComponent.OComponentStyle;
 
 class BaseSpriteContainer extends SpriteContainerStyle
 {
-	public function new( )
-	{
-		super( );
-	}
+    public function new()
+    {
+        super();
+    }
 }

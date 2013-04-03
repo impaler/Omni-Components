@@ -24,9 +24,9 @@ import nme.geom.Rectangle;
 class ScrollContainer extends OContainer
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
     private var h_scrollBar_enabled:Bool = true;
     private var v_scrollBar_enabled:Bool = true;
@@ -41,9 +41,9 @@ class ScrollContainer extends OContainer
     public var mouseWheel:OSignalMouse;
     public var dragEnterFrame:OCoreEvent;
 
-//***********************************************************
-//                  Style Variables
-//***********************************************************
+    //***********************************************************
+    //                  Style Variables
+    //***********************************************************
 
     private var _scrollStep:Int;
     private var _scrollButtonSize:Int;
@@ -55,12 +55,12 @@ class ScrollContainer extends OContainer
     private var _mouseWheelV:Bool;
     private var _touchTolerance:Int;
     private var _hContentAlign:String;
-//todo
+    //todo
     public var _direction:String;
 
-//***********************************************************
-//                  Private Variables
-//***********************************************************
+    //***********************************************************
+    //                  Private Variables
+    //***********************************************************
 
     private var _xSpeed:Float = 0;
     private var _ySpeed:Float = 0;
@@ -87,9 +87,9 @@ class ScrollContainer extends OContainer
     private var _isValidTemp:Bool;
     private var _tempFloat:Float;
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
     override public function createMembers():Void
     {
@@ -165,7 +165,7 @@ class ScrollContainer extends OContainer
         if (_tweenEnabled)
             enableTween();
 
-//todo release outside of stage for desktop?
+        //todo release outside of stage for desktop?
     }
 
     override public function disableSignals():Void
@@ -201,13 +201,13 @@ class ScrollContainer extends OContainer
 
     }
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
     public function setMouseChildrenOnContent():Void
     {
-//todo use overlay blocking sprite for html5? doesnt support mouseChildren
+        //todo use overlay blocking sprite for html5? doesnt support mouseChildren
     }
 
     public function enableTween():Void
@@ -223,32 +223,32 @@ class ScrollContainer extends OContainer
         dragEnterFrame.destroy();
     }
 
-//***********************************************************
-//                  Event Handlers
-//***********************************************************
+    //***********************************************************
+    //                  Event Handlers
+    //***********************************************************
 
     public function handleMouseWheel(?e:OSignalMouse):Void
     {
-//target.mouseChildren = true;
+        //target.mouseChildren = true;
 
-	    _scrollBarMove = true;
+        _scrollBarMove = true;
 
-	    //if( ! OCore.instance.disableScrolling )
-	    //{
+        //if( ! OCore.instance.disableScrolling )
+        //{
 
-		    if( _mouseWheelV )
-		    {
-			    vScrollBar.value -= e.delta > 0 ? vScrollBar.sliderStep : - vScrollBar.sliderStep;
-		    }
-		    else
-		    {
-			    hScrollBar.value -= e.delta > 0 ? hScrollBar.sliderStep : - hScrollBar.sliderStep;
-		    }
+        if (_mouseWheelV)
+        {
+            vScrollBar.value -= e.delta > 0 ? vScrollBar.sliderStep : -vScrollBar.sliderStep;
+        }
+        else
+        {
+            hScrollBar.value -= e.delta > 0 ? hScrollBar.sliderStep : -hScrollBar.sliderStep;
+        }
 
-		    if( OCore.instance.updateAfterEvent )
-			    e.updateAfterEvent( );
+        if (OCore.instance.updateAfterEvent)
+            e.updateAfterEvent();
 
-	    //}
+        //}
     }
 
     private function handleDownContent(e:OSignalMouse):Void
@@ -351,16 +351,11 @@ class ScrollContainer extends OContainer
                     }
                     else if (Std.int(_ySpeed * 10) == 0 && Std.int(_xSpeed * 10) == 0)
                     {
-                        if (
-                        _xTouchOffset - nme.Lib.stage.mouseX > _touchTolerance
-                        || _xTouchOffset - nme.Lib.stage.mouseX < -_touchTolerance
-                        || _yTouchOffset - nme.Lib.stage.mouseY > _touchTolerance
-                        || _yTouchOffset - nme.Lib.stage.mouseY < -_touchTolerance
-                        )
+                        if (_xTouchOffset - nme.Lib.stage.mouseX > _touchTolerance || _xTouchOffset - nme.Lib.stage.mouseX < -_touchTolerance || _yTouchOffset - nme.Lib.stage.mouseY > _touchTolerance || _yTouchOffset - nme.Lib.stage.mouseY < -_touchTolerance)
                         {
                             _draggingInit = true;
                             target.mouseChildren = false;
-//							disableChildComponentEvents( );
+                            //							disableChildComponentEvents( );
                         }
                     }
                     else
@@ -427,11 +422,11 @@ class ScrollContainer extends OContainer
                 contentComponent.y = e.event.stageY - _yOffset;
                 _scrollY = -contentComponent.y;
 
-//todo shouldnt need this as _value clamp should take care in scrollbar???
+                //todo shouldnt need this as _value clamp should take care in scrollbar???
                 if (_scrollY < 0) _scrollY = 0;
 
                 vScrollBar._value = Std.int(_scrollY);
-//todo
+                //todo
                 vScrollBar.scrollSlider.refreshButton();
             }
 
@@ -442,7 +437,7 @@ class ScrollContainer extends OContainer
                 if (_scrollX < 0) _scrollX = 0;
 
                 hScrollBar._value = Std.int(_scrollX);
-//todo
+                //todo
                 hScrollBar.scrollSlider.refreshButton();
             }
 
@@ -455,9 +450,9 @@ class ScrollContainer extends OContainer
         }
     }
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
     public inline function resetPosition():Void
     {
@@ -592,11 +587,11 @@ class ScrollContainer extends OContainer
         if (v_scrollBar_enabled)
         {
             _scrollY = -contentComponent.y;
-//todo shouldnt need this as _value clamp should take care in scrollbar???
+            //todo shouldnt need this as _value clamp should take care in scrollbar???
             if (_scrollY < 0) _scrollY = 0;
 
             vScrollBar._value = Std.int(_scrollY);
-//todo
+            //todo
             vScrollBar.refreshButton();
         }
 
@@ -606,7 +601,7 @@ class ScrollContainer extends OContainer
             if (_scrollX < 0) _scrollX = 0;
 
             hScrollBar._value = Std.int(_scrollX);
-//todo null
+            //todo null
             hScrollBar.refreshButton();
         }
     }
@@ -678,16 +673,16 @@ class ScrollContainer extends OContainer
             {
                 hScrollBar.barNeeded ? _xPos = _tempFloat : _xPos = 0;
             }
-//            else if (_hContentAlign == OStates.RIGHT)
-//            {
-//                if (contentComponent.x == Math.floor(_rect.width - contentComponent._width))
-//                {
-//                    _isValidTemp = true;
-//                } else {
-//todo 1px bug issue
-//                    hScrollBar.barNeeded ? _xPos = _tempFloat : _xPos = Math.floor(_rect.width - contentComponent._width) -1;
-//                }
-//            }
+            //            else if (_hContentAlign == OStates.RIGHT)
+            //            {
+            //                if (contentComponent.x == Math.floor(_rect.width - contentComponent._width))
+            //                {
+            //                    _isValidTemp = true;
+            //                } else {
+            //todo 1px bug issue
+            //                    hScrollBar.barNeeded ? _xPos = _tempFloat : _xPos = Math.floor(_rect.width - contentComponent._width) -1;
+            //                }
+            //            }
         }
 
         if (move && !_isValidTemp)
@@ -844,9 +839,9 @@ class ScrollContainer extends OContainer
         }
     }
 
-//***********************************************************
-//                  Properties
-//***********************************************************
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
     override public function get_height():Float
     {
@@ -858,9 +853,9 @@ class ScrollContainer extends OContainer
         return _width;
     }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
     public var styleAsScrollContainer(get_styleAsScrollContainer, null):ScrollContainerStyle;
 

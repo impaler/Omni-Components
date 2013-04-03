@@ -12,18 +12,18 @@ import nme.geom.Rectangle;
 class BaseTabbedContainer extends PagedContainerStyle
 {
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
-		setBackgroundBrush( bgColor );
-		
-		defaultWidth = 300;
-		defaultHeight = 300;
-		defaultPadding = 10;
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG_LAYOUT);
+        setBackgroundBrush(bgColor);
 
-	}
+        defaultWidth = 300;
+        defaultHeight = 300;
+        defaultPadding = 10;
+
+    }
 
 }

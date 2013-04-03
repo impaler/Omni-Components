@@ -6,7 +6,7 @@ import omni.components.core.OToggleButtonGroup;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OContainerPage;
-import omni.components.gui.controls.TabButton;
+import omni.components.gui.layout.window.TabButton;
 import omni.components.core.OToggleButtonGroup.OToggleButtonGroupStyle;
 import omni.components.core.OLayout.OLayoutStyle;
 import omni.utils.signals.OSignalType;
@@ -17,111 +17,118 @@ import omni.components.style.base.OBaseBackgroundStyle;
 class TabButtonGroup extends OToggleButtonGroup
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
-	public var onTabButtonChange:OSignalType<TabButton -> Void>;
+    public var onTabButtonChange:OSignalType<TabButton -> Void>;
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
-	override public function createMembers( ):Void
-	{
-		var thisStyle = cast(_style, TabButtonGroupStyle);
-		
-		layout = new OLayout(thisStyle.layoutStyle);
-		layout.direction = thisStyle.defaultDirection;
+    override public function createMembers():Void
+    {
+        var thisStyle = cast(_style, TabButtonGroupStyle);
 
-		this.sprite.addChild( layout.sprite );
+        if (thisStyle.defaultDirection == OStates.HORIZONTAL)
+        {
+            layout = new HBox(thisStyle.layoutStyle);
+        }
+        else if (thisStyle.defaultDirection == OStates.VERTICAL)
+        {
+            layout = new VBox(thisStyle.layoutStyle);
+        }
 
-		onChange = new OSignalType<OToggleButtonGroup -> Void>();
-		onButtonChange = new OSignalType<OToggleButton -> Void>();
-		onTabButtonChange = new OSignalType<TabButton -> Void>();
-	}
+        this.sprite.addChild(layout.sprite);
 
-	override public function destroy( ):Void
-	{
-		onTabButtonChange.destroy( );
+        onChange = new OSignalType<OToggleButtonGroup -> Void>();
+        onButtonChange = new OSignalType<OToggleButton -> Void>();
+        onTabButtonChange = new OSignalType<TabButton -> Void>();
+    }
 
-		super.destroy( );
-	}
+    override public function destroy():Void
+    {
+        onTabButtonChange.destroy();
 
-//***********************************************************
-//                  Event Handlers
-//***********************************************************
+        super.destroy();
+    }
 
-	override public function handleButtonChange( button:OToggleButton ):Void
-	{
-		super.handleButtonChange( button );
-		onTabButtonChange.dispatch( cast(button, TabButton) );
-	}
+    //***********************************************************
+    //                  Event Handlers
+    //***********************************************************
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    override public function handleButtonChange(button:OToggleButton):Void
+    {
+        super.handleButtonChange(button);
+        onTabButtonChange.dispatch(cast(button, TabButton));
+    }
 
-	//todo mouse wheel change
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
-	public function addTabButton( page:OContainerPage, style:IStyle = null ):TabButton
-	{
-		var button = new TabButton(style);
-		button.containerPage = page;
-		button.onChange.add( handleButtonChange );
-		this.members.push( button );
-		layout.add( button );
+    //todo mouse wheel change
 
-		return button;
-	}
+    public function addTabButton(page:OContainerPage, style:IStyle = null):TabButton
+    {
+        var button = new TabButton(style);
+        button.group = this;
+        button.containerPage = page;
+        button.onChange.add(handleButtonChange);
+        this.members.push(button);
+        layout.add(button);
 
-	public function setActiveTabButton( button:TabButton ):Void
-	{
-		_target = button;
-		button.value = true;
-		update( );
-	}
+        return button;
+    }
 
-//***********************************************************
-//                  Properties
-//***********************************************************
+    public function setActiveTabButton(button:TabButton):Void
+    {
+        _target = button;
+        button.value = true;
+        update();
+    }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return TabButtonGroupStyle.styleString;
-	}
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
+
+    override public function get_styleId():String
+    {
+        return TabButtonGroupStyle.styleString;
+    }
 }
 
 class TabButtonGroupStyle extends OToggleButtonGroupStyle
 {
-	public static var styleString:String = "TabButtonGroupStyle";
+    public static var styleString:String = "TabButtonGroupStyle";
 
-	public function new( )
-	{
-		super( );
-		defaultDirection = OStates.HORIZONTAL;
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        defaultDirection = OStates.HORIZONTAL;
+        styleID = styleString;
+    }
 
-	override public function initStyle( value:IOComponent ):Void
-	{
-		var styleAs = cast (value, OToggleButtonGroup);
+    override public function initStyle(value:IOComponent):Void
+    {
+        var styleAs = cast (value, OToggleButtonGroup);
 
-		styleAs.direction = defaultDirection;
+        styleAs.direction = defaultDirection;
 
-		super.initStyle( value );
-	}
+        super.initStyle(value);
+    }
 
-	override public function update(value:IOComponent):Void
-	{
-		super.update(value);
-		var comp = cast (value, TabButtonGroup);
-		comp.layout.invalidate();
-		
-	}
+    override public function update(value:IOComponent):Void
+    {
+        super.update(value);
+        var comp = cast (value, TabButtonGroup);
+        comp.layout.invalidate();
+
+    }
 
 }

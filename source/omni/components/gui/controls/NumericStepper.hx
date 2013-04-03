@@ -22,9 +22,9 @@ import nme.events.MouseEvent;
 class NumericStepper extends OComponent
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
     public var textBase:OTextBase;
     public var increase:NumericStepperButton;
@@ -37,9 +37,9 @@ class NumericStepper extends OComponent
     public var max(get_max, set_max):Int;
     public var min(get_min, set_min):Int;
 
-//***********************************************************
-//                  Style Variables
-//***********************************************************
+    //***********************************************************
+    //                  Style Variables
+    //***********************************************************
 
     public var step:Int;
     public var _value:Int;
@@ -49,16 +49,16 @@ class NumericStepper extends OComponent
     private var _initialButtonTimerDelay:Float;
     private var _timerInterval:Float;
 
-//***********************************************************
-//                  Private Variables
-//***********************************************************
+    //***********************************************************
+    //                  Private Variables
+    //***********************************************************
 
     private var _increasing:Bool;
     private var _timer:Timer;
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
     override public function createMembers():Void
     {
@@ -73,15 +73,12 @@ class NumericStepper extends OComponent
         onMouseWheel = new OSignalMouse(OSignalMouse.MOUSE_WHEEL, this.sprite);
 
         textBase = new Label(styleAsNumericStepper.textStyle);
-        //textBase.trackTheme = false;
         add(textBase);
 
         increase = new NumericStepperButton(styleAsNumericStepper.increaseButtonStyle);
-        //increase.trackTheme = false;
         add(increase);
 
         decrease = new NumericStepperButton(styleAsNumericStepper.decreaseButtonStyle);
-        //decrease.trackTheme = false;
         add(decrease);
 
         _timer = new Timer(_initialButtonTimerDelay);
@@ -109,9 +106,9 @@ class NumericStepper extends OComponent
         updatePositions();
     }
 
-//***********************************************************
-//                  Event Handlers
-//***********************************************************
+    //***********************************************************
+    //                  Event Handlers
+    //***********************************************************
 
     private function handleMouseWheel(?e:OSignalMouse):Void
     {
@@ -151,9 +148,9 @@ class NumericStepper extends OComponent
         _timer.delay = _initialButtonTimerDelay;
     }
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
     private inline function updatePositions():Void
     {
@@ -185,9 +182,9 @@ class NumericStepper extends OComponent
         textBase.text = Std.string(_value);
     }
 
-//***********************************************************
-//                  Properties
-//***********************************************************
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
     public function get_value():Int
     {
@@ -238,9 +235,9 @@ class NumericStepper extends OComponent
         return _min;
     }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
     public var styleAsNumericStepper(get_styleAsNumericStepper, null):NumericStepperStyle;
 

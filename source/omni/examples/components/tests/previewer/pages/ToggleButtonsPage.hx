@@ -10,22 +10,22 @@ import omni.components.gui.controls.Button;
 class ToggleButtonsPage extends ThemePage
 {
 
-	override public function createMembers( ):Void
-	{
+    override public function createMembers():Void
+    {
 
-		super.createMembers( );
+        super.createMembers();
 
-		title = "Toggle Buttons";
-		
-		var defaultCheckBox = new CheckBox();
-		addTest( defaultCheckBox, "Default CheckBox" );
+        title = "Toggle Buttons";
 
-		var defaultRadioButtonGroup = new RadioButtonGroup();
-		defaultRadioButtonGroup.addButton();
-		defaultRadioButtonGroup.addButton();
-		defaultRadioButtonGroup.addButton();
-		
-		addTest( defaultRadioButtonGroup, "Default Radio Button Group" );
+        var defaultCheckBox = new CheckBox();
+        addTest(defaultCheckBox, "Default CheckBox");
+
+        var defaultRadioButtonGroup = new RadioButtonGroup();
+        defaultRadioButtonGroup.addButton();
+        defaultRadioButtonGroup.addButton();
+        defaultRadioButtonGroup.addButton();
+
+        addTest(defaultRadioButtonGroup, "Default Radio Button Group");
 
     }
 

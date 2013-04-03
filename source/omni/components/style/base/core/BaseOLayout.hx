@@ -11,23 +11,28 @@ import nme.geom.Rectangle;
 class BaseOLayout extends OLayoutStyle
 {
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		defaultScrollRect = false;
-		
-		defaultDirection = OStates.VERTICAL;
-		
-		defaultVerticalHAlign = OStates.MIDDLE;
-		defaultHorizontalVAlign = OStates.MIDDLE;
-		
-		defaultWidth = 300;
-		defaultHeight = 300;
-		defaultPadding = 0;
+        defaultScrollRect = false;
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
-		setBackgroundBrush( bgColor );
-	}
+        defaultHAlign = OStates.MIDDLE;
+        defaultVAlign = OStates.MIDDLE;
+
+        defaultWidthSizeMethod = OStates.AUTO;
+        defaultHeightSizeMethod = OStates.AUTO;
+
+        defaultWidth = 300;
+        defaultHeight = 300;
+        defaultPadding = 0;
+        defaultBottomPadding = 0;
+        defaultTopPadding = 0;
+        defaultLeftPadding = 0;
+        defaultRightPadding = 0;
+
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG_LAYOUT);
+        setBackgroundBrush(bgColor);
+    }
 }

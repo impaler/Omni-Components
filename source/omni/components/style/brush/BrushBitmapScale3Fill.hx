@@ -8,7 +8,7 @@ import omni.utils.BitmapScaleSliceUtily;
 class BrushBitmapScale3Fill extends BrushBitmapFill
 {
 
-/**
+    /**
 * This array should contain zero, one or two integers.
 * 
 * Zero -    3 slice scaling (horizontal). Bitmap is divided into two equal sized bitmaps.
@@ -18,27 +18,27 @@ class BrushBitmapScale3Fill extends BrushBitmapFill
 * Two -     3 slice scaling (horizontal). Integers: left and right guidelines for slicing
 * 
 **/
-	public var scaleRect:Array<Int>;
-//todo smooth
-//todo stretch
+    public var scaleRect:Array<Int>;
+    //todo smooth
+    //todo stretch
 
-//todo cache sizes
+    //todo cache sizes
 
-	override public function update( drawTarget:IOComponent )
-	{
-        if(images.get(drawTarget.state) != null )
+    override public function update(drawTarget:IOComponent)
+    {
+        if (images.get(drawTarget.state) != null)
         {
-		var bitmapdata = images.get( drawTarget.state );
+            var bitmapdata = images.get(drawTarget.state);
 
-		BitmapScaleSliceUtil.slice3( drawTarget.sprite, drawTarget.width, drawTarget.height, bitmapdata, scaleRect, smooth );
+            BitmapScaleSliceUtil.slice3(drawTarget.sprite, drawTarget.width, drawTarget.height, bitmapdata, scaleRect, smooth);
 
         }
     }
 
-	override public function destroy( ):Void
-	{
-		scaleRect = null;
-		super.destroy( );
-	}
+    override public function destroy():Void
+    {
+        scaleRect = null;
+        super.destroy();
+    }
 
 }

@@ -11,8 +11,7 @@ import omni.utils.signals.OSignalType;
 class ThemePage extends WindowPage
 {
 
-    public function addTest(comp:IOComponent, text:String, ?signal:OSignalType<Dynamic -> Dynamic>,
-                            ?valueText:String = "Value = ", ?intialValue:Dynamic):IOComponent
+    public function addTest(comp:IOComponent, text:String, ?signal:OSignalType<Dynamic -> Dynamic>, ?valueText:String = "Value = ", ?intialValue:Dynamic):IOComponent
     {
         var label = new Label(testLabelStyle());
         label.text = text;
@@ -25,27 +24,24 @@ class ThemePage extends WindowPage
         return comp;
     }
 
-    public function addLabelValueTest(signal:OSignalType<Dynamic -> Dynamic>, valueText:String,
-                                      intialValue:Dynamic):Void
+    public function addLabelValueTest(signal:OSignalType<Dynamic -> Dynamic>, valueText:String, intialValue:Dynamic):Void
     {
         var label = new Label(testLabelStyle());
         label.text = valueText + intialValue;
         add(label);
 
-        signal.add(
-            function(value:Dynamic):Dynamic
-            {
-                label.text = valueText + Std.string(value);
-	            return null;
-            }
-        );
+        signal.add(function(value:Dynamic):Dynamic
+                   {
+                       label.text = valueText + Std.string(value);
+                       return null;
+                   });
     }
 
-	public function testLabelStyle( ):LabelStyle
-	{
-		var style = new BaseLabel();
-		style.fontSize = 14;
-		return style;
-	}
+    public function testLabelStyle():LabelStyle
+    {
+        var style = new BaseLabel();
+        style.fontSize = 14;
+        return style;
+    }
 
 }

@@ -16,23 +16,23 @@ import nme.events.MouseEvent;
 class ScrollBarButton extends OButtonBase
 {
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return ScrollBarButtonStyle.styleString;
-	}
+    override public function get_styleId():String
+    {
+        return ScrollBarButtonStyle.styleString;
+    }
 }
 
 class ScrollBarButtonStyle extends OButtonBaseStyle
 {
-	public static var styleString:String = "ScrollBarButtonStyle";
+    public static var styleString:String = "ScrollBarButtonStyle";
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 }

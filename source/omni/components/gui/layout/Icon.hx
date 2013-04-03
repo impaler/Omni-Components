@@ -17,24 +17,24 @@ import omni.components.style.base.OBaseBackgroundStyle;
 class Icon extends OComponent
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
     public var bitmap:Bitmap;
     public var bitmapPadding(get_bitmapPadding, set_bitmapPadding):Int;
 
-	public var resizeBitmapData:Bool;
-	
-//***********************************************************
-//                  Style Variables
-//***********************************************************
+    public var resizeBitmapData:Bool;
 
-	public var _bitmapPadding:Int;
+    //***********************************************************
+    //                  Style Variables
+    //***********************************************************
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    public var _bitmapPadding:Int;
+
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
     override public function createMembers():Void
     {
@@ -43,7 +43,7 @@ class Icon extends OComponent
         resizeBitmapData = true;
         _bitmapPadding = styleAs.defaultBitmapPadding;
 
-        if(_bitmapPadding > 0 && styleAs.background == null )
+        if (_bitmapPadding > 0 && styleAs.background == null)
         {
             styleAs.setBackgroundBrush(styleAs.defaultIconBGBrush());
         }
@@ -52,7 +52,8 @@ class Icon extends OComponent
         {
             setBitmapData(styleAs.defaultBitmapData);
 
-        } else if (styleAs.defaultBitmapDataPath != null)
+        }
+        else if (styleAs.defaultBitmapDataPath != null)
         {
             setBitmapData(Assets.getBitmapData(styleAs.defaultBitmapDataPath)) ;
         }
@@ -69,7 +70,7 @@ class Icon extends OComponent
 
     override public function drawMembers():Void
     {
-//        super.drawMembers();
+        //        super.drawMembers();
 
         if (bitmap != null && bitmapPadding != 0)
         {
@@ -78,9 +79,9 @@ class Icon extends OComponent
         }
     }
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
     public function setBitmapAsset(path:String, scaleToFit:Bool = true):Void
     {
@@ -97,9 +98,9 @@ class Icon extends OComponent
 
         if (scaleToFit)
         {
-            setBitmap(UtilBitmapData.fitIntoRectBitmapData(bitmapData, Std.int(targetWidth), 
-                                                                  Std.int(targetHeight)));
-        } else
+            setBitmap(UtilBitmapData.fitIntoRectBitmapData(bitmapData, Std.int(targetWidth), Std.int(targetHeight)));
+        }
+        else
         {
             setBitmap(new Bitmap(bitmapData));
         }
@@ -116,7 +117,8 @@ class Icon extends OComponent
         if (scaleToFit)
         {
             bitmap = UtilBitmapData.fitIntoRectBitmapData(bit.bitmapData, Std.int(width - bitmapPadding), Std.int(height - bitmapPadding));
-        } else
+        }
+        else
         {
             bitmap = bit;
         }
@@ -128,22 +130,23 @@ class Icon extends OComponent
         invalidate();
     }
 
-//todo cache original for resizing??
+    //todo cache original for resizing??
 
     public function resizeBitmap():Void
     {
-        if (resizeBitmapData && bitmap!=null)
+        if (resizeBitmapData && bitmap != null)
         {
             setBitmap(bitmap, true);
-        } else
+        }
+        else
         {
-//todo
+            //todo
         }
     }
 
-//***********************************************************
-//                  Properties
-//***********************************************************
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
     override public function set_height(h:Float):Float
     {
@@ -151,7 +154,8 @@ class Icon extends OComponent
         {
             resizeBitmap();
             return super.set_height(h);
-        } else
+        }
+        else
         {
             return super.set_height(h);
         }
@@ -163,7 +167,8 @@ class Icon extends OComponent
         {
             resizeBitmap();
             return super.set_width(w);
-        } else
+        }
+        else
         {
             return super.set_width(w);
         }
@@ -184,9 +189,9 @@ class Icon extends OComponent
         return _bitmapPadding;
     }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
     public var styleAs(get_styleAs, null):IconStyle;
 
@@ -219,7 +224,7 @@ class IconStyle extends OBaseBackgroundStyle
     public function defaultIconBGBrush():BrushColorFill
     {
         var bgColor = new BrushColorFill ();
-        bgColor.setColorState( OStates.ACTIVE, ColorUtils.BLACK );
+        bgColor.setColorState(OStates.ACTIVE, ColorUtils.BLACK);
         return bgColor;
     }
 }

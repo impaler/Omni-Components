@@ -16,37 +16,37 @@ import omni.components.gui.controls.Slider;
 class NumericStepperPage extends ThemePage
 {
 
-	override public function createMembers( ):Void
-	{
+    override public function createMembers():Void
+    {
 
-		super.createMembers( );
+        super.createMembers();
 
-		title = "Numeric Stepper";
+        title = "Numeric Stepper";
 
-		var defaultNumericStepper = new NumericStepper();
-		addTest( defaultNumericStepper, "Default NumericStepper" );
-		
-		var defaultNumericStepper = new NumericStepper();
-		defaultNumericStepper.min = -100;
-		defaultNumericStepper.max = 0;
-		defaultNumericStepper.value = -50;
-		addTest( defaultNumericStepper, "Min -100 Max 0" );
+        var defaultNumericStepper = new NumericStepper();
+        addTest(defaultNumericStepper, "Default NumericStepper");
 
-		var numericStepperSize = new NumericStepper();
+        var defaultNumericStepper = new NumericStepper();
+        defaultNumericStepper.min = -100;
+        defaultNumericStepper.max = 0;
+        defaultNumericStepper.value = -50;
+        addTest(defaultNumericStepper, "Min -100 Max 0");
+
+        var numericStepperSize = new NumericStepper();
         numericStepperSize.size(500, 100);
-		addTest( numericStepperSize, "NumericStepper 500 x 100" );
+        addTest(numericStepperSize, "NumericStepper 500 x 100");
 
 
-	}
+    }
 
-	public function testBGBrush( ):BrushColorFill
-	{
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.STEPPER_BUTTON_ACTIVE );
-		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-		bgColor.setColorState( OStates.OVER, BaseColors.STEPPER_BUTTON_OVER );
-		bgColor.setColorState( OStates.DOWN, BaseColors.STEPPER_BUTTON_DOWN );
-		return bgColor;
-	}
+    public function testBGBrush():BrushColorFill
+    {
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.STEPPER_BUTTON_ACTIVE);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        bgColor.setColorState(OStates.OVER, BaseColors.STEPPER_BUTTON_OVER);
+        bgColor.setColorState(OStates.DOWN, BaseColors.STEPPER_BUTTON_DOWN);
+        return bgColor;
+    }
 
 }

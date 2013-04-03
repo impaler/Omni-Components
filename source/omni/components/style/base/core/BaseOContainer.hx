@@ -9,15 +9,15 @@ import omni.components.core.OComponent.OComponentStyle;
 
 class BaseOContainer extends OContainerStyle
 {
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		defaultScrollRect = false;
-		
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG );
-		setBackgroundBrush( bgColor );
+        defaultScrollRect = false;
 
-	}
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);
+        setBackgroundBrush(bgColor);
+
+    }
 }

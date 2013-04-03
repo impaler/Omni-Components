@@ -7,11 +7,11 @@ class UtilSize
 }
 
 typedef Dimension = {
-    var width : Float;
-    var height : Float;
+    var width:Float;
+    var height:Float;
 }
 
 typedef Position = {
-    var x : Float;
-    var y : Float;
+    var x:Float;
+    var y:Float;
 }

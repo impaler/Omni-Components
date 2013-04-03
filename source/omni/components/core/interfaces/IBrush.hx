@@ -11,6 +11,6 @@ import nme.display.Sprite;
 
 interface IBrush #if haxe3 extends #else implements #end IDestroyable
 {
-	function update(target:IOComponent):Void;
+    function update(target:IOComponent):Void;
 }
 

@@ -11,20 +11,28 @@ import nme.geom.Rectangle;
 class BaseHBox extends HBoxStyle
 {
 
-	public function new( )
-	{
-		super( );
-		
-		defaultDirection = OStates.HORIZONTAL;
-		defaultHorizontalVAlign = OStates.MIDDLE;
-		defaultScrollRect = false;
-		defaultWidth = 120;
-		defaultHeight = 60;
-		defaultPadding = 10;
-		
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_HBOX );
-		setBackgroundBrush( bgColor );
-	}
+    public function new()
+    {
+        super();
+
+        defaultVAlign = OStates.MIDDLE;
+        defaultHAlign = OStates.MIDDLE;
+
+        defaultWidthSizeMethod = OStates.AUTO;
+        defaultHeightSizeMethod = OStates.AUTO;
+
+        defaultWidth = 220;
+        defaultHeight = 160;
+
+        defaultPadding = 10;
+        defaultBottomPadding = 0;
+        defaultTopPadding = 0;
+        defaultLeftPadding = 0;
+        defaultRightPadding = 0;
+
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG_HBOX);
+        setBackgroundBrush(bgColor);
+    }
 
 }

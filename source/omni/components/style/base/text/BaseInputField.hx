@@ -14,23 +14,23 @@ import nme.text.TextFieldType;
 class BaseInputField extends InputFieldStyle
 {
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		defaultHeight = 50;
-		defaultWidth = 200;
+        defaultHeight = 50;
+        defaultWidth = 200;
 
-		var font = Assets.getFont( "assets/themes/color/text/roboto-regular.ttf" );
-		fontName = font.fontName;
-		selectable = true;
-		multiline = false;
-		wordWrap = false;
-//		restrict = "0-9.\\-";
-		fontSize = 20;
-		fontColor = BaseColors.INPUT_TEXT;
-		defaultText = "Orange Input Text";
+        var font = Assets.getFont("assets/themes/color/text/roboto-regular.ttf");
+        fontName = font.fontName;
+        selectable = true;
+        multiline = false;
+        wordWrap = false;
+        //		restrict = "0-9.\\-";
+        fontSize = 20;
+        fontColor = BaseColors.INPUT_TEXT;
+        defaultText = "Orange Input Text";
 
-	}
+    }
 
 }

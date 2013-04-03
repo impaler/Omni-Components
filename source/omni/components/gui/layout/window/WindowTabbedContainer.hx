@@ -5,24 +5,24 @@ import omni.components.core.OContainerPage;
 
 class WindowTabbedContainer extends PagedContainer
 {
-	
-//***********************************************************
-//                  Component Style
-//***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return WindowTabbedContainerStyle.styleString;
-	}
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
+
+    override public function get_styleId():String
+    {
+        return WindowTabbedContainerStyle.styleString;
+    }
 }
 
 class WindowTabbedContainerStyle extends PagedContainerStyle
 {
-	public static var styleString:String = "WindowTabbedContainer";
+    public static var styleString:String = "WindowTabbedContainer";
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 }

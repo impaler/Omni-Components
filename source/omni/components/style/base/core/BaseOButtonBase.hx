@@ -7,18 +7,18 @@ import omni.components.style.brush.BrushColorFill;
 
 class BaseOButtonBase extends OButtonBaseStyle
 {
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		defaultWidth = 10;
+        defaultWidth = 10;
         defaultHeight = 10;
-		
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG );
-		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-		bgColor.setColorState( OStates.OVER, BaseColors.OVER );
-		bgColor.setColorState( OStates.DOWN, BaseColors.DOWN );
-		setBackgroundBrush( bgColor );
-	}
+
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        bgColor.setColorState(OStates.OVER, BaseColors.OVER);
+        bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
+        setBackgroundBrush(bgColor);
+    }
 }

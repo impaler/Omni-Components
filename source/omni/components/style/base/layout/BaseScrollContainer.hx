@@ -13,21 +13,21 @@ import omni.utils.ColorUtils;
 class BaseScrollContainer extends ScrollContainerStyle
 {
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		hScrollStyle = new BaseScrollBar();
-		vScrollStyle = new BaseScrollBar();
+        hScrollStyle = new BaseScrollBar();
+        vScrollStyle = new BaseScrollBar();
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
-		setBackgroundBrush( bgColor );
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG_LAYOUT);
+        setBackgroundBrush(bgColor);
 
-		defaultWidth = 300;
-		defaultHeight = 300;
-		defaultPadding = 20;
+        defaultWidth = 300;
+        defaultHeight = 300;
+        defaultPadding = 20;
 
-	}
+    }
 
 }

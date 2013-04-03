@@ -23,9 +23,9 @@ import nme.events.MouseEvent;
 class Window extends OComponent
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
     public var onOpened:OSignalType<Window -> Void>;
     public var onClosed:OSignalType<Window -> Void>;
@@ -43,9 +43,9 @@ class Window extends OComponent
     public var footer:OComponent;
     public var scalerButton:OButtonBase;
 
-//***********************************************************
-//                  Style Variables
-//***********************************************************
+    //***********************************************************
+    //                  Style Variables
+    //***********************************************************
 
     public var moveable:Bool;
     public var resizeable:Bool;
@@ -56,9 +56,9 @@ class Window extends OComponent
     public var containerLeftPadding:Int;
     public var containerRightPadding:Int;
 
-//***********************************************************
-//                  Private Variables
-//***********************************************************
+    //***********************************************************
+    //                  Private Variables
+    //***********************************************************
 
     private var _resizing:Bool = false;
     private var _xOffset:Float = 0;
@@ -69,9 +69,9 @@ class Window extends OComponent
     private var _previousMaxHeight:Float;
     public var _maximized:Bool = false;
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
     public function open():Void
     {
@@ -89,9 +89,9 @@ class Window extends OComponent
             OCore.removeChild(this);
         }
         onClosed.dispatch(this);
-	    
-	    if (destroy)
-		    this.destroy();
+
+        if (destroy)
+            this.destroy();
     }
 
     public function maximize():Void
@@ -99,49 +99,49 @@ class Window extends OComponent
         _previousSize = { width : width, height : height };
         _previousPosition = { x : x, y : y };
 
-	    _previousMaxHeight = maxHeight;
-	    maxHeight = nme.Lib.stage.stageHeight;
-	    
-	    _previousMaxWidth = maxWidth;
-	    maxWidth = nme.Lib.stage.stageWidth;
+        _previousMaxHeight = maxHeight;
+        maxHeight = nme.Lib.stage.stageHeight;
 
-	    visible = false;
-	    move(0,0);
-	    size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
-		visible = true;
-		_maximized = true;
+        _previousMaxWidth = maxWidth;
+        maxWidth = nme.Lib.stage.stageWidth;
 
-	    if(liveResize)
-		    scalerButton.visible = false;
+        visible = false;
+        move(0, 0);
+        size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
+        visible = true;
+        _maximized = true;
+
+        if (liveResize)
+            scalerButton.visible = false;
     }
 
-	public function restore():Void
-	{
-		if (_previousSize != null)
-		{
-				maxHeight = _previousMaxHeight;
-				maxWidth = _previousMaxWidth;
-				size(_previousSize.width, _previousSize.height);
+    public function restore():Void
+    {
+        if (_previousSize != null)
+        {
+            maxHeight = _previousMaxHeight;
+            maxWidth = _previousMaxWidth;
+            size(_previousSize.width, _previousSize.height);
 
-			if(liveResize)
-			scalerButton.visible = true;
-		}
-		if (_previousPosition != null)
-		{
-			move(_previousPosition.x,_previousPosition.y);
-		}
-		
-		_maximized = false;
-	}
+            if (liveResize)
+                scalerButton.visible = true;
+        }
+        if (_previousPosition != null)
+        {
+            move(_previousPosition.x, _previousPosition.y);
+        }
+
+        _maximized = false;
+    }
 
     public function minimize():Void
     {
-                //todo
+        //todo
     }
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
     override public function createMembers():Void
     {
@@ -153,7 +153,7 @@ class Window extends OComponent
         containerLeftPadding = styleAsWindow.containerLeftPadding;
         containerRightPadding = styleAsWindow.containerRightPadding;
         containerTopPadding = styleAsWindow.containerTopPadding;
-	    resizeBehaviour = styleAsWindow.resizeBehaviour;
+        resizeBehaviour = styleAsWindow.resizeBehaviour;
 
         footer = new OButtonBase(styleAsWindow.footer);
         addToMembers(footer);
@@ -173,40 +173,42 @@ class Window extends OComponent
         addToMembers(header);
         coreAdd(header);
         header.buttonMode = true;
-	    
+
         onMouseDownHeader = new OSignalMouse(OSignalMouse.MOUSE_DOWN, header.sprite);
         onOpened = new OSignalType<Window -> Void>();
         onClosed = new OSignalType<Window -> Void>();
-	    
-	    if ( Type.getClassName(styleAsWindow.containerDefault) == Type.getClassName(WindowTabbedContainer))
-	    {
-	        setPagedContainer(cast ( Type.createInstance(styleAsWindow.containerDefault, [null]), PagedContainer) );
-	    } else {
-		    setContainerType(styleAsWindow.containerDefault);
-	    }
-	    
-	    
-	    setupResizeBehavior();
+
+        if (Type.getClassName(styleAsWindow.containerDefault) == Type.getClassName(WindowTabbedContainer))
+        {
+            setPagedContainer(cast ( Type.createInstance(styleAsWindow.containerDefault, [null]), PagedContainer));
+        }
+        else
+        {
+            setContainerType(styleAsWindow.containerDefault);
+        }
+
+
+        setupResizeBehavior();
     }
 
-	public function setupResizeBehavior( ):Void
-	{
-		onStageResize = OCore.instance.onStageResize;
-		onStageResize.add(handleStageResize);
-	}
+    public function setupResizeBehavior():Void
+    {
+        onStageResize = OCore.instance.onStageResize;
+        onStageResize.add(handleStageResize);
+    }
 
-	public function handleStageResize(e:OCoreEvent):Void
-	{
-		if (resizeBehaviour == OStates.FIT && _maximized)
-		{
-			maxHeight = nme.Lib.stage.stageHeight;
-			maxWidth = nme.Lib.stage.stageWidth;
-			
-			move(0,0);
-			size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
-			_maximized = true;
-		}
-	}
+    public function handleStageResize(e:OCoreEvent):Void
+    {
+        if (resizeBehaviour == OStates.FIT && _maximized)
+        {
+            maxHeight = nme.Lib.stage.stageHeight;
+            maxWidth = nme.Lib.stage.stageWidth;
+
+            move(0, 0);
+            size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
+            _maximized = true;
+        }
+    }
 
     override public function add(comp:IOComponent):IOComponent
     {
@@ -230,8 +232,8 @@ class Window extends OComponent
         content._height = height - containerTopPadding - footer.height - header.height;
         content._width = width - containerLeftPadding - containerRightPadding;
         content.y = header.height;
-	    
-	    
+
+
         content.x = containerLeftPadding;
 
         content.drawNow();
@@ -242,19 +244,19 @@ class Window extends OComponent
         onMouseDownHeader.add(handleStartWindowDrag);
         scalerButton.onMouseDown.add(handleScaleWindowMouseDown);
     }
-	
-	override public function destroy( ):Void
-	{
-	//	public var onStageResize:OCoreEvent;
-  //public var onResizeDragRender:OCoreEvent;
-  //public var onMouseDownHeader:OSignalMouse;
-  //public var onMouseMove:OSignalMouse;
-  //public var onMouseUp:OSignalMouse;
-	}
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    override public function destroy():Void
+    {
+        //	public var onStageResize:OCoreEvent;
+        //public var onResizeDragRender:OCoreEvent;
+        //public var onMouseDownHeader:OSignalMouse;
+        //public var onMouseMove:OSignalMouse;
+        //public var onMouseUp:OSignalMouse;
+    }
+
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
     public function setContainer(containerInstance:OContainer):OContainer
     {
@@ -295,7 +297,7 @@ class Window extends OComponent
 
     public function destroyExistingContainer():Void
     {
-        if ( content != null )
+        if (content != null)
         {
             remove(content);
             content.destroy();
@@ -303,9 +305,9 @@ class Window extends OComponent
         }
     }
 
-//***********************************************************
-//                  Event Handlers
-//***********************************************************
+    //***********************************************************
+    //                  Event Handlers
+    //***********************************************************
 
     private function handleStartWindowDrag(?e:OSignalMouse):Void
     {
@@ -328,23 +330,25 @@ class Window extends OComponent
     private function handleWindowDragMouseUp(?e:OSignalMouse):Void
     {
         var boundsTolerance = 40;
-    
-        if(y < 0)
+
+        if (y < 0)
         {
             y = 0;
-        } else  if (y > nme.Lib.stage.stageHeight - boundsTolerance)
+        }
+        else if (y > nme.Lib.stage.stageHeight - boundsTolerance)
         {
             y = (nme.Lib.stage.stageHeight - header._height );
         }
-	    
-	    if ( x < 0 -(_width -boundsTolerance) )
-	    {
-	    x = 0;
-	    } else if ( x > nme.Lib.stage.stageWidth - boundsTolerance)
-	    {
-	        x =  nme.Lib.stage.stageWidth - _width;
-	    }
-    
+
+        if (x < 0 - (_width - boundsTolerance))
+        {
+            x = 0;
+        }
+        else if (x > nme.Lib.stage.stageWidth - boundsTolerance)
+        {
+            x = nme.Lib.stage.stageWidth - _width;
+        }
+
         onMouseMove.remove(handleWindowDragMouseMove);
         onMouseUp.remove(handleWindowDragMouseUp);
     }
@@ -402,9 +406,9 @@ class Window extends OComponent
         size(scalerButton.x + scalerButton.width, scalerButton.y + scalerButton.height);
     }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
     public var styleAsWindow(get_styleAsWindow, null):WindowStyle;
 

@@ -21,126 +21,124 @@ import omni.components.core.OCore;
 **/
 class OScreen implements IDestroyable
 {
-	public var components:Array<IOComponent>;
+    public var components:Array<IOComponent>;
 
-	public var activeLayout:OLayout;
-	
-	//todo ideas
-	//Toolbar Header
-	//HotKey: Assign a hot key for showing / hiding the GUI
-	//Context Menu: Toggle the GUI from a context menu item
-	//Message: Pulse a message to the user in the toolbar
-	//Show Toggle: Display a toggle when the GUI is hidden
-	//Save Settings: Generate AS3 code to commit your current values
-	
-//***********************************************************
-//                  Core
-//***********************************************************
+    public var activeLayout:OLayout;
 
-	public function addCompClass( comp:Class<IOComponent>, ?style:IStyle ):IOComponent
-	{
-		var component = Type.createInstance( comp, [style] );
-		components.push( component );
-		return component;
-	}
+    //todo ideas
+    //Toolbar Header
+    //HotKey: Assign a hot key for showing / hiding the GUI
+    //Context Menu: Toggle the GUI from a context menu item
+    //Message: Pulse a message to the user in the toolbar
+    //Show Toggle: Display a toggle when the GUI is hidden
+    //Save Settings: Generate AS3 code to commit your current values
 
-	public function destroy( )
-	{
-		for( o in components )
-		{
-			o.destroy( );
-		}
-	}
+    //***********************************************************
+    //                  Core
+    //***********************************************************
 
-	public function new( )
-	{
-		components = [];
-	}
+    public function addCompClass(comp:Class<IOComponent>, ?style:IStyle):IOComponent
+    {
+        var component = Type.createInstance(comp, [style]);
+        components.push(component);
+        return component;
+    }
 
-//***********************************************************
-//                  Layouts
-//***********************************************************
+    public function destroy()
+    {
+        for (o in components)
+        {
+            o.destroy();
+        }
+    }
 
-	public function addHBox( ):HBox
-	{
-		var component = addCompClass( HBox );
-		var hBox = cast (component, HBox);
-		activeLayout = hBox;
-		OCore.addChild( hBox );
-		return hBox;
-	}
+    public function new()
+    {
+        components = [];
+    }
 
-	public function addVBox( ):VBox
-	{
-		var component = addCompClass( VBox );
-		var vBox = cast (component, VBox);
-		activeLayout = vBox;
-		OCore.addChild( vBox );
-		return vBox;
-	}
+    //***********************************************************
+    //                  Layouts
+    //***********************************************************
 
-	public function addToLayout( comp:IOComponent ):Void
-	{
-		if( activeLayout == null )
-		{
-			OCore.addChild( comp );
-		}
-		else
-		{
-			activeLayout.add( comp );
-		}
-	}
+    public function addHBox():HBox
+    {
+        var component = addCompClass(HBox);
+        var hBox = cast (component, HBox);
+        activeLayout = hBox;
+        OCore.addChild(hBox);
+        return hBox;
+    }
 
-//***********************************************************
-//                  Components
-//***********************************************************
+    public function addVBox():VBox
+    {
+        var component = addCompClass(VBox);
+        var vBox = cast (component, VBox);
+        activeLayout = vBox;
+        OCore.addChild(vBox);
+        return vBox;
+    }
 
-	public function addLabel( text:String, ?style:IStyle ):Label
-	{
-		var component = addCompClass( Label, style );
-		addToLayout( component );
-		component.drawNow( );
+    public function addToLayout(comp:IOComponent):Void
+    {
+        if (activeLayout == null)
+        {
+            OCore.addChild(comp);
+        }
+        else
+        {
+            activeLayout.add(comp);
+        }
+    }
 
-		var label = cast (component, Label);
-		label.text = text;
+    //***********************************************************
+    //                  Components
+    //***********************************************************
 
-		return label;
-	}
+    public function addLabel(text:String, ?style:IStyle):Label
+    {
+        var component = addCompClass(Label, style);
+        addToLayout(component);
+        component.drawNow();
 
-	public function addOButtonBase( ?clickHandler:Dynamic, ?args:Array<Dynamic>, ?style:IStyle ):OButtonBase
-	{
-		var component = addCompClass( OButtonBase, style );
-		addToLayout( component );
-		component.drawNow( );
-		var button = cast (component, OButtonBase);
+        var label = cast (component, Label);
+        label.text = text;
 
-		if( clickHandler != null )
-		{
-			if( args == null ) args = [];
+        return label;
+    }
 
-			button.onClick.add(
-				function( e:OButtonBase )
-				{
-					Reflect.callMethod( e, clickHandler, args );
-				}
-			);
-		}
+    public function addOButtonBase(?clickHandler:Dynamic, ?args:Array<Dynamic>, ?style:IStyle):OButtonBase
+    {
+        var component = addCompClass(OButtonBase, style);
+        addToLayout(component);
+        component.drawNow();
+        var button = cast (component, OButtonBase);
 
-		return button;
-	}
+        if (clickHandler != null)
+        {
+            if (args == null) args = [];
 
-	public function addSlider( ?style:IStyle ):Slider
-	{
-		var component = addCompClass( Slider, style );
-		addToLayout( component );
-		return cast (component, Slider);
-	}
+            button.onClick.add(function(e:OButtonBase)
+                               {
+                                   Reflect.callMethod(e, clickHandler, args);
+                               });
+        }
 
-	public function addNumericStepper( ?style:IStyle ):NumericStepper
-	{
-		var component = addCompClass( NumericStepper, style );
-		addToLayout( component );
-		return cast (component, NumericStepper);
-	}
+        return button;
+    }
+
+    public function addSlider(?style:IStyle):Slider
+    {
+        var component = addCompClass(Slider, style);
+        addToLayout(component);
+        return cast (component, Slider);
+    }
+
+    public function addNumericStepper(?style:IStyle):NumericStepper
+    {
+        var component = addCompClass(NumericStepper, style);
+        addToLayout(component);
+        return cast (component, NumericStepper);
+    }
 
 }

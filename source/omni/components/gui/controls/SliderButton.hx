@@ -15,23 +15,23 @@ import nme.events.MouseEvent;
 class SliderButton extends OButtonBase
 {
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return SliderButtonStyle.styleString;
-	}
+    override public function get_styleId():String
+    {
+        return SliderButtonStyle.styleString;
+    }
 }
 
 class SliderButtonStyle extends OButtonBaseStyle
 {
-	public static var styleString:String = "SliderButtonStyle";
+    public static var styleString:String = "SliderButtonStyle";
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 }

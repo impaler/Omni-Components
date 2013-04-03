@@ -12,17 +12,24 @@ import nme.geom.Rectangle;
 class BaseWindowVBox extends WindowVBoxStyle
 {
 
-	public function new( )
-	{
-		super( );
-		
-		defaultDirection = OStates.VERTICAL;
-		defaultVerticalHAlign = OStates.MIDDLE;
-		defaultScrollRect = false;
+    public function new()
+    {
+        super();
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, ColorUtils.RED );
-		setBackgroundBrush( bgColor );
-	}
+        defaultHAlign = OStates.MIDDLE;
+        defaultVAlign = OStates.TOP;
+
+        defaultTopPadding = 20;
+        defaultBottomPadding = 20;
+        defaultLeftPadding = 20;
+        defaultRightPadding = 20;
+
+        defaultWidthSizeMethod = OStates.AUTO;
+        defaultHeightSizeMethod = OStates.AUTO;
+
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, ColorUtils.BLUE);
+        setBackgroundBrush(bgColor);
+    }
 
 }

@@ -17,37 +17,37 @@ import nme.geom.Rectangle;
 class BaseWindow extends WindowStyle
 {
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		header = new BaseWindowHeader();
-		footer = new BaseOButtonBase();
+        header = new BaseWindowHeader();
+        footer = new BaseOButtonBase();
 
-		scalerButton = new BaseWindowScalerButton();
+        scalerButton = new BaseWindowScalerButton();
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.ACTIVE );
-		setBackgroundBrush( bgColor );
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
+        setBackgroundBrush(bgColor);
 
-		defaultWidth = 600;
-		defaultHeight = 600;
-		
-		maxWidth = 680;
-		maxHeight = 680;
-		minHeight = 200;
-		minWidth = 200;
-		
-		containerDefault = WindowContentContainer;
-		
-		moveable = true;
-		resizeable = true;
-		liveResize = true;
-		resizeBehaviour = OStates.FIT;
-		
-		containerLeftPadding = 10;
-		containerRightPadding = 10;
-		containerTopPadding = 10;
-	}
+        defaultWidth = 600;
+        defaultHeight = 600;
+
+        maxWidth = 680;
+        maxHeight = 680;
+        minHeight = 200;
+        minWidth = 200;
+
+        containerDefault = WindowContentContainer;
+
+        moveable = true;
+        resizeable = true;
+        liveResize = true;
+        resizeBehaviour = OStates.FIT;
+
+        containerLeftPadding = 10;
+        containerRightPadding = 10;
+        containerTopPadding = 10;
+    }
 
 }

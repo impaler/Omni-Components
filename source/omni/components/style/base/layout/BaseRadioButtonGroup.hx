@@ -11,19 +11,19 @@ import nme.geom.Rectangle;
 class BaseRadioButtonGroup extends RadioButtonGroupStyle
 {
 
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		//var bgColor = new BrushColorFill ();
-		//bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
-		//setBackgroundBrush( bgColor );
-	
-		defaultDirection = OStates.VERTICAL;
-		defaultWidth = 300;
-		defaultHeight = 300;
-		defaultPadding = 20;
+        //var bgColor = new BrushColorFill ();
+        //bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
+        //setBackgroundBrush( bgColor );
 
-	}
+        defaultDirection = OStates.VERTICAL;
+        defaultWidth = 300;
+        defaultHeight = 300;
+        defaultPadding = 20;
+
+    }
 
 }

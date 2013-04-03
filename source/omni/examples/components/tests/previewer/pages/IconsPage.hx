@@ -23,13 +23,13 @@ class IconsPage extends ThemePage
 
         var customStyle = new IconStyle();
         customStyle.defaultWidth = 100;
-        customStyle.setBackgroundBrush( testBGBrush() );
+        customStyle.setBackgroundBrush(testBGBrush());
         var defaultIcon = new Icon(customStyle);
         addTest(defaultIcon, "Custom bg");
 
         var manualStyleSet = new IconStyle();
         var testBG = new BrushColorFill ();
-        testBG.setColorState( OStates.ACTIVE, ColorUtils.GREEN );
+        testBG.setColorState(OStates.ACTIVE, ColorUtils.GREEN);
         manualStyleSet.setBackgroundBrush(testBG);
 
         var defaultIcon = new Icon();
@@ -40,27 +40,29 @@ class IconsPage extends ThemePage
         setBitmap.setBitmap(ThemePreview.testJPGBitmap());
         addTest(setBitmap, "Icon setBitmap()");
 
-	    var i = 0;
-	    while( i < 1 ) {
-	    
-	        var h = new HBox();
-		    
-		    var r = 0;
-		    while( r < 3 ) {
-				var setBitmap = new Icon();
-			    setBitmap.size(300,300);
-				setBitmap.setBitmap(ThemePreview.testJPGBitmap());
-			    h.add(setBitmap);
-			    r++;
-		    }
-		    
-		    
-			addTest(h, "Icon setBitmap()");
-		    
-	    	i++;
-	    }
-	    
-	    
+        var i = 0;
+        while (i < 1)
+        {
+
+            var h = new HBox();
+
+            var r = 0;
+            while (r < 3)
+            {
+                var setBitmap = new Icon();
+                setBitmap.size(300, 300);
+                setBitmap.setBitmap(ThemePreview.testJPGBitmap());
+                h.add(setBitmap);
+                r++;
+            }
+
+
+            addTest(h, "Icon setBitmap()");
+
+            i++;
+        }
+
+
         var bitmapIconPadding = new Icon();
         bitmapIconPadding.setBitmap(ThemePreview.testJPGBitmap());
         bitmapIconPadding.bitmapPadding = 20;
@@ -69,7 +71,7 @@ class IconsPage extends ThemePage
         var bitmapIconPadding = new Icon();
         bitmapIconPadding.setBitmap(ThemePreview.testJPGBitmap());
         bitmapIconPadding.bitmapPadding = 20;
-        bitmapIconPadding.size(320,320);
+        bitmapIconPadding.size(320, 320);
         addTest(bitmapIconPadding, "Icon bitmapIconPadding = 20 .size(320,70);");
 
         var customStyle = new IconStyle();
@@ -88,7 +90,7 @@ class IconsPage extends ThemePage
     public function testBGBrush():BrushColorFill
     {
         var bgColor = new BrushColorFill ();
-        bgColor.setColorState( OStates.ACTIVE, ColorUtils.randomColor() );
+        bgColor.setColorState(OStates.ACTIVE, ColorUtils.randomColor());
         return bgColor;
     }
 }

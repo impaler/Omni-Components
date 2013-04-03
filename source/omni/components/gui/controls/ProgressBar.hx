@@ -15,114 +15,114 @@ import omni.utils.signals.OSignalType;
 class ProgressBar extends OComponent
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
-	public var onComplete:OSignalVoid;
-	public var onProgress:OSignalInt;
+    public var onComplete:OSignalVoid;
+    public var onProgress:OSignalInt;
 
-	public var value(get_value, set_value):Int;
-	public var _value:Int = 0;
+    public var value(get_value, set_value):Int;
+    public var _value:Int = 0;
 
-	public var progressImage:OContainer;
+    public var progressImage:OContainer;
 
-//***********************************************************
-//                  Component Methods
-//***********************************************************
+    //***********************************************************
+    //                  Component Methods
+    //***********************************************************
 
-    public function startTestMode( interval:Int ):Void
+    public function startTestMode(interval:Int):Void
     {
         var timer = new Timer(interval, 0);
-        timer.addEventListener( TimerEvent.TIMER, handleTimer );
-        timer.start( );
+        timer.addEventListener(TimerEvent.TIMER, handleTimer);
+        timer.start();
     }
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
-	override public function createMembers( ):Void
-	{
-		super.createMembers( );
+    override public function createMembers():Void
+    {
+        super.createMembers();
 
-		onComplete = new OSignalVoid();
-		onProgress = new OSignalInt();
+        onComplete = new OSignalVoid();
+        onProgress = new OSignalInt();
 
-		var sty = cast(_style, ProgressBarStyle );
-		progressImage = new OContainer(sty.progress);
-		add( progressImage );
-	}
+        var sty = cast(_style, ProgressBarStyle );
+        progressImage = new OContainer(sty.progress);
+        add(progressImage);
+    }
 
-	override public function drawMembers( ):Void
-	{
-		_value = _value > 100 ? 100 : _value;
-		_value = _value < 0 ? 0 : _value;
+    override public function drawMembers():Void
+    {
+        _value = _value > 100 ? 100 : _value;
+        _value = _value < 0 ? 0 : _value;
 
-		progressImage._width = (_width * _value) * 0.01;
-		progressImage._height = _height;
-		progressImage.drawNow();
-	}
+        progressImage._width = (_width * _value) * 0.01;
+        progressImage._height = _height;
+        progressImage.drawNow();
+    }
 
-//***********************************************************
-//                  Properties
-//***********************************************************
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
-	public function set_value( v:Int ):Int
-	{
-		if( _value != v )
-		{
-			_value = v;
+    public function set_value(v:Int):Int
+    {
+        if (_value != v)
+        {
+            _value = v;
 
-			invalidate( );
+            invalidate();
 
-			if( _value >= 100 )
-			{
-				onComplete.dispatch;
-			}
-			else
-			{
-				onProgress.dispatch( _value );
-			}
-		}
-		return _value;
-	}
+            if (_value >= 100)
+            {
+                onComplete.dispatch;
+            }
+            else
+            {
+                onProgress.dispatch(_value);
+            }
+        }
+        return _value;
+    }
 
-	public function get_value( ):Int
-	{
-		return _value;
-	}
+    public function get_value():Int
+    {
+        return _value;
+    }
 
-//***********************************************************
-//                  Event Handlers
-//***********************************************************
+    //***********************************************************
+    //                  Event Handlers
+    //***********************************************************
 
-	public function handleTimer( e:TimerEvent ):Void
-	{
-		this.value += 1;
-		if( this.value == 100 ) this.value = 0;
-	}
+    public function handleTimer(e:TimerEvent):Void
+    {
+        this.value += 1;
+        if (this.value == 100) this.value = 0;
+    }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return ProgressBarStyle.styleString;
-	}
+    override public function get_styleId():String
+    {
+        return ProgressBarStyle.styleString;
+    }
 }
 
 class ProgressBarStyle extends OBaseBackgroundStyle
 {
-	public static var styleString:String = "ProgressBarStyle";
+    public static var styleString:String = "ProgressBarStyle";
 
-	public var progress:OContainerStyle;
+    public var progress:OContainerStyle;
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 
 }

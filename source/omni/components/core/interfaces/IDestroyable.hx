@@ -5,5 +5,5 @@ package omni.components.core.interfaces;
 **/
 interface IDestroyable
 {
-	function destroy ():Void;
+    function destroy ():Void;
 }

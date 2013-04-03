@@ -15,15 +15,13 @@ import nme.geom.Rectangle;
 class BaseWindowPage extends WindowPageStyle
 {
 
-	public function new( )
-	{
-		super( );
-		
-		defaultContainerType = WindowContentContainer;
-		defaultWidth = 400;
-		defaultHeight = 400;
-		defaultPadding = 10;
+    public function new()
+    {
+        super();
 
-	}
+        defaultContainerType = WindowContentContainer;
+        defaultPadding = 10;
+
+    }
 
 }

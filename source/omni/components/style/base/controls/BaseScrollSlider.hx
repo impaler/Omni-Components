@@ -9,29 +9,29 @@ import omni.utils.ColorUtils;
 
 class BaseScrollSlider extends ScrollSliderStyle
 {
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		buttonStyle = new BaseSliderButton();
+        buttonStyle = new BaseSliderButton();
 
-		decreaseButtonStyle = new BaseScrollBarButton();
-		increaseButtonStyle = new BaseScrollBarButton();
+        decreaseButtonStyle = new BaseScrollBarButton();
+        increaseButtonStyle = new BaseScrollBarButton();
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG );
-		setBackgroundBrush( bgColor );
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);
+        setBackgroundBrush(bgColor);
 
-		defaultVHeight = 120;
-		defaultVWidth = 20;
+        defaultVHeight = 120;
+        defaultVWidth = 20;
 
-		defaultHHeight = 20;
-		defaultHWidth = 120;
+        defaultHHeight = 20;
+        defaultHWidth = 120;
 
-		defaultValue = 50;
+        defaultValue = 50;
 
-		scrollButtons = true;
+        scrollButtons = true;
 
-	}
+    }
 
 }

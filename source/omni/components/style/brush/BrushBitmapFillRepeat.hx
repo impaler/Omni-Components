@@ -7,9 +7,9 @@ import nme.display.Graphics;
 
 class BrushBitmapFillRepeat extends BrushBitmapFill
 {
-	override public function update(drawTarget:IOComponent)
-	{
-        if(images.get(drawTarget.state) != null )
+    override public function update(drawTarget:IOComponent)
+    {
+        if (images.get(drawTarget.state) != null)
         {
             #if (cpp||neko)
             //maybe related to https://haxenme.atlassian.net/browse/NME-82
@@ -23,5 +23,5 @@ class BrushBitmapFillRepeat extends BrushBitmapFill
             graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);
             graphics.endFill();
         }
-	}
+    }
 }

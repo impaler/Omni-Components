@@ -7,25 +7,20 @@ import omni.components.core.OComponentButton.OComponentButtonStyle;
 
 class BaseOComponentButton extends OComponentButtonStyle
 {
-	public function new( )
-	{
-		super( );
-		
-		defaultSizeMethodWidth = OStates.AUTO;
-		defaultSizeMethodHeight = OStates.AUTO;
-		
-		defaultWidth = 100;
-		defaultHeight = 20;
-		defaultPadding = 0;
+    public function new()
+    {
+        super();
 
         layoutStyle = new BaseOComponentButtonLayout();
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.ACTIVE );
-		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-		bgColor.setColorState( OStates.OVER, BaseColors.OVER );
-		bgColor.setColorState( OStates.DOWN, BaseColors.DOWN );
-		setBackgroundBrush( bgColor );
+        defaultHeight = 20;
 
-	}
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        bgColor.setColorState(OStates.OVER, BaseColors.OVER);
+        bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
+        setBackgroundBrush(bgColor);
+
+    }
 }

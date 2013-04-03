@@ -10,174 +10,174 @@ import omni.components.gui.layout.window.Window;
 class WindowHeader extends OButtonBase
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
-	public var window:Window;
+    public var window:Window;
 
-	public var leftLayout:HBox;
-	public var rightLayout:HBox;
+    public var leftLayout:HBox;
+    public var rightLayout:HBox;
 
-	public var closeButton:Button;
-	public var maximizeButton:Button;
-	public var minimizeButton:Button;
+    public var closeButton:Button;
+    public var maximizeButton:Button;
+    public var minimizeButton:Button;
 
-	public var title:Label;
+    public var title:Label;
 
-//***********************************************************
-//                  Style Variables
-//***********************************************************
+    //***********************************************************
+    //                  Style Variables
+    //***********************************************************
 
-//***********************************************************
-//                  Signals
-//***********************************************************
+    //***********************************************************
+    //                  Signals
+    //***********************************************************
 
-	public var doubleClick:OSignalMouse;
+    public var doubleClick:OSignalMouse;
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
-	
-	override public function createMembers( ):Void
-	{
-		super.createMembers( );
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
-		scrollRectEnabled = true;
+    override public function createMembers():Void
+    {
+        super.createMembers();
 
-		leftLayout = new HBox();
-		leftLayout.mouseChildren = false;
-		leftLayout.mouseEnabled = false;
-		add( leftLayout );
+        scrollRectEnabled = true;
 
-		title = leftLayout.addType( Label, styleAsWindow.titleLabelStyle );
-		title.text = "Window Title";
+        leftLayout = new HBox();
+        leftLayout.mouseChildren = false;
+        leftLayout.mouseEnabled = false;
+        title = leftLayout.addType(Label, styleAsWindow.titleLabelStyle);
+        title.text = "Window Title";
 
-		rightLayout = new HBox();
-		add( rightLayout );
-		
-		if(styleAsWindow.minimizeButton != null){
-			minimizeButton = rightLayout.addType( Button, styleAsWindow.minimizeButton );
-		}
-		
-		if(styleAsWindow.maximizeButton != null){
-			maximizeButton = rightLayout.addType( Button, styleAsWindow.maximizeButton );
-		}
-		
-		if(styleAsWindow.closeButton != null)
-		{
-			closeButton = rightLayout.addType( Button, styleAsWindow.closeButton );
-		}
-		
-		
-		doubleClick = new OSignalMouse( OSignalMouse.DOUBLE_CLICK, this.sprite);
-	}
+        add(leftLayout);
 
-	override public function enableSignals( ):Void
-	{
-		super.enableSignals();
-		
-		doubleClick.add (handleHeaderDoubleClick);
 
-		if(minimizeButton!=null)
-			minimizeButton.onMouseDown.add( handlerMinimizeButtonDown );
+        rightLayout = new HBox();
 
-		if ( maximizeButton!=null)
-		maximizeButton.onMouseDown.add( handlerMaximizeButtonDown );
-		
-		if(closeButton!=null)
-			closeButton.onMouseDown.add( handlerCloseButtonDown );
-	}
-	
-	override public function drawMembers( ):Void
-	{
-		super.drawMembers( );
+        if (styleAsWindow.minimizeButton != null)
+        {
+            minimizeButton = rightLayout.addType(Button, styleAsWindow.minimizeButton);
+        }
 
-		rightLayout.drawNow( );
-		rightLayout.x = _width - rightLayout._width;
-	}
-	
-//***********************************************************
-//                  Event Handlers
-//***********************************************************
-	
-	public function handleHeaderDoubleClick( e:OSignalMouse ):Void
-	{
-		window._maximized ?
-		window.restore()
-	    :
-	    window.maximize();
-	}
+        if (styleAsWindow.maximizeButton != null)
+        {
+            maximizeButton = rightLayout.addType(Button, styleAsWindow.maximizeButton);
+        }
 
-	public function handlerCloseButtonDown( e:OSignalMouse ):Void
-	{
-		window.close( );
-	}
+        if (styleAsWindow.closeButton != null)
+        {
+            closeButton = rightLayout.addType(Button, styleAsWindow.closeButton);
+        }
 
-	public function handlerMaximizeButtonDown( ?e:OSignalMouse ):Void
-	{
-		window._maximized ? window.restore( ) : window.maximize( );
-	}
+        add(rightLayout);
 
-	public function handlerMinimizeButtonDown( ?e:OSignalMouse ):Void
-	{
-		window.minimize( );
-	}
+        doubleClick = new OSignalMouse( OSignalMouse.DOUBLE_CLICK, this.sprite);
+    }
 
-	override public function handleMouseClick( ?e:OSignalMouse ):Void
-	{
-		onClick.dispatch( this );
-	}
+    override public function enableSignals():Void
+    {
+        super.enableSignals();
 
-	override public function handleMouseDown( ?e:OSignalMouse ):Void
-	{
-		isDown = true;
-	}
+        doubleClick.add(handleHeaderDoubleClick);
 
-	override public function handleMouseUp( ?e:OSignalMouse ):Void
-	{
-		isDown = false;
-	}
+        if (minimizeButton != null)
+            minimizeButton.onMouseDown.add(handlerMinimizeButtonDown);
 
-	override public function handleMouseOut( ?e:OSignalMouse ):Void
-	{
-		isOver = false;
-	}
+        if (maximizeButton != null)
+            maximizeButton.onMouseDown.add(handlerMaximizeButtonDown);
 
-	override public function handleMouseOver( ?e:OSignalMouse ):Void
-	{
-		isOver = true;
-	}
+        if (closeButton != null)
+            closeButton.onMouseDown.add(handlerCloseButtonDown);
+    }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    override public function drawMembers():Void
+    {
+        super.drawMembers();
 
-	public var styleAsWindow(get_styleAsWindow, null):WindowHeaderStyle;
+        rightLayout.drawNow();
+        rightLayout.x = _width - rightLayout._width;
+    }
 
-	public function get_styleAsWindow( ):WindowHeaderStyle
-	{
-		return cast(_style, WindowHeaderStyle);
-	}
+    //***********************************************************
+    //                  Event Handlers
+    //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return WindowHeaderStyle.styleString;
-	}
+    public function handleHeaderDoubleClick(e:OSignalMouse):Void
+    {
+        window._maximized ? window.restore() : window.maximize();
+    }
+
+    public function handlerCloseButtonDown(e:OSignalMouse):Void
+    {
+        window.close();
+    }
+
+    public function handlerMaximizeButtonDown(?e:OSignalMouse):Void
+    {
+        window._maximized ? window.restore() : window.maximize();
+    }
+
+    public function handlerMinimizeButtonDown(?e:OSignalMouse):Void
+    {
+        window.minimize();
+    }
+
+    override public function handleMouseClick(?e:OSignalMouse):Void
+    {
+        onClick.dispatch(this);
+    }
+
+    override public function handleMouseDown(?e:OSignalMouse):Void
+    {
+        isDown = true;
+    }
+
+    override public function handleMouseUp(?e:OSignalMouse):Void
+    {
+        isDown = false;
+    }
+
+    override public function handleMouseOut(?e:OSignalMouse):Void
+    {
+        isOver = false;
+    }
+
+    override public function handleMouseOver(?e:OSignalMouse):Void
+    {
+        isOver = true;
+    }
+
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
+
+    public var styleAsWindow(get_styleAsWindow, null):WindowHeaderStyle;
+
+    public function get_styleAsWindow():WindowHeaderStyle
+    {
+        return cast(_style, WindowHeaderStyle);
+    }
+
+    override public function get_styleId():String
+    {
+        return WindowHeaderStyle.styleString;
+    }
 }
 
 class WindowHeaderStyle extends OButtonBaseStyle
 {
-	public static var styleString:String = "WindowHeaderStyle";
+    public static var styleString:String = "WindowHeaderStyle";
 
-	public var titleLabelStyle:LabelStyle;
-	public var closeButton:ButtonStyle;
-	public var maximizeButton:ButtonStyle;
-	public var minimizeButton:ButtonStyle;
+    public var titleLabelStyle:LabelStyle;
+    public var closeButton:ButtonStyle;
+    public var maximizeButton:ButtonStyle;
+    public var minimizeButton:ButtonStyle;
 
-	override public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    override public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 }

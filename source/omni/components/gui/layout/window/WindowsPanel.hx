@@ -15,9 +15,9 @@ class WindowsPanel
     {
 
     }
-	
-	private inline function removeWindowIcon():Void
-	 {
-	
-	 }
+
+    private inline function removeWindowIcon():Void
+    {
+
+    }
 }

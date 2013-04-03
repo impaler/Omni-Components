@@ -11,33 +11,33 @@ import omni.components.core.OComponent.OComponentStyle;
 
 class BaseProgressBar extends ProgressBarStyle
 {
-	public function new( )
-	{
-		super( );
+    public function new()
+    {
+        super();
 
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, BaseColors.ACTIVE );
-		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-		bgColor.setColorState( OStates.OVER, BaseColors.OVER );
-		bgColor.setColorState( OStates.DOWN, BaseColors.DOWN );
-		setBackgroundBrush( bgColor );
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        bgColor.setColorState(OStates.OVER, BaseColors.OVER);
+        bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
+        setBackgroundBrush(bgColor);
 
-		
-		var bgColor = new BrushColorFill ();
-		bgColor.setColorState( OStates.ACTIVE, ColorUtils.HALO_BLUE );
-		bgColor.setColorState( OStates.DISABLED, BaseColors.DISABLED );
-		bgColor.setColorState( OStates.OVER, BaseColors.OVER );
-		bgColor.setColorState( OStates.DOWN, BaseColors.DOWN );
-		var cont = new OContainerStyle();
-		cont.setBackgroundBrush( bgColor );
-		
-		
-		defaultWidth = 300;
-		defaultHeight = 60;
-		minWidth = 0;
-		minHeight = 0;
-		maxWidth = 2000;
-		maxHeight = 2000;
-		defaultPadding = 0;
-	}
+
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, ColorUtils.HALO_BLUE);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        bgColor.setColorState(OStates.OVER, BaseColors.OVER);
+        bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
+        var cont = new OContainerStyle();
+        cont.setBackgroundBrush(bgColor);
+
+
+        defaultWidth = 300;
+        defaultHeight = 60;
+        minWidth = 0;
+        minHeight = 0;
+        maxWidth = 2000;
+        maxHeight = 2000;
+        defaultPadding = 0;
+    }
 }

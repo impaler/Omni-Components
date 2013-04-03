@@ -6,7 +6,8 @@
     <app file="HelloWorld" main="omni.examples.components.HelloWorld" path="export"/>
 
     <window width="700" height="660" fps="60" background="0xff2211"/>
-    <window orientation="landscape" vsync="true" antialiasing="0" borderless="true" if="cpp"/>
+    <window orientation="landscape" vsync="true" antialiasing="0"/>
+    <!--<window orientation="landscape" vsync="true" antialiasing="0" borderless="true"/>-->
 
     <classpath name="source"/>
 
@@ -29,5 +30,5 @@
     <set name="js-modern"/>
     <set name="dead-code-elimination"/>
     <set name="-debug"/>
-
+    <!--<set name="-no_console"/>-->
 </project>

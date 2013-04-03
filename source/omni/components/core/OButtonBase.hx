@@ -23,141 +23,141 @@ import nme.events.MouseEvent;
 class OButtonBase extends OContainer
 {
 
-//***********************************************************
-//                  Public Variables
-//***********************************************************
+    //***********************************************************
+    //                  Public Variables
+    //***********************************************************
 
-	public var onMouseOut:OSignalMouse;
-	public var onMouseOver:OSignalMouse;
-	public var onMouseDown:OSignalMouse;
-	public var onMouseUp:OSignalMouse;
-	public var onMouseClick:OSignalMouse;
+    public var onMouseOut:OSignalMouse;
+    public var onMouseOver:OSignalMouse;
+    public var onMouseDown:OSignalMouse;
+    public var onMouseUp:OSignalMouse;
+    public var onMouseClick:OSignalMouse;
 
-	public var onClick:OSignalType<OButtonBase -> Void>;
+    public var onClick:OSignalType<OButtonBase -> Void>;
 
-	public var isOver:Bool = false;
-	public var isDown:Bool = false;
+    public var isOver:Bool = false;
+    public var isDown:Bool = false;
 
-//***********************************************************
-//                  Component Overrides
-//***********************************************************
+    //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
 
-	override public function createComponentMembers( ):Void
-	{
-		super.createComponentMembers( );
+    override public function createComponentMembers():Void
+    {
+        super.createComponentMembers();
 
-		buttonMode = true;
+        buttonMode = true;
 
-		onMouseOut = new OSignalMouse(OSignalMouse.MOUSE_OUT, this.sprite);
-		onMouseOver = new OSignalMouse(OSignalMouse.MOUSE_OVER, this.sprite);
-		onMouseDown = new OSignalMouse(OSignalMouse.MOUSE_DOWN, this.sprite);
-		onMouseUp = OCore.instance.onStageMouseUp;
-		onMouseClick = new OSignalMouse(OSignalMouse.CLICK, this.sprite);
+        onMouseOut = new OSignalMouse(OSignalMouse.MOUSE_OUT, this.sprite);
+        onMouseOver = new OSignalMouse(OSignalMouse.MOUSE_OVER, this.sprite);
+        onMouseDown = new OSignalMouse(OSignalMouse.MOUSE_DOWN, this.sprite);
+        onMouseUp = OCore.instance.onStageMouseUp;
+        onMouseClick = new OSignalMouse(OSignalMouse.CLICK, this.sprite);
 
-		onClick = new OSignalType<OButtonBase -> Void>();
-		
-		size(width, height);
-	}
+        onClick = new OSignalType<OButtonBase -> Void>();
 
-	override public function enableSignals( ):Void
-	{
-		if( ! _listening )
-		{
-			onMouseOut.add( handleMouseOut );
-			onMouseOver.add( handleMouseOver );
-			onMouseDown.add( handleMouseDown );
-			onMouseUp.add( handleMouseUp );
-			onMouseClick.add( handleMouseClick );
+        //_size(width, height);
+    }
 
-			_listening = true;
-		}
-	}
+    override public function enableSignals():Void
+    {
+        if (!_listening)
+        {
+            onMouseOut.add(handleMouseOut);
+            onMouseOver.add(handleMouseOver);
+            onMouseDown.add(handleMouseDown);
+            onMouseUp.add(handleMouseUp);
+            onMouseClick.add(handleMouseClick);
 
-	override public function disableSignals( ):Void
-	{
-		if( _listening )
-		{
-			isDown = false;
-			isOver = false;
+            _listening = true;
+        }
+    }
 
-			onMouseOut.removeAll( );
-			onMouseOver.removeAll( );
-			onMouseDown.removeAll( );
-			onMouseUp.removeAll( );
-			onMouseClick.removeAll( );
+    override public function disableSignals():Void
+    {
+        if (_listening)
+        {
+            isDown = false;
+            isOver = false;
 
-			_listening = false;
-		}
-	}
+            onMouseOut.removeAll();
+            onMouseOver.removeAll();
+            onMouseDown.removeAll();
+            onMouseUp.removeAll();
+            onMouseClick.removeAll();
 
-	override public function destroy( ):Void
-	{
-		onMouseOut.destroy( );
-		onMouseOver.destroy( );
-		onMouseDown.destroy( );
-		onMouseUp.destroy( );
-		onClick.destroy( );
+            _listening = false;
+        }
+    }
 
-		super.destroy( );
-	}
+    override public function destroy():Void
+    {
+        onMouseOut.destroy();
+        onMouseOver.destroy();
+        onMouseDown.destroy();
+        onMouseUp.destroy();
+        onClick.destroy();
 
-//***********************************************************
-//                  Event Handlers
-//***********************************************************
+        super.destroy();
+    }
 
-	public function handleMouseClick( ?e:OSignalMouse ):Void
-	{
-		onClick.dispatch( this );
-	}
+    //***********************************************************
+    //                  Event Handlers
+    //***********************************************************
 
-	public function handleMouseDown( ?e:OSignalMouse ):Void
-	{
-		isDown = true;
-		state = OStates.DOWN;
-	}
+    public function handleMouseClick(?e:OSignalMouse):Void
+    {
+        onClick.dispatch(this);
+    }
 
-	public function handleMouseUp( ?e:OSignalMouse ):Void
-	{
-		isDown = false;
-		state = OStates.ACTIVE;
-		isOver ? state = OStates.OVER : state = OStates.ACTIVE;
-	}
+    public function handleMouseDown(?e:OSignalMouse):Void
+    {
+        isDown = true;
+        state = OStates.DOWN;
+    }
 
-	public function handleMouseOut( ?e:OSignalMouse ):Void
-	{
-		isOver = false;
+    public function handleMouseUp(?e:OSignalMouse):Void
+    {
+        isDown = false;
+        state = OStates.ACTIVE;
+        isOver ? state = OStates.OVER : state = OStates.ACTIVE;
+    }
 
-		if( isDown == false )
-			state = OStates.ACTIVE;
-	}
+    public function handleMouseOut(?e:OSignalMouse):Void
+    {
+        isOver = false;
 
-	public function handleMouseOver( ?e:OSignalMouse ):Void
-	{
-		isOver = true;
-		state = OStates.OVER;
-	}
+        if (isDown == false)
+            state = OStates.ACTIVE;
+    }
 
-//***********************************************************
-//                  Properties
-//***********************************************************
+    public function handleMouseOver(?e:OSignalMouse):Void
+    {
+        isOver = true;
+        state = OStates.OVER;
+    }
 
-//***********************************************************
-//                  Component Style
-//***********************************************************
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
-	override public function get_styleId( ):String
-	{
-		return OButtonBaseStyle.styleString;
-	}
+    //***********************************************************
+    //                  Component Style
+    //***********************************************************
+
+    override public function get_styleId():String
+    {
+        return OButtonBaseStyle.styleString;
+    }
 }
 
 class OButtonBaseStyle extends OContainerStyle
 {
-	public static var styleString:String = "OButtonBaseStyle";
+    public static var styleString:String = "OButtonBaseStyle";
 
-	public function new( )
-	{
-		super( );
-		styleID = styleString;
-	}
+    public function new()
+    {
+        super();
+        styleID = styleString;
+    }
 }
