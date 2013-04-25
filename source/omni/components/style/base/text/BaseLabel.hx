@@ -16,6 +16,9 @@ class BaseLabel extends LabelStyle
     {
         super();
 
+
+        //textBrush
+
         defaultHeight = 60;
         defaultWidth = 300;
 

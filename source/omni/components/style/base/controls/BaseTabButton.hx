@@ -35,12 +35,14 @@ class BaseTabButton extends TabButtonStyle
         defaultLabel = new BaseButtonLabel();
         defaultLabel.defaultText = "Tab Button";
 
-        layoutStyle = new BaseOComponentButtonLayout();
-        layoutStyle.defaultWidthSizeMethod = OStates.AUTO;
-        layoutStyle.defaultHeightSizeMethod = OStates.AUTO;
+        deafultLayoutStyle = new BaseOComponentButtonLayout();
+        deafultLayoutStyle.defaultWidthSizeMethod = OStates.AUTO;
+        deafultLayoutStyle.defaultHeightSizeMethod = OStates.AUTO;
 
         defaultHeightSizeMethod = OStates.AUTO;
         defaultWidthSizeMethod = OStates.AUTO;
+
+        defaultState = OStates.OFF;
 
     }
 }

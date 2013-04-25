@@ -24,7 +24,7 @@ class BaseSlideToggle extends SlideToggleStyle
 
         defaultLabel = null;
         //black in bg
-        layoutStyle = null;
+        deafultLayoutStyle = null;
         defaultState = OStates.OFF;
 
 

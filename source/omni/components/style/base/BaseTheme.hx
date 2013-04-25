@@ -1,5 +1,6 @@
 package omni.components.style.base;
 
+import omni.components.style.base.controls.BaseSelectList;
 import omni.components.style.base.controls.BaseButton;
 import omni.components.style.base.controls.BaseProgressBar;
 import omni.components.style.base.controls.BaseNumericStepper;
@@ -40,6 +41,7 @@ import omni.components.style.base.layout.BaseSpriteContainer;
 import omni.components.style.base.layout.BaseScrollContainer;
 import omni.components.style.base.layout.window.BaseWindowVBox;
 import omni.components.style.base.layout.window.BaseWindowContainer;
+import omni.components.style.base.layout.BaseList;
 
 import omni.components.style.base.text.BaseLabel;
 import omni.components.style.base.text.BaseInputField;
@@ -98,6 +100,10 @@ class BaseTheme extends OTheme
         addStyle(BaseScrollBar);
         addStyle(BaseScrollBarButton);
         addStyle(BaseScrollContainer);
+
+        addStyle(BaseList);
+
+        addStyle(BaseSelectList);
 
         addStyle(BaseIcon);
         addStyle(BaseProgressBar);

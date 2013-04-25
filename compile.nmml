@@ -27,8 +27,8 @@
     <ndll name="zlib"/>
     <ndll name="nme" haxelib="nme"/>
 
-    <set name="js-modern"/>
+    <!--<set name="js-modern"/>-->
     <set name="dead-code-elimination"/>
-    <set name="-debug"/>
+    <!--<set name="-debug"/>-->
     <!--<set name="-no_console"/>-->
 </project>

@@ -7,7 +7,7 @@ import omni.components.core.OTextBase;
 import nme.display.Sprite;
 import nme.display.Graphics;
 
-typedef TextFormatBrush = {
+typedef TextFormatProperties = {
     var fontSize:Int;
     var fontName:String;
     var fontColor:Int;
@@ -18,13 +18,22 @@ typedef TextFormatBrush = {
 
 class BrushTextFormat implements IBrush
 {
-    public var formats:Hash<TextFormatBrush>;
+    #if haxe3
+    public var formats:Map<String, TextFormatProperties>;
+    #else
+    public var formats:Hash<TextFormatProperties>;
+    #end
 
     public function new()
     {
+        #if haxe3
+		formats = new Map();
+		#else
+        formats = new Hash();
+        #end
     }
 
-    public function setTextFormatState(state:String, formatBrush:TextFormatBrush):Void
+    public function setTextFormatState(state:String, formatBrush:TextFormatProperties):Void
     {
         formats.set(state, formatBrush);
     }
@@ -35,13 +44,19 @@ class BrushTextFormat implements IBrush
 
         if (formats.get(drawTarget.state) != null)
         {
-            var brushFormat = formats.get(drawTarget.state);
-            text.fontSize = brushFormat.fontSize;
-            text.fontName = brushFormat.fontName;
-            text.fontColor = brushFormat.fontColor;
-            text.fontBold = brushFormat.fontBold;
-            text.fontItalic = brushFormat.fontItalic;
-            text.fontUnderline = brushFormat.fontUnderline;
+            //var brushFormat = cast ( formats.get(drawTarget.state), TextFormatProperties);
+            //text._fontSize = brushFormat.fontSize;
+            //text._fontName = brushFormat.fontName;
+            //text._fontColor = brushFormat.fontColor;
+            //text._fontBold = brushFormat.fontBold;
+            //text._fontItalic = brushFormat.fontItalic;
+            //text._fontUnderline = brushFormat.fontUnderline;
         }
     }
+
+    public function destroy():Void
+    {
+    }
+
+
 }

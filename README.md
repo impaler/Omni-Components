@@ -4,8 +4,10 @@ Omni Components
 The code here is a WIP
 
 
-A multi-platform ui haxe nme framework with a focus on creating easy themes and styles. 
-This repo is in active development with an aim for to support html5, cpp (Desktop/Mobile), neko and flash nme targets.
+A multi-platform ui haxe nme framework with a focus on creating easy themes and styles.
+Omni Components uses simple haxe classes to for creating themes and guis programatically.
+
+Themes can make use of inheritance and be created dynamically more easily. See the BaseTheme.hx Class for the theme custom ones can extend or replace.
 
 ------------
 
@@ -16,7 +18,7 @@ Web
 Desktop
 Mobile
 
-[NME] (http://www.haxenme.org/)
+[NME] (http://www.nme.io/)
 
 
 

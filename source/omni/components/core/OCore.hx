@@ -29,6 +29,7 @@ class OCore
         #end
     }
 
+    public var coreComponentsLayer:Sprite;
     public var debugLayer:Sprite;
     public var popupsLayer:Sprite;
     public var windowsLayer:Sprite;
@@ -77,7 +78,7 @@ class OCore
     //todo put theme id per component
 
     #if haxe3
-	public var storedThemes:Map<String,OTheme>;
+    public var storedThemes:Map<String, OTheme>;
 	#else
     public var storedThemes:Hash<OTheme>;
     #end
@@ -97,7 +98,9 @@ class OCore
         debugLayer = new Sprite();
         popupsLayer = new Sprite();
         windowsLayer = new Sprite();
+        coreComponentsLayer = new Sprite();
 
+        stage.addChild(coreComponentsLayer);
         stage.addChild(windowsLayer);
         stage.addChild(popupsLayer);
         stage.addChild(debugLayer);
@@ -139,12 +142,12 @@ class OCore
     public static function addChild(component:IOComponent, ?parent:DisplayObjectContainer):IOComponent
     {
         if (parent == null)
-            parentDisplayObject = Lib.current.stage;
+            parentDisplayObject = OCore.instance.coreComponentsLayer;
 
         parentDisplayObject.addChild(component.sprite);
 
-        if (parent == null && OCore.instance.debugLayer != null)
-            Lib.current.stage.setChildIndex(OCore.instance.debugLayer, Lib.current.stage.numChildren - 1);
+        //if (parent == null && OCore.instance.debugLayer != null)
+        //coreComponentsLayer.setChildIndex(OCore.instance.debugLayer, Lib.current.stage.numChildren - 1);
         return component;
     }
 

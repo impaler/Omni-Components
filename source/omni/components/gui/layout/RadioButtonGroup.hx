@@ -18,12 +18,16 @@ class RadioButtonGroup extends OToggleButtonGroup
     //                  Component Methods
     //***********************************************************
 
-    override public function addButton(style:IStyle = null):RadioButton
+    override public function addButton(style:IStyle = null):OToggleButton
     {
         var button = new RadioButton(style);
         button.onChange.add(handleButtonChange);
+        button.group = this;
+
         this.members.push(button);
         layout.add(button);
+
+        button.drawNow();
 
         return button;
     }

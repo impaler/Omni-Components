@@ -18,15 +18,15 @@ class BaseNumericStepperButton extends NumericStepperButtonStyle
     {
         super();
 
-        layoutStyle = new BaseOComponentButtonLayout();
-        layoutStyle.defaultVAlign = OStates.MIDDLE;
-        layoutStyle.defaultHAlign = OStates.MIDDLE;
-        layoutStyle.defaultWidthSizeMethod = OStates.FIXED;
-        layoutStyle.defaultHeightSizeMethod = OStates.FIXED;
-        layoutStyle.defaultTopPadding = 0;
-        layoutStyle.defaultLeftPadding = 0;
-        layoutStyle.defaultRightPadding = 0;
-        layoutStyle.defaultBottomPadding = 0;
+        deafultLayoutStyle = new BaseOComponentButtonLayout();
+        deafultLayoutStyle.defaultVAlign = OStates.MIDDLE;
+        deafultLayoutStyle.defaultHAlign = OStates.MIDDLE;
+        deafultLayoutStyle.defaultWidthSizeMethod = OStates.FIXED;
+        deafultLayoutStyle.defaultHeightSizeMethod = OStates.FIXED;
+        deafultLayoutStyle.defaultTopPadding = 0;
+        deafultLayoutStyle.defaultLeftPadding = 0;
+        deafultLayoutStyle.defaultRightPadding = 0;
+        deafultLayoutStyle.defaultBottomPadding = 0;
 
         var bgColor = new BrushColorFill ();
         bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);

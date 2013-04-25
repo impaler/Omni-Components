@@ -48,18 +48,18 @@ class OComponentButton extends OButtonBase
     {
         super.createMembers();
 
-        var layoutstyle = styleAsComponentButton.layoutStyle;
+        var layoutstyle = styleAsComponentButton.deafultLayoutStyle;
 
         if (layoutstyle.defaultDirection == null)
             throw "OComponent Button style requires a defaultDirection of OStates.HORIZONTAL or OStates.VERTICAL";
 
         if (layoutstyle.defaultDirection == OStates.HORIZONTAL)
         {
-            layout = new HBox(styleAsComponentButton.layoutStyle);
+            layout = new HBox(styleAsComponentButton.deafultLayoutStyle);
         }
         else if (layoutstyle.defaultDirection == OStates.VERTICAL)
         {
-            layout = new VBox(styleAsComponentButton.layoutStyle);
+            layout = new VBox(styleAsComponentButton.deafultLayoutStyle);
         }
 
         coreAdd(layout);
@@ -236,7 +236,7 @@ class OComponentButtonStyle extends OButtonBaseStyle
     public var defaultWidthSizeMethod:String;
     public var defaultHeightSizeMethod:String;
 
-    public var layoutStyle:OComponentButtonLayoutStyle;
+    public var deafultLayoutStyle:OComponentButtonLayoutStyle;
 
     public function new()
     {

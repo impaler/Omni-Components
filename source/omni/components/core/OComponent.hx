@@ -357,7 +357,7 @@ class OComponent implements IOComponent
     //                  Dimensions / Positions
     //***********************************************************
 
-    #if haxe3 @:isVar #end public var x(get_x, set_x):Float;
+    @:isVar public var x(get_x, set_x):Float;
 
     public function set_x(value:Float):Float
     {
@@ -370,7 +370,7 @@ class OComponent implements IOComponent
         return sprite.x;
     }
 
-    #if haxe3 @:isVar #end public var y(get_y, set_y):Float;
+    @:isVar public var y(get_y, set_y):Float;
 
     function get_y():Float
     {

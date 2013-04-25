@@ -19,7 +19,7 @@ class OToggleButton extends Button
     public var value(get_value, set_value):Bool;
     public var _value:Bool;
 
-    public var onChange:OSignalType<OToggleButton -> Void>;
+    public var onChange:OSignalType<Dynamic -> Void>;
     public var onValueChange:OSignalBool;
 
     public var group:OToggleButtonGroup;
@@ -41,9 +41,6 @@ class OToggleButton extends Button
         super.createMembers();
 
         _value = getStateValue();
-
-        nme.Lib.trace(value);
-        nme.Lib.trace(_state);
     }
 
     override public function destroy():Void
@@ -137,16 +134,6 @@ class OToggleButton extends Button
 
     public function set_value(b:Bool):Bool
     {
-        return setValue(b);
-    }
-
-    public function get_value():Bool
-    {
-        return _value;
-    }
-
-    public function setValue(b:Bool):Bool
-    {
         if (_value != b)
         {
             _value = b;
@@ -158,7 +145,7 @@ class OToggleButton extends Button
         return _value;
     }
 
-    public function getValue():Bool
+    public function get_value():Bool
     {
         return _value;
     }

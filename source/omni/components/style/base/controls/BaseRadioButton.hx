@@ -23,7 +23,7 @@ class BaseRadioButton extends RadioButtonStyle
         textStyle.fontSize = 18;
         defaultLabel = textStyle;
 
-        layoutStyle = new BaseOComponentButtonLayout();
+        deafultLayoutStyle = new BaseOComponentButtonLayout();
 
         var bgColor = new BrushColorFill ();
 
@@ -37,7 +37,7 @@ class BaseRadioButton extends RadioButtonStyle
         defaultWidthSizeMethod = OStates.AUTO;
         defaultHeightSizeMethod = OStates.AUTO;
 
-        //defaultHeight = 40;
-
+        defaultHeight = 40;
+        defaultState = OStates.OFF;
     }
 }

@@ -1,5 +1,6 @@
 package omni.components.core;
 
+import omni.components.gui.layout.window.TabButton;
 import omni.components.gui.layout.VBox;
 import omni.components.gui.layout.HBox;
 import omni.components.core.interfaces.IStyle;
@@ -22,8 +23,8 @@ class OToggleButtonGroup extends OComponent
 
     public var layout:OLayout;
 
-    public var onChange:OSignalType<OToggleButtonGroup -> Void>;
-    public var onButtonChange:OSignalType<OToggleButton -> Void>;
+    public var onChange:OSignalType<Dynamic -> Void>;
+    public var onButtonChange:OSignalType<Dynamic -> Void>;
 
     private var _target:OToggleButton;
 
@@ -39,15 +40,13 @@ class OToggleButtonGroup extends OComponent
 
     override public function createMembers():Void
     {
-        var thisStyle = cast(_style, OToggleButtonGroupStyle);
-
-        if (thisStyle.defaultDirection == OStates.HORIZONTAL)
+        if (styleAsOToggleButtonGroup.defaultDirection == OStates.HORIZONTAL)
         {
-            layout = new HBox(thisStyle.layoutStyle);
+            layout = new HBox(styleAsOToggleButtonGroup.layoutStyle);
         }
-        else if (thisStyle.defaultDirection == OStates.VERTICAL)
+        else if (styleAsOToggleButtonGroup.defaultDirection == OStates.VERTICAL)
         {
-            layout = new VBox(thisStyle.layoutStyle);
+            layout = new VBox(styleAsOToggleButtonGroup.layoutStyle);
         }
 
         this.sprite.addChild(layout.sprite);
@@ -70,16 +69,18 @@ class OToggleButtonGroup extends OComponent
     //                  Event Handlers
     //***********************************************************
 
-    public function handleButtonChange(button:OToggleButton):Void
+    public function handleButtonChange(button:Dynamic):Void
     {
-        if (button._value)
+        var btn = cast (button, OToggleButton);
+
+        if (btn._value)
         {
-            _target = button;
+            _target = btn;
             update();
         }
 
         onChange.dispatch(this);
-        onButtonChange.dispatch(button);
+        onButtonChange.dispatch(btn);
     }
 
     //***********************************************************
@@ -88,12 +89,11 @@ class OToggleButtonGroup extends OComponent
 
     public function setActiveButton(button:Dynamic):Void
     {
-        button.value = true;
         _target = button;
         update();
     }
 
-    public function addButton(style:IStyle = null):OToggleButton
+    public function addButton(style:IStyle = null):Dynamic
     {
         var button = new OToggleButton(style);
         button.group = this;
@@ -132,6 +132,13 @@ class OToggleButtonGroup extends OComponent
     //***********************************************************
     //                  Component Style
     //***********************************************************
+
+    private var styleAsOToggleButtonGroup(get_styleAsOToggleButtonGroup, null):OToggleButtonGroupStyle;
+
+    private function get_styleAsOToggleButtonGroup():OToggleButtonGroupStyle
+    {
+        return cast(_style, OToggleButtonGroupStyle);
+    }
 
     override public function get_styleId():String
     {

@@ -19,6 +19,7 @@ class BaseWindowVBox extends WindowVBoxStyle
         defaultHAlign = OStates.MIDDLE;
         defaultVAlign = OStates.TOP;
 
+        defaultPadding = 20;
         defaultTopPadding = 20;
         defaultBottomPadding = 20;
         defaultLeftPadding = 20;

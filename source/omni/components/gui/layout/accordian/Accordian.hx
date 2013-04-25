@@ -5,7 +5,7 @@ import omni.components.core.OLayout;
 import omni.components.core.OContainer;
 import omni.components.core.OComponent;
 import omni.components.gui.layout.accordian.AccordianPage;
-//extend ContinerPage
+
 class Accordian extends OContainer
 {
 
@@ -20,8 +20,8 @@ class Accordian extends OContainer
 
         direction = OStates.VERTICAL;
 
-        layout = new OLayout();
-        layout.direction = direction;
+        //layout = new OLayout();
+        //layout.direction = direction;
 
     }
 
@@ -36,18 +36,18 @@ class Accordian extends OContainer
     }
 
 
-    public function setDirection(directionValue:String):Void
-    {
-        if (direction != directionValue)
-        {
-            direction = directionValue;
-
-            if (layout != null)
-            {
-                layout.direction = direction;
-            }
-        }
-
-    }
+    //public function setDirection(directionValue:String):Void
+    //{
+    //    if (direction != directionValue)
+    //    {
+    //        direction = directionValue;
+    //
+    //        if (layout != null)
+    //        {
+    //            layout.direction = direction;
+    //        }
+    //    }
+    //
+    //}
 
 }

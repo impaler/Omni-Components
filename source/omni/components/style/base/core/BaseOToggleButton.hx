@@ -26,10 +26,10 @@ class BaseOToggleButton extends OToggleButtonStyle
         defaultHeight = 100;
         defaultWidth = 100;
 
-        layoutStyle = new OComponentButtonLayoutStyle();
-        layoutStyle.defaultDirection = OStates.HORIZONTAL;
-        layoutStyle.defaultWidthSizeMethod = OStates.FIXED;
-        layoutStyle.defaultHeightSizeMethod = OStates.FIXED;
+        deafultLayoutStyle = new OComponentButtonLayoutStyle();
+        deafultLayoutStyle.defaultDirection = OStates.HORIZONTAL;
+        deafultLayoutStyle.defaultWidthSizeMethod = OStates.FIXED;
+        deafultLayoutStyle.defaultHeightSizeMethod = OStates.FIXED;
 
         defaultLabel = null;
         //layoutStyle = null;

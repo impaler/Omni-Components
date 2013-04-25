@@ -1,10 +1,10 @@
 package omni.components.core;
 
-import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OCore;
 import omni.components.core.OComponent;
+import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.core.OContainer;
 import omni.components.core.OLayout;
 
@@ -41,6 +41,12 @@ class OContainerContent extends OContainer
     {
         currentLayout.add(comp);
         return comp;
+    }
+
+    override public function addType(comp:Class<IOComponent>, ?style:IStyle = null):IOComponent
+    {
+        var instance = currentLayout.addType(comp, style);
+        return instance;
     }
 
     override public function drawMembers():Void

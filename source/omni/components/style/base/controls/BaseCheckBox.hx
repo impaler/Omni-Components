@@ -34,7 +34,7 @@ class BaseCheckBox extends CheckBoxStyle
         setBackgroundBrush(bgColor);
 
         //defaultLabel = null;
-        layoutStyle = new BaseOComponentButtonLayout();
+        deafultLayoutStyle = new BaseOComponentButtonLayout();
 
         defaultState = OStates.OFF;
         defaultPadding = 0;

@@ -1,5 +1,6 @@
 package omni.components.core;
 
+import omni.components.style.brush.BrushTextFormat;
 import omni.utils.ColorUtils;
 import omni.utils.ComponentUtils;
 import omni.components.core.interfaces.IOComponent;
@@ -124,16 +125,12 @@ class OTextBase extends OComponent
 
     public function updateTextFormat():Void
     {
-
         //		_fontBold,
         //		_fontItalic,
         //		_fontUnderline,
 
         _format = new TextFormat(
-        _fontName, _fontSize, _fontColor, null, //todo			_fontBold,
-        null, //todo			_fontItalic,
-        null, //todo			_fontUnderline,
-        null, //todo			_fontURL,
+        _fontName, _fontSize, _fontColor, _fontBold, _fontItalic, _fontUnderline, null, //todo			_fontURL,
         null, //todo			_fontTarget,
         ComponentUtils.convertTextAlignmentFromString(_align), null, //todo			_fontLeftMargin,
         null, //todo			_fontRightMargin,
@@ -336,6 +333,8 @@ class OTextBase extends OComponent
 
 
 
+
+
     public function set_restrict(value:String)
     {
         if (_restrict != value)
@@ -423,6 +422,8 @@ class TextBaseStyle extends OBaseStyle
 
     public static var styleString:String = "TextBaseStyle";
 
+    public var textBrush:BrushTextFormat;
+
     public var selectable:Bool;
     public var multiline:Bool;
     public var wordWrap:Bool;
@@ -478,9 +479,13 @@ class TextBaseStyle extends OBaseStyle
         //			textComponent._text = defaultText;
     }
 
+
     override public function update(value:IOComponent):Void
     {
         var textBase = cast ( value, OTextBase);
+
+        if (textBrush != null)
+            textBrush.update(value);
 
         textBase.updateTextFieldProperties();
         textBase.updateTextFormat();

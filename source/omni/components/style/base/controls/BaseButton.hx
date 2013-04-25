@@ -28,7 +28,7 @@ class BaseButton extends ButtonStyle
         defaultLabel = new BaseButtonLabel();
         defaultIcon = new BaseIcon();
 
-        layoutStyle = new BaseOComponentButtonLayout();
+        deafultLayoutStyle = new BaseOComponentButtonLayout();
 
         var bgColor = new BrushColorFill ();
         bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);

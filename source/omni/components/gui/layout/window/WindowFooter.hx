@@ -1,39 +1,36 @@
 package omni.components.gui.layout.window;
 
-import omni.utils.signals.OSignalBool;
-import omni.utils.signals.OSignalType;
-import omni.utils.OStates;
-import omni.utils.signals.OSignalMouse;
-import omni.components.core.OContainerPage;
-import omni.components.core.OToggleButton;
+import omni.components.core.OContainer;
+import omni.components.core.OContainer.OContainerStyle;
 
-class TabButton extends OToggleButton
+class WindowFooter extends OContainer
 {
 
     //***********************************************************
     //                  Public Variables
     //***********************************************************
 
-    public var containerPage:OContainerPage;
-
     //***********************************************************
-    //                  Event Handlers
+    //                  Component Overrides
     //***********************************************************
 
     override public function createComponentMembers():Void
     {
         super.createComponentMembers();
-        onChange = new OSignalType<TabButton -> Void>();
     }
 
-    override public function handleMouseDown(?e:OSignalMouse):Void
+    override public function destroy():Void
     {
-        if (_value == true)
-        {
-            return;
-        }
-        super.handleMouseDown(e);
+        super.destroy();
     }
+
+    //***********************************************************
+    //                  Event Handlers
+    //***********************************************************
+
+    //***********************************************************
+    //                  Properties
+    //***********************************************************
 
     //***********************************************************
     //                  Component Style
@@ -41,14 +38,13 @@ class TabButton extends OToggleButton
 
     override public function get_styleId():String
     {
-        return TabButtonStyle.styleString;
+        return WindowFooterStyle.styleString;
     }
-
 }
 
-class TabButtonStyle extends OToggleButtonStyle
+class WindowFooterStyle extends OContainerStyle
 {
-    public static var styleString:String = "TabButtonStyle";
+    public static var styleString:String = "WindowFooterStyle";
 
     public function new()
     {

@@ -1,5 +1,6 @@
 package omni.components.gui.layout.window;
 
+import omni.components.gui.layout.window.WindowFooter.WindowFooterStyle;
 import omni.components.gui.layout.window.WindowHeader.WindowHeaderStyle;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
@@ -40,7 +41,7 @@ class Window extends OComponent
     public var paged:PagedContainer;
 
     public var header:WindowHeader;
-    public var footer:OComponent;
+    public var footer:WindowFooter;
     public var scalerButton:OButtonBase;
 
     //***********************************************************
@@ -80,6 +81,12 @@ class Window extends OComponent
             OCore.addChild(this);
         }
         onOpened.dispatch(this);
+
+        if (paged != null)
+        {
+            if (paged.currentPage == null)
+                paged.openFirstPage();
+        }
     }
 
     public function close(destroy:Bool = false):Void
@@ -155,7 +162,7 @@ class Window extends OComponent
         containerTopPadding = styleAsWindow.containerTopPadding;
         resizeBehaviour = styleAsWindow.resizeBehaviour;
 
-        footer = new OButtonBase(styleAsWindow.footer);
+        footer = new WindowFooter(styleAsWindow.footer);
         addToMembers(footer);
         coreAdd(footer);
 
@@ -186,7 +193,6 @@ class Window extends OComponent
         {
             setContainerType(styleAsWindow.containerDefault);
         }
-
 
         setupResizeBehavior();
     }
@@ -222,6 +228,7 @@ class Window extends OComponent
 
         footer.width = _width;
         footer.y = _height - footer.height;
+        footer.drawNow();
 
         header.width = _width;
         header.drawNow();
@@ -232,10 +239,7 @@ class Window extends OComponent
         content._height = height - containerTopPadding - footer.height - header.height;
         content._width = width - containerLeftPadding - containerRightPadding;
         content.y = header.height;
-
-
         content.x = containerLeftPadding;
-
         content.drawNow();
     }
 
@@ -247,6 +251,7 @@ class Window extends OComponent
 
     override public function destroy():Void
     {
+        //todo
         //	public var onStageResize:OCoreEvent;
         //public var onResizeDragRender:OCoreEvent;
         //public var onMouseDownHeader:OSignalMouse;
@@ -430,7 +435,7 @@ class WindowStyle extends OBaseBackgroundStyle
 
     public var scalerButton:OButtonBaseStyle;
     public var header:WindowHeaderStyle;
-    public var footer:OButtonBaseStyle;
+    public var footer:WindowFooterStyle;
 
     public var containerDefault:Class<OContainer>;
 

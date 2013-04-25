@@ -7,15 +7,11 @@ class RadioButton extends OToggleButton
 {
     override public function handleMouseDown(?e:OSignalMouse):Void
     {
-        if (!_value)
+        if (_value == true)
         {
-            isDown = true;
-            _value = !_value;
-            _state = getValueState();
-            invalidate();
-            onValueChange.dispatch(_value);
-            onChange.dispatch(this);
+            return;
         }
+        super.handleMouseDown(e);
     }
 
     //***********************************************************

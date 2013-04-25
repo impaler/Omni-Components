@@ -1,5 +1,6 @@
 package omni.components.gui.layout.list;
 
+import omni.components.core.OComponent;
 import omni.components.core.OComponent.OComponentStyle;
 
 class ListItem extends OComponent

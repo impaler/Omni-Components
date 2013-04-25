@@ -49,14 +49,6 @@ class ComponentUtils
  */
     #if (flash || js)
 
-	
-
-	
-
-
-
-
-
     public static function convertTextAlignmentFromString(strAlign:String):TextFormatAlign
     {
         if (strAlign == "right")
@@ -78,14 +70,6 @@ class ComponentUtils
     }
 
     #elseif (cpp || neko)
-
-	
-
-	
-
-
-
-
 
     public static function convertTextAlignmentFromString(strAlign:String):String
     {

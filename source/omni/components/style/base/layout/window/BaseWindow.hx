@@ -1,5 +1,6 @@
 package omni.components.style.base.layout.window;
 
+import omni.components.style.base.core.BaseOContainer;
 import omni.components.gui.layout.window.WindowTabbedContainer;
 import omni.components.gui.layout.window.WindowContentContainer;
 import omni.components.core.OContainerContent;
@@ -22,7 +23,7 @@ class BaseWindow extends WindowStyle
         super();
 
         header = new BaseWindowHeader();
-        footer = new BaseOButtonBase();
+        footer = new BaseWindowFooter();
 
         scalerButton = new BaseWindowScalerButton();
 

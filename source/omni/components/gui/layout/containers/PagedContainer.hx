@@ -1,5 +1,6 @@
 package omni.components.gui.layout.containers;
 
+import omni.components.core.OToggleButton;
 import omni.components.core.OContainerPage;
 import nme.geom.Rectangle;
 import omni.components.core.OContainer;
@@ -41,7 +42,7 @@ class PagedContainer extends OContainer
 
         _scrollRectEnabled = false;
 
-        tabs.onTabButtonChange.add(handleTabChange);
+        tabs.onButtonChange.add(handleTabChange);
     }
 
     override public function drawMembers():Void
@@ -80,14 +81,14 @@ class PagedContainer extends OContainer
 
     public function handleTabChange(button:TabButton):Void
     {
-        openPage(button.containerPage);
+        if (currentPage != button.containerPage)
+            openPage(button.containerPage);
     }
 
     public function addNewPage(?name:String, ?pageStyle:IStyle):OContainerPage
     {
         var newPage = new OContainerPage(pageStyle);
-        if (name != null)
-            newPage.title = name;
+        if (name != null) newPage.title = name;
         addPage(newPage);
 
         return newPage;
@@ -95,16 +96,10 @@ class PagedContainer extends OContainer
 
     public function addPage(page:OContainerPage):OContainerPage
     {
-        var button = tabs.addTabButton(page);
-        page.pageButton = button;
-        button.text = page.title;
-        button.drawNow();
-        tabs.drawNow();
-
         page.parentContainer = this;
+        var button = tabs.addTabButton(page);
+        tabs.drawNow();
         add(page);
-
-        openPage(page);
 
         return page;
     }
@@ -122,24 +117,18 @@ class PagedContainer extends OContainer
 
     public function removePage(page:OContainerPage):Void
     {
+        if (page.sprite.parent == this.sprite)
+            this.sprite.addChild(page.sprite);
         remove(page);
     }
 
     public function openPage(page:OContainerPage):Void
     {
-        if (currentPage != page)
-        {
-            if (currentPage != null)
-            {
-                previousPage = currentPage;
-                currentPage.onClosed.addOnce(handlePageClose);
-                currentPage.close();
-            }
-
-            nextPage = page;
-            nextPage.onOpened.addOnce(handlePageOpened);
-            nextPage.open();
-        }
+        currentPage = page;
+        this.sprite.addChild(page.sprite);
+        tabs.setActiveButton(page.pageButton);
+        onPageChange.dispatch(page);
+        invalidate();
     }
 
     public function openFirstPage():Void
@@ -184,21 +173,6 @@ class PagedContainer extends OContainer
         {
             return cast(members[currentIndex - 1], OContainerPage);
         }
-    }
-
-    public function handlePageClose(page:OContainerPage):Void
-    {
-        page = null;
-        nextPage = null;
-        currentPage = nextPage;
-    }
-
-    public function handlePageOpened(page:OContainerPage):Void
-    {
-        invalidate();
-        onPageChange.dispatch(cast(page, OContainerPage));
-        tabs.setActiveButton(page.pageButton);
-        currentPage = page;
     }
 
     public function getPageByName(name:String):OContainerPage

@@ -99,20 +99,6 @@ class OContainerPage extends OComponent
         return container;
     }
 
-    public function open():Void
-    {
-        pageButton.value = true;
-        parentContainer.sprite.addChild(this.sprite);
-        onOpened.dispatch(this);
-    }
-
-    public function close():Void
-    {
-        pageButton.value = false;
-        parentContainer.sprite.removeChild(this.sprite);
-        onClosed.dispatch(this);
-    }
-
     //***********************************************************
     //                  Properties
     //***********************************************************
