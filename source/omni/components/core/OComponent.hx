@@ -357,7 +357,7 @@ class OComponent implements IOComponent
     //                  Dimensions / Positions
     //***********************************************************
 
-    @:isVar public var x(get_x, set_x):Float;
+    #if haxe3 @:isVar #end public var x(get_x, set_x):Float;
 
     public function set_x(value:Float):Float
     {
@@ -370,7 +370,7 @@ class OComponent implements IOComponent
         return sprite.x;
     }
 
-    @:isVar public var y(get_y, set_y):Float;
+    #if haxe3 @:isVar #end public var y(get_y, set_y):Float;
 
     function get_y():Float
     {
@@ -498,7 +498,7 @@ class OComponent implements IOComponent
     public function set_buttonMode(b:Bool):Bool
     {
         #if flash
-//todo new native flash api for cursors
+        //todo new native flash api for cursors
         sprite.buttonMode = b;
         #elseif js
 		sprite.useHandCursor = b;
@@ -515,8 +515,8 @@ class OComponent implements IOComponent
         #elseif js
 		return sprite.useHandCursor;
         #else
-return false;
-#end
+        return false;
+        #end
     }
 
     public var mouseChildren(get_mouseChildren, set_mouseChildren):Bool;
