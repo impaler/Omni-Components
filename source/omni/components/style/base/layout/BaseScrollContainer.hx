@@ -17,6 +17,17 @@ class BaseScrollContainer extends ScrollContainerStyle
     {
         super();
 
+        hContentAlign = OStates.MIDDLE;
+        scrollButtonSize = 10;
+        scrollStep = 20;
+        tweenEnabled = true;
+        tweenBackSpeed = 2;
+        speedLimit = 1;
+        ratio = .8;
+        decel = .96;
+        mouseWheelV = true;
+        touchTolerance = 10;
+
         hScrollStyle = new BaseScrollBar();
         vScrollStyle = new BaseScrollBar();
 
