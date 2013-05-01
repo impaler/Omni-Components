@@ -135,12 +135,11 @@ class PagedContainer extends OContainer
             }
 
             currentPage = page;
-            this.sprite.addChild(page.sprite);
             tabs.setActiveButton(page.pageButton);
             currentPage.enableSignals();
             onPageChange.dispatch(page);
-
-            invalidate();
+            drawNow();
+            this.sprite.addChild(page.sprite);
         }
     }
 
