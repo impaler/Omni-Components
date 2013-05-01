@@ -1,5 +1,6 @@
 package omni.examples.components;
 
+import omni.components.theme.colors.Dark;
 import omni.components.theme.colors.Orange;
 import omni.examples.components.tests.previewer.ThemePreview;
 import nme.Lib;
@@ -22,8 +23,8 @@ class HelloWorld extends MovieClip
 
         super();
 
-        //        var themePreview = new ThemePreview(Dark);
-        var themePreview = new ThemePreview(Orange);
+                var themePreview = new ThemePreview(Dark);
+        //var themePreview = new ThemePreview(Orange);
 
 
     }

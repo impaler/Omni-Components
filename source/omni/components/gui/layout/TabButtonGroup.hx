@@ -1,5 +1,6 @@
 package omni.components.gui.layout;
 
+import omni.utils.signals.OSignalMouse;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.components.gui.layout.window.TabButton;
@@ -22,6 +23,8 @@ class TabButtonGroup extends OToggleButtonGroup
     //                  Public Variables
     //***********************************************************
 
+    public var onMouseWheel:OSignalMouse;
+
     //***********************************************************
     //                  Component Overrides
     //***********************************************************
@@ -38,14 +41,23 @@ class TabButtonGroup extends OToggleButtonGroup
         }
 
         this.sprite.addChild(layout.sprite);
-
-        //onChange = new OSignalType<TabButtonGroup -> Void>();
+        
         onButtonChange = new OSignalType<TabButton -> Void>();
+
+        onMouseWheel = new OSignalMouse(OSignalMouse.MOUSE_WHEEL, this.sprite);
+        onMouseWheel.add(handleMouseWheel);
     }
 
     //***********************************************************
     //                  Event Handlers
     //***********************************************************
+
+    public function handleMouseWheel(e:OSignalMouse):Void
+    {
+        var button:TabButton=null;
+        e.delta > 0 ? button = nextButton() : button = previousButton();
+        button.handleMouseDown();
+    }
 
     //***********************************************************
     //                  Component Methods
