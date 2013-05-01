@@ -83,6 +83,40 @@ class OToggleButtonGroup extends OComponent
     //                  Component Methods
     //***********************************************************
 
+    public function nextButton():Dynamic
+    {
+        if (_target!=null)
+        {
+            var currentIndex = Lambda.indexOf(members, _target);
+            if (members[currentIndex + 1] == null)
+            {
+                return (members[0]);
+            }
+            else
+            {
+                return (members[currentIndex + 1]);
+            }
+        }
+        return null;
+    }
+
+    public function previousButton():Dynamic
+    {
+        if (_target!=null)
+        {
+            var currentIndex = Lambda.indexOf(members, _target);
+            if (members[currentIndex - 1] == null)
+            {
+                return (members[members.length-1]);
+            }
+            else
+            {
+                return (members[currentIndex - 1]);
+            }
+        }
+        return null;
+    }
+
     public function setActiveButton(button:Dynamic):Void
     {
         _target = button;
