@@ -1,5 +1,6 @@
 package omni.components.gui.layout.containers;
 
+import omni.components.gui.layout.window.WindowContentContainer;
 import omni.components.core.OToggleButton;
 import omni.components.core.OContainerPage;
 import nme.geom.Rectangle;
@@ -25,7 +26,7 @@ class PagedContainer extends OContainer
 
     public var tabs:TabButtonGroup;
 
-    public var onPageChange:OSignalType<OContainerPage -> Void>;
+    public var onPageChange:OSignalType<Dynamic -> Void>;
 
     //***********************************************************
     //                  Component Overrides
@@ -81,8 +82,7 @@ class PagedContainer extends OContainer
 
     public function handleTabChange(button:TabButton):Void
     {
-        if (currentPage != button.containerPage)
-            openPage(button.containerPage);
+        openPage(button.containerPage);
     }
 
     public function addNewPage(?name:String, ?pageStyle:IStyle):OContainerPage
@@ -97,6 +97,7 @@ class PagedContainer extends OContainer
     public function addPage(page:OContainerPage):OContainerPage
     {
         page.parentContainer = this;
+        page.disableSignals();
         var button = tabs.addTabButton(page);
         tabs.drawNow();
         add(page);
@@ -118,17 +119,29 @@ class PagedContainer extends OContainer
     public function removePage(page:OContainerPage):Void
     {
         if (page.sprite.parent == this.sprite)
-            this.sprite.addChild(page.sprite);
+            this.sprite.removeChild(page.sprite);
         remove(page);
     }
 
     public function openPage(page:OContainerPage):Void
     {
-        currentPage = page;
-        this.sprite.addChild(page.sprite);
-        tabs.setActiveButton(page.pageButton);
-        onPageChange.dispatch(page);
-        invalidate();
+        if ( currentPage != page )
+        {
+            if(currentPage!=null)
+            {
+                currentPage.disableSignals();
+                if (page.sprite.parent == this.sprite)
+                    this.sprite.removeChild(currentPage.sprite);
+            }
+
+            currentPage = page;
+            this.sprite.addChild(page.sprite);
+            tabs.setActiveButton(page.pageButton);
+            currentPage.enableSignals();
+            onPageChange.dispatch(page);
+
+            invalidate();
+        }
     }
 
     public function openFirstPage():Void

@@ -107,6 +107,16 @@ class OCoreEvent extends OSignalType<OCoreEvent -> Void>
         }
     }
 
+    public function disable():Void
+    {
+        removeEventListener();
+    }
+
+    public function enable():Void
+    {
+        addEventListener();
+    }
+
     function removeEventListener()
     {
         switch (type) {

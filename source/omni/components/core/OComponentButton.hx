@@ -1,5 +1,8 @@
 package omni.components.core;
 
+import omni.components.gui.controls.SelectList;
+import omni.components.gui.controls.Button;
+import omni.components.gui.controls.Slider;
 import omni.components.gui.layout.VBox;
 import omni.components.gui.layout.HBox;
 import omni.components.core.interfaces.IStyle;
@@ -190,8 +193,6 @@ class OComponentButton extends OButtonBase
 
     public function set_bottomPadding(value:Int):Int
     {
-        //var padding =
-        //invalidate();
         return layout.set_bottomPadding(value);
     }
 
@@ -202,8 +203,6 @@ class OComponentButton extends OButtonBase
 
     public function set_topPadding(value:Int):Int
     {
-        //var padding =
-        //invalidate();
         return layout.set_topPadding(value);
     }
 

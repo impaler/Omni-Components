@@ -1,5 +1,6 @@
 package omni.examples.components.tests.previewer;
 
+import omni.examples.components.tests.previewer.pages.SelectListPage;
 import omni.components.gui.layout.TabButtonGroup;
 import omni.examples.components.tests.previewer.pages.VBoxPage;
 import omni.examples.components.tests.previewer.pages.HBoxPage;
@@ -35,6 +36,7 @@ class ThemePreview
 
         addTestPage(HBoxPage);
         addTestPage(VBoxPage);
+        addTestPage(SelectListPage);
         addTestPage(SlidersPage);
         addTestPage(IconsPage);
         addTestPage(NumericStepperPage);

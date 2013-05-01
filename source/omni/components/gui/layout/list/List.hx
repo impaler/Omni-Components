@@ -57,7 +57,7 @@ class List extends Window
     }
 }
 
-class ListStyle extends OContainerStyle
+class ListStyle extends WindowStyle
 {
     public static var styleString:String = "ListStyle";
 

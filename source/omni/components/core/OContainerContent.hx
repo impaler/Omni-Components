@@ -58,6 +58,30 @@ class OContainerContent extends OContainer
         }
     }
 
+    override public function enableSignals():Void
+    {
+        if (!_listening)
+        {
+            if (container != null)
+            {
+                container.enableSignals();
+            }
+            _listening = true;
+        }
+    }
+
+    override public function disableSignals():Void
+    {
+        if (_listening)
+        {
+            if (container != null)
+            {
+                container.disableSignals();
+            }
+            _listening = false;
+        }
+    }
+
     //***********************************************************
     //                  Component Methods
     //***********************************************************

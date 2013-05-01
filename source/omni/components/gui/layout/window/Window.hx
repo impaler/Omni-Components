@@ -71,6 +71,119 @@ class Window extends OComponent
     public var _maximized:Bool = false;
 
     //***********************************************************
+    //                  Component Overrides
+    //***********************************************************
+
+    override public function createMembers():Void
+    {
+        super.createMembers();
+
+        moveable = styleAsWindow.moveable;
+        resizeable = styleAsWindow.resizeable;
+        liveResize = styleAsWindow.liveResize;
+        containerLeftPadding = styleAsWindow.containerLeftPadding;
+        containerRightPadding = styleAsWindow.containerRightPadding;
+        containerTopPadding = styleAsWindow.containerTopPadding;
+        resizeBehaviour = styleAsWindow.resizeBehaviour;
+
+        footer = new WindowFooter(styleAsWindow.footer);
+        addToMembers(footer);
+        coreAdd(footer);
+
+        scalerButton = new OButtonBase(styleAsWindow.scalerButton);
+        addToMembers(scalerButton);
+        coreAdd(scalerButton);
+
+        onResizeDragRender = new OCoreEvent(OCoreEvent.ENTER_FRAME, this.sprite);
+        onMouseMove = OCore.instance.onStageMouseMove;
+        onMouseUp = OCore.instance.onStageMouseUp;
+
+        header = new WindowHeader(styleAsWindow.header);
+        header.window = this;
+
+        addToMembers(header);
+        coreAdd(header);
+        header.buttonMode = true;
+
+        onMouseDownHeader = new OSignalMouse(OSignalMouse.MOUSE_DOWN, header.sprite);
+        onOpened = new OSignalType<Window -> Void>();
+        onClosed = new OSignalType<Window -> Void>();
+
+        if (Type.getClassName(styleAsWindow.containerDefault) == Type.getClassName(WindowTabbedContainer))
+        {
+            setPagedContainer(cast ( Type.createInstance(styleAsWindow.containerDefault, [null]), PagedContainer));
+        }
+        else
+        {
+            setContainerType(styleAsWindow.containerDefault).disableSignals();
+        }
+
+        setupResizeBehavior();
+    }
+
+    public function setupResizeBehavior():Void
+    {
+        onStageResize = OCore.instance.onStageResize;
+        onStageResize.add(handleStageResize);
+    }
+
+    public function handleStageResize(e:OCoreEvent):Void
+    {
+        if (resizeBehaviour == OStates.FIT && _maximized)
+        {
+            maxHeight = nme.Lib.stage.stageHeight;
+            maxWidth = nme.Lib.stage.stageWidth;
+
+            move(0, 0);
+            size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
+            _maximized = true;
+        }
+    }
+
+    override public function add(comp:IOComponent):IOComponent
+    {
+        content.add(comp);
+        return comp;
+    }
+
+    override public function drawMembers():Void
+    {
+        super.drawMembers();
+
+        footer.width = _width;
+        footer.y = _height - footer.height;
+        footer.drawNow();
+
+        header.width = _width;
+        header.drawNow();
+
+        if (!_resizing)
+            scalerButton.move(_width - scalerButton._width, _height - scalerButton._height);
+
+        content._height = height - footer.height - header.height;
+        content._width = width - containerLeftPadding - containerRightPadding;
+        content.y = header.height;
+        content.x = containerLeftPadding;
+        content.drawNow();
+    }
+
+    override public function enableSignals():Void
+    {
+        onMouseDownHeader.add(handleStartWindowDrag);
+        scalerButton.onMouseDown.add(handleScaleWindowMouseDown);
+    }
+
+    override public function destroy():Void
+    {
+        //todo
+        //	public var onStageResize:OCoreEvent;
+        //public var onResizeDragRender:OCoreEvent;
+        //public var onMouseDownHeader:OSignalMouse;
+        //public var onMouseMove:OSignalMouse;
+        //public var onMouseUp:OSignalMouse;
+    }
+
+    //***********************************************************
     //                  Component Methods
     //***********************************************************
 
@@ -145,123 +258,6 @@ class Window extends OComponent
     {
         //todo
     }
-
-    //***********************************************************
-    //                  Component Overrides
-    //***********************************************************
-
-    override public function createMembers():Void
-    {
-        super.createMembers();
-
-        moveable = styleAsWindow.moveable;
-        resizeable = styleAsWindow.resizeable;
-        liveResize = styleAsWindow.liveResize;
-        containerLeftPadding = styleAsWindow.containerLeftPadding;
-        containerRightPadding = styleAsWindow.containerRightPadding;
-        containerTopPadding = styleAsWindow.containerTopPadding;
-        resizeBehaviour = styleAsWindow.resizeBehaviour;
-
-        footer = new WindowFooter(styleAsWindow.footer);
-        addToMembers(footer);
-        coreAdd(footer);
-
-        scalerButton = new OButtonBase(styleAsWindow.scalerButton);
-        addToMembers(scalerButton);
-        coreAdd(scalerButton);
-
-        onResizeDragRender = new OCoreEvent(OCoreEvent.ENTER_FRAME, this.sprite);
-        onMouseMove = OCore.instance.onStageMouseMove;
-        onMouseUp = OCore.instance.onStageMouseUp;
-
-        header = new WindowHeader(styleAsWindow.header);
-        header.window = this;
-
-        addToMembers(header);
-        coreAdd(header);
-        header.buttonMode = true;
-
-        onMouseDownHeader = new OSignalMouse(OSignalMouse.MOUSE_DOWN, header.sprite);
-        onOpened = new OSignalType<Window -> Void>();
-        onClosed = new OSignalType<Window -> Void>();
-
-        if (Type.getClassName(styleAsWindow.containerDefault) == Type.getClassName(WindowTabbedContainer))
-        {
-            setPagedContainer(cast ( Type.createInstance(styleAsWindow.containerDefault, [null]), PagedContainer));
-        }
-        else
-        {
-            setContainerType(styleAsWindow.containerDefault);
-        }
-
-        setupResizeBehavior();
-    }
-
-    public function setupResizeBehavior():Void
-    {
-        onStageResize = OCore.instance.onStageResize;
-        onStageResize.add(handleStageResize);
-    }
-
-    public function handleStageResize(e:OCoreEvent):Void
-    {
-        if (resizeBehaviour == OStates.FIT && _maximized)
-        {
-            maxHeight = nme.Lib.stage.stageHeight;
-            maxWidth = nme.Lib.stage.stageWidth;
-
-            move(0, 0);
-            size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
-            _maximized = true;
-        }
-    }
-
-    override public function add(comp:IOComponent):IOComponent
-    {
-        content.add(comp);
-        return comp;
-    }
-
-    override public function drawMembers():Void
-    {
-        super.drawMembers();
-
-        footer.width = _width;
-        footer.y = _height - footer.height;
-        footer.drawNow();
-
-        header.width = _width;
-        header.drawNow();
-
-        if (!_resizing)
-            scalerButton.move(_width - scalerButton._width, _height - scalerButton._height);
-
-        content._height = height - containerTopPadding - footer.height - header.height;
-        content._width = width - containerLeftPadding - containerRightPadding;
-        content.y = header.height;
-        content.x = containerLeftPadding;
-        content.drawNow();
-    }
-
-    override public function enableSignals():Void
-    {
-        onMouseDownHeader.add(handleStartWindowDrag);
-        scalerButton.onMouseDown.add(handleScaleWindowMouseDown);
-    }
-
-    override public function destroy():Void
-    {
-        //todo
-        //	public var onStageResize:OCoreEvent;
-        //public var onResizeDragRender:OCoreEvent;
-        //public var onMouseDownHeader:OSignalMouse;
-        //public var onMouseMove:OSignalMouse;
-        //public var onMouseUp:OSignalMouse;
-    }
-
-    //***********************************************************
-    //                  Component Methods
-    //***********************************************************
 
     public function setContainer(containerInstance:OContainer):OContainer
     {

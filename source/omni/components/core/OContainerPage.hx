@@ -70,6 +70,30 @@ class OContainerPage extends OComponent
         }
     }
 
+    override public function enableSignals():Void
+    {
+        if (!_listening)
+        {
+            if (container != null)
+            {
+                container.enableSignals();
+            }
+            _listening = true;
+        }
+    }
+
+    override public function disableSignals():Void
+    {
+        if (_listening)
+        {
+            if (container != null)
+            {
+                container.disableSignals();
+            }
+            _listening = false;
+        }
+    }
+
     override public function destroy():Void
     {
         onClosed.destroy();
@@ -93,10 +117,9 @@ class OContainerPage extends OComponent
 
     public function setContainerType(type:Class<OContainer>):OContainer
     {
-        container = Type.createInstance(type, [null]);
-        setContainer(container);
-
-        return container;
+        var containerInstance = Type.createInstance(type, [null]);
+        setContainer(containerInstance);
+        return containerInstance;
     }
 
     //***********************************************************

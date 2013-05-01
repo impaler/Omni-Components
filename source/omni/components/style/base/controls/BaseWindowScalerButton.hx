@@ -13,8 +13,8 @@ class BaseWindowScalerButton extends OButtonBaseStyle
     {
         super();
 
-        defaultWidth = 20;
-        defaultHeight = 20;
+        defaultWidth = 10;
+        defaultHeight = 10;
         defaultPadding = 0;
 
         var bgColor = new BrushColorFill ();

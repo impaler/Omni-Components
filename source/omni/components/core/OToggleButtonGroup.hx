@@ -23,7 +23,6 @@ class OToggleButtonGroup extends OComponent
 
     public var layout:OLayout;
 
-    public var onChange:OSignalType<Dynamic -> Void>;
     public var onButtonChange:OSignalType<Dynamic -> Void>;
 
     private var _target:OToggleButton;
@@ -51,13 +50,11 @@ class OToggleButtonGroup extends OComponent
 
         this.sprite.addChild(layout.sprite);
 
-        onChange = new OSignalType<OToggleButtonGroup -> Void>();
         onButtonChange = new OSignalType<OToggleButton -> Void>();
     }
 
     override public function destroy():Void
     {
-        onChange.destroy();
         onButtonChange.destroy();
         layout.destroy();
         _target = null;
@@ -79,7 +76,6 @@ class OToggleButtonGroup extends OComponent
             update();
         }
 
-        onChange.dispatch(this);
         onButtonChange.dispatch(btn);
     }
 

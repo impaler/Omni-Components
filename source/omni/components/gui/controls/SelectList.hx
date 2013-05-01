@@ -19,6 +19,7 @@ class SelectList extends OComponentButton
 {
 
     public var listOpen:Bool;
+    public var listContainer:List;
     public var list:OLayout;
 
     public var selectedSoloItem:ListItem;
@@ -48,6 +49,11 @@ class SelectList extends OComponentButton
         {
             list = new VBox(styleAsSelectListStyle.defaultListLayoutStyle);
         }
+
+        listContainer = new List();
+        listContainer.add(list);
+
+
     }
 
     override public function add(comp:IOComponent):IOComponent
@@ -74,16 +80,16 @@ class SelectList extends OComponentButton
     {
         listOpen = true;
 
-        OCore.instance.popupsLayer.addChild(list.sprite);
+        OCore.instance.popupsLayer.addChild(listContainer.sprite);
         var pos = this.sprite.localToGlobal(new Point(OCore.instance.popupsLayer.x, OCore.instance.popupsLayer.y));
-        list.move(pos.x, pos.y + height);
+        listContainer.move(pos.x, pos.y + height);
     }
 
     public function closeList():Void
     {
         listOpen = false;
 
-        OCore.instance.popupsLayer.removeChild(list.sprite);
+        OCore.instance.popupsLayer.removeChild(listContainer.sprite);
     }
 
 

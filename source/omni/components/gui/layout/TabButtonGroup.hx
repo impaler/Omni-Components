@@ -39,7 +39,7 @@ class TabButtonGroup extends OToggleButtonGroup
 
         this.sprite.addChild(layout.sprite);
 
-        onChange = new OSignalType<TabButtonGroup -> Void>();
+        //onChange = new OSignalType<TabButtonGroup -> Void>();
         onButtonChange = new OSignalType<TabButton -> Void>();
     }
 
@@ -50,8 +50,6 @@ class TabButtonGroup extends OToggleButtonGroup
     //***********************************************************
     //                  Component Methods
     //***********************************************************
-
-    //todo mouse wheel change
 
     public function addTabButton(page:OContainerPage, style:IStyle = null):TabButton
     {

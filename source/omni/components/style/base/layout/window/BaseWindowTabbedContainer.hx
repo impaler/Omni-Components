@@ -21,9 +21,9 @@ class BaseWindowTabbedContainer extends WindowTabbedContainerStyle
         bgColor.setColorState(OStates.ACTIVE, BaseColors.BG_LAYOUT);
         setBackgroundBrush(bgColor);
 
-        defaultWidth = 100;
-        defaultHeight = 100;
-        defaultPadding = 10;
+        defaultWidth = 400;
+        defaultHeight = 400;
+        defaultPadding = 0;
 
     }
 

@@ -65,6 +65,16 @@ class ActuateUtil
     {
     }
 
+    public static inline function tweenYPosition(target:Dynamic, duration:Float, ypos:Float, easing:String, overwrite:Bool = true, customActuator:Class<GenericActuator> = null):IGenericActuator
+    {
+        return tween(target, duration, {y:ypos}, easing, overwrite, customActuator);
+    }
+
+    public static inline function tweenXPosition(target:Dynamic, duration:Float, xpos:Float, easing:String, overwrite:Bool = true, customActuator:Class<GenericActuator> = null):IGenericActuator
+    {
+        return tween(target, duration, {x:xpos}, easing, overwrite, customActuator);
+    }
+
     public static inline function tweenPosition(target:Dynamic, duration:Float, xpos:Float, ypos:Float, easing:String, overwrite:Bool = true, customActuator:Class<GenericActuator> = null):IGenericActuator
     {
         return tween(target, duration, {x:xpos, y:ypos}, easing, overwrite, customActuator);

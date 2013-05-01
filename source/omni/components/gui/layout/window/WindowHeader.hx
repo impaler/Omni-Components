@@ -1,5 +1,6 @@
 package omni.components.gui.layout.window;
 
+import omni.utils.OStates;
 import omni.components.gui.controls.Button;
 import omni.components.gui.text.Label;
 import omni.components.core.OTextBase;
@@ -46,15 +47,24 @@ class WindowHeader extends OButtonBase
         scrollRectEnabled = true;
 
         leftLayout = new HBox();
+
         leftLayout.mouseChildren = false;
         leftLayout.mouseEnabled = false;
+        leftLayout.widthSizeMethod = OStates.AUTO;
+        leftLayout.heightSizeMethod = OStates.FIXED;
+        leftLayout.vAlign = OStates.MIDDLE;
+        leftLayout._height = _height;
+
         title = leftLayout.addType(Label, styleAsWindow.titleLabelStyle);
         title.text = "Window Title";
-
+        leftLayout.invalidateAdd();
+        leftLayout.drawNow();
         add(leftLayout);
 
-
         rightLayout = new HBox();
+        rightLayout.widthSizeMethod = OStates.AUTO;
+        rightLayout.heightSizeMethod = OStates.FIXED;
+        rightLayout._height = _height;
 
         if (styleAsWindow.minimizeButton != null)
         {

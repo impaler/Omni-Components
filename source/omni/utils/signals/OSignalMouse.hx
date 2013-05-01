@@ -83,6 +83,16 @@ class OSignalMouse extends OSignalType<OSignalMouse -> Void>
         }
     }
 
+    public function disable():Void
+    {
+        removeEventListener();
+    }
+
+    public function enable():Void
+    {
+        addEventListener();
+    }
+
     function mouseHandler(e:MouseEvent)
     {
         this.event = e;

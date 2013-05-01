@@ -55,7 +55,7 @@ class ScrollContainer extends OContainer
     private var _mouseWheelV:Bool;
     private var _touchTolerance:Int;
     private var _hContentAlign:String;
-    //todo
+
     public var _direction:String;
 
     //***********************************************************
@@ -133,23 +133,30 @@ class ScrollContainer extends OContainer
 
         target.addChild(comp.sprite);
         this.members.push(comp);
+        target.buttonMode = true;
 
-        if (_tweenEnabled)
+        if (mouseTargetDown != null)
         {
-            target.buttonMode = true;
-
-            if (mouseTargetDown != null) mouseTargetDown.removeAll();
-            mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, comp.sprite);
-            mouseTargetDown.add(handleDownContent);
+            mouseTargetDown.destroy();
+            mouseTargetDown = null;
         }
 
-        //if (mouseWheel != null) mouseWheel.removeAll();
-        mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, comp.sprite);
-        mouseWheel.add(handleMouseWheel);
+        mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, comp.sprite);
+        if(_listening&&!mouseTargetDown.exists(handleDownContent))
+            mouseTargetDown.add(handleDownContent);
+
+        if (mouseWheel != null) mouseWheel.removeAll();
+            mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, comp.sprite);
+
+        if (mouseWheel != null)
+        {
+            mouseWheel.removeAll();
+            mouseWheel.add(handleMouseWheel);
+        }
 
         isValidPosition();
-
         drawNow();
+
 
         return comp;
     }
@@ -158,16 +165,28 @@ class ScrollContainer extends OContainer
     {
         if (!_listening)
         {
+            dragEnterFrame.add(handleRenderDrag);
+            dragEnterFrame.enable();
+
             hScrollBar.onChange.add(handleHScrollBarMove);
             vScrollBar.onChange.add(handleVScrollBarMove);
-
             hScrollBar.scrollSlider.button.onMouseDown.add(handleScrollBarsDown);
             vScrollBar.scrollSlider.button.onMouseDown.add(handleScrollBarsDown);
             hScrollBar.scrollSlider.button.onMouseUp.add(handleScrollBarsUp);
             vScrollBar.scrollSlider.button.onMouseUp.add(handleScrollBarsUp);
             mouseUp.add(handleRelease);
-            dragEnterFrame.add(handleRenderDrag);
 
+            if (mouseWheel != null)
+            {
+                mouseWheel.removeAll();
+                mouseWheel.add(handleMouseWheel);
+            }
+
+            if (mouseTargetDown != null)
+            {
+                mouseTargetDown.removeAll();
+                mouseTargetDown.add(handleDownContent);
+            }
             _listening = true;
         }
     }
@@ -176,6 +195,9 @@ class ScrollContainer extends OContainer
     {
         if (_listening)
         {
+            dragEnterFrame.remove(handleRenderDrag);
+            dragEnterFrame.disable();
+
             hScrollBar.onChange.remove(handleHScrollBarMove);
             vScrollBar.onChange.remove(handleVScrollBarMove);
             hScrollBar.scrollSlider.button.onMouseDown.remove(handleScrollBarsDown);
@@ -183,7 +205,14 @@ class ScrollContainer extends OContainer
             hScrollBar.scrollSlider.button.onMouseUp.remove(handleScrollBarsUp);
             vScrollBar.scrollSlider.button.onMouseUp.remove(handleScrollBarsUp);
             mouseUp.remove(handleRelease);
-            dragEnterFrame.remove(handleRenderDrag);
+            _xSpeed = 0;
+            _ySpeed = 0;
+
+            if (mouseWheel != null)
+                mouseWheel.remove(handleMouseWheel);
+
+            if (mouseTargetDown != null)
+                mouseTargetDown.remove(handleDownContent);
 
             _listening = false;
         }
@@ -191,7 +220,6 @@ class ScrollContainer extends OContainer
 
     override public function draw():Void
     {
-
         if (contentComponent != null)
         {
             super.draw();
@@ -226,7 +254,6 @@ class ScrollContainer extends OContainer
     public function disableTween():Void
     {
         _tweenEnabled = false;
-
     }
 
     //***********************************************************
@@ -235,8 +262,6 @@ class ScrollContainer extends OContainer
 
     public function handleMouseWheel(?e:OSignalMouse):Void
     {
-        //target.mouseChildren = true;
-
         _scrollBarMove = true;
 
         if (!OCore.instance.disableScrolling)
@@ -260,9 +285,8 @@ class ScrollContainer extends OContainer
         if (!OCore.instance.disableScrolling)
         {
             _down = true;
-            _drag = false;
             _xSpeed = 0;
-            _xSpeed = 0;
+            _ySpeed = 0;
             _xOffset = e.event.stageX - contentComponent.x;
             _yOffset = e.event.stageY - contentComponent.y;
             _xTouchOffset = nme.Lib.stage.mouseX;
@@ -273,7 +297,6 @@ class ScrollContainer extends OContainer
         {
             resetPosition();
         }
-        isValidPosition();
     }
 
     private function handleRelease(e:OSignalMouse):Void
@@ -313,8 +336,6 @@ class ScrollContainer extends OContainer
 
     private function handleRenderDrag(e:OCoreEvent):Void
     {
-
-
         if (!OCore.instance.disableScrolling)
         {
 
@@ -322,52 +343,23 @@ class ScrollContainer extends OContainer
             {
                 if (!_drag)
                 {
-                    //limitSpeed();
 
                     if (_tweenX)
                         contentComponent.x += (_xSpeed *= _decel);
                     if (_tweenY)
                         contentComponent.y += (_ySpeed *= _decel);
 
-                    //if (!isTweening())
-                    //{
-                    //    //checkYPosition();
-                    //    //checkXPosition();
-                    //
-                    //    isValidPosition();
-                    //}
-                    //
-                    //roundSpeed();
                 }
                 else if (!OCore.instance.disableScrolling)
                 {
                     _xCache = contentComponent.x;
                     _yCache = contentComponent.y;
 
-                    //if ( isTweening())
-                    //if (_draggingInit == true || isTweening())
-                    //{
                     if (h_scrollBar_enabled && _tweenX)
                         contentComponent.x = nme.Lib.stage.mouseX - _xOffset;
 
                     if (v_scrollBar_enabled && _tweenY)
                         contentComponent.y = nme.Lib.stage.mouseY - _yOffset;
-
-                    //}
-                    //else if (Std.int(_ySpeed * 10) == 0 && Std.int(_xSpeed * 10) == 0)
-                    //{
-                    //    if (_xTouchOffset - nme.Lib.stage.mouseX > _touchTolerance || _xTouchOffset - nme.Lib.stage.mouseX < -_touchTolerance || _yTouchOffset - nme.Lib.stage.mouseY > _touchTolerance || _yTouchOffset - nme.Lib.stage.mouseY < -_touchTolerance)
-                    //    {
-                    //        _draggingInit = true;
-                    //        target.mouseChildren = false;
-                    //        //							disableChildComponentEvents( );
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    _draggingInit = true;
-                    //    target.mouseChildren = false;
-                    //}
                 }
                 isValidPosition();
                 updateScrollBarsFromChange();
@@ -457,37 +449,6 @@ class ScrollContainer extends OContainer
         _xSpeed = 0;
         _ySpeed = 0;
         isValidPosition();
-    }
-
-    private inline function limitSpeed():Void
-    {
-        _speedLimit = 10;
-
-        //if (!isValidY())
-        //{
-        //    if (_ySpeed > _speedLimit) _ySpeed = _speedLimit;
-        //    if (_ySpeed < -_speedLimit) _ySpeed = -_speedLimit;
-        //}
-        //
-        //if (!isValidX())
-        //{
-        //    if (_xSpeed > _speedLimit) _xSpeed = _speedLimit;
-        //    if (_xSpeed < -_speedLimit) _xSpeed = -_speedLimit;
-        //}
-    }
-
-    public inline function roundSpeed():Void
-    {
-        if (Std.int(_xSpeed * 10) == 0)
-        {
-            _xSpeed = 0;
-        }
-
-        if (Std.int(_ySpeed * 10) == 0)
-        {
-            _ySpeed = 0;
-        }
-
     }
 
     private inline function isTweening():Bool
@@ -670,8 +631,8 @@ class ScrollContainer extends OContainer
                 hScrollBar.pageSize = Std.int(_rect.width);
                 _rect.height = _height - _scrollButtonSize;
                 vScrollBar.pageSize = Std.int(_rect.height);
-                hScrollBar._size(_width, _scrollButtonSize);
 
+                hScrollBar._size(_width, _scrollButtonSize);
                 vScrollBar._size(0, 0);
 
                 if (vScrollBar.sprite.parent != null) sprite.removeChild(vScrollBar.sprite);
