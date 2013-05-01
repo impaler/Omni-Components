@@ -142,11 +142,12 @@ class ScrollContainer extends OContainer
         }
 
         mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, comp.sprite);
+
         if(_listening&&!mouseTargetDown.exists(handleDownContent))
             mouseTargetDown.add(handleDownContent);
 
         if (mouseWheel != null) mouseWheel.removeAll();
-            mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, comp.sprite);
+            mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, parentComponent.sprite);
 
         if (mouseWheel != null)
         {
@@ -262,10 +263,10 @@ class ScrollContainer extends OContainer
 
     public function handleMouseWheel(?e:OSignalMouse):Void
     {
-        _scrollBarMove = true;
-
         if (!OCore.instance.disableScrolling)
         {
+            _scrollBarMove = true;
+
             if (_mouseWheelV)
             {
                 vScrollBar.value -= e.delta > 0 ? vScrollBar.sliderStep : -vScrollBar.sliderStep;
@@ -274,6 +275,12 @@ class ScrollContainer extends OContainer
             {
                 hScrollBar.value -= e.delta > 0 ? hScrollBar.sliderStep : -hScrollBar.sliderStep;
             }
+
+            _xSpeed = 0;
+            _ySpeed = 0;
+            _xCache = contentComponent.x;
+            _yCache = contentComponent.y;
+            _scrollBarMove = false;
 
             if (OCore.instance.updateAfterEvent)
                 e.updateAfterEvent();
@@ -305,7 +312,7 @@ class ScrollContainer extends OContainer
 
         if (OCore.instance.disableScrolling)
         {
-            isValidPosition();
+            //isValidPosition();
         }
         else
         {
