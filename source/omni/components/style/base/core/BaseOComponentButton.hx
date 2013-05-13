@@ -13,7 +13,7 @@ class BaseOComponentButton extends OComponentButtonStyle
 
         deafultLayoutStyle = new BaseOComponentButtonLayout();
 
-        defaultHeight = 20;
+        defaultHeight = 10;
 
         var bgColor = new BrushColorFill ();
         bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);

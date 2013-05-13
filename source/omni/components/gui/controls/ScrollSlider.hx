@@ -222,12 +222,6 @@ class ScrollSlider extends Slider
 
 class ScrollSliderStyle extends SliderBaseStyle
 {
-
-    public var decreaseButtonStyle:ScrollBarButtonStyle;
-    public var increaseButtonStyle:ScrollBarButtonStyle;
-
-    public var scrollButtons:Bool;
-
     public static var styleString:String = "ScrollBarStyle";
 
     public function new()

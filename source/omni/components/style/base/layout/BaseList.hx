@@ -1,5 +1,6 @@
 package omni.components.style.base.layout;
 
+import omni.components.style.base.layout.window.BaseWindowMiddleBG;
 import omni.components.gui.layout.window.WindowContentContainer;
 import omni.components.style.base.controls.BaseWindowScalerButton;
 import omni.components.style.base.layout.window.BaseWindowHeader;
@@ -21,6 +22,7 @@ class BaseList extends ListStyle
         super();
         header = new BaseWindowHeader();
         footer = new BaseWindowFooter();
+        middlebg = new BaseWindowMiddleBG();
 
         scalerButton = new BaseWindowScalerButton();
 

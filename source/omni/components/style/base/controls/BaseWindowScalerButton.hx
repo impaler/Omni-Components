@@ -18,10 +18,10 @@ class BaseWindowScalerButton extends OButtonBaseStyle
         defaultPadding = 0;
 
         var bgColor = new BrushColorFill ();
-        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
-        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
-        bgColor.setColorState(OStates.OVER, BaseColors.OVER);
-        bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.TRANS);
+        //bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        //bgColor.setColorState(OStates.OVER, BaseColors.OVER);
+        //bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
         setBackgroundBrush(bgColor);
 
     }

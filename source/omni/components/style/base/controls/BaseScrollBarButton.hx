@@ -21,12 +21,7 @@ class BaseScrollBarButton extends ScrollBarButtonStyle
         bgColor.setColorState(OStates.DOWN, BaseColors.SCROLLBAR_BUTTON_DOWN);
         setBackgroundBrush(bgColor);
 
-        defaultWidth = 20;
-        defaultHeight = 20;
-        minWidth = 10;
-        minHeight = 10;
-        maxWidth = 2000;
-        maxHeight = 2000;
-        defaultPadding = 0;
+        defaultWidth = 10;
+        defaultHeight = 10;
     }
 }

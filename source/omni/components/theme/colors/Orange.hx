@@ -42,6 +42,8 @@ class Orange extends BaseTheme
         BaseColors.SCROLLBAR_SLIDER_BUTTON_ACTIVE = ColorUtils.HALO_ORANGE;
         BaseColors.SCROLLBAR_SLIDER_BUTTON_OVER = ColorUtils.HALO_ORANGE;
         BaseColors.SCROLLBAR_SLIDER_BUTTON_DOWN = ColorUtils.HALO_ORANGE;
+
+        BaseColors.SCROLLSIDER_BG = ColorUtils.GRAY;
     }
 
 }

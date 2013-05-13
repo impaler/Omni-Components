@@ -9,9 +9,10 @@ class OBaseBackgroundStyle extends OBaseStyle
 
     public var background:IBrush;
 
-    public function setBackgroundBrush(value:IBrush):Void
+    public function setBackgroundBrush(?value:IBrush):Void
     {
-        background = cast ( value, IBrush);
+        if (value != null)
+            background = cast ( value, IBrush);
     }
 
     override public function update(value:IOComponent):Void

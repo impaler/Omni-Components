@@ -16,10 +16,6 @@ class BaseTabbedContainer extends PagedContainerStyle
     {
         super();
 
-        var bgColor = new BrushColorFill ();
-        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG_LAYOUT);
-        setBackgroundBrush(bgColor);
-
         defaultWidth = 300;
         defaultHeight = 300;
         defaultPadding = 10;

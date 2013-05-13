@@ -30,7 +30,7 @@ class BrushColorFill implements IBrush
 
     public function update(drawTarget:IOComponent)
     {
-        if (colors.get(drawTarget.state) != null)
+        if (colors.get(drawTarget.state) != null && drawTarget.sprite != null)
         {
             var color = colors.get(drawTarget.state);
             var graphics:Graphics = drawTarget.sprite.graphics;

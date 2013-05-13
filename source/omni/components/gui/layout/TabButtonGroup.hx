@@ -40,6 +40,8 @@ class TabButtonGroup extends OToggleButtonGroup
             layout = new VBox(styleAsTabButtonGroupStyle.layoutStyle);
         }
 
+        //layout.widthSizeMethod = OStates.FIXED;
+
         this.sprite.addChild(layout.sprite);
         
         onButtonChange = new OSignalType<TabButton -> Void>();

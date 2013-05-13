@@ -39,7 +39,7 @@ class Button extends OComponentButton
         if (styleAsButton.defaultIcon != null)
             createIcon();
 
-        if (styleAsButton.defaultLabel != null)
+        if (styleAsButton.defaultLabel != null || styleAsButton.defaultText != null)
             createLabel();
     }
 
@@ -70,6 +70,8 @@ class Button extends OComponentButton
         if (label == null)
         {
             label = new Label(styleAsButton.defaultLabel);
+            if(styleAsButton.defaultText != null)
+                label._text = styleAsButton.defaultText;
             add(label);
         }
     }
@@ -149,6 +151,7 @@ class ButtonStyle extends OComponentButtonStyle
 
     public var defaultLabel:ButtonLabelStyle;
     public var defaultIcon:IconStyle;
+    public var defaultText:String;
 
     public function new()
     {

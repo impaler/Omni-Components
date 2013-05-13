@@ -12,8 +12,8 @@ class BaseScrollBar extends ScrollBarStyle
     {
         super();
 
-        defaultWidth = 300;
-        defaultHeight = 20;
+        defaultWidth = 10;
+        defaultHeight = 10;
         sliderStep = 10;
         buttonStep = 50;
         buttonMovementInterval = 100;
@@ -24,7 +24,6 @@ class BaseScrollBar extends ScrollBarStyle
         increaseButton = new BaseScrollBarButton();
         decreaseButton = new BaseScrollBarButton();
         slider = new BaseScrollSlider();
-
     }
 
 }

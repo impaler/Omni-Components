@@ -21,13 +21,5 @@ class BaseSliderButton extends SliderButtonStyle
         bgColor.setColorState(OStates.OVER, BaseColors.SLIDER_BUTTON_OVER);
         bgColor.setColorState(OStates.DOWN, BaseColors.SLIDER_BUTTON_DOWN);
         setBackgroundBrush(bgColor);
-
-        defaultWidth = 20;
-        defaultHeight = 20;
-        minWidth = 10;
-        minHeight = 10;
-        maxWidth = 2000;
-        maxHeight = 2000;
-        defaultPadding = 0;
     }
 }

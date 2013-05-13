@@ -12,7 +12,7 @@ class Dark extends BaseTheme
         BaseColors.DISABLED = ColorUtils.BLACK;
         BaseColors.ACTIVE = ColorUtils.GRAY;
         BaseColors.OVER = ColorUtils.LIGHT_GRAY;
-        BaseColors.DOWN = ColorUtils.ORANGE;
+        BaseColors.DOWN = ColorUtils.BLACK;
 
         BaseColors.ON = ColorUtils.GRAY;
         BaseColors.ON_OVER = ColorUtils.GRAY;
@@ -21,13 +21,28 @@ class Dark extends BaseTheme
 
         BaseColors.BG = ColorUtils.BLACK;
         BaseColors.BG_LAYOUT = ColorUtils.BLACK;
+        BaseColors.BG_HBOX = ColorUtils.GRAY;
+        BaseColors.BG_VBOX = ColorUtils.GRAY;
 
         BaseColors.STEPPER_BUTTON_ACTIVE = ColorUtils.BLACK;
         BaseColors.STEPPER_BUTTON_OVER = ColorUtils.LIGHT_GRAY;
         BaseColors.STEPPER_BUTTON_DOWN = ColorUtils.GRAY;
 
-        BaseColors.LABEL_TEXT = ColorUtils.LIGHT_GRAY;
+        BaseColors.SLIDER_BUTTON_ACTIVE = ColorUtils.DARK_GRAY;
+        BaseColors.SLIDER_BUTTON_OVER = ColorUtils.LIGHT_GRAY;
+        BaseColors.SLIDER_BUTTON_DOWN = ColorUtils.GRAY;
 
+        BaseColors.LABEL_TEXT = ColorUtils.WHITE;
+
+        BaseColors.SCROLLBAR_BUTTON_ACTIVE = ColorUtils.DARK_GRAY;
+        BaseColors.SCROLLBAR_BUTTON_OVER = ColorUtils.LIGHT_GRAY;
+        BaseColors.SCROLLBAR_BUTTON_DOWN = ColorUtils.GRAY;
+
+        BaseColors.SCROLLBAR_SLIDER_BUTTON_ACTIVE = ColorUtils.DARK_GRAY;
+        BaseColors.SCROLLBAR_SLIDER_BUTTON_OVER = ColorUtils.LIGHT_GRAY;
+        BaseColors.SCROLLBAR_SLIDER_BUTTON_DOWN = ColorUtils.GRAY;
+
+        BaseColors.SCROLLSIDER_BG = ColorUtils.GRAY;
     }
 
 }

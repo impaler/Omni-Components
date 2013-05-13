@@ -20,7 +20,7 @@ class SlideToggle extends OToggleButton
 
     override public function createMembers():Void
     {
-        //super.createMembers();
+        super.createMembers();
         _sliding = false;
 
         button = new OButtonBase();
@@ -33,12 +33,12 @@ class SlideToggle extends OToggleButton
         _dragRect = new Rectangle(0, 0, _width, _height);
     }
 
-    override public function add(comp:IOComponent):IOComponent
-    {
-        this.members.push(comp);
-        coreAdd(comp);
-        return comp;
-    }
+//    override public function add(comp:IOComponent):IOComponent
+//    {
+//        this.members.push(comp);
+//        coreAdd(comp);
+//        return comp;
+//    }
 
     public function handleButtonMouseDown(e:OSignalMouse):Void
     {
@@ -52,7 +52,7 @@ class SlideToggle extends OToggleButton
 
     public function handleButtonMouseUp(e:OSignalMouse):Void
     {
-        onMouseUp.add(handleMouseUp);
+//        onMouseUp.add(handleMouseUp);
         _sliding = false;
 
         if (button.x == 0)

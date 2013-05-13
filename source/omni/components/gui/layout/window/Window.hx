@@ -1,9 +1,13 @@
 package omni.components.gui.layout.window;
 
-import omni.components.gui.layout.window.WindowFooter.WindowFooterStyle;
-import omni.components.gui.layout.window.WindowHeader.WindowHeaderStyle;
+import omni.utils.UtilNumbers;
+import omni.components.gui.layout.window.WindowMiddleBG.WindowMiddleBGStyle;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
+import omni.components.core.ODrawable.ODrawable;
+import omni.components.core.ODrawable.ODrawableStyle;
+import omni.components.gui.layout.window.WindowFooter.WindowFooterStyle;
+import omni.components.gui.layout.window.WindowHeader.WindowHeaderStyle;
 import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.core.OContainerContent;
 import omni.utils.OStates;
@@ -42,6 +46,7 @@ class Window extends OComponent
 
     public var header:WindowHeader;
     public var footer:WindowFooter;
+    public var middleBG:WindowMiddleBG;
     public var scalerButton:OButtonBase;
 
     //***********************************************************
@@ -56,6 +61,7 @@ class Window extends OComponent
     public var containerTopPadding:Int;
     public var containerLeftPadding:Int;
     public var containerRightPadding:Int;
+    public var contentAreaYPos:Int;
 
     //***********************************************************
     //                  Private Variables
@@ -94,12 +100,19 @@ class Window extends OComponent
         addToMembers(scalerButton);
         coreAdd(scalerButton);
 
+        middleBG = new WindowMiddleBG(styleAsWindow.middlebg);
+        coreAdd(middleBG);
+
         onResizeDragRender = new OCoreEvent(OCoreEvent.ENTER_FRAME, this.sprite);
         onMouseMove = OCore.instance.onStageMouseMove;
         onMouseUp = OCore.instance.onStageMouseUp;
 
         header = new WindowHeader(styleAsWindow.header);
         header.window = this;
+
+        //contentAreaYPos = 20;
+        contentAreaYPos = Std.int(header.height);
+
 
         addToMembers(header);
         coreAdd(header);
@@ -154,17 +167,27 @@ class Window extends OComponent
         footer.y = _height - footer.height;
         footer.drawNow();
 
+        if(paged!=null)
+        paged.tabs.width = _width -70;
+
         header.width = _width;
         header.drawNow();
 
         if (!_resizing)
             scalerButton.move(_width - scalerButton._width, _height - scalerButton._height);
 
-        content._height = height - footer.height - header.height;
+        content._height = height - footer.height - contentAreaYPos;
         content._width = width - containerLeftPadding - containerRightPadding;
-        content.y = header.height;
+        content.y = contentAreaYPos;
         content.x = containerLeftPadding;
         content.drawNow();
+
+        var heightOffsetTop = header.height;
+        var heightOffsetBottom = footer.height;
+        middleBG.width = _width;
+        middleBG.height = _height - heightOffsetTop - heightOffsetBottom;
+        middleBG.y = heightOffsetTop;
+        middleBG.drawNow();
     }
 
     override public function enableSignals():Void
@@ -434,6 +457,8 @@ class WindowStyle extends OBaseBackgroundStyle
     public var footer:WindowFooterStyle;
 
     public var containerDefault:Class<OContainer>;
+
+    public var middlebg:WindowMiddleBGStyle;
 
     public var moveable:Bool;
     public var resizeable:Bool;

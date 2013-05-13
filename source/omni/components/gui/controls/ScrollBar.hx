@@ -93,6 +93,7 @@ class ScrollBar extends OComponent
     {
         if (!_listening)
         {
+            scrollSlider.enableSignals();
             scrollSlider.onChange.add(handleOnChange);
 
             increaseButton.onMouseDown.add(handleOnIncrease);
@@ -106,6 +107,7 @@ class ScrollBar extends OComponent
     {
         if (_listening)
         {
+            scrollSlider.disableSignals();
             scrollSlider.onChange.remove(handleOnChange);
 
             increaseButton.onMouseDown.remove(handleOnIncrease);

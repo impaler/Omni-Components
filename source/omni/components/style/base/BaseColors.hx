@@ -5,6 +5,7 @@ import omni.utils.ColorUtils;
 
 class BaseColors
 {
+    static public var TRANS:Int;
     static public var DISABLED:Int;
     static public var ACTIVE:Int;
 
@@ -39,4 +40,6 @@ class BaseColors
     static public var SCROLLBAR_SLIDER_BUTTON_ACTIVE:Int;
     static public var SCROLLBAR_SLIDER_BUTTON_OVER:Int;
     static public var SCROLLBAR_SLIDER_BUTTON_DOWN:Int;
+
+    static public var SCROLLSIDER_BG:Int;
 }

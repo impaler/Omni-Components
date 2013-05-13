@@ -1,5 +1,6 @@
 package omni.components.style.base.controls;
 
+import omni.components.style.brush.BrushBitmapScale9Fill;
 import omni.components.style.base.BaseColors;
 import omni.utils.OStates;
 import omni.components.style.base.core.BaseOButtonBase;
@@ -22,9 +23,9 @@ class BaseSlider extends SliderBaseStyle
         defaultValue = 50;
 
         defaultVHeight = 120;
-        defaultVWidth = 20;
+        defaultVWidth = 10;
 
-        defaultHHeight = 20;
+        defaultHHeight = 10;
         defaultHWidth = 120;
 
         buttonStyle = new BaseSliderButton();

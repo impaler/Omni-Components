@@ -7,9 +7,6 @@ import omni.utils.BitmapScaleSliceUtily;
 
 class BrushBitmapScale9Fill extends BrushBitmapFill
 {
-
-    //vertical left, vertical right, horizontal top, horizontal bottom
-
     public var scaleRect:Array<Int>;
     public var debuglines:Bool = false;
     //todo smooth

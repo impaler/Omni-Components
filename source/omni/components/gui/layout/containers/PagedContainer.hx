@@ -130,7 +130,8 @@ class PagedContainer extends OContainer
             if(currentPage!=null)
             {
                 currentPage.disableSignals();
-                if (page.sprite.parent == this.sprite)
+
+                if (currentPage.sprite.parent == this.sprite)
                     this.sprite.removeChild(currentPage.sprite);
             }
 

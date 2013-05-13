@@ -19,7 +19,7 @@ class BaseScrollContainer extends ScrollContainerStyle
 
         hContentAlign = OStates.MIDDLE;
         scrollButtonSize = 10;
-        scrollStep = 20;
+        scrollStep = 80;
         tweenEnabled = true;
         tweenBackSpeed = 2;
         speedLimit = 1;
@@ -37,7 +37,7 @@ class BaseScrollContainer extends ScrollContainerStyle
 
         defaultWidth = 300;
         defaultHeight = 300;
-        defaultPadding = 20;
+        defaultPadding = 0;
 
     }
 

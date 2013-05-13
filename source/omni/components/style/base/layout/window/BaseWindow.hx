@@ -24,6 +24,7 @@ class BaseWindow extends WindowStyle
 
         header = new BaseWindowHeader();
         footer = new BaseWindowFooter();
+        middlebg = new BaseWindowMiddleBG();
 
         scalerButton = new BaseWindowScalerButton();
 

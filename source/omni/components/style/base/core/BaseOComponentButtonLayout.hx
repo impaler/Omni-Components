@@ -25,6 +25,8 @@ class BaseOComponentButtonLayout extends OComponentButtonLayoutStyle
 
         defaultWidthSizeMethod = OStates.AUTO;
         defaultHeightSizeMethod = OStates.AUTO;
+
+//        setBackgroundBrush(null);
     }
 
 }

@@ -59,7 +59,7 @@ class WindowHeader extends OButtonBase
         title.text = "Window Title";
         leftLayout.invalidateAdd();
         leftLayout.drawNow();
-        add(leftLayout);
+        //add(leftLayout);
 
         rightLayout = new HBox();
         rightLayout.widthSizeMethod = OStates.AUTO;
@@ -81,7 +81,7 @@ class WindowHeader extends OButtonBase
             closeButton = rightLayout.addType(Button, styleAsWindow.closeButton);
         }
 
-        add(rightLayout);
+        //add(rightLayout);
 
         doubleClick = new OSignalMouse( OSignalMouse.DOUBLE_CLICK, this.sprite);
     }
@@ -106,8 +106,15 @@ class WindowHeader extends OButtonBase
     {
         super.drawMembers();
 
-        rightLayout.drawNow();
-        rightLayout.x = _width - rightLayout._width;
+        if(window!=null)
+        {
+            leftLayout.drawNow();
+            leftLayout.x = window.containerLeftPadding;
+
+            rightLayout.drawNow();
+            rightLayout.x = _width - rightLayout._width - window.containerRightPadding;
+        }
+
     }
 
     //***********************************************************

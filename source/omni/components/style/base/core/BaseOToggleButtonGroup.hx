@@ -13,16 +13,9 @@ class BaseOToggleButtonGroup extends OToggleButtonGroupStyle
 
         defaultDirection = OStates.VERTICAL;
 
-        //todo autosize
         defaultWidth = 300;
         defaultHeight = 300;
         defaultPadding = 10;
-
-        //                   todo
-        //		var bgColor = new BrushColorFill ();
-        //		bgColor.setColorState( OStates.ACTIVE, BaseColors.BG_LAYOUT );
-        //		setBackgroundBrush( bgColor );
-
     }
 
 }

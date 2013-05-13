@@ -29,7 +29,7 @@ class BaseWindowVBox extends WindowVBoxStyle
         defaultHeightSizeMethod = OStates.AUTO;
 
         var bgColor = new BrushColorFill ();
-        bgColor.setColorState(OStates.ACTIVE, ColorUtils.BLUE);
+        bgColor.setColorState(OStates.ACTIVE, ColorUtils.WHITE);
         setBackgroundBrush(bgColor);
     }
 

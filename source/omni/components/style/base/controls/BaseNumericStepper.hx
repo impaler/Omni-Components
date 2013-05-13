@@ -1,5 +1,6 @@
 package omni.components.style.base.controls;
 
+import omni.components.style.brush.BrushBitmapScale9Fill;
 import omni.components.style.base.BaseColors;
 import omni.components.gui.controls.NumericStepperButton.NumericStepperButtonStyle;
 import omni.utils.ColorUtils;
@@ -37,26 +38,29 @@ class BaseNumericStepper extends NumericStepperStyle
 
         var buttonStyle = new BaseNumericStepperButton();
 
-        //var layoutS = new OComponentButtonLayoutStyle();
-        //layoutS.defaultDirection = OStates.HORIZONTAL;
-        //buttonStyle.layoutStyle = layoutS;
-
-        var bgColor = new BrushColorFill ();
-        bgColor.setColorState(OStates.ACTIVE, BaseColors.STEPPER_BUTTON_ACTIVE);
-        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
-        bgColor.setColorState(OStates.OVER, BaseColors.STEPPER_BUTTON_OVER);
-        bgColor.setColorState(OStates.DOWN, BaseColors.STEPPER_BUTTON_DOWN);
-        buttonStyle.setBackgroundBrush(bgColor);
+//        var bgColor = new BrushColorFill ();
+//        bgColor.setColorState(OStates.ACTIVE, BaseColors.STEPPER_BUTTON_ACTIVE);
+//        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+//        bgColor.setColorState(OStates.OVER, BaseColors.STEPPER_BUTTON_OVER);
+//        bgColor.setColorState(OStates.DOWN, BaseColors.STEPPER_BUTTON_DOWN);
+//        buttonStyle.setBackgroundBrush(bgColor);
 
         increaseButtonStyle = buttonStyle;
         decreaseButtonStyle = buttonStyle;
 
-        textStyle = new BaseOTextBase();
+        var style = new BaseOTextBase();
+        textStyle = style;
 
-        var bgColor = new BrushColorFill ();
-        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
-        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        var bgColor = new BrushBitmapScale9Fill ();
+        bgColor.scaleRect = [4 , 10 , 4 , 8];
+        bgColor.setBitmapState(OStates.ACTIVE, "assets/themes/softui/stepper_bg.png");
         setBackgroundBrush(bgColor);
+
+
+//        var bgColor = new BrushColorFill ();
+//        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
+//        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+//        setBackgroundBrush(bgColor);
     }
 
     override public function initStyleComponent(value:IOComponent):Void
@@ -65,7 +69,7 @@ class BaseNumericStepper extends NumericStepperStyle
 
         var size = 2;
         var _increase_shape = new Sprite();
-        _increase_shape.graphics.beginFill(0xffffff);
+        _increase_shape.graphics.beginFill(ColorUtils.BLACK);
         _increase_shape.graphics.moveTo(3 * size, 0);
         _increase_shape.graphics.lineTo(6 * size, 5 * size);
         _increase_shape.graphics.lineTo(0, 5 * size);
@@ -79,7 +83,7 @@ class BaseNumericStepper extends NumericStepperStyle
         stepper.increase.drawNow();
 
         var _decrease_shape = new Sprite();
-        _decrease_shape.graphics.beginFill(0xffffff);
+        _decrease_shape.graphics.beginFill(ColorUtils.BLACK);
         _decrease_shape.graphics.moveTo(0, 0);
         _decrease_shape.graphics.lineTo(6 * size, 0);
         _decrease_shape.graphics.lineTo(3 * size, 5 * size);

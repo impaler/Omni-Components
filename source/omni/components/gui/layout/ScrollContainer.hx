@@ -141,9 +141,11 @@ class ScrollContainer extends OContainer
             mouseTargetDown = null;
         }
 
+        //mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, nme.Lib.stage);
+        //mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, parentComponent.sprite);
         mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, comp.sprite);
 
-        if(_listening&&!mouseTargetDown.exists(handleDownContent))
+        //if(_listening && !mouseTargetDown.exists(handleDownContent))
             mouseTargetDown.add(handleDownContent);
 
         if (mouseWheel != null) mouseWheel.removeAll();
@@ -168,6 +170,9 @@ class ScrollContainer extends OContainer
         {
             dragEnterFrame.add(handleRenderDrag);
 
+            hScrollBar.enableSignals();
+            vScrollBar.enableSignals();
+
             hScrollBar.onChange.add(handleHScrollBarMove);
             vScrollBar.onChange.add(handleVScrollBarMove);
             hScrollBar.scrollSlider.button.onMouseDown.add(handleScrollBarsDown);
@@ -177,16 +182,14 @@ class ScrollContainer extends OContainer
             mouseUp.add(handleRelease);
 
             if (mouseWheel != null)
-            {
-                mouseWheel.removeAll();
                 mouseWheel.add(handleMouseWheel);
-            }
 
             if (mouseTargetDown != null)
             {
-                mouseTargetDown.removeAll();
+                mouseTargetDown.enable();
                 mouseTargetDown.add(handleDownContent);
             }
+
             _listening = true;
         }
     }
@@ -196,6 +199,9 @@ class ScrollContainer extends OContainer
         if (_listening)
         {
             dragEnterFrame.remove(handleRenderDrag);
+
+            hScrollBar.disableSignals();
+            vScrollBar.disableSignals();
 
             hScrollBar.onChange.remove(handleHScrollBarMove);
             vScrollBar.onChange.remove(handleVScrollBarMove);
@@ -211,7 +217,10 @@ class ScrollContainer extends OContainer
                 mouseWheel.remove(handleMouseWheel);
 
             if (mouseTargetDown != null)
+            {
+                mouseTargetDown.disable();
                 mouseTargetDown.remove(handleDownContent);
+            }
 
             _listening = false;
         }
@@ -261,6 +270,9 @@ class ScrollContainer extends OContainer
 
     public function handleMouseWheel(?e:OSignalMouse):Void
     {
+        nme.Lib.trace("handleMouseWheel:" + compId);
+        nme.Lib.trace("delta:" + e.event.delta);
+
         if (!OCore.instance.disableScrolling)
         {
             _scrollBarMove = true;
@@ -287,6 +299,8 @@ class ScrollContainer extends OContainer
 
     private function handleDownContent(e:OSignalMouse):Void
     {
+        //nme.Lib.trace("handleDownContent:" + compId);
+
         if (!OCore.instance.disableScrolling)
         {
             _down = true;
@@ -306,6 +320,8 @@ class ScrollContainer extends OContainer
 
     private function handleRelease(e:OSignalMouse):Void
     {
+        //nme.Lib.trace("handleRelease:" + compId);
+
         target.mouseChildren = true;
 
         if (OCore.instance.disableScrolling)
@@ -341,6 +357,8 @@ class ScrollContainer extends OContainer
 
     private function handleRenderDrag(e:OCoreEvent):Void
     {
+        //nme.Lib.trace("renderDrag:" + compId);
+
         if (!OCore.instance.disableScrolling)
         {
 

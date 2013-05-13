@@ -25,8 +25,10 @@ class BaseButton extends ButtonStyle
 
         defaultHeight = 40;
 
-        defaultLabel = new BaseButtonLabel();
-        defaultIcon = new BaseIcon();
+        defaultText = "test";
+
+//        defaultLabel = new BaseButtonLabel();
+//        defaultIcon = new BaseIcon();
 
         deafultLayoutStyle = new BaseOComponentButtonLayout();
 

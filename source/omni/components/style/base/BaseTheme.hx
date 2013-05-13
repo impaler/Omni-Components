@@ -1,5 +1,7 @@
 package omni.components.style.base;
 
+import omni.components.style.base.layout.window.BaseWindowMiddleBG;
+import omni.components.style.base.core.BaseODrawable;
 import omni.components.style.base.controls.BaseSelectList;
 import omni.components.style.base.controls.BaseButton;
 import omni.components.style.base.controls.BaseProgressBar;
@@ -58,6 +60,7 @@ class BaseTheme extends OTheme
 
         setupColors();
 
+        addODrawableStyle();
         addOComponentStyle();
         addOButtonBaseStyle();
         addOLayout();
@@ -70,11 +73,7 @@ class BaseTheme extends OTheme
 
         addOTextBaseStyle();
 
-        addStyle(BaseWindow);
-        addStyle(BaseWindowHeader);
-        addStyle(BaseWindowTabbedContainer);
-        addStyle(BaseWindowContainer);
-        addStyle(BaseWindowVBox);
+        addWindowStyle();
 
         addButtonStyle();
         addCheckBoxStyle();
@@ -82,24 +81,22 @@ class BaseTheme extends OTheme
         addStyle(BaseOComponentButton);
         addStyle(BaseOComponentButtonLayout);
 
-        addStyle(BaseRadioButton);
-        addStyle(BaseRadioButtonGroup);
+        addRadioButtonsStyle();
 
         addStyle(BaseHBox);
         addStyle(BaseVBox);
         addStyle(BaseContainerPage);
         addStyle(BaseWindowPage);
         addStyle(BaseTabbedContainer);
-        addStyle(BaseTabButton);
         addStyle(BaseTabButtonGroup);
 
         addSliderStyle();
         addSliderButtonStyle();
 
-        addStyle(BaseScrollSlider);
-        addStyle(BaseScrollBar);
-        addStyle(BaseScrollBarButton);
-        addStyle(BaseScrollContainer);
+        addScrollBarStyle();
+
+
+
 
         addStyle(BaseList);
 
@@ -117,10 +114,28 @@ class BaseTheme extends OTheme
 
     }
 
-    /**
+/**
 * Override these helper functions for previewing themes in dev without null errors
 * 
 **/
+
+    public function addRadioButtonsStyle():Void {
+        addStyle(BaseRadioButton);
+        addStyle(BaseRadioButtonGroup);
+    }
+
+    public function addScrollBarStyle():Void
+    {
+        addStyle(BaseScrollContainer);
+        addStyle(BaseScrollSlider);
+        addStyle(BaseScrollBar);
+        addStyle(BaseScrollBarButton);
+    }
+
+    public function addODrawableStyle():Void
+    {
+        addStyle(BaseODrawable);
+    }
 
     public function addOComponentStyle():Void
     {
@@ -167,6 +182,22 @@ class BaseTheme extends OTheme
     public function addCheckBoxStyle():Void
     {
         addStyle(BaseCheckBox);
+    }
+
+    public function addTabButtonStyle():Void
+    {
+        addStyle(BaseTabButton);
+    }
+
+    public function addWindowStyle():Void
+    {
+        addStyle(BaseWindow);
+        addStyle(BaseWindowHeader);
+        addStyle(BaseWindowTabbedContainer);
+        addTabButtonStyle();
+        addStyle(BaseWindowContainer);
+        addStyle(BaseWindowVBox);
+        addStyle(BaseWindowMiddleBG);
     }
 
     public function setupColors():Void

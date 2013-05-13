@@ -88,17 +88,28 @@ class Slider extends OComponent
 
     override public function enableSignals():Void
     {
-        button.onMouseDown.add(handleButtonDown);
-        onMouseWheel.add(handleMouseWheel);
-        onMouseDown.add(handleMouseDown);
-        onMouseUp.add(handleMouseUp);
+        if (!_listening)
+        {
+            button.onMouseDown.add(handleButtonDown);
+            onMouseWheel.add(handleMouseWheel);
+            onMouseDown.add(handleMouseDown);
+            onMouseUp.add(handleMouseUp);
+
+            _listening = true;
+        }
     }
 
     override public function disableSignals():Void
     {
-        button.onMouseDown.remove(handleButtonDown);
-        onMouseDown.remove(handleMouseDown);
-        onMouseWheel.remove(handleMouseWheel);
+        if (_listening)
+        {
+            button.onMouseDown.remove(handleButtonDown);
+            onMouseDown.remove(handleMouseDown);
+            onMouseWheel.remove(handleMouseWheel);
+            onMouseUp.remove(handleMouseUp);
+
+            _listening = false;
+        }
     }
 
     override public function destroy():Void
@@ -165,8 +176,14 @@ class Slider extends OComponent
 
     public function handleMouseWheel(?e:OSignalMouse):Void
     {
+        OCore.instance.disableScrolling = true;
+
         value += (e.delta > 0 ? step : -step);
-        e.updateAfterEvent();
+
+        if (OCore.instance.updateAfterEvent)
+            e.updateAfterEvent();
+
+        OCore.instance.disableScrolling = false;
     }
 
     public function handleLeftStage(e:OCoreEvent):Void
@@ -420,6 +437,8 @@ class SliderBaseStyle extends OBaseBackgroundStyle
     {
         super();
         styleID = styleString;
+        defaultVWidth = 10;
+        defaultHHeight = 10;
     }
 
     override public function initStyle(value:IOComponent):Void

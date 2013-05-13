@@ -85,10 +85,11 @@ class OCore
 
     public function init(theme:Class<OTheme>, trackTheme:Bool = true):Void
     {
-        defaultTheme = initTheme(theme);
-        this.trackTheme = trackTheme;
-
         onThemeChange = new OSignalType();
+
+        this.trackTheme = trackTheme;
+        changeDefaultTheme(theme);
+
         onStageMouseMove = new OSignalMouse(OSignalMouse.MOUSE_MOVE, stage);
         onStageMouseUp = new OSignalMouse(OSignalMouse.MOUSE_UP, stage);
         onStageMouseLeave = new OCoreEvent(OCoreEvent.MOUSE_LEAVE, stage);
@@ -106,14 +107,6 @@ class OCore
         stage.addChild(debugLayer);
     }
 
-    public function initTheme(theme:Class<OTheme>):OTheme
-    {
-        var themeInstance = cast( Type.createInstance(theme, []), OTheme);
-        themeInstance.initTheme();
-
-        return themeInstance;
-    }
-
     public function changeDefaultTheme(theme:Class<OTheme>):Void
     {
         if (defaultTheme != null)
@@ -121,7 +114,8 @@ class OCore
             defaultTheme.destroy();
             defaultTheme = null;
         }
-        defaultTheme = initTheme(theme);
+        defaultTheme = cast( Type.createInstance(theme, []), OTheme);
+
         onThemeChange.dispatch();
     }
 

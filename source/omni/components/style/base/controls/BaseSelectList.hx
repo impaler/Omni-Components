@@ -21,7 +21,7 @@ class BaseSelectList extends SelectListStyle
         defaultListLayoutStyle.defaultDirection = OStates.VERTICAL;
 
 
-        defaultHeight = 20;
+        defaultHeight = 10;
 
         var bgColor = new BrushColorFill ();
         bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
