@@ -40,8 +40,9 @@ class IconsPage extends ThemePage
         setBitmap.setBitmap(ThemePreview.testJPGBitmap());
         addTest(setBitmap, "Icon setBitmap()");
 
+
         var i = 0;
-        while (i < 1)
+        while (i < 12)
         {
 
             var h = new HBox();

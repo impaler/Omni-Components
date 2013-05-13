@@ -1,5 +1,8 @@
 package omni.examples.components.tests.previewer;
 
+import omni.examples.components.tests.previewer.pages.TextPage;
+import omni.examples.components.tests.previewer.pages.ThemeChoicePage;
+import omni.examples.components.tests.previewer.ThemePage;
 import omni.examples.components.tests.previewer.pages.SelectListPage;
 import omni.components.gui.layout.TabButtonGroup;
 import omni.examples.components.tests.previewer.pages.VBoxPage;
@@ -26,7 +29,6 @@ import omni.components.gui.layout.window.Window;
 class ThemePreview
 {
     public var window:Window;
-    public var tabb:WindowTabbedContainer;
 
     public function new(theme:Class<OTheme>)
     {
@@ -34,15 +36,17 @@ class ThemePreview
 
         window = new Window();
 
-        addTestPage(HBoxPage);
-        addTestPage(VBoxPage);
-        addTestPage(SelectListPage);
-        addTestPage(SlidersPage);
-        addTestPage(IconsPage);
-        addTestPage(NumericStepperPage);
+        addTestPage(ThemeChoicePage);
         addTestPage(ButtonsPage);
+        addTestPage(SlidersPage);
+        addTestPage(NumericStepperPage);
         addTestPage(ToggleButtonsPage);
         addTestPage(ProgressPage);
+        addTestPage(SelectListPage);
+        addTestPage(TextPage);
+        addTestPage(IconsPage);
+        addTestPage(HBoxPage);
+        addTestPage(VBoxPage);
 
         window.open();
     }

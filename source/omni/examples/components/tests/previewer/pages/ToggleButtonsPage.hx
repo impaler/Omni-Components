@@ -1,5 +1,6 @@
 package omni.examples.components.tests.previewer.pages;
 
+import omni.components.gui.controls.SlideToggle;
 import omni.components.gui.layout.RadioButtonGroup;
 import omni.components.gui.controls.RadioButton;
 import omni.components.gui.controls.CheckBox;
@@ -26,6 +27,9 @@ class ToggleButtonsPage extends ThemePage
         defaultRadioButtonGroup.addButton();
 
         addTest(defaultRadioButtonGroup, "Default Radio Button Group");
+
+//        var slide = new SlideToggle();
+//        addTest(slide, "Slide Toggle Default");
 
     }
 
