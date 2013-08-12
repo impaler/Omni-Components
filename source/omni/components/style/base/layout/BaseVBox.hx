@@ -6,7 +6,7 @@ import omni.components.gui.layout.VBox.VBoxStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OLayout;
 import omni.utils.ColorUtils;
-import nme.geom.Rectangle;
+import flash.geom.Rectangle;
 
 class BaseVBox extends VBoxStyle
 {

@@ -6,16 +6,16 @@ import omni.utils.ComponentUtils;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.style.base.OBaseStyle;
 
-import nme.Lib;
-import nme.Assets;
-import nme.text.AntiAliasType;
-import nme.text.TextFormatAlign;
-import nme.text.TextFieldAutoSize;
-import nme.text.TextFieldType;
-import nme.display.Sprite;
-import nme.events.Event;
-import nme.text.TextField;
-import nme.text.TextFormat;
+import flash.Lib;
+import openfl.Assets;
+import flash.text.AntiAliasType;
+import flash.text.TextFormatAlign;
+import flash.text.TextFieldAutoSize;
+import flash.text.TextFieldType;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.text.TextField;
+import flash.text.TextFormat;
 
 class OTextBase extends OComponent
 {

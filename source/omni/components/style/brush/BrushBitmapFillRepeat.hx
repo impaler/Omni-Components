@@ -3,7 +3,7 @@ package omni.components.style.brush;
 import omni.components.core.interfaces.IBrush;
 import omni.components.core.interfaces.IOComponent;
 
-import nme.display.Graphics;
+import flash.display.Graphics;
 
 class BrushBitmapFillRepeat extends BrushBitmapFill
 {

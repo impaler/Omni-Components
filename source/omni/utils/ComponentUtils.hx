@@ -1,15 +1,15 @@
 ﻿package omni.utils;
 
-import nme.display.BitmapData;
-import nme.geom.Matrix;
+import flash.display.BitmapData;
+import flash.geom.Matrix;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OCore;
 
-import nme.Lib;
-import nme.display.Sprite;
-import nme.geom.Rectangle;
-import nme.text.TextFormatAlign;
-import nme.display.DisplayObject;
+import flash.Lib;
+import flash.display.Sprite;
+import flash.geom.Rectangle;
+import flash.text.TextFormatAlign;
+import flash.display.DisplayObject;
 
 /**
  * Class containing a variety of color utility methods.

@@ -11,7 +11,7 @@ import omni.components.gui.layout.containers.SpriteContainer;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.gui.layout.Icon.IconStyle;
 import omni.components.gui.controls.Button.ButtonStyle;
-import nme.display.Sprite;
+import flash.display.Sprite;
 import omni.utils.OStates;
 import omni.components.style.base.core.BaseOTextBase;
 import omni.components.style.base.core.BaseOButtonBase;

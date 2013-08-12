@@ -6,6 +6,7 @@ import omni.utils.UtilBitmapData;
 import omni.utils.ColorUtils;
 import omni.utils.UtilBitmapData;
 import omni.components.style.base.BaseColors;
+import flash.Lib;
 
 /**
 * Testing the resize utility that can resize BitmapData proportionally
@@ -60,7 +61,7 @@ class BitmapDataResizeUtilPage extends ThemePage
         //Test Alignments on Fill
 
         var layoutArray = new LayoutArray(OStates.HORIZONTAL);
-        nme.Lib.stage.addChild(layoutArray);
+        Lib.current.stage.addChild(layoutArray);
         layoutArray.padding = 10;
         layoutArray.y = 100;
         layoutArray.x = 20;

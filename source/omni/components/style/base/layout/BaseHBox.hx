@@ -6,7 +6,7 @@ import omni.components.gui.layout.HBox.HBoxStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OLayout;
 import omni.utils.ColorUtils;
-import nme.geom.Rectangle;
+import flash.geom.Rectangle;
 
 class BaseHBox extends HBoxStyle
 {

@@ -5,7 +5,7 @@ import omni.components.style.base.text.BaseButtonLabel;
 import omni.components.style.base.core.BaseOComponentButtonLayout;
 import omni.components.style.base.layout.BaseIcon;
 import omni.utils.OStates;
-import nme.Assets;
+import openfl.Assets;
 import omni.components.gui.layout.Icon.IconStyle;
 import omni.components.gui.text.Label.LabelStyle;
 import omni.components.gui.controls.Button.ButtonStyle;

@@ -4,8 +4,8 @@ import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
 import omni.components.core.OTextBase;
 
-import nme.display.Sprite;
-import nme.display.Graphics;
+import flash.display.Sprite;
+import flash.display.Graphics;
 
 typedef TextFormatProperties = {
     var fontSize:Int;

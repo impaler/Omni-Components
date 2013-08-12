@@ -1,11 +1,11 @@
 package omni.components.gui.layout.containers;
 
-import nme.display.Sprite;
+import flash.display.Sprite;
 import omni.utils.signals.OCoreEvent;
-import nme.display.Sprite;
+import flash.display.Sprite;
 import omni.components.style.base.OBaseStyle;
 import omni.components.core.OComponent;
-import nme.events.Event;
+import flash.events.Event;
 
 class SpriteContainer extends OComponent
 {

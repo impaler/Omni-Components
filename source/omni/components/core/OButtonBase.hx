@@ -10,9 +10,9 @@ import omni.components.style.base.OBaseStyle;
 import omni.components.style.base.OBaseBackgroundStyle;
 import omni.utils.OStates;
 
-import nme.geom.Rectangle;
-import nme.events.Event;
-import nme.events.MouseEvent;
+import flash.geom.Rectangle;
+import flash.events.Event;
+import flash.events.MouseEvent;
 
 /**
 * OButtonBase

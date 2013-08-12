@@ -1,6 +1,6 @@
 package omni.components.core.interfaces;
 
-import nme.display.Sprite;
+import flash.display.Sprite;
 
 /**
 *   IBrush

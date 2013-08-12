@@ -1,9 +1,10 @@
 package omni.utils;
 
-import nme.display.Graphics;
-import nme.display.Sprite;
+import flash.display.Graphics;
+import flash.display.Sprite;
 import omni.components.core.interfaces.IOComponent;
-import nme.display.DisplayObject;
+import flash.display.DisplayObject;
+import flash.Lib;
 
 class UtilPosition
 {
@@ -20,12 +21,12 @@ class UtilPosition
 
     public static inline function VCentreAlignStageDisplayObject(moving:DisplayObject):Void
     {
-        moving.y = (nme.Lib.stage.stageWidth * .5) - (moving.height * .5);
+        moving.y = (Lib.current.stage.stageWidth * .5) - (moving.height * .5);
     }
 
     public static inline function HCentreAlignStageDisplayObject(moving:DisplayObject):Void
     {
-        moving.x = (nme.Lib.stage.stageWidth * .5) - (moving.width * .5);
+        moving.x = (Lib.current.stage.stageWidth * .5) - (moving.width * .5);
     }
 
     public static inline function VAlignToOther(moving:IOComponent, target:IOComponent):Void
@@ -70,7 +71,7 @@ class UtilPosition
         markReg.graphics.clear();
         markReg.graphics.lineStyle(line, color);
         markReg.graphics.moveTo(0, regy);
-        markReg.graphics.lineTo(nme.Lib.stage.stageWidth, regy);
+        markReg.graphics.lineTo(Lib.current.stage.stageWidth, regy);
         markReg.graphics.endFill();
         parent.addChild(markReg);
     }
@@ -81,7 +82,7 @@ class UtilPosition
         markReg.graphics.clear();
         markReg.graphics.lineStyle(line, color);
         markReg.graphics.moveTo(regx, 0);
-        markReg.graphics.lineTo(regx, nme.Lib.stage.stageHeight);
+        markReg.graphics.lineTo(regx, Lib.current.stage.stageHeight);
         markReg.graphics.endFill();
         parent.addChild(markReg);
     }

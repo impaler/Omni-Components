@@ -12,7 +12,7 @@ import omni.components.gui.text.Label;
 import omni.components.core.OButtonBase;
 import omni.components.style.base.OBaseBackgroundStyle;
 
-import nme.display.BitmapData;
+import flash.display.BitmapData;
 
 class Button extends OComponentButton
 {

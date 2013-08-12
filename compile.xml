@@ -6,6 +6,7 @@
     <app file="HelloWorld" main="omni.examples.components.HelloWorld" path="export"/>
 
     <window width="700" height="660" fps="60" background="0xff2211"/>
+    <!--<window width="700" height="660" fps="60" background="0x000000"/>-->
     <window orientation="landscape" vsync="true" antialiasing="0"/>
     <!--<window orientation="landscape" vsync="true" antialiasing="0" borderless="true"/>-->
 

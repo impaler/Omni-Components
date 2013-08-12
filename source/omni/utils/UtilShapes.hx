@@ -53,8 +53,8 @@ package omni.utils;
 	 */
 
 import omni.components.core.OCore;
-import nme.display.Graphics;
-import nme.errors.Error;
+import flash.display.Graphics;
+import flash.errors.Error;
 
 class UtilShapes
 {

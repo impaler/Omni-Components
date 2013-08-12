@@ -23,12 +23,12 @@ class BaseSlider extends SliderBaseStyle
         defaultValue = 50;
 
         defaultVHeight = 120;
-        defaultVWidth = 10;
+        defaultVWidth = 30;
 
-        defaultHHeight = 10;
+        defaultHHeight = 30;
         defaultHWidth = 120;
 
-        buttonStyle = new BaseSliderButton();
+//        buttonStyle = new BaseSliderButton();
 
         var bgColor = new BrushColorFill ();
         bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);

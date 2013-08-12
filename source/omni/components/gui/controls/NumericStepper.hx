@@ -15,9 +15,9 @@ import omni.components.gui.text.Label;
 import omni.components.style.base.OBaseBackgroundStyle;
 import omni.utils.ComponentUtils;
 
-import nme.utils.Timer;
-import nme.events.TimerEvent;
-import nme.events.MouseEvent;
+import flash.utils.Timer;
+import flash.events.TimerEvent;
+import flash.events.MouseEvent;
 
 class NumericStepper extends OComponent
 {

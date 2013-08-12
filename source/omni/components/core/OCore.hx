@@ -7,11 +7,11 @@ import omni.components.core.interfaces.IOComponent;
 import omni.utils.signals.OSignalType;
 import omni.utils.OStates;
 
-import nme.system.System;
-import nme.display.DisplayObjectContainer;
-import nme.Lib;
-import nme.display.Sprite;
-import nme.display.Stage;
+import flash.system.System;
+import flash.display.DisplayObjectContainer;
+import flash.Lib;
+import flash.display.Sprite;
+import flash.display.Stage;
 
 /**
 * Components Core

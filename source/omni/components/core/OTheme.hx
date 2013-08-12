@@ -2,7 +2,7 @@ package omni.components.core;
 
 import omni.components.core.interfaces.IDestroyable;
 import omni.components.core.interfaces.IStyle;
-import nme.system.System;
+import flash.system.System;
 
 import omni.components.style.base.OBaseStyle;
 

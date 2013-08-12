@@ -3,7 +3,7 @@ package omni.components.gui.layout.containers;
 import omni.components.gui.layout.window.WindowContentContainer;
 import omni.components.core.OToggleButton;
 import omni.components.core.OContainerPage;
-import nme.geom.Rectangle;
+import flash.geom.Rectangle;
 import omni.components.core.OContainer;
 import omni.components.core.OLayout;
 import omni.components.gui.layout.window.TabButton;

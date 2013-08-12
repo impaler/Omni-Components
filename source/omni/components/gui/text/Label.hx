@@ -3,8 +3,8 @@ package omni.components.gui.text;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OTextBase;
 
-import nme.text.TextFieldType;
-import nme.text.TextFieldAutoSize;
+import flash.text.TextFieldType;
+import flash.text.TextFieldAutoSize;
 
 class Label extends OTextBase
 {

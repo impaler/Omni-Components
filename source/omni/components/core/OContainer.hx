@@ -6,8 +6,8 @@ import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OComponent;
 import omni.utils.OStates;
 
-import nme.display.Sprite;
-import nme.geom.Rectangle;
+import flash.display.Sprite;
+import flash.geom.Rectangle;
 
 class OContainer extends OComponent
 {

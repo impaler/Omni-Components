@@ -1,8 +1,8 @@
 package omni.utils.signals;
 
 import omni.components.core.OCore;
-import nme.events.MouseEvent;
-import nme.display.DisplayObjectContainer;
+import flash.events.MouseEvent;
+import flash.display.DisplayObjectContainer;
 
 /**
 * 

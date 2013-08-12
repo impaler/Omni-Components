@@ -1,9 +1,9 @@
 package omni.utils.signals;
 
 import omni.components.core.OCore;
-import nme.events.Event;
-import nme.events.FocusEvent;
-import nme.display.DisplayObjectContainer;
+import flash.events.Event;
+import flash.events.FocusEvent;
+import flash.display.DisplayObjectContainer;
 
 /**
 * 

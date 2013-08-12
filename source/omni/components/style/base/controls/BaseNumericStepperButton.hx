@@ -1,7 +1,7 @@
 package omni.components.style.base.controls;
 
 import omni.components.gui.layout.containers.SpriteContainer;
-import nme.display.Sprite;
+import flash.display.Sprite;
 import omni.components.gui.controls.NumericStepper;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.style.base.BaseColors;
@@ -27,13 +27,6 @@ class BaseNumericStepperButton extends NumericStepperButtonStyle
         deafultLayoutStyle.defaultLeftPadding = 0;
         deafultLayoutStyle.defaultRightPadding = 0;
         deafultLayoutStyle.defaultBottomPadding = 0;
-
-//        var bgColor = new BrushColorFill ();
-//        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
-//        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
-//        bgColor.setColorState(OStates.OVER, BaseColors.OVER);
-//        bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
-//        setBackgroundBrush(bgColor);
 
         defaultWidthSizeMethod = OStates.FIXED;
         defaultHeightSizeMethod = OStates.FIXED;

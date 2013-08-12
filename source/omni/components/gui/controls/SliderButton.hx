@@ -9,8 +9,8 @@ import omni.components.style.base.OBaseStyle;
 import omni.components.core.OCore;
 import omni.components.style.base.OBaseBackgroundStyle;
 
-import nme.events.Event;
-import nme.events.MouseEvent;
+import flash.events.Event;
+import flash.events.MouseEvent;
 
 class SliderButton extends OButtonBase
 {

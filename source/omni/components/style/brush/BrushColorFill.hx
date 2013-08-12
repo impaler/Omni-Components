@@ -3,8 +3,8 @@ package omni.components.style.brush;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
 
-import nme.display.Sprite;
-import nme.display.Graphics;
+import flash.display.Sprite;
+import flash.display.Graphics;
 
 class BrushColorFill implements IBrush
 {
@@ -34,6 +34,7 @@ class BrushColorFill implements IBrush
         {
             var color = colors.get(drawTarget.state);
             var graphics:Graphics = drawTarget.sprite.graphics;
+
             graphics.clear();
             graphics.beginFill(color);
             graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);

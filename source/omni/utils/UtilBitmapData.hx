@@ -1,12 +1,12 @@
 package omni.utils;
 
-import nme.display.PixelSnapping;
-import nme.geom.Rectangle;
-import nme.geom.Matrix;
-import nme.display.Bitmap;
-import nme.display.BitmapData;
-import nme.display.Sprite;
-import nme.display.DisplayObject;
+import flash.display.PixelSnapping;
+import flash.geom.Rectangle;
+import flash.geom.Matrix;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.Sprite;
+import flash.display.DisplayObject;
 
 class UtilBitmapData
 {

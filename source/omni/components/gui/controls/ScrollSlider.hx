@@ -7,7 +7,7 @@ import omni.utils.signals.OSignalMouse;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OLayout;
 import omni.components.gui.controls.ScrollBarButton;
-import nme.geom.Rectangle;
+import flash.geom.Rectangle;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;

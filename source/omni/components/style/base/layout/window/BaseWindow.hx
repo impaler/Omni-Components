@@ -13,7 +13,7 @@ import omni.components.core.OLayout;
 import omni.components.core.OLayout.OLayoutStyle;
 import omni.utils.ColorUtils;
 import omni.utils.OStates;
-import nme.geom.Rectangle;
+import flash.geom.Rectangle;
 
 class BaseWindow extends WindowStyle
 {
@@ -22,11 +22,11 @@ class BaseWindow extends WindowStyle
     {
         super();
 
-        header = new BaseWindowHeader();
-        footer = new BaseWindowFooter();
-        middlebg = new BaseWindowMiddleBG();
-
-        scalerButton = new BaseWindowScalerButton();
+//        header = new BaseWindowHeader();
+//        footer = new BaseWindowFooter();
+//        middlebg = new BaseWindowMiddleBG();
+//
+//        scalerButton = new BaseWindowScalerButton();
 
         var bgColor = new BrushColorFill ();
         bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);

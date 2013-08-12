@@ -3,9 +3,9 @@ package omni.components.style.brush;
 import omni.components.core.interfaces.IBrush;
 import omni.components.core.interfaces.IOComponent;
 
-import nme.Assets;
-import nme.display.Graphics;
-import nme.display.BitmapData;
+import openfl.Assets;
+import flash.display.Graphics;
+import flash.display.BitmapData;
 
 class BrushBitmapFill implements IBrush
 {
@@ -45,11 +45,13 @@ class BrushBitmapFill implements IBrush
 
     public function update(drawTarget:IOComponent)
     {
-        if (images.get(drawTarget.state) != null)
+        if (images.get(drawTarget.state) != null && drawTarget.sprite != null)
         {
             var bitmapData = images.get(drawTarget.state);
             var graphics:Graphics = drawTarget.sprite.graphics;
+
             graphics.clear();
+
             graphics.beginBitmapFill(bitmapData, null, false, smooth);
             graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);
             graphics.endFill();

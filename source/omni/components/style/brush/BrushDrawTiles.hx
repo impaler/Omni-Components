@@ -1,14 +1,14 @@
 package omni.components.style.brush;
 
-import nme.geom.Point;
-import nme.geom.Rectangle;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 import omni.components.core.OTileSheet;
-import nme.display.Tilesheet;
+import flash.display.Tilesheet;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
 
-import nme.display.Sprite;
-import nme.display.Graphics;
+import flash.display.Sprite;
+import flash.display.Graphics;
 
 class BrushDrawTiles implements IBrush
 {

@@ -7,9 +7,9 @@ import omni.components.core.OTextBase.TextBaseStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.utils.ColorUtils;
 
-import nme.Assets;
-import nme.text.TextFormatAlign;
-import nme.text.TextFieldType;
+import openfl.Assets;
+import flash.text.TextFormatAlign;
+import flash.text.TextFieldType;
 
 class BaseButtonLabel extends ButtonLabelStyle
 {

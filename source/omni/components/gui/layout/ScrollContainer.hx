@@ -13,13 +13,14 @@ import omni.components.gui.controls.ScrollSlider;
 import omni.components.core.OLayout;
 import omni.utils.ComponentUtils;
 
-import nme.display.DisplayObject;
-import nme.display.DisplayObjectContainer;
-import nme.display.Sprite;
-import nme.events.MouseEvent;
-import nme.events.Event;
-import nme.geom.Point;
-import nme.geom.Rectangle;
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
+import flash.display.Sprite;
+import flash.events.MouseEvent;
+import flash.events.Event;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import flash.Lib;
 
 class ScrollContainer extends OContainer
 {
@@ -141,7 +142,7 @@ class ScrollContainer extends OContainer
             mouseTargetDown = null;
         }
 
-        //mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, nme.Lib.stage);
+        //mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, Lib.current.stage);
         //mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, parentComponent.sprite);
         mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, comp.sprite);
 
@@ -308,8 +309,8 @@ class ScrollContainer extends OContainer
             _ySpeed = 0;
             _xOffset = e.event.stageX - contentComponent.x;
             _yOffset = e.event.stageY - contentComponent.y;
-            _xTouchOffset = nme.Lib.stage.mouseX;
-            _yTouchOffset = nme.Lib.stage.mouseY;
+            _xTouchOffset = Lib.current.stage.mouseX;
+            _yTouchOffset = Lib.current.stage.mouseY;
             _drag = true;
         }
         else
@@ -379,10 +380,10 @@ class ScrollContainer extends OContainer
                     _yCache = contentComponent.y;
 
                     if (h_scrollBar_enabled && _tweenX)
-                        contentComponent.x = nme.Lib.stage.mouseX - _xOffset;
+                        contentComponent.x = Lib.current.stage.mouseX - _xOffset;
 
                     if (v_scrollBar_enabled && _tweenY)
-                        contentComponent.y = nme.Lib.stage.mouseY - _yOffset;
+                        contentComponent.y = Lib.current.stage.mouseY - _yOffset;
                 }
                 isValidPosition();
                 updateScrollBarsFromChange();

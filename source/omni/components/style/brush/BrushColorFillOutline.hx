@@ -3,8 +3,8 @@ package omni.components.style.brush;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
 
-import nme.display.Sprite;
-import nme.display.Graphics;
+import flash.display.Sprite;
+import flash.display.Graphics;
 
 class BrushColorFillOutline implements IBrush
 {

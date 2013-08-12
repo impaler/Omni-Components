@@ -5,7 +5,7 @@ import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OComponent;
 import omni.components.style.base.OBaseBackgroundStyle;
 
-import nme.display.Sprite;
+import flash.display.Sprite;
 
 class StretchLayout extends OLayout
 {

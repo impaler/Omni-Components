@@ -1,13 +1,13 @@
 package omni.components.gui.controls;
 
 import omni.components.core.OContainer;
-import nme.events.TimerEvent;
-import nme.utils.Timer;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
 import omni.utils.signals.OSignalInt;
 import omni.utils.signals.OSignalVoid;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
-import nme.display.Sprite;
+import flash.display.Sprite;
 import omni.components.style.base.OBaseBackgroundStyle;
 import omni.components.core.OComponent;
 import omni.utils.signals.OSignalType;

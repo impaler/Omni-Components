@@ -12,8 +12,8 @@ import omni.components.gui.controls.Slider.SliderBaseStyle;
 import omni.components.style.base.OBaseStyle;
 
 import flash.display.Bitmap;
-import nme.events.TimerEvent;
-import nme.utils.Timer;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
 
 class ScrollBar extends OComponent
 {

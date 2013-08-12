@@ -17,10 +17,10 @@ import omni.components.style.base.OBaseBackgroundStyle;
 import omni.utils.ComponentUtils;
 import omni.utils.UtilNumbers;
 
-import nme.display.Sprite;
-import nme.geom.Rectangle;
-import nme.events.Event;
-import nme.events.MouseEvent;
+import flash.display.Sprite;
+import flash.geom.Rectangle;
+import flash.events.Event;
+import flash.events.MouseEvent;
 
 class Slider extends OComponent
 {
@@ -59,11 +59,11 @@ class Slider extends OComponent
     //                  Style Variables
     //***********************************************************
 
-    public var step:Int = 10;
-    public var _max:Float = 100;
-    public var _type:String = "HORIZONTAL";
-    public var _value:Int = 30;
-    public var _min:Float = 0;
+    public var step:Int;
+    public var _max:Float;
+    public var _type:String;
+    public var _value:Int;
+    public var _min:Float;
 
     //***********************************************************
     //                  Component Overrides
@@ -72,6 +72,12 @@ class Slider extends OComponent
     override public function createMembers():Void
     {
         _rect = new Rectangle();
+
+        _type = styleAs.defaultType;
+        _max = styleAs.defaultMax;
+        _min = styleAs.defaultMin;
+        _value = styleAs.defaultValue;
+        step = styleAs.defaultStep;
 
         onChange = new OSignalType<Int -> Void>();
         onMouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, this.sprite);
@@ -430,15 +436,25 @@ class SliderBaseStyle extends OBaseBackgroundStyle
     public var defaultStep:Int;
     public var defaultValue:Int;
 
-    private var defaultMax:Float;
-    private var defaultMin:Float;
+    public var defaultMax:Float;
+    public var defaultMin:Float;
 
     public function new()
     {
         super();
         styleID = styleString;
+
+        defaultStep = 10;
+        defaultValue = 0;
+        defaultMax = 100;
+        defaultMin = 0;
+        defaultType = OStates.HORIZONTAL;
+        defaultValue = 50;
+
         defaultVWidth = 10;
         defaultHHeight = 10;
+        defaultVHeight = 120;
+        defaultHWidth = 120;
     }
 
     override public function initStyle(value:IOComponent):Void
@@ -446,12 +462,6 @@ class SliderBaseStyle extends OBaseBackgroundStyle
         super.initStyle(value);
 
         var styleAs = cast (value, Slider);
-
-        styleAs._type = defaultType;
-        styleAs.step = defaultStep;
-        styleAs._value = defaultValue;
-        styleAs._max = defaultMax;
-        styleAs._min = defaultMin;
 
         if (value._width == defaultWidth && value._height == defaultHeight)
         {

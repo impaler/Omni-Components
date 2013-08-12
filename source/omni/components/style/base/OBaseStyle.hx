@@ -1,9 +1,9 @@
 package omni.components.style.base;
 
-import nme.display.BitmapData;
+import flash.display.BitmapData;
 import omni.components.style.brush.BrushBitmapFill;
 import omni.utils.OStates;
-import nme.Assets;
+import openfl.Assets;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 

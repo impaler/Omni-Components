@@ -1,8 +1,8 @@
 package omni.examples.components.tests;
 
-import nme.display.Sprite;
+import flash.display.Sprite;
 import omni.utils.UtilShapes;
-import nme.display.Shape;
+import flash.display.Shape;
 
 class Shapes extends Sprite
 {

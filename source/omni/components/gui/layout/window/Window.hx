@@ -22,8 +22,9 @@ import omni.components.core.OLayout;
 import omni.utils.signals.OSignalType;
 import omni.utils.signals.OSignalMouse;
 import omni.components.style.base.OBaseBackgroundStyle;
+import flash.Lib;
 
-import nme.events.MouseEvent;
+import flash.events.MouseEvent;
 
 class Window extends OComponent
 {
@@ -144,11 +145,11 @@ class Window extends OComponent
     {
         if (resizeBehaviour == OStates.FIT && _maximized)
         {
-            maxHeight = nme.Lib.stage.stageHeight;
-            maxWidth = nme.Lib.stage.stageWidth;
+            maxHeight = Lib.current.stage.stageHeight;
+            maxWidth = Lib.current.stage.stageWidth;
 
             move(0, 0);
-            size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
+            size(Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
             _maximized = true;
         }
     }
@@ -243,14 +244,14 @@ class Window extends OComponent
         _previousPosition = { x : x, y : y };
 
         _previousMaxHeight = maxHeight;
-        maxHeight = nme.Lib.stage.stageHeight;
+        maxHeight = Lib.current.stage.stageHeight;
 
         _previousMaxWidth = maxWidth;
-        maxWidth = nme.Lib.stage.stageWidth;
+        maxWidth = Lib.current.stage.stageWidth;
 
         visible = false;
         move(0, 0);
-        size(nme.Lib.stage.stageWidth, nme.Lib.stage.stageHeight);
+        size(Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
         visible = true;
         _maximized = true;
 
@@ -359,18 +360,18 @@ class Window extends OComponent
         {
             y = 0;
         }
-        else if (y > nme.Lib.stage.stageHeight - boundsTolerance)
+        else if (y > Lib.current.stage.stageHeight - boundsTolerance)
         {
-            y = (nme.Lib.stage.stageHeight - header._height );
+            y = (Lib.current.stage.stageHeight - header._height );
         }
 
         if (x < 0 - (_width - boundsTolerance))
         {
             x = 0;
         }
-        else if (x > nme.Lib.stage.stageWidth - boundsTolerance)
+        else if (x > Lib.current.stage.stageWidth - boundsTolerance)
         {
-            x = nme.Lib.stage.stageWidth - _width;
+            x = Lib.current.stage.stageWidth - _width;
         }
 
         onMouseMove.remove(handleWindowDragMouseMove);
@@ -393,7 +394,7 @@ class Window extends OComponent
 
     private function handleScaleWindowResize(e:OCoreEvent):Void
     {
-        var targetX = Std.int(nme.Lib.stage.mouseX - _xOffset);
+        var targetX = Std.int(Lib.current.stage.mouseX - _xOffset);
 
         if (targetX > Std.int(maxWidth - scalerButton.width))
         {
@@ -404,7 +405,7 @@ class Window extends OComponent
             targetX = Std.int(minWidth - scalerButton.width);
         }
 
-        var targetY = Std.int(nme.Lib.stage.mouseY - _yOffset);
+        var targetY = Std.int(Lib.current.stage.mouseY - _yOffset);
 
         if (targetY > Std.int(maxHeight - scalerButton.height))
         {

@@ -10,7 +10,7 @@ import omni.utils.UtilPosition;
 import omni.components.core.interfaces.IBrush;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OLayout;
-import nme.display.BitmapData;
+import flash.display.BitmapData;
 import omni.utils.OStates;
 import omni.utils.ComponentUtils;
 import omni.components.gui.layout.Icon.IconStyle;

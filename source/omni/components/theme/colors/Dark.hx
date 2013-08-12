@@ -15,9 +15,10 @@ class Dark extends BaseTheme
         BaseColors.DOWN = ColorUtils.BLACK;
 
         BaseColors.ON = ColorUtils.GRAY;
-        BaseColors.ON_OVER = ColorUtils.GRAY;
-        BaseColors.OFF = ColorUtils.GRAY;
-        BaseColors.OFF_OVER = ColorUtils.GRAY;
+        BaseColors.ON_OVER = ColorUtils.LIGHT_GRAY;
+
+        BaseColors.OFF = ColorUtils.DARK_GRAY;
+        BaseColors.OFF_OVER = ColorUtils.LIGHT_GRAY;
 
         BaseColors.BG = ColorUtils.BLACK;
         BaseColors.BG_LAYOUT = ColorUtils.BLACK;

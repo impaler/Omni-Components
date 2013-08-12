@@ -7,7 +7,7 @@ import omni.components.core.OLayout;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.layout.ScrollContainer.ScrollContainerStyle;
 import omni.components.core.OLayout.OLayoutStyle;
-import nme.geom.Rectangle;
+import flash.geom.Rectangle;
 import omni.utils.ColorUtils;
 
 class BaseScrollContainer extends ScrollContainerStyle

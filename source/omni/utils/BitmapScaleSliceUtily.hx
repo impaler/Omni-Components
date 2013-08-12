@@ -1,16 +1,15 @@
 package omni.utils;
 
-import nme.display.DisplayObjectContainer;
-import nme.display.DisplayObject;
-import nme.display.PixelSnapping;
-import nme.display.Bitmap;
-import nme.display.BitmapInt32;
-import nme.display.Sprite;
-import nme.display.Graphics;
-import nme.display.BitmapData;
-import nme.geom.Matrix;
-import nme.geom.Point;
-import nme.geom.Rectangle;
+import flash.display.DisplayObjectContainer;
+import flash.display.DisplayObject;
+import flash.display.PixelSnapping;
+import flash.display.Bitmap;
+import flash.display.Sprite;
+import flash.display.Graphics;
+import flash.display.BitmapData;
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 
 /**
 * NME Sprite BitmapData Sprite Slice scaling
@@ -245,12 +244,12 @@ class BitmapScaleSliceUtily
 
     public static inline function drawBitmapSlice(target:Sprite, sourceBitmap:BitmapData, sourceRect:Rectangle, destinationRect:Rectangle, smooth:Bool = false):Void
     {
-        #if neko
-		var color = {rgb: 0xFF0000, a: 0xFF};
-		var fill = new BitmapData(Std.int( sourceRect.width ), Std.int( sourceRect.height ), true, color);
-#else
+//         #if neko
+// 		var color = {rgb: 0xFF0000, a: 0xFF};
+// 		var fill = new BitmapData(Std.int( sourceRect.width ), Std.int( sourceRect.height ), true, color);
+// #else
         var fill = new BitmapData(Std.int(sourceRect.width), Std.int(sourceRect.height), true, 0x00FFFFFF);
-        #end
+        // #end
 
         fill.copyPixels(sourceBitmap, sourceRect, new Point(0, 0));
 

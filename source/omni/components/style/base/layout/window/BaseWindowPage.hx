@@ -10,7 +10,7 @@ import omni.components.core.OContainerPage.OContainerPageStyle;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OLayout.OLayoutStyle;
 import omni.utils.ColorUtils;
-import nme.geom.Rectangle;
+import flash.geom.Rectangle;
 
 class BaseWindowPage extends WindowPageStyle
 {

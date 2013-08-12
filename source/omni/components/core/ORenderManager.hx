@@ -2,10 +2,10 @@ package omni.components.core;
 
 import omni.components.core.interfaces.IOComponent;
 
-import nme.Lib;
-import nme.display.Stage;
-import nme.events.Event;
-import nme.events.TimerEvent;
+import flash.Lib;
+import flash.display.Stage;
+import flash.events.Event;
+import flash.events.TimerEvent;
 
 /**
 * 

@@ -7,7 +7,7 @@ import omni.components.core.OComponentButton;
 import omni.components.core.OToggleButton;
 import omni.utils.signals.OSignalMouse;
 
-import nme.geom.Rectangle;
+import flash.geom.Rectangle;
 
 class SlideToggle extends OToggleButton
 {

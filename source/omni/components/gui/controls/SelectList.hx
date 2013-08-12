@@ -13,7 +13,7 @@ import omni.components.core.OComponentButton;
 import omni.components.gui.layout.list.List;
 import omni.components.gui.layout.list.ListItem;
 
-import nme.geom.Point;
+import flash.geom.Point;
 
 class SelectList extends OComponentButton
 {

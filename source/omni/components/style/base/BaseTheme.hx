@@ -1,5 +1,6 @@
 package omni.components.style.base;
 
+import omni.components.style.base.layout.window.BaseWindowFooter;
 import omni.components.style.base.layout.window.BaseWindowMiddleBG;
 import omni.components.style.base.core.BaseODrawable;
 import omni.components.style.base.controls.BaseSelectList;
@@ -75,6 +76,8 @@ class BaseTheme extends OTheme
 
         addWindowStyle();
 
+        addTabButtonStyle();
+
         addButtonStyle();
         addCheckBoxStyle();
 
@@ -91,7 +94,6 @@ class BaseTheme extends OTheme
         addStyle(BaseTabButtonGroup);
 
         addSliderStyle();
-        addSliderButtonStyle();
 
         addScrollBarStyle();
 
@@ -166,10 +168,6 @@ class BaseTheme extends OTheme
     public function addSliderStyle():Void
     {
         addStyle(BaseSlider);
-    }
-
-    public function addSliderButtonStyle():Void
-    {
         addStyle(BaseSliderButton);
     }
 
@@ -193,8 +191,8 @@ class BaseTheme extends OTheme
     {
         addStyle(BaseWindow);
         addStyle(BaseWindowHeader);
+        addStyle(BaseWindowFooter);
         addStyle(BaseWindowTabbedContainer);
-        addTabButtonStyle();
         addStyle(BaseWindowContainer);
         addStyle(BaseWindowVBox);
         addStyle(BaseWindowMiddleBG);

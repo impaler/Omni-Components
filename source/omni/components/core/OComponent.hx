@@ -9,9 +9,9 @@ import omni.utils.signals.OCoreEvent;
 import omni.utils.signals.OSignalType;
 import omni.components.style.base.OBaseStyle;
 import omni.utils.OStates;
-import nme.events.Event;
-import nme.display.Sprite;
-import nme.geom.Rectangle;
+import flash.events.Event;
+import flash.display.Sprite;
+import flash.geom.Rectangle;
 
 class OComponent implements IOComponent
 {
@@ -221,6 +221,8 @@ class OComponent implements IOComponent
 
     public function onThemeChange():Void
     {
+        this.sprite.graphics.clear();
+
         initStyle();
         invalidate();
     }

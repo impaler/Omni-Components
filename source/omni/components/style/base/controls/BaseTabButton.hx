@@ -22,10 +22,10 @@ class BaseTabButton extends TabButtonStyle
 
         var bgColor = new BrushColorFill ();
 
-        bgColor.setColorState(OStates.ON, ColorUtils.BLUE);
+        bgColor.setColorState(OStates.ON, BaseColors.ON );
         bgColor.setColorState(OStates.ON_OVER, BaseColors.ON_OVER);
 
-        bgColor.setColorState(OStates.OFF, ColorUtils.GREEN);
+        bgColor.setColorState(OStates.OFF, BaseColors.OFF );
         bgColor.setColorState(OStates.OFF_OVER, BaseColors.OFF_OVER);
 
         bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);

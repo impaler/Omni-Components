@@ -8,7 +8,7 @@ import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.core.OContainer;
 import omni.components.core.OLayout;
 
-import nme.display.Sprite;
+import flash.display.Sprite;
 
 class OContainerContent extends OContainer
 {

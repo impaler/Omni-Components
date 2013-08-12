@@ -5,7 +5,7 @@ import omni.utils.OStates;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.layout.Icon.IconStyle;
 
-import nme.Assets;
+import openfl.Assets;
 
 class BaseIcon extends IconStyle
 {

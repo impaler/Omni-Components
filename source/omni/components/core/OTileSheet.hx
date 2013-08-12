@@ -1,12 +1,12 @@
 package omni.components.core;
 
-import nme.Assets;
-import nme.geom.Point;
-import nme.geom.Rectangle;
+import openfl.Assets;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 import omni.components.core.interfaces.IDestroyable;
 
-import nme.display.Tilesheet;
-import nme.display.BitmapData;
+import flash.display.Tilesheet;
+import flash.display.BitmapData;
 
 class OTileSheet implements IDestroyable
 {
