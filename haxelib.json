@@ -5,7 +5,7 @@
     "tags": ["gui, openfl"],
     "description": "WIP components for easy code only gui",
     "version": "0.0.2",
-    "releasenote": ""
+    "releasenote": "",
     "contributors": [""],
     "dependencies": { "openfl": "" }
 }
