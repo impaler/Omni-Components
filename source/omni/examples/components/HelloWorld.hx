@@ -9,7 +9,7 @@ import omni.utils.ColorUtils;
 import omni.utils.UtilPosition;
 import omni.utils.BitmapScaleSliceUtily;
 import openfl.Assets;
-import omni.components.theme.softui.SoftUI;
+//import omni.components.theme.softui.SoftUI;
 import omni.components.theme.colors.Dark;
 import omni.components.theme.colors.Orange;
 import omni.examples.components.tests.previewer.ThemePreview;
@@ -33,9 +33,9 @@ class HelloWorld extends MovieClip
 
         super ();
 
-         var themePreview = new ThemePreview(SoftUI);
-//        var themePreview = new ThemePreview(Dark);
-//        var themePreview = new ThemePreview(Orange);
+         //var themePreview = new ThemePreview(SoftUI);
+        //var themePreview = new ThemePreview(Dark);
+        var themePreview = new ThemePreview(Orange);
 
 //        OCore.instance.init(Dark);
 //
@@ -49,7 +49,7 @@ class HelloWorld extends MovieClip
     public function changeTheme (m:OSignalMouse):Void
     {
         Type.getClass(OCore.instance.defaultTheme) == Dark ?
-        OCore.instance.changeDefaultTheme(SoftUI) :
+        OCore.instance.changeDefaultTheme(Orange) :
         OCore.instance.changeDefaultTheme(Dark);
     }
 

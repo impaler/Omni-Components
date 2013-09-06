@@ -73,11 +73,8 @@ class BaseTheme extends OTheme
         addStyle(BaseSlideToggle);
 
         addOTextBaseStyle();
-
         addWindowStyle();
-
         addTabButtonStyle();
-
         addButtonStyle();
         addCheckBoxStyle();
 
@@ -94,25 +91,15 @@ class BaseTheme extends OTheme
         addStyle(BaseTabButtonGroup);
 
         addSliderStyle();
-
         addScrollBarStyle();
-
-
-
-
-        addStyle(BaseList);
-
-        addStyle(BaseSelectList);
-
-        addStyle(BaseIcon);
-        addStyle(BaseProgressBar);
-
+        addListStyle();
+        addBaseSelectListStyle();
+        addStyleBaseIconStyle();
+        addBaseProgressBarStyle();
         addNumericStepperStyle();
-
-        addStyle(BaseLabel);
-        addStyle(BaseInputField);
-
-        addStyle(BaseSpriteContainer);
+        addLabelStyle();
+        addInputFeildStyle();
+        addSpriteContainerStyle();
 
     }
 
@@ -197,6 +184,41 @@ class BaseTheme extends OTheme
         addStyle(BaseWindowVBox);
         addStyle(BaseWindowMiddleBG);
     }
+
+	public function addListStyle():Void
+	{
+		addStyle(BaseList);
+	}
+
+	public function addLabelStyle():Void
+	{
+		addStyle(BaseLabel);
+	}
+
+	public function addInputFeildStyle():Void
+	{
+		addStyle(BaseInputField);
+	}
+
+	public function addSpriteContainerStyle():Void
+	{
+		addStyle(BaseSpriteContainer);
+	}
+
+	public function addBaseProgressBarStyle():Void
+	{
+		addStyle(BaseProgressBar);
+	}
+
+	public function addStyleBaseIconStyle():Void
+	{
+		addStyle(BaseIcon);
+	}
+
+	public function addBaseSelectListStyle():Void
+	{
+		addStyle(BaseSelectList);
+	}
 
     public function setupColors():Void
     {
