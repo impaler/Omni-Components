@@ -40,6 +40,7 @@ class Slider extends OComponent
     //***********************************************************
 
     public var onMouseMove:OSignalMouse;
+    public var onMouseOut:OSignalMouse;
     public var onMouseWheel:OSignalMouse;
     public var onMouseDown:OSignalMouse;
     public var onMouseUp:OSignalMouse;
@@ -84,6 +85,7 @@ class Slider extends OComponent
         onChange = new OSignalType<Int -> Void>();
         onMouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, this.sprite);
         onMouseDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, this.sprite);
+	    onMouseOut = new OSignalMouse (OSignalMouse.MOUSE_OUT, this.sprite);
         onMouseUp = OCore.instance.onStageMouseUp;
         onMouseMove = OCore.instance.onStageMouseMove;
 
@@ -102,6 +104,7 @@ class Slider extends OComponent
             onMouseWheel.add(handleMouseWheel);
             onMouseDown.add(handleMouseDown);
             onMouseUp.add(handleMouseUp);
+	        onMouseOut.add(handleMouseOut);
 
             _listening = true;
         }
@@ -115,6 +118,7 @@ class Slider extends OComponent
             onMouseDown.remove(handleMouseDown);
             onMouseWheel.remove(handleMouseWheel);
             onMouseUp.remove(handleMouseUp);
+	        onMouseOut.remove(handleMouseOut);
 
             _listening = false;
         }
@@ -124,7 +128,7 @@ class Slider extends OComponent
     {
         onMouseWheel.destroy();
         onMouseDown.destroy();
-
+	    onMouseOut.destroy();
         onMouseMove.remove(handleMouseMove);
         onMouseUp.remove(handleMouseUp);
         button.onMouseDown.remove(handleButtonDown);
@@ -193,9 +197,12 @@ class Slider extends OComponent
 
         if (OCore.instance.updateAfterEvent)
             e.updateAfterEvent();
-
-        OCore.instance.disableScrolling = false;
     }
+
+	public function handleMouseOut(?e:OSignalMouse):Void
+	{
+		OCore.instance.disableScrolling = false;
+	}
 
     public function handleLeftStage(e:OSignalEvent):Void
     {

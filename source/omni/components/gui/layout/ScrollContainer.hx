@@ -273,9 +273,6 @@ class ScrollContainer extends OContainer
 
     public function handleMouseWheel(?e:OSignalMouse):Void
     {
-        nme.Lib.trace("handleMouseWheel:" + compId);
-        nme.Lib.trace("delta:" + e.event.delta);
-
         if (!OCore.instance.disableScrolling)
         {
             _scrollBarMove = true;
@@ -306,8 +303,6 @@ class ScrollContainer extends OContainer
 
     private function handleDownContent(e:OSignalMouse):Void
     {
-        //nme.Lib.trace("handleDownContent:" + compId);
-
         if (!OCore.instance.disableScrolling)
         {
             _down = true;
@@ -327,8 +322,6 @@ class ScrollContainer extends OContainer
 
     private function handleRelease(e:OSignalMouse):Void
     {
-        //nme.Lib.trace("handleRelease:" + compId);
-
         target.mouseChildren = true;
 
         if (OCore.instance.disableScrolling)
@@ -364,8 +357,6 @@ class ScrollContainer extends OContainer
 
     private function handleRenderDrag(e:OSignalEvent):Void
     {
-        //nme.Lib.trace("renderDrag:" + compId);
-
         if (!OCore.instance.disableScrolling)
         {
 
