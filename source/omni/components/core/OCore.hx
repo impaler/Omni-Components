@@ -1,7 +1,7 @@
 package omni.components.core;
 
 import omni.components.core.interfaces.IStyle;
-import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalEvent;
 import omni.utils.signals.OSignalMouse;
 import omni.components.core.interfaces.IOComponent;
 import omni.utils.signals.OSignalType;
@@ -59,10 +59,10 @@ class OCore
     //	public var timer:TimerManager;
     //	public var inputs:InputManager;
     //	public var onStageMouseDown:FlashSignal<MouseEvent>;
-    public var onStageResize:OCoreEvent;
-    public var onStageEnterFrame:OCoreEvent;
+    public var onStageResize:OSignalEvent;
+    public var onStageEnterFrame:OSignalEvent;
     public var onStageMouseMove:OSignalMouse;
-    public var onStageMouseLeave:OCoreEvent;
+    public var onStageMouseLeave:OSignalEvent;
     public var onStageMouseUp:OSignalMouse;
 
     public var trackTheme:Bool;
@@ -92,9 +92,9 @@ class OCore
 
         onStageMouseMove = new OSignalMouse(OSignalMouse.MOUSE_MOVE, stage);
         onStageMouseUp = new OSignalMouse(OSignalMouse.MOUSE_UP, stage);
-        onStageMouseLeave = new OCoreEvent(OCoreEvent.MOUSE_LEAVE, stage);
-        onStageEnterFrame = new OCoreEvent(OCoreEvent.ENTER_FRAME, stage);
-        onStageResize = new OCoreEvent(OCoreEvent.RESIZE, stage);
+        onStageMouseLeave = new OSignalEvent(OSignalEvent.MOUSE_LEAVE, stage);
+        onStageEnterFrame = new OSignalEvent(OSignalEvent.ENTER_FRAME, stage);
+        onStageResize = new OSignalEvent(OSignalEvent.RESIZE, stage);
 
         debugLayer = new Sprite();
         popupsLayer = new Sprite();

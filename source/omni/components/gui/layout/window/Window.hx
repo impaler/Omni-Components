@@ -14,7 +14,7 @@ import omni.utils.OStates;
 import omni.utils.UtilSize.Dimension;
 import omni.utils.UtilSize.Position;
 import omni.components.core.OContainer;
-import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalEvent;
 import omni.components.core.OCore;
 import omni.components.core.OComponent;
 import omni.components.core.OButtonBase;
@@ -36,8 +36,8 @@ class Window extends OComponent
     public var onOpened:OSignalType<Window -> Void>;
     public var onClosed:OSignalType<Window -> Void>;
 
-    public var onStageResize:OCoreEvent;
-    public var onResizeDragRender:OCoreEvent;
+    public var onStageResize:OSignalEvent;
+    public var onResizeDragRender:OSignalEvent;
     public var onMouseDownHeader:OSignalMouse;
     public var onMouseMove:OSignalMouse;
     public var onMouseUp:OSignalMouse;
@@ -104,7 +104,7 @@ class Window extends OComponent
         middleBG = new WindowMiddleBG(styleAsWindow.middlebg);
         coreAdd(middleBG);
 
-        onResizeDragRender = new OCoreEvent(OCoreEvent.ENTER_FRAME, this.sprite);
+        onResizeDragRender = new OSignalEvent(OSignalEvent.ENTER_FRAME, this.sprite);
         onMouseMove = OCore.instance.onStageMouseMove;
         onMouseUp = OCore.instance.onStageMouseUp;
 
@@ -141,7 +141,7 @@ class Window extends OComponent
         onStageResize.add(handleStageResize);
     }
 
-    public function handleStageResize(e:OCoreEvent):Void
+    public function handleStageResize(e:OSignalEvent):Void
     {
         if (resizeBehaviour == OStates.FIT && _maximized)
         {
@@ -392,7 +392,7 @@ class Window extends OComponent
         }
     }
 
-    private function handleScaleWindowResize(e:OCoreEvent):Void
+    private function handleScaleWindowResize(e:OSignalEvent):Void
     {
         var targetX = Std.int(Lib.current.stage.mouseX - _xOffset);
 

@@ -1,5 +1,30 @@
-Omni Components
+OmniComponents
 =============
+
+OmniComponents is all about rapid code driven interfaces that are highly customizable and easily themed.
+
+The component library is based on extending the core OComponent classes.
+
+
+This is all you need to get started with OmniComponents.
+
+```
+OCore.instance.init(YourTheme);
+var button = new Button();
+OCore.addChild(button);
+```
+
+```
+OCore.instance.init(YourTheme);
+var button = new Button();
+button.text = "Hello World";
+OCore.addChild(button);
+```
+
+
+
+
+
 
 The code here is a WIP
 
@@ -18,7 +43,7 @@ Web
 Desktop
 Mobile
 
-[NME] (http://www.nme.io/)
+[OpenFL] (http://www.openfl.org/)
 
 
 

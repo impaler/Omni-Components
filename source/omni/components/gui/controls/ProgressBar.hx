@@ -78,7 +78,7 @@ class ProgressBar extends OComponent
 
             if (_value >= 100)
             {
-                onComplete.dispatch;
+                onComplete.dispatch();
             }
             else
             {

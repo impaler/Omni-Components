@@ -2,10 +2,8 @@ package omni.components.core;
 
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
-import omni.utils.ComponentUtils;
-import omni.utils.UtilPosition;
 import omni.utils.UtilNumbers;
-import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalEvent;
 import omni.utils.signals.OSignalType;
 import omni.components.style.base.OBaseStyle;
 import omni.utils.OStates;
@@ -43,7 +41,7 @@ class OComponent implements IOComponent
     public function createComponentMembers():Void
     {
         sprite = new Sprite();
-        onResize = new OCoreEvent(OCoreEvent.RESIZE, this.sprite);
+        onResize = new OSignalEvent(OSignalEvent.RESIZE, this.sprite);
         members = [];
     }
 
@@ -221,6 +219,7 @@ class OComponent implements IOComponent
 
     public function onThemeChange():Void
     {
+        if(this.sprite!=null)
         this.sprite.graphics.clear();
 
         initStyle();
@@ -264,7 +263,7 @@ class OComponent implements IOComponent
         }
     }
 
-    public var onResize:OCoreEvent;
+    public var onResize:OSignalEvent;
 
     public var parentComponent:IOComponent;
 

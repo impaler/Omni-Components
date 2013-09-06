@@ -3,9 +3,9 @@
     "url": "https://github.com/impaler/Omni-Components.git",
     "license": "MIT",
     "tags": ["gui, openfl"],
-    "description": "WIP components for easy code only gui",
+    "description": "WIP medium weight components for easy code driven gui",
     "version": "0.0.2",
-    "releasenote": ""
+    "releasenote": "",
     "contributors": [""],
-    "dependencies": { "openfl": "" }
+    "dependencies": { "openfl": "", "actuate": "" }
 }

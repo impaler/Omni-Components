@@ -25,6 +25,14 @@ class TabButtonGroup extends OToggleButtonGroup
 
     public var onMouseWheel:OSignalMouse;
 
+	//***********************************************************
+	//                  Private Variables
+	//***********************************************************
+
+	private var _wheelScrollSpeed : Float = 8;
+	private var _wheelValue : Float = 0;
+	private var _button:TabButton = null;
+
     //***********************************************************
     //                  Component Overrides
     //***********************************************************
@@ -56,9 +64,17 @@ class TabButtonGroup extends OToggleButtonGroup
 
     public function handleMouseWheel(e:OSignalMouse):Void
     {
-        var button:TabButton=null;
-        e.delta > 0 ? button = nextButton() : button = previousButton();
-        button.handleMouseDown();
+	    _wheelValue = e.delta * _wheelScrollSpeed;
+	    trace('mouse::'+_wheelValue);
+        if( _wheelValue >= _wheelScrollSpeed) _button = nextButton();
+        if( _wheelValue <= -_wheelScrollSpeed) _button = previousButton();
+
+	    if(_button!=null)
+	    {
+		    _button.handleMouseDown();
+		    _button = null;
+	    }
+	    _wheelValue = 0;
     }
 
     //***********************************************************

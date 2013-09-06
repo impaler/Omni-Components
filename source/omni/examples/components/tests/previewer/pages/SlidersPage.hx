@@ -5,10 +5,8 @@ import omni.components.gui.controls.Slider;
 
 class SlidersPage extends ThemePage
 {
-    /**
+/**
 * Sliders let you change a value in between it's min / max value setting.
-*
-*
 *
 **/
 

@@ -1,18 +1,10 @@
 package omni.components.core;
 
 import omni.components.core.OContainer.OContainerStyle;
-import omni.components.core.interfaces.IStyle;
 import omni.components.core.OCore;
 import omni.utils.signals.OSignalType;
 import omni.utils.signals.OSignalMouse;
-import omni.utils.signals.OCoreEvent;
-import omni.components.style.base.OBaseStyle;
-import omni.components.style.base.OBaseBackgroundStyle;
 import omni.utils.OStates;
-
-import flash.geom.Rectangle;
-import flash.events.Event;
-import flash.events.MouseEvent;
 
 /**
 * OButtonBase

@@ -36,9 +36,9 @@ class ButtonsPage extends ThemePage
         addTest(buttonSize, "Button Icon Only");
 
         var buttonSize = new Button();
+	    buttonSize.text = "Label Only";
         buttonSize.removeIcon();
         addTest(buttonSize, "Button Label Only");
-
     }
 
 }

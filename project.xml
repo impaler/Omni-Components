@@ -17,6 +17,7 @@
 
     <icon name="assets/nme.svg"/>
 
+    <haxelib name="Omni-Utils"/>
     <haxelib name="nme"/>
     <haxelib name="actuate"/>
     <!--<haxelib name="tilelayer" />-->

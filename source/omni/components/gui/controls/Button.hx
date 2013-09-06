@@ -132,7 +132,7 @@ class Button extends OComponentButton
     //                  Component Style
     //***********************************************************
 
-    private var styleAsButton(get_styleAsButton, null):ButtonStyle;
+    public var styleAsButton(get_styleAsButton, null):ButtonStyle;
 
     private function get_styleAsButton():ButtonStyle
     {

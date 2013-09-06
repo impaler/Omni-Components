@@ -1,15 +1,13 @@
 package omni.components.core;
 
-import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.core.interfaces.IStyle;
-import omni.components.core.OLayout;
-import omni.components.core.OContainer;
-import omni.utils.OStates;
 import omni.components.core.interfaces.IOComponent;
+import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.gui.layout.window.TabButton;
+import omni.components.core.OContainer;
 import omni.components.style.base.OBaseBackgroundStyle;
-import omni.utils.signals.OSignalType;
 import omni.components.core.OComponent;
+import omni.utils.signals.OSignalType;
 
 class OContainerPage extends OComponent
 {

@@ -1,7 +1,7 @@
 package omni.components.gui.layout.containers;
 
 import flash.display.Sprite;
-import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalEvent;
 import flash.display.Sprite;
 import omni.components.style.base.OBaseStyle;
 import omni.components.core.OComponent;
