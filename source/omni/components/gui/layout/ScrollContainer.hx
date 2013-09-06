@@ -6,7 +6,7 @@ import omni.components.style.base.OBaseStyle;
 import omni.components.gui.controls.ScrollBar;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
-import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalEvent;
 import omni.utils.signals.OSignalMouse;
 import omni.components.core.OCore;
 import omni.components.gui.controls.ScrollSlider;
@@ -40,7 +40,7 @@ class ScrollContainer extends OContainer
     public var mouseTargetDown:OSignalMouse;
     public var mouseUp:OSignalMouse;
     public var mouseWheel:OSignalMouse;
-    public var dragEnterFrame:OCoreEvent;
+    public var dragEnterFrame:OSignalEvent;
 
     //***********************************************************
     //                  Style Variables
@@ -87,6 +87,8 @@ class ScrollContainer extends OContainer
     private var _tweenY:Bool = true;
     private var _isValidTemp:Bool;
     private var _tempFloat:Float;
+	private var _wheelScrollSpeed : Float = 2;
+	private var _wheelValue : Float = 0;
 
     //***********************************************************
     //                  Component Overrides
@@ -277,16 +279,20 @@ class ScrollContainer extends OContainer
         if (!OCore.instance.disableScrolling)
         {
             _scrollBarMove = true;
+	        _wheelValue = e.delta * _wheelScrollSpeed;
 
             if (_mouseWheelV)
             {
-                vScrollBar.value -= e.delta > 0 ? vScrollBar.sliderStep : -vScrollBar.sliderStep;
+	            if( _wheelValue >= _wheelScrollSpeed) vScrollBar.value -= vScrollBar.sliderStep;
+	            if( _wheelValue <= -_wheelScrollSpeed) vScrollBar.value += vScrollBar.sliderStep;
             }
             else
             {
-                hScrollBar.value -= e.delta > 0 ? hScrollBar.sliderStep : -hScrollBar.sliderStep;
+	            if( _wheelValue >= _wheelScrollSpeed) hScrollBar.value -= hScrollBar.sliderStep;
+	            if( _wheelValue <= -_wheelScrollSpeed) hScrollBar.value += hScrollBar.sliderStep;
             }
 
+	        _wheelValue = 0;
             _xSpeed = 0;
             _ySpeed = 0;
             _xCache = contentComponent.x;
@@ -356,7 +362,7 @@ class ScrollContainer extends OContainer
         }
     }
 
-    private function handleRenderDrag(e:OCoreEvent):Void
+    private function handleRenderDrag(e:OSignalEvent):Void
     {
         //nme.Lib.trace("renderDrag:" + compId);
 

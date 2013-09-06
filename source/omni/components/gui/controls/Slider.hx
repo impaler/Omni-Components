@@ -5,7 +5,7 @@ import omni.components.core.interfaces.IStyle;
 import omni.components.core.OCore;
 import omni.utils.OStates;
 import omni.utils.signals.OSignalType;
-import omni.utils.signals.OCoreEvent;
+import omni.utils.signals.OSignalEvent;
 import omni.utils.signals.OSignalMouse;
 import omni.utils.signals.OSignalMouse;
 import omni.components.core.OComponent;
@@ -54,6 +54,8 @@ class Slider extends OComponent
     private var _tempValue:Int = 0;
     private var _rect:Rectangle;
     private var _buttonClick:Bool = false;
+	private var _wheelScrollSpeed : Float = 18;
+	private var _wheelValue : Float = 0;
 
     //***********************************************************
     //                  Style Variables
@@ -184,7 +186,10 @@ class Slider extends OComponent
     {
         OCore.instance.disableScrolling = true;
 
-        value += (e.delta > 0 ? step : -step);
+	    _wheelValue = e.delta * _wheelScrollSpeed;
+	    if( _wheelValue >= _wheelScrollSpeed) value += step;
+	    if( _wheelValue <= -_wheelScrollSpeed) value -= step;
+	    _wheelValue = 0;
 
         if (OCore.instance.updateAfterEvent)
             e.updateAfterEvent();
@@ -192,7 +197,7 @@ class Slider extends OComponent
         OCore.instance.disableScrolling = false;
     }
 
-    public function handleLeftStage(e:OCoreEvent):Void
+    public function handleLeftStage(e:OSignalEvent):Void
     {
         handleMouseUp();
     }
