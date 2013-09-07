@@ -1,24 +1,20 @@
 package omni.components.gui.layout;
 
-import omni.components.core.OContainer;
-import omni.utils.OStates;
-import omni.components.style.base.OBaseStyle;
-import omni.components.gui.controls.ScrollBar;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
+import omni.utils.OStates;
 import omni.utils.signals.OSignalEvent;
 import omni.utils.signals.OSignalMouse;
+import omni.components.core.OContainer;
+import omni.components.gui.controls.ScrollBar;
 import omni.components.core.OCore;
 import omni.components.gui.controls.ScrollSlider;
 import omni.components.core.OLayout;
-import omni.utils.ComponentUtils;
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
-import flash.events.Event;
-import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.Lib;
 
@@ -144,15 +140,11 @@ class ScrollContainer extends OContainer
             mouseTargetDown = null;
         }
 
-        //mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, Lib.current.stage);
-        //mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, parentComponent.sprite);
         mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, comp.sprite);
-
-        //if(_listening && !mouseTargetDown.exists(handleDownContent))
-            mouseTargetDown.add(handleDownContent);
+        mouseTargetDown.add(handleDownContent);
 
         if (mouseWheel != null) mouseWheel.removeAll();
-            mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, parentComponent.sprite);
+            mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, contentComponent.sprite);
 
         if (mouseWheel != null)
         {
@@ -726,20 +718,6 @@ class ScrollContainer extends OContainer
             hScrollBar.contentSize = Std.int(contentComponent.width);
             vScrollBar.contentSize = Std.int(contentComponent.height);
         }
-    }
-
-    //***********************************************************
-    //                  Properties
-    //***********************************************************
-
-    override public function get_height():Float
-    {
-        return _height;
-    }
-
-    override public function get_width():Float
-    {
-        return _width;
     }
 
     //***********************************************************

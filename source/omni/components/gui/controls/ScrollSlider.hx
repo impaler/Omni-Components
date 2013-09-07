@@ -1,16 +1,11 @@
 package omni.components.gui.controls;
 
+import omni.components.core.OCore;
 import omni.utils.OStates;
-import omni.components.style.base.OBaseBackgroundStyle;
-import omni.components.core.OButtonBase;
 import omni.utils.signals.OSignalMouse;
-import omni.components.core.interfaces.IStyle;
-import omni.components.core.OLayout;
-import omni.components.gui.controls.ScrollBarButton;
-import flash.geom.Rectangle;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
-import flash.display.DisplayObjectContainer;
-import flash.events.Event;
+
+import flash.geom.Rectangle;
 
 class ScrollSlider extends Slider
 {
@@ -65,15 +60,36 @@ class ScrollSlider extends Slider
 
     override public function handleMouseWheel(?e:OSignalMouse):Void
     {
-        if (_type == OStates.HORIZONTAL)
-        {
-            value += e.delta > 0 ? step : -step;
-        }
-        else
-        {
-            value -= e.delta > 0 ? step : -step;
-        }
-        e.updateAfterEvent();
+	    _wheelScrollSpeed = 4;
+	    _wheelValue = e.delta * _wheelScrollSpeed;
+
+	    if (_type != OStates.HORIZONTAL)
+	    {
+		    if (e.delta > 0)
+		    {
+			    if( _wheelValue >= _wheelScrollSpeed) value += -step;
+		    }
+		    else
+		    {
+			    if( _wheelValue <= -_wheelScrollSpeed) value += step;
+		    }
+	    }
+	    else
+	    {
+		    if (e.delta > 0)
+		    {
+			    if( _wheelValue >= _wheelScrollSpeed) value -= -step;
+		    }
+		    else
+		    {
+			    if( _wheelValue <= -_wheelScrollSpeed) value -= step;
+		    }
+	    }
+
+	    _wheelValue = 0;
+
+	    if (OCore.instance.updateAfterEvent)
+		    e.updateAfterEvent();
     }
 
     //***********************************************************
@@ -150,6 +166,7 @@ class ScrollSlider extends Slider
         {
             _tempValue = Math.ceil(button.y / _rect.height * _max);
         }
+
         if (_value != _tempValue)
         {
             _value = _tempValue;
