@@ -1,9 +1,7 @@
 package omni.components.gui.controls;
 
-import omni.utils.OStates;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OButtonBase;
-import omni.components.core.OComponentButton;
 import omni.components.core.OToggleButton;
 import omni.utils.signals.OSignalMouse;
 
@@ -33,13 +31,6 @@ class SlideToggle extends OToggleButton
         _dragRect = new Rectangle(0, 0, _width, _height);
     }
 
-//    override public function add(comp:IOComponent):IOComponent
-//    {
-//        this.members.push(comp);
-//        coreAdd(comp);
-//        return comp;
-//    }
-
     public function handleButtonMouseDown(e:OSignalMouse):Void
     {
         onMouseUp.removeAll();
@@ -52,7 +43,6 @@ class SlideToggle extends OToggleButton
 
     public function handleButtonMouseUp(e:OSignalMouse):Void
     {
-//        onMouseUp.add(handleMouseUp);
         _sliding = false;
 
         if (button.x == 0)
@@ -69,9 +59,8 @@ class SlideToggle extends OToggleButton
             value = false;
             moveToOffPosition();
         }
+
         button.stopDrag();
-
-
     }
 
     public inline function onToleranceValue():Float
@@ -118,8 +107,6 @@ class SlideToggle extends OToggleButton
         {
             moveToOffPosition();
         }
-
-        nme.Lib.trace(_value);
     }
 
     override public function handleMouseOut(?e:OSignalMouse):Void

@@ -1,16 +1,11 @@
 package omni.components.gui.controls;
 
-import omni.utils.OStates;
+import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OComponentButton;
 import omni.components.core.OComponentButton.OComponentButtonStyle;
-import omni.components.core.interfaces.IBrush;
-import omni.components.core.interfaces.IOComponent;
-import omni.utils.ComponentUtils;
 import omni.components.gui.layout.Icon.IconStyle;
 import omni.components.gui.layout.Icon;
 import omni.components.gui.text.Label;
-import omni.components.core.OButtonBase;
-import omni.components.style.base.OBaseBackgroundStyle;
 
 import flash.display.BitmapData;
 

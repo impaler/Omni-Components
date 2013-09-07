@@ -1,10 +1,9 @@
 package omni.components.gui.controls;
 
 import omni.components.core.OCore;
-import omni.utils.signals.OSignalMouse;
-import omni.utils.OStates;
 import omni.components.core.OComponentButton;
 import omni.components.core.OComponentButton.OComponentButtonStyle;
+import omni.utils.signals.OSignalMouse;
 
 class NumericStepperButton extends OComponentButton
 {

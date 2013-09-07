@@ -3,24 +3,20 @@ package omni.components.gui.controls;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OCore;
+import omni.components.core.OComponent;
+import omni.components.gui.controls.SliderButton.SliderButtonStyle;
+import omni.components.gui.controls.Slider;
+import omni.components.style.base.OBaseBackgroundStyle;
+
 import omni.utils.OStates;
+import omni.utils.UtilNumbers;
 import omni.utils.signals.OSignalType;
 import omni.utils.signals.OSignalEvent;
 import omni.utils.signals.OSignalMouse;
 import omni.utils.signals.OSignalMouse;
-import omni.components.core.OComponent;
-import omni.components.core.OButtonBase;
-import omni.components.gui.controls.SliderButton.SliderButtonStyle;
-import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
-import omni.components.gui.controls.Slider;
-import omni.components.style.base.OBaseBackgroundStyle;
-import omni.utils.ComponentUtils;
-import omni.utils.UtilNumbers;
 
 import flash.display.Sprite;
 import flash.geom.Rectangle;
-import flash.events.Event;
-import flash.events.MouseEvent;
 
 class Slider extends OComponent
 {

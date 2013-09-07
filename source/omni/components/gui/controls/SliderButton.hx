@@ -1,16 +1,6 @@
 package omni.components.gui.controls;
 
 import omni.components.core.OButtonBase;
-import omni.utils.signals.OSignalType;
-import omni.components.core.interfaces.IStyle;
-import omni.utils.signals.OSignalMouse;
-import omni.utils.signals.OSignalEvent;
-import omni.components.style.base.OBaseStyle;
-import omni.components.core.OCore;
-import omni.components.style.base.OBaseBackgroundStyle;
-
-import flash.events.Event;
-import flash.events.MouseEvent;
 
 class SliderButton extends OButtonBase
 {

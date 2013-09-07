@@ -1,17 +1,15 @@
 package omni.components.core;
 
 import omni.components.core.interfaces.IStyle;
+import omni.components.core.interfaces.IOComponent;
 import omni.utils.signals.OSignalEvent;
 import omni.utils.signals.OSignalMouse;
-import omni.components.core.interfaces.IOComponent;
 import omni.utils.signals.OSignalType;
-import omni.utils.OStates;
 
-import flash.system.System;
 import flash.display.DisplayObjectContainer;
-import flash.Lib;
 import flash.display.Sprite;
 import flash.display.Stage;
+import flash.Lib;
 
 /**
 * Components Core

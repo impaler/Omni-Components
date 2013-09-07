@@ -1,17 +1,14 @@
 package omni.components.gui.controls;
 
+import omni.utils.signals.OSignalMouse;
+import omni.utils.signals.OSignalType;
 import omni.utils.OStates;
 import omni.components.core.OCore;
 import omni.components.core.OComponent;
-import omni.utils.signals.OSignalMouse;
-import omni.components.core.OButtonBase;
-import omni.utils.signals.OSignalType;
-import omni.components.core.OLayout;
 import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
 import omni.components.style.base.OBaseStyle;
 
-import flash.display.Bitmap;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 

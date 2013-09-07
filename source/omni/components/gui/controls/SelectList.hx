@@ -1,17 +1,17 @@
 package omni.components.gui.controls;
 
-import omni.utils.signals.OSignalMouse;
 import omni.components.core.interfaces.IStyle;
-import omni.utils.OStates;
-import omni.components.gui.layout.HBox;
-import omni.components.gui.layout.VBox;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.core.OLayout;
-import omni.components.core.OCore;
+import omni.utils.signals.OSignalMouse;
 import omni.utils.signals.OSignalType;
-import omni.components.core.OComponentButton;
+import omni.utils.OStates;
 import omni.components.gui.layout.list.List;
 import omni.components.gui.layout.list.ListItem;
+import omni.components.gui.layout.HBox;
+import omni.components.gui.layout.VBox;
+import omni.components.core.OComponentButton;
+import omni.components.core.OLayout;
+import omni.components.core.OCore;
 
 import flash.geom.Point;
 

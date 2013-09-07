@@ -1,23 +1,18 @@
 package omni.components.gui.controls;
 
-import omni.components.gui.controls.NumericStepperButton.NumericStepperButtonStyle;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.core.OComponentButton;
-import omni.components.core.OComponentButton.OComponentButtonStyle;
-import omni.components.gui.controls.Button.ButtonStyle;
 import omni.components.core.OComponent;
 import omni.components.core.OCore;
-import omni.utils.signals.OSignalMouse;
-import omni.utils.signals.OSignalType;
 import omni.components.core.OTextBase;
-import omni.components.core.OButtonBase;
+import omni.components.gui.controls.NumericStepperButton.NumericStepperButtonStyle;
 import omni.components.gui.text.Label;
 import omni.components.style.base.OBaseBackgroundStyle;
+import omni.utils.signals.OSignalMouse;
+import omni.utils.signals.OSignalType;
 import omni.utils.ComponentUtils;
 
 import flash.utils.Timer;
 import flash.events.TimerEvent;
-import flash.events.MouseEvent;
 
 class NumericStepper extends OComponent
 {
