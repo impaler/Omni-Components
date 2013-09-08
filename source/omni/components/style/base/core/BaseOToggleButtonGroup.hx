@@ -1,8 +1,7 @@
 package omni.components.style.base.core;
 
-import omni.utils.OStates;
-import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OToggleButtonGroup;
+import omni.utils.OStates;
 
 class BaseOToggleButtonGroup extends OToggleButtonGroupStyle
 {

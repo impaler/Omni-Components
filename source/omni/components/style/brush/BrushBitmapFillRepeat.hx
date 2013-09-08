@@ -1,6 +1,5 @@
 package omni.components.style.brush;
 
-import omni.components.core.interfaces.IBrush;
 import omni.components.core.interfaces.IOComponent;
 
 import flash.display.Graphics;

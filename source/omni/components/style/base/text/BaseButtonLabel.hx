@@ -2,13 +2,8 @@ package omni.components.style.base.text;
 
 import omni.components.style.base.BaseColors;
 import omni.components.gui.controls.Button.ButtonLabelStyle;
-import omni.components.gui.text.Label.LabelStyle;
-import omni.components.core.OTextBase.TextBaseStyle;
-import omni.components.style.brush.BrushColorFill;
-import omni.utils.ColorUtils;
 
 import openfl.Assets;
-import flash.text.TextFormatAlign;
 import flash.text.TextFieldType;
 
 class BaseButtonLabel extends ButtonLabelStyle

@@ -1,11 +1,12 @@
 package omni.components.style.base;
 
-import flash.display.BitmapData;
-import omni.components.style.brush.BrushBitmapFill;
-import omni.utils.OStates;
-import openfl.Assets;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
+import omni.components.style.brush.BrushBitmapFill;
+import omni.utils.OStates;
+
+import flash.display.BitmapData;
+import openfl.Assets;
 
 class OBaseStyle implements IStyle
 {

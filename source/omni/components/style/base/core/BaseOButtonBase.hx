@@ -1,9 +1,9 @@
 package omni.components.style.base.core;
 
-import omni.components.style.base.BaseColors;
-import omni.utils.OStates;
-import omni.components.core.OButtonBase.OButtonBaseStyle;
 import omni.components.style.brush.BrushColorFill;
+import omni.components.style.base.BaseColors;
+import omni.components.core.OButtonBase.OButtonBaseStyle;
+import omni.utils.OStates;
 
 class BaseOButtonBase extends OButtonBaseStyle
 {

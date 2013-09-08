@@ -6,7 +6,6 @@ import flash.geom.Rectangle;
 import omni.components.core.interfaces.IDestroyable;
 
 import flash.display.Tilesheet;
-import flash.display.BitmapData;
 
 class OTileSheet implements IDestroyable
 {
@@ -67,7 +66,6 @@ class OTileSheet implements IDestroyable
 
 class TileDef
 {
-
     public var sheetID:String;
     public var tileID:Float;
     public var rect:Rectangle;

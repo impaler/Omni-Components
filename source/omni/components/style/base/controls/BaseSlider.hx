@@ -1,16 +1,12 @@
 package omni.components.style.base.controls;
 
-import omni.components.style.brush.BrushBitmapScale9Fill;
-import omni.components.style.base.BaseColors;
 import omni.utils.OStates;
-import omni.components.style.base.core.BaseOButtonBase;
+import omni.components.style.base.BaseColors;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
-import omni.utils.ColorUtils;
 
 class BaseSlider extends SliderBaseStyle
 {
-
     public function new()
     {
         super();
@@ -28,7 +24,7 @@ class BaseSlider extends SliderBaseStyle
         defaultHHeight = 30;
         defaultHWidth = 120;
 
-//        buttonStyle = new BaseSliderButton();
+        buttonStyle = new BaseSliderButton();
 
         var bgColor = new BrushColorFill ();
         bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);

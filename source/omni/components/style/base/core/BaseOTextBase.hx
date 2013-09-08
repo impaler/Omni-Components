@@ -3,16 +3,12 @@ package omni.components.style.base.core;
 import omni.components.style.base.BaseColors;
 import omni.utils.OStates;
 import omni.components.core.OTextBase.TextBaseStyle;
-import omni.components.style.brush.BrushColorFill;
-import omni.utils.ColorUtils;
 
-import openfl.Assets;
-import flash.text.TextFormatAlign;
 import flash.text.TextFieldType;
+import openfl.Assets;
 
 class BaseOTextBase extends TextBaseStyle
 {
-
     public function new()
     {
         super();
@@ -33,7 +29,6 @@ class BaseOTextBase extends TextBaseStyle
         type = TextFieldType.DYNAMIC;
         fontColor = BaseColors.LABEL_TEXT;
         defaultText = "Orange Text";
-
     }
 
 }

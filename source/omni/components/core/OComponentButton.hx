@@ -1,23 +1,12 @@
 package omni.components.core;
 
-import omni.components.gui.controls.SelectList;
-import omni.components.gui.controls.Button;
-import omni.components.gui.controls.Slider;
+import omni.components.core.interfaces.IOComponent;
+import omni.components.core.interfaces.IStyle;
 import omni.components.gui.layout.VBox;
 import omni.components.gui.layout.HBox;
-import omni.components.core.interfaces.IStyle;
-import omni.utils.UtilPosition;
-import omni.components.core.interfaces.IBrush;
-import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OLayout;
-import flash.display.BitmapData;
-import omni.utils.OStates;
-import omni.utils.ComponentUtils;
-import omni.components.gui.layout.Icon.IconStyle;
-import omni.components.gui.layout.Icon;
-import omni.components.gui.text.Label;
 import omni.components.core.OButtonBase;
-import omni.components.style.base.OBaseBackgroundStyle;
+import omni.utils.OStates;
 
 class OComponentButton extends OButtonBase
 {

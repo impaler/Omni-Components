@@ -1,12 +1,9 @@
 package omni.components.style.base.layout;
 
 import omni.components.style.base.BaseColors;
-import omni.utils.OStates;
-import omni.components.gui.layout.HBox.HBoxStyle;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OLayout;
-import omni.utils.ColorUtils;
-import flash.geom.Rectangle;
+import omni.components.gui.layout.HBox.HBoxStyle;
+import omni.utils.OStates;
 
 class BaseHBox extends HBoxStyle
 {

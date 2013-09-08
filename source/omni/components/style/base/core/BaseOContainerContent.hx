@@ -15,17 +15,11 @@ class BaseOContainerContent extends OContainerContentStyle
     {
         super();
 
-        //defaultWidth = 300;
-        //defaultHeight = 300;
-        //defaultScrollRect = true;
-
-        //todo Vbox object for Content Containers
         defaultLayoutType = VBox;
         defaultContainerType = ScrollContainer;
 
         var bgColor = new BrushColorFill ();
         bgColor.setColorState(OStates.ACTIVE, ColorUtils.GREEN);
         setBackgroundBrush(bgColor);
-
     }
 }

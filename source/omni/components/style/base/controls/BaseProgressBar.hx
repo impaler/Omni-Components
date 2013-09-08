@@ -1,13 +1,11 @@
 package omni.components.style.base.controls;
 
-import omni.components.core.OContainer.OContainerStyle;
 import omni.components.style.base.BaseColors;
+import omni.components.style.brush.BrushColorFill;
+import omni.components.gui.controls.ProgressBar.ProgressBarStyle;
+import omni.components.core.OContainer.OContainerStyle;
 import omni.utils.ColorUtils;
 import omni.utils.OStates;
-import omni.components.gui.controls.ProgressBar.ProgressBarStyle;
-import omni.components.core.OButtonBase.OButtonBaseStyle;
-import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OComponent.OComponentStyle;
 
 class BaseProgressBar extends ProgressBarStyle
 {
@@ -30,7 +28,6 @@ class BaseProgressBar extends ProgressBarStyle
         bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
         var cont = new OContainerStyle();
         cont.setBackgroundBrush(bgColor);
-
 
         defaultWidth = 300;
         defaultHeight = 60;

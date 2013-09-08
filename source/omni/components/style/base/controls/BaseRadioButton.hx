@@ -2,15 +2,10 @@ package omni.components.style.base.controls;
 
 import omni.components.style.base.core.BaseOComponentButtonLayout;
 import omni.components.style.base.BaseColors;
-import omni.components.gui.controls.Button.ButtonLabelStyle;
-import omni.utils.OStates;
-import omni.components.gui.controls.RadioButton.RadioButtonStyle;
-import omni.components.gui.text.Label.LabelStyle;
-import omni.components.core.OToggleButton.OToggleButtonStyle;
-import omni.components.core.OButtonBase.OButtonBaseStyle;
-import omni.utils.ColorUtils;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OComponent.OComponentStyle;
+import omni.components.gui.controls.Button.ButtonLabelStyle;
+import omni.components.gui.controls.RadioButton.RadioButtonStyle;
+import omni.utils.OStates;
 
 class BaseRadioButton extends RadioButtonStyle
 {

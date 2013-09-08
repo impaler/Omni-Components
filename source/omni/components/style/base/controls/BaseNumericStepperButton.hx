@@ -1,16 +1,10 @@
 package omni.components.style.base.controls;
 
-import omni.components.gui.layout.containers.SpriteContainer;
-import flash.display.Sprite;
-import omni.components.gui.controls.NumericStepper;
-import omni.components.core.interfaces.IOComponent;
-import omni.components.style.base.BaseColors;
-import omni.utils.OStates;
 import omni.components.gui.controls.NumericStepperButton;
 import omni.components.gui.controls.NumericStepperButton.NumericStepperButtonStyle;
 import omni.components.style.base.core.BaseOComponentButtonLayout;
-import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OComponentButton.OComponentButtonStyle;
+import omni.utils.OStates;
 
 class BaseNumericStepperButton extends NumericStepperButtonStyle
 {

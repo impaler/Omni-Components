@@ -1,8 +1,5 @@
 package omni.components.style.base;
 
-import omni.components.style.base.layout.window.BaseWindowFooter;
-import omni.components.style.base.layout.window.BaseWindowMiddleBG;
-import omni.components.style.base.core.BaseODrawable;
 import omni.components.style.base.controls.BaseSelectList;
 import omni.components.style.base.controls.BaseButton;
 import omni.components.style.base.controls.BaseProgressBar;
@@ -18,6 +15,7 @@ import omni.components.style.base.controls.BaseSliderButton;
 import omni.components.style.base.controls.BaseNumericStepperButton;
 import omni.components.style.base.controls.BaseSlideToggle;
 
+import omni.components.style.base.core.BaseODrawable;
 import omni.components.style.base.core.BaseOContainer;
 import omni.components.style.base.core.BaseOComponent;
 import omni.components.style.base.core.BaseOContainerContent;
@@ -29,6 +27,8 @@ import omni.components.style.base.core.BaseOComponentButton;
 import omni.components.style.base.core.BaseOButtonBase;
 import omni.components.style.base.core.BaseOLayout;
 
+import omni.components.style.base.layout.window.BaseWindowFooter;
+import omni.components.style.base.layout.window.BaseWindowMiddleBG;
 import omni.components.style.base.layout.window.BaseWindowPage;
 import omni.components.style.base.layout.BaseContainerPage;
 import omni.components.style.base.layout.BaseTabButtonGroup;
@@ -55,135 +55,138 @@ import omni.components.core.OTheme;
 class BaseTheme extends OTheme
 {
 
-    public function new()
-    {
-        super();
+	public function new()
+	{
+		super();
 
-        setupColors();
+		setupColors();
 
-        addODrawableStyle();
-        addOComponentStyle();
-        addOButtonBaseStyle();
-        addOLayout();
+		addODrawableStyle();
+		addOComponentStyle();
+		addOButtonBaseStyle();
+		addOLayout();
+		addBaseOContainerStyle();
+		addBaseOContainerContentStyle();
+		addBaseOToggleButtonStyle();
+		addBaseOToggleButtonGroup();
+		addBaseSlideToggleStyle();
+		addOTextBaseStyle();
+		addWindowStyle();
+		addTabButtonStyle();
+		addButtonStyle();
+		addCheckBoxStyle();
+		addBaseOComponentButtonStyle();
+		addBaseOComponentButtonLayoutStyle();
+		addRadioButtonsStyle();
+		addBaseHBoxStyle();
+		addBaseVBoxStyle();
+		addBaseContainerPageStyle();
+		addBaseWindowPageStyle();
+		addBaseTabbedContainerStyle();
+		addBaseTabButtonGroupStyle();
+		addSliderStyle();
+		addScrollBarStyle();
+		addListStyle();
+		addBaseSelectListStyle();
+		addStyleBaseIconStyle();
+		addBaseProgressBarStyle();
+		addNumericStepperStyle();
+		addLabelStyle();
+		addInputFeildStyle();
+		addSpriteContainerStyle();
 
-        addStyle(BaseOContainer);
-        addStyle(BaseOContainerContent);
-        addStyle(BaseOToggleButton);
-        addStyle(BaseOToggleButtonGroup);
-        addStyle(BaseSlideToggle);
+	}
 
-        addOTextBaseStyle();
-        addWindowStyle();
-        addTabButtonStyle();
-        addButtonStyle();
-        addCheckBoxStyle();
+	/**
+	* Override this method for a basic color fill theme
+	* @see omni.components.theme.colors.* for examples
+	*
+	**/
+	public function setupColors():Void
+	{}
 
-        addStyle(BaseOComponentButton);
-        addStyle(BaseOComponentButtonLayout);
+	/**
+	*   Override the per Component type for developing a new theme.
+	*   This will let you override component types one by one while previewing the results.
+	**/
 
-        addRadioButtonsStyle();
+	public function addRadioButtonsStyle():Void
+	{
+		addStyle(BaseRadioButton);
+		addStyle(BaseRadioButtonGroup);
+	}
 
-        addStyle(BaseHBox);
-        addStyle(BaseVBox);
-        addStyle(BaseContainerPage);
-        addStyle(BaseWindowPage);
-        addStyle(BaseTabbedContainer);
-        addStyle(BaseTabButtonGroup);
+	public function addScrollBarStyle():Void
+	{
+		addStyle(BaseScrollContainer);
+		addStyle(BaseScrollSlider);
+		addStyle(BaseScrollBar);
+		addStyle(BaseScrollBarButton);
+	}
 
-        addSliderStyle();
-        addScrollBarStyle();
-        addListStyle();
-        addBaseSelectListStyle();
-        addStyleBaseIconStyle();
-        addBaseProgressBarStyle();
-        addNumericStepperStyle();
-        addLabelStyle();
-        addInputFeildStyle();
-        addSpriteContainerStyle();
+	public function addODrawableStyle():Void
+	{
+		addStyle(BaseODrawable);
+	}
 
-    }
+	public function addOComponentStyle():Void
+	{
+		addStyle(BaseOComponent);
+	}
 
-/**
-* Override these helper functions for previewing themes in dev without null errors
-* 
-**/
+	public function addOButtonBaseStyle():Void
+	{
+		addStyle(BaseOButtonBase);
+	}
 
-    public function addRadioButtonsStyle():Void {
-        addStyle(BaseRadioButton);
-        addStyle(BaseRadioButtonGroup);
-    }
+	public function addOLayout():Void
+	{
+		addStyle(BaseOLayout);
+	}
 
-    public function addScrollBarStyle():Void
-    {
-        addStyle(BaseScrollContainer);
-        addStyle(BaseScrollSlider);
-        addStyle(BaseScrollBar);
-        addStyle(BaseScrollBarButton);
-    }
+	public function addOTextBaseStyle():Void
+	{
+		addStyle(BaseOTextBase);
+	}
 
-    public function addODrawableStyle():Void
-    {
-        addStyle(BaseODrawable);
-    }
+	public function addButtonStyle():Void
+	{
+		addStyle(BaseButton);
+		addStyle(BaseButtonLabel);
+	}
 
-    public function addOComponentStyle():Void
-    {
-        addStyle(BaseOComponent);
-    }
+	public function addSliderStyle():Void
+	{
+		addStyle(BaseSlider);
+		addStyle(BaseSliderButton);
+	}
 
-    public function addOButtonBaseStyle():Void
-    {
-        addStyle(BaseOButtonBase);
-    }
+	public function addNumericStepperStyle():Void
+	{
+		addStyle(BaseNumericStepper);
+		addStyle(BaseNumericStepperButton);
+	}
 
-    public function addOLayout():Void
-    {
-        addStyle(BaseOLayout);
-    }
+	public function addCheckBoxStyle():Void
+	{
+		addStyle(BaseCheckBox);
+	}
 
-    public function addOTextBaseStyle():Void
-    {
-        addStyle(BaseOTextBase);
-    }
+	public function addTabButtonStyle():Void
+	{
+		addStyle(BaseTabButton);
+	}
 
-    public function addButtonStyle():Void
-    {
-        addStyle(BaseButton);
-        addStyle(BaseButtonLabel);
-    }
-
-    public function addSliderStyle():Void
-    {
-        addStyle(BaseSlider);
-        addStyle(BaseSliderButton);
-    }
-
-    public function addNumericStepperStyle():Void
-    {
-        addStyle(BaseNumericStepper);
-        addStyle(BaseNumericStepperButton);
-    }
-
-    public function addCheckBoxStyle():Void
-    {
-        addStyle(BaseCheckBox);
-    }
-
-    public function addTabButtonStyle():Void
-    {
-        addStyle(BaseTabButton);
-    }
-
-    public function addWindowStyle():Void
-    {
-        addStyle(BaseWindow);
-        addStyle(BaseWindowHeader);
-        addStyle(BaseWindowFooter);
-        addStyle(BaseWindowTabbedContainer);
-        addStyle(BaseWindowContainer);
-        addStyle(BaseWindowVBox);
-        addStyle(BaseWindowMiddleBG);
-    }
+	public function addWindowStyle():Void
+	{
+		addStyle(BaseWindow);
+		addStyle(BaseWindowHeader);
+		addStyle(BaseWindowFooter);
+		addStyle(BaseWindowTabbedContainer);
+		addStyle(BaseWindowContainer);
+		addStyle(BaseWindowVBox);
+		addStyle(BaseWindowMiddleBG);
+	}
 
 	public function addListStyle():Void
 	{
@@ -220,9 +223,69 @@ class BaseTheme extends OTheme
 		addStyle(BaseSelectList);
 	}
 
-    public function setupColors():Void
-    {
-        //set your overrides on the static Base values
-    }
+	public function addBaseTabButtonGroupStyle():Void
+	{
+		addStyle(BaseTabButtonGroup);
+	}
+
+	public function addBaseTabbedContainerStyle():Void
+	{
+		addStyle(BaseTabbedContainer);
+	}
+
+	public function addBaseWindowPageStyle():Void
+	{
+		addStyle(BaseWindowPage);
+	}
+
+	public function addBaseContainerPageStyle():Void
+	{
+		addStyle(BaseContainerPage);
+	}
+
+	public function addBaseHBoxStyle():Void
+	{
+		addStyle(BaseHBox);
+	}
+
+	public function addBaseVBoxStyle():Void
+	{
+		addStyle(BaseVBox);
+	}
+
+	public function addBaseOComponentButtonStyle():Void
+	{
+		addStyle(BaseOComponentButton);
+	}
+
+	public function addBaseOComponentButtonLayoutStyle():Void
+	{
+		addStyle(BaseOComponentButtonLayout);
+	}
+
+	public function addBaseSlideToggleStyle():Void
+	{
+		addStyle(BaseSlideToggle);
+	}
+
+	public function addBaseOToggleButtonGroup():Void
+	{
+		addStyle(BaseOToggleButtonGroup);
+	}
+
+	public function addBaseOToggleButtonStyle():Void
+	{
+		addStyle(BaseOToggleButton);
+	}
+
+	public function addBaseOContainerContentStyle():Void
+	{
+		addStyle(BaseOContainerContent);
+	}
+
+	public function addBaseOContainerStyle():Void
+	{
+		addStyle(BaseOContainer);
+	}
 
 }

@@ -51,7 +51,6 @@ class BrushBitmapFill implements IBrush
             var graphics:Graphics = drawTarget.sprite.graphics;
 
             graphics.clear();
-
             graphics.beginBitmapFill(bitmapData, null, false, smooth);
             graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);
             graphics.endFill();

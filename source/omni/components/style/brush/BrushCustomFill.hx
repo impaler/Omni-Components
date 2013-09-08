@@ -3,13 +3,8 @@ package omni.components.style.brush;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
 
-import flash.display.Sprite;
-import flash.display.Graphics;
-
 class BrushCustomFill implements IBrush
 {
-
-
     public var drawFunctions:Hash<Dynamic>;
 
     public function new()
@@ -33,6 +28,4 @@ class BrushCustomFill implements IBrush
     {
         drawFunctions = null;
     }
-
-
 }

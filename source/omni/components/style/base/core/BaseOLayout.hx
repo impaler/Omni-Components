@@ -1,12 +1,10 @@
 package omni.components.style.base.core;
 
 import omni.components.style.base.BaseColors;
-import omni.utils.OStates;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OLayout;
 import omni.components.core.OLayout.OLayoutStyle;
-import omni.utils.ColorUtils;
-import flash.geom.Rectangle;
+import omni.components.core.OLayout;
+import omni.utils.OStates;
 
 class BaseOLayout extends OLayoutStyle
 {

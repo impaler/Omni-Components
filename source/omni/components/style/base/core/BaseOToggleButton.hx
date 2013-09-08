@@ -1,12 +1,10 @@
 package omni.components.style.base.core;
 
 import omni.components.core.OComponentButton.OComponentButtonLayoutStyle;
-import omni.components.core.OLayout.OLayoutStyle;
-import omni.components.style.base.BaseColors;
-import omni.utils.OStates;
-import omni.components.style.base.text.BaseButtonLabel;
 import omni.components.style.brush.BrushColorFill;
+import omni.components.style.base.BaseColors;
 import omni.components.core.OToggleButton.OToggleButtonStyle;
+import omni.utils.OStates;
 
 class BaseOToggleButton extends OToggleButtonStyle
 {
@@ -15,7 +13,6 @@ class BaseOToggleButton extends OToggleButtonStyle
         super();
 
         var bgColor = new BrushColorFill ();
-
         bgColor.setColorState(OStates.ON, BaseColors.ON);
         bgColor.setColorState(OStates.ON_OVER, BaseColors.ON_OVER);
         bgColor.setColorState(OStates.OFF, BaseColors.OFF);
@@ -32,7 +29,6 @@ class BaseOToggleButton extends OToggleButtonStyle
         deafultLayoutStyle.defaultHeightSizeMethod = OStates.FIXED;
 
         defaultLabel = null;
-        //layoutStyle = null;
         defaultState = OStates.OFF;
     }
 }

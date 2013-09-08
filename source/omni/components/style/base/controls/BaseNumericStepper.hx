@@ -1,24 +1,17 @@
 package omni.components.style.base.controls;
 
-import omni.components.style.brush.BrushBitmapScale9Fill;
-import omni.components.style.base.BaseColors;
-import omni.components.gui.controls.NumericStepperButton.NumericStepperButtonStyle;
-import omni.utils.ColorUtils;
-import omni.components.core.OLayout.OLayoutStyle;
-import omni.components.core.OComponentButton.OComponentButtonStyle;
-import omni.components.core.OComponentButton.OComponentButtonLayoutStyle;
-import omni.components.gui.layout.containers.SpriteContainer;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.gui.layout.Icon.IconStyle;
-import omni.components.gui.controls.Button.ButtonStyle;
-import flash.display.Sprite;
-import omni.utils.OStates;
-import omni.components.style.base.core.BaseOTextBase;
-import omni.components.style.base.core.BaseOButtonBase;
-import omni.components.core.OButtonBase.OButtonBaseStyle;
-import omni.components.style.brush.BrushColorFill;
+import omni.components.gui.controls.NumericStepperButton.NumericStepperButtonStyle;
+import omni.components.gui.layout.containers.SpriteContainer;
 import omni.components.gui.controls.NumericStepper;
 import omni.components.gui.controls.NumericStepper.NumericStepperStyle;
+import omni.components.style.base.BaseColors;
+import omni.components.style.base.core.BaseOTextBase;
+import omni.components.style.brush.BrushColorFill;
+import omni.utils.OStates;
+import omni.utils.ColorUtils;
+
+import flash.display.Sprite;
 
 class BaseNumericStepper extends NumericStepperStyle
 {
@@ -38,12 +31,12 @@ class BaseNumericStepper extends NumericStepperStyle
 
         var buttonStyle = new BaseNumericStepperButton();
 
-//        var bgColor = new BrushColorFill ();
-//        bgColor.setColorState(OStates.ACTIVE, BaseColors.STEPPER_BUTTON_ACTIVE);
-//        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
-//        bgColor.setColorState(OStates.OVER, BaseColors.STEPPER_BUTTON_OVER);
-//        bgColor.setColorState(OStates.DOWN, BaseColors.STEPPER_BUTTON_DOWN);
-//        buttonStyle.setBackgroundBrush(bgColor);
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.STEPPER_BUTTON_ACTIVE);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
+        bgColor.setColorState(OStates.OVER, BaseColors.STEPPER_BUTTON_OVER);
+        bgColor.setColorState(OStates.DOWN, BaseColors.STEPPER_BUTTON_DOWN);
+        buttonStyle.setBackgroundBrush(bgColor);
 
         increaseButtonStyle = buttonStyle;
         decreaseButtonStyle = buttonStyle;
@@ -51,16 +44,10 @@ class BaseNumericStepper extends NumericStepperStyle
         var style = new BaseOTextBase();
         textStyle = style;
 
-        var bgColor = new BrushBitmapScale9Fill ();
-        bgColor.scaleRect = [4 , 10 , 4 , 8];
-        bgColor.setBitmapState(OStates.ACTIVE, "assets/themes/softui/stepper_bg.png");
+        var bgColor = new BrushColorFill ();
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
+        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
         setBackgroundBrush(bgColor);
-
-
-//        var bgColor = new BrushColorFill ();
-//        bgColor.setColorState(OStates.ACTIVE, BaseColors.ACTIVE);
-//        bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
-//        setBackgroundBrush(bgColor);
     }
 
     override public function initStyleComponent(value:IOComponent):Void

@@ -1,8 +1,8 @@
 package omni.components.style.base;
 
-import omni.components.style.base.OBaseStyle;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
+import omni.components.style.base.OBaseStyle;
 
 class OBaseBackgroundStyle extends OBaseStyle
 {

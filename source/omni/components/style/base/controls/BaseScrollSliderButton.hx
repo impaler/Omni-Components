@@ -1,12 +1,9 @@
 package omni.components.style.base.controls;
 
-import omni.components.style.base.BaseColors;
 import omni.utils.OStates;
-import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
-import omni.components.core.OButtonBase.OButtonBaseStyle;
-import omni.utils.ColorUtils;
+import omni.components.style.base.BaseColors;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OComponent.OComponentStyle;
+import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
 
 class BaseScrollSliderButton extends ScrollBarButtonStyle
 {

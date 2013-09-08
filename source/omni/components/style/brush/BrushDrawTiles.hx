@@ -1,12 +1,11 @@
 package omni.components.style.brush;
 
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import omni.components.core.OTileSheet;
-import flash.display.Tilesheet;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IBrush;
+import omni.components.core.OTileSheet;
 
+import flash.display.Tilesheet;
+import flash.geom.Rectangle;
 import flash.display.Sprite;
 import flash.display.Graphics;
 

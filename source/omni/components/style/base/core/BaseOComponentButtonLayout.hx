@@ -1,7 +1,5 @@
 package omni.components.style.base.core;
 
-import omni.utils.ColorUtils;
-import omni.components.style.brush.BrushColorFill;
 import omni.components.core.OComponentButton.OComponentButtonLayoutStyle;
 import omni.utils.OStates;
 
@@ -25,8 +23,6 @@ class BaseOComponentButtonLayout extends OComponentButtonLayoutStyle
 
         defaultWidthSizeMethod = OStates.AUTO;
         defaultHeightSizeMethod = OStates.AUTO;
-
-//        setBackgroundBrush(null);
     }
 
 }

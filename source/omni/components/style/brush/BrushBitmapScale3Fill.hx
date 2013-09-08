@@ -1,14 +1,11 @@
 package omni.components.style.brush;
 
 import omni.components.core.interfaces.IOComponent;
-import omni.components.core.interfaces.IBrush;
-import omni.utils.ComponentUtils;
-import omni.utils.BitmapScaleSliceUtily;
 
 class BrushBitmapScale3Fill extends BrushBitmapFill
 {
 
-    /**
+/**
 * This array should contain zero, one or two integers.
 * 
 * Zero -    3 slice scaling (horizontal). Bitmap is divided into two equal sized bitmaps.

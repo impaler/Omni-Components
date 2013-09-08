@@ -1,18 +1,13 @@
 package omni.components.style.base.controls;
 
-import omni.components.gui.layout.window.TabButton;
-import omni.components.style.base.BaseColors;
-import omni.components.style.base.text.BaseButtonLabel;
 import omni.components.style.base.core.BaseOComponentButtonLayout;
-import omni.components.gui.controls.Button.ButtonLabelStyle;
-import omni.utils.OStates;
-import omni.components.gui.layout.window.TabButton.TabButtonStyle;
-import omni.components.gui.text.Label.LabelStyle;
-import omni.components.core.OToggleButton.OToggleButtonStyle;
-import omni.components.core.OButtonBase.OButtonBaseStyle;
-import omni.utils.ColorUtils;
+import omni.components.style.base.text.BaseButtonLabel;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OComponent.OComponentStyle;
+import omni.components.style.base.BaseColors;
+import omni.components.gui.layout.window.TabButton.TabButtonStyle;
+import omni.components.gui.controls.Button.ButtonLabelStyle;
+import omni.components.gui.layout.window.TabButton;
+import omni.utils.OStates;
 
 class BaseTabButton extends TabButtonStyle
 {

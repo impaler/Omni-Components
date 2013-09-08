@@ -1,10 +1,7 @@
 package omni.components.style.base.controls;
 
 import omni.components.gui.controls.ScrollBar.ScrollBarStyle;
-import omni.components.style.brush.BrushColorFill;
-import omni.components.gui.controls.ScrollSlider.ScrollSliderStyle;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
-import omni.utils.ColorUtils;
 
 class BaseScrollBar extends ScrollBarStyle
 {

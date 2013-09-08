@@ -2,16 +2,10 @@ package omni.components.style.base.controls;
 
 import omni.components.style.base.core.BaseOComponentButtonLayout;
 import omni.components.style.base.BaseColors;
-import omni.components.gui.controls.Button.ButtonLabelStyle;
-import omni.utils.OStates;
-import omni.components.gui.controls.CheckBox.CheckBoxStyle;
-import omni.components.gui.controls.RadioButton.RadioButtonStyle;
-import omni.components.gui.text.Label.LabelStyle;
-import omni.components.core.OToggleButton.OToggleButtonStyle;
-import omni.components.core.OButtonBase.OButtonBaseStyle;
-import omni.utils.ColorUtils;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OComponent.OComponentStyle;
+import omni.components.gui.controls.Button.ButtonLabelStyle;
+import omni.components.gui.controls.CheckBox.CheckBoxStyle;
+import omni.utils.OStates;
 
 class BaseCheckBox extends CheckBoxStyle
 {
@@ -33,17 +27,13 @@ class BaseCheckBox extends CheckBoxStyle
         bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
         setBackgroundBrush(bgColor);
 
-        //defaultLabel = null;
         deafultLayoutStyle = new BaseOComponentButtonLayout();
 
         defaultState = OStates.OFF;
         defaultPadding = 0;
         defaultScrollRect = false;
 
-        //defaultWidth = 400;
-
         defaultHeight = 40;
-        //defaultWidth = 220;
         defaultWidthSizeMethod = OStates.AUTO;
         defaultHeightSizeMethod = OStates.FIXED;
     }

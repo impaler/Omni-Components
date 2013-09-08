@@ -1,8 +1,5 @@
 package omni.components.style.base;
 
-import omni.utils.ColorUtils;
-import omni.utils.ColorUtils;
-
 class BaseColors
 {
     static public var TRANS:Int;

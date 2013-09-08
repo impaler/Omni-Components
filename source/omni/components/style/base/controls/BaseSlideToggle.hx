@@ -1,14 +1,10 @@
 package omni.components.style.base.controls;
 
 import omni.components.core.OComponentButton.OComponentButtonLayoutStyle;
-import omni.components.style.base.core.BaseOComponentButtonLayout;
 import omni.components.gui.controls.SlideToggle.SlideToggleStyle;
 import omni.components.style.base.BaseColors;
-import omni.utils.OStates;
-import omni.components.style.base.text.BaseButtonLabel;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OToggleButton.OToggleButtonStyle;
-
+import omni.utils.OStates;
 
 class BaseSlideToggle extends SlideToggleStyle
 {
@@ -34,7 +30,6 @@ class BaseSlideToggle extends SlideToggleStyle
         deafultLayoutStyle.defaultHeightSizeMethod = OStates.FIXED;
 
         defaultLabel = null;
-        //layoutStyle = null;
         defaultState = OStates.OFF;
 
     }

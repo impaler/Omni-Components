@@ -1,12 +1,9 @@
 package omni.components.style.base.controls;
 
-import omni.components.style.brush.BrushBitmapScale9Fill;
-import omni.components.style.base.BaseColors;
 import omni.utils.OStates;
+import omni.components.style.base.BaseColors;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.gui.controls.ScrollSlider.ScrollSliderStyle;
-import omni.components.gui.controls.Slider.SliderBaseStyle;
-import omni.utils.ColorUtils;
 
 class BaseScrollSlider extends ScrollSliderStyle
 {
@@ -15,9 +12,6 @@ class BaseScrollSlider extends ScrollSliderStyle
         super();
 
         buttonStyle = new BaseSliderButton();
-
-        //decreaseButtonStyle = new BaseScrollBarButton();
-        //increaseButtonStyle = new BaseScrollBarButton();
 
         var bgColor = new BrushColorFill ();
         bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);
@@ -30,9 +24,5 @@ class BaseScrollSlider extends ScrollSliderStyle
         defaultHWidth = 120;
 
         defaultValue = 50;
-
-        //scrollButtons = true;
-
     }
-
 }

@@ -1,15 +1,13 @@
 ﻿package omni.utils;
 
-import flash.display.BitmapData;
-import flash.geom.Matrix;
 import omni.components.core.interfaces.IOComponent;
-import omni.components.core.OCore;
 
-import flash.Lib;
-import flash.display.Sprite;
-import flash.geom.Rectangle;
-import flash.text.TextFormatAlign;
+import flash.display.BitmapData;
 import flash.display.DisplayObject;
+import flash.display.Sprite;
+import flash.text.TextFormatAlign;
+import flash.geom.Matrix;
+import flash.Lib;
 
 /**
  * Class containing a variety of color utility methods.
@@ -44,9 +42,9 @@ class ComponentUtils
         return Std.string(value);
     }
 
-    /**
- * Method for converting string to TextFormatAlign
- */
+	/**
+	* Method for converting string to TextFormatAlign
+	*/
     #if (flash || js)
 
     public static function convertTextAlignmentFromString(strAlign:String):TextFormatAlign
@@ -145,7 +143,6 @@ class ComponentUtils
 
         return bitmapTestDouble;
     }
-
 
     public static inline function throwAlignmentError(validItems:Array<String>, value:String):Void
     {

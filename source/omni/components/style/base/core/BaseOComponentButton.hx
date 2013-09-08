@@ -21,6 +21,5 @@ class BaseOComponentButton extends OComponentButtonStyle
         bgColor.setColorState(OStates.OVER, BaseColors.OVER);
         bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
         setBackgroundBrush(bgColor);
-
     }
 }

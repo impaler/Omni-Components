@@ -2,12 +2,8 @@ package omni.components.style.base.text;
 
 import omni.components.style.base.BaseColors;
 import omni.components.gui.text.Label.LabelStyle;
-import omni.components.core.OTextBase.TextBaseStyle;
-import omni.components.style.brush.BrushColorFill;
-import omni.utils.ColorUtils;
 
 import openfl.Assets;
-import flash.text.TextFormatAlign;
 import flash.text.TextFieldType;
 
 class BaseLabel extends LabelStyle
@@ -15,9 +11,6 @@ class BaseLabel extends LabelStyle
     public function new()
     {
         super();
-
-
-        //textBrush
 
         defaultHeight = 60;
         defaultWidth = 300;

@@ -8,11 +8,7 @@ import omni.components.style.base.layout.window.BaseWindowFooter;
 import omni.components.gui.layout.list.List.ListStyle;
 import omni.utils.OStates;
 import omni.components.style.base.BaseColors;
-import omni.components.gui.layout.VBox.VBoxStyle;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OLayout;
-import omni.utils.ColorUtils;
-import flash.geom.Rectangle;
 
 class BaseList extends ListStyle
 {
@@ -23,7 +19,6 @@ class BaseList extends ListStyle
         header = new BaseWindowHeader();
         footer = new BaseWindowFooter();
         middlebg = new BaseWindowMiddleBG();
-
         scalerButton = new BaseWindowScalerButton();
 
         var bgColor = new BrushColorFill ();
