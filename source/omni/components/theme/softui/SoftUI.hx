@@ -1,16 +1,11 @@
 package omni.components.theme.softui;
 
-import omni.components.style.base.controls.BaseWindowScalerButton;
-import omni.components.style.base.layout.BaseRadioButtonGroup;
 import omni.components.theme.softui.scrollBar.SoftUIScrollBar;
 import omni.components.theme.softui.scrollBar.SoftUIScrollBarButton;
 import omni.components.theme.softui.scrollBar.SoftUIScrollContainer;
 import omni.components.theme.softui.scrollBar.SoftUIScrollSlider;
 import omni.components.style.base.layout.window.BaseWindowVBox;
 import omni.components.style.base.layout.window.BaseWindowContainer;
-import omni.components.style.base.layout.window.BaseWindowTabbedContainer;
-import omni.components.style.base.layout.window.BaseWindow;
-import omni.components.theme.colors.Orange;
 import omni.components.style.base.BaseTheme;
 import omni.components.style.base.BaseColors;
 import omni.utils.ColorUtils;
@@ -20,7 +15,7 @@ class SoftUI extends BaseTheme
 
     override public function setupColors()
     {
-        BaseColors.TRANS = 0x00000000;
+        BaseColors.TRANS = ColorUtils.TRANSPARENT;
         BaseColors.DISABLED = ColorUtils.LIGHT_ORANGE;
         BaseColors.ACTIVE = ColorUtils.ORANGE;
         BaseColors.OVER = ColorUtils.ORANGE_BRIGHT;
@@ -99,10 +94,10 @@ class SoftUI extends BaseTheme
         addStyle(SoftUIWindowFooter);
         addStyle(SoftUIWindowTabbedContainer);
         addStyle(SoftUIWindowMiddleBG);
+	    addStyle(SoftUIWindowScalerButton);
 
-        addStyle(BaseWindowContainer);
-        addStyle(BaseWindowVBox);
-        addStyle(BaseWindowScalerButton);
+	    addStyle(BaseWindowContainer);
+	    addStyle(BaseWindowVBox);
     }
 
     override public function addNumericStepperStyle():Void

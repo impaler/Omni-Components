@@ -19,7 +19,7 @@ class SoftUIWindow extends WindowStyle
 //        footer = new SoftUIWindowFooter();
 //        middlebg = new SoftUIWindowMiddleBG();
 
-        scalerButton = new BaseWindowScalerButton();
+        //scalerButton = new BaseWindowScalerButton();
 
         //var bgColor = new BrushBitmapScale9Fill ();
         //bgColor.scaleRect = [3, 31, 2, 4];

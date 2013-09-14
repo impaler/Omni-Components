@@ -3,8 +3,6 @@ package omni.components.theme.softui;
 import omni.components.gui.layout.window.WindowMiddleBG.WindowMiddleBGStyle;
 import omni.components.style.brush.BrushBitmapScale9Fill;
 import omni.utils.OStates;
-import omni.components.style.brush.BrushColorFill;
-import omni.components.core.ODrawable.ODrawableStyle;
 
 class SoftUIWindowMiddleBG extends WindowMiddleBGStyle
 {

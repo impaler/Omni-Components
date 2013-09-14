@@ -34,9 +34,8 @@ class BrushColorFill implements IBrush
         {
             var color = colors.get(drawTarget.state);
             var graphics:Graphics = drawTarget.sprite.graphics;
-
             graphics.clear();
-            graphics.beginFill(color);
+            graphics.beginFill(color, (color >> 24) & 255);
             graphics.drawRect(0, 0, drawTarget.width, drawTarget.height);
             graphics.endFill();
         }
