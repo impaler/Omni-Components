@@ -18,11 +18,22 @@ class OComponent implements IOComponent
     //                  Component Overrides
     //***********************************************************
 
-    public function new(?style:IStyle = null)
+    public function new(?style:Dynamic = null)
     {
         compId = OCore.instance.getNextID;
         createComponentMembers();
+
+	    if(Std.is(style, Class))
+	    {
+		    style = Type.createInstance(style, []);
+	    }
+		else if(!Std.is(style, IStyle) && style != null)
+	    {
+		    style = null;
+	    }
+
         initStyle(style);
+
         createMembers();
 
         if (style == null)
@@ -147,8 +158,6 @@ class OComponent implements IOComponent
             if (!first)
                 this._style.initStyleComponent(this);
         }
-
-
     }
 
     public var invalid:Bool;

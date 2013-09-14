@@ -120,15 +120,17 @@ class ScrollBar extends OComponent
 
         if (_type == OStates.VERTICAL)
         {
-            scrollSlider._height = height - (increaseButton.height + decreaseButton.height);
-            increaseButton._width = width;
-            decreaseButton._width = width;
-            increaseButton.y = height - increaseButton.height;
+            scrollSlider._height = _height - (increaseButton.height + decreaseButton.height);
+	        scrollSlider._width = _width;
+	        increaseButton._width = _width;
+            decreaseButton._width = _width;
+            increaseButton.y = _height - increaseButton.height;
             scrollSlider.y = decreaseButton.height;
         }
         else
         {
             scrollSlider._width = width - (increaseButton.width + decreaseButton.width);
+	        scrollSlider._height = _height;
             increaseButton._height = _height;
             decreaseButton._height = _height;
             increaseButton.x = width - increaseButton.width;
