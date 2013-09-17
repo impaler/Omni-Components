@@ -2,13 +2,9 @@ package omni.components.core;
 
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
-import omni.components.core.OCore;
-import omni.components.core.OComponent;
 import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.core.OContainer;
 import omni.components.core.OLayout;
-
-import flash.display.Sprite;
 
 class OContainerContent extends OContainer
 {
@@ -134,7 +130,6 @@ class OContainerContent extends OContainer
 
         this.drawNow();
     }
-
 
     //***********************************************************
     //                  Component Style

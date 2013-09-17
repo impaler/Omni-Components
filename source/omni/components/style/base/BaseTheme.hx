@@ -81,7 +81,6 @@ class BaseTheme extends OTheme
 		addBaseHBoxStyle();
 		addBaseVBoxStyle();
 		addBaseContainerPageStyle();
-		addBaseWindowPageStyle();
 		addBaseTabbedContainerStyle();
 		addBaseTabButtonGroupStyle();
 		addSliderStyle();
@@ -186,6 +185,7 @@ class BaseTheme extends OTheme
 		addStyle(BaseWindowContainer);
 		addStyle(BaseWindowVBox);
 		addStyle(BaseWindowMiddleBG);
+		addStyle(BaseWindowPage);
 	}
 
 	public function addListStyle():Void
@@ -231,11 +231,6 @@ class BaseTheme extends OTheme
 	public function addBaseTabbedContainerStyle():Void
 	{
 		addStyle(BaseTabbedContainer);
-	}
-
-	public function addBaseWindowPageStyle():Void
-	{
-		addStyle(BaseWindowPage);
 	}
 
 	public function addBaseContainerPageStyle():Void

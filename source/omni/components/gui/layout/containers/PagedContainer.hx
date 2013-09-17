@@ -1,17 +1,11 @@
 package omni.components.gui.layout.containers;
 
-import omni.components.gui.layout.window.WindowContentContainer;
-import omni.components.core.OToggleButton;
-import omni.components.core.OContainerPage;
-import flash.geom.Rectangle;
-import omni.components.core.OContainer;
-import omni.components.core.OLayout;
-import omni.components.gui.layout.window.TabButton;
-import omni.components.style.base.OBaseBackgroundStyle;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
+import omni.components.core.OContainerPage;
+import omni.components.core.OContainer;
+import omni.components.gui.controls.TabButton;
 import omni.utils.signals.OSignalType;
-import omni.components.core.OComponent;
 
 class PagedContainer extends OContainer
 {
@@ -96,6 +90,7 @@ class PagedContainer extends OContainer
 
     public function addPage(page:OContainerPage):OContainerPage
     {
+        page.parentComponent = this;
         page.parentContainer = this;
         page.disableSignals();
         var button = tabs.addTabButton(page);

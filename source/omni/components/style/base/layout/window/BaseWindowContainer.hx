@@ -27,9 +27,5 @@ class BaseWindowContainer extends WindowContentContainerStyle
         //defaultContainerType = OContainer;
         defaultContainerType = ScrollContainer;
 
-        var bgColor = new BrushColorFill ();
-        bgColor.setColorState(OStates.ACTIVE, ColorUtils.GREEN);
-        setBackgroundBrush(bgColor);
-
     }
 }

@@ -1,11 +1,26 @@
 package omni.components.gui.layout.window;
 
-import omni.components.core.OContainer;
-import omni.components.core.OLayout;
+import omni.utils.OStates;
 import omni.components.core.OContainerContent;
 
 class WindowContentContainer extends OContainerContent
 {
+
+	//***********************************************************
+	//                  Component Overrides
+	//***********************************************************
+
+	override public function drawMembers():Void
+	{
+		super.drawMembers();
+
+		if(currentLayout != null)
+		{
+			currentLayout.widthSizeMethod = OStates.FIXED;
+			currentLayout._width = this.width;
+			currentLayout.drawNow();
+		}
+	}
 
     //***********************************************************
     //                  Component Style

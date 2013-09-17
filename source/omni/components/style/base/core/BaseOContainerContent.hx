@@ -19,7 +19,7 @@ class BaseOContainerContent extends OContainerContentStyle
         defaultContainerType = ScrollContainer;
 
         var bgColor = new BrushColorFill ();
-        bgColor.setColorState(OStates.ACTIVE, ColorUtils.GREEN);
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);
         setBackgroundBrush(bgColor);
     }
 }

@@ -28,6 +28,9 @@ class BaseScrollContainer extends ScrollContainerStyle
         mouseWheelV = true;
         touchTolerance = 10;
 
+	    scrollH = true;
+	    scrollV = true;
+
         hScrollStyle = new BaseScrollBar();
         vScrollStyle = new BaseScrollBar();
 

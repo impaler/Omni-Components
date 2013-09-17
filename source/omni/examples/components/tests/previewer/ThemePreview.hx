@@ -35,6 +35,7 @@ class ThemePreview
         OCore.instance.init(theme);
 
         window = new Window();
+	    window.setPagedContainerType(WindowTabbedContainer);
 
         addTestPage(ThemeChoicePage);
         addTestPage(ButtonsPage);
@@ -54,9 +55,6 @@ class ThemePreview
     public function addTestPage(type:Class<ThemePage>):ThemePage
     {
         var page = Type.createInstance(type, [null]);
-        if (window.paged == null)
-            window.setPagedContainerType(WindowTabbedContainer);
-
         window.paged.addPage(page);
         return page;
     }

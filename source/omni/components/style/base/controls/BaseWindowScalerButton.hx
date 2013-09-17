@@ -21,6 +21,5 @@ class BaseWindowScalerButton extends OButtonBaseStyle
         bgColor.setColorState(OStates.OVER, BaseColors.OVER);
         bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
         setBackgroundBrush(bgColor);
-
     }
 }

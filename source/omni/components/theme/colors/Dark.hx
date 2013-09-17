@@ -34,6 +34,7 @@ class Dark extends BaseTheme
         BaseColors.SLIDER_BUTTON_DOWN = ColorUtils.GRAY;
 
         BaseColors.LABEL_TEXT = ColorUtils.WHITE;
+        BaseColors.INPUT_TEXT = ColorUtils.WHITE;
 
         BaseColors.SCROLLBAR_BUTTON_ACTIVE = ColorUtils.DARK_GRAY;
         BaseColors.SCROLLBAR_BUTTON_OVER = ColorUtils.LIGHT_GRAY;

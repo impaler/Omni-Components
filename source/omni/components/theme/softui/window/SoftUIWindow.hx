@@ -1,5 +1,7 @@
-package omni.components.theme.softui;
+package omni.components.theme.softui.window;
 
+import omni.components.style.brush.BrushColorFill;
+import omni.utils.ColorUtils;
 import omni.components.style.base.core.BaseODrawable;
 import omni.components.gui.layout.window.WindowContentContainer;
 import omni.utils.OStates;
@@ -26,7 +28,14 @@ class SoftUIWindow extends WindowStyle
         //bgColor.setBitmapState(OStates.ACTIVE, "assets/themes/softui/windowBg_middle.png");
         //setBackgroundBrush(bgColor);
 
-        defaultWidth = 600;
+
+	    //var bgColor = new BrushColorFill ();
+	    //bgColor.setColorState(OStates.ACTIVE, ColorUtils.INDIGO);
+	    ////bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);
+	    //setBackgroundBrush(null);
+
+
+	    defaultWidth = 600;
         defaultHeight = 600;
 
         maxWidth = 1000;

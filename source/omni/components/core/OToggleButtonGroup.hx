@@ -1,6 +1,6 @@
 package omni.components.core;
 
-import omni.components.gui.layout.window.TabButton;
+import omni.components.gui.controls.TabButton;
 import omni.components.gui.layout.VBox;
 import omni.components.gui.layout.HBox;
 import omni.components.core.interfaces.IStyle;

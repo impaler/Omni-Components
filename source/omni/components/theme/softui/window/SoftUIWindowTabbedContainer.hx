@@ -1,4 +1,4 @@
-package omni.components.theme.softui;
+package omni.components.theme.softui.window;
 
 import omni.components.gui.layout.window.WindowTabbedContainer;
 import omni.components.gui.layout.containers.PagedContainer;

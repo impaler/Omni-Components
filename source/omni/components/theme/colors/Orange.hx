@@ -34,6 +34,7 @@ class Orange extends BaseTheme
         BaseColors.SLIDER_BUTTON_DOWN = ColorUtils.PINK;
 
         BaseColors.LABEL_TEXT = ColorUtils.BLACK;
+        BaseColors.INPUT_TEXT = ColorUtils.BLACK;
 
         BaseColors.SCROLLBAR_BUTTON_ACTIVE = ColorUtils.HALO_ORANGE;
         BaseColors.SCROLLBAR_BUTTON_OVER = ColorUtils.BLUE;

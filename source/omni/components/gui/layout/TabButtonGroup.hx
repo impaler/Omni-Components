@@ -1,20 +1,17 @@
 package omni.components.gui.layout;
 
-import omni.utils.signals.OSignalMouse;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
-import omni.components.gui.layout.window.TabButton;
 import omni.utils.OStates;
 import omni.components.core.OLayout;
-import omni.components.core.OToggleButtonGroup;
 import omni.components.core.OContainerPage;
-import omni.components.gui.layout.window.TabButton;
+import omni.components.core.OToggleButton;
+import omni.components.core.OToggleButtonGroup;
 import omni.components.core.OToggleButtonGroup.OToggleButtonGroupStyle;
 import omni.components.core.OLayout.OLayoutStyle;
+import omni.components.gui.controls.TabButton;
+import omni.utils.signals.OSignalMouse;
 import omni.utils.signals.OSignalType;
-import omni.components.core.OToggleButton;
-import omni.components.core.OComponent;
-import omni.components.style.base.OBaseBackgroundStyle;
 
 class TabButtonGroup extends OToggleButtonGroup
 {

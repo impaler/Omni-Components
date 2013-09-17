@@ -111,9 +111,8 @@ class Window extends OComponent
         header = new WindowHeader(styleAsWindow.header);
         header.window = this;
 
-        //contentAreaYPos = 20;
+	    //todo style
         contentAreaYPos = Std.int(header.height);
-
 
         addToMembers(header);
         coreAdd(header);
@@ -129,7 +128,7 @@ class Window extends OComponent
         }
         else
         {
-            setContainerType(styleAsWindow.containerDefault).disableSignals();
+            setContainerType(styleAsWindow.containerDefault);
         }
 
         setupResizeBehavior();
@@ -290,6 +289,7 @@ class Window extends OComponent
         content = containerInstance;
         content.scrollRectEnabled = true;
         coreAdd(containerInstance);
+	    content.parentComponent = this;
 
         invalidate();
 

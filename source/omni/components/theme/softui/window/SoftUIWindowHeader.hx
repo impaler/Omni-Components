@@ -1,4 +1,4 @@
-package omni.components.theme.softui;
+package omni.components.theme.softui.window;
 
 import omni.utils.ColorUtils;
 import omni.utils.OStates;

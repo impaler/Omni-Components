@@ -16,7 +16,7 @@ class BaseContainerPage extends OContainerPageStyle
         defaultContainerType = OContainerContent;
 
         var bgColor = new BrushColorFill ();
-        bgColor.setColorState(OStates.ACTIVE, ColorUtils.GREEN);
+        bgColor.setColorState(OStates.ACTIVE, BaseColors.BG);
         setBackgroundBrush(bgColor);
 
         defaultWidth = 400;

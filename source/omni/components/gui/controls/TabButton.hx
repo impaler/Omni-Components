@@ -1,11 +1,9 @@
-package omni.components.gui.layout.window;
+package omni.components.gui.controls;
 
-import omni.utils.signals.OSignalBool;
-import omni.utils.signals.OSignalType;
-import omni.utils.OStates;
-import omni.utils.signals.OSignalMouse;
 import omni.components.core.OContainerPage;
 import omni.components.core.OToggleButton;
+import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignalMouse;
 
 class TabButton extends OToggleButton
 {

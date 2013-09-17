@@ -1,10 +1,18 @@
 package omni.components.theme.softui;
 
+import omni.components.theme.softui.window.SoftUIWindowPage;
+import omni.components.style.base.layout.window.BaseWindowPage;
+import omni.components.theme.softui.window.SoftUIWindowVBox;
+import omni.components.theme.softui.window.SoftUIWindowScalerButton;
+import omni.components.theme.softui.window.SoftUIWindowMiddleBG;
+import omni.components.theme.softui.window.SoftUIWindowTabbedContainer;
+import omni.components.theme.softui.window.SoftUIWindowFooter;
+import omni.components.theme.softui.window.SoftUIWindowHeader;
+import omni.components.theme.softui.window.SoftUIWindow;
 import omni.components.theme.softui.scrollBar.SoftUIScrollBar;
 import omni.components.theme.softui.scrollBar.SoftUIScrollBarButton;
 import omni.components.theme.softui.scrollBar.SoftUIScrollContainer;
 import omni.components.theme.softui.scrollBar.SoftUIScrollSlider;
-import omni.components.style.base.layout.window.BaseWindowVBox;
 import omni.components.style.base.layout.window.BaseWindowContainer;
 import omni.components.style.base.BaseTheme;
 import omni.components.style.base.BaseColors;
@@ -95,9 +103,10 @@ class SoftUI extends BaseTheme
         addStyle(SoftUIWindowTabbedContainer);
         addStyle(SoftUIWindowMiddleBG);
 	    addStyle(SoftUIWindowScalerButton);
+	    addStyle(SoftUIWindowVBox);
+	    addStyle(SoftUIWindowPage);
 
 	    addStyle(BaseWindowContainer);
-	    addStyle(BaseWindowVBox);
     }
 
     override public function addNumericStepperStyle():Void

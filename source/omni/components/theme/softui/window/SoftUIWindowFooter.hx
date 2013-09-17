@@ -1,4 +1,4 @@
-package omni.components.theme.softui;
+package omni.components.theme.softui.window;
 
 import omni.components.gui.layout.window.WindowFooter.WindowFooterStyle;
 import omni.utils.ColorUtils;

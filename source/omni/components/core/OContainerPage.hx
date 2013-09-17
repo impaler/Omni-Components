@@ -3,7 +3,7 @@ package omni.components.core;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.gui.layout.containers.PagedContainer;
-import omni.components.gui.layout.window.TabButton;
+import omni.components.gui.controls.TabButton;
 import omni.components.core.OContainer;
 import omni.components.style.base.OBaseBackgroundStyle;
 import omni.components.core.OComponent;
@@ -109,8 +109,8 @@ class OContainerPage extends OComponent
     {
         container = type;
         container.scrollRectEnabled = true;
-        coreAdd(type);
-        return type;
+        coreAdd(container);
+        return container;
     }
 
     public function setContainerType(type:Class<OContainer>):OContainer

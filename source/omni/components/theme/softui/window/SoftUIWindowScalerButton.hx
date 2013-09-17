@@ -1,4 +1,4 @@
-package omni.components.theme.softui;
+package omni.components.theme.softui.window;
 
 import omni.components.style.base.BaseColors;
 import omni.utils.OStates;
@@ -17,9 +17,6 @@ class SoftUIWindowScalerButton extends OButtonBaseStyle
 
 		var bgColor = new BrushColorFill ();
 		bgColor.setColorState(OStates.ACTIVE, BaseColors.TRANS);
-		//bgColor.setColorState(OStates.DISABLED, BaseColors.DISABLED);
-		//bgColor.setColorState(OStates.OVER, BaseColors.OVER);
-		//bgColor.setColorState(OStates.DOWN, BaseColors.DOWN);
 		setBackgroundBrush(bgColor);
 
 		setBackgroundBrush(null);

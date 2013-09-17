@@ -23,6 +23,9 @@ class SoftUIScrollContainer extends ScrollContainerStyle
         mouseWheelV = true;
         touchTolerance = 10;
 
+	    scrollH = false;
+	    scrollV = true;
+
         hScrollStyle = new SoftUIScrollBar();
         vScrollStyle = new SoftUIScrollBar();
 

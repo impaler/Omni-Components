@@ -328,13 +328,6 @@ class OTextBase extends OComponent
     }
 
     #if (flash || js )
-
-
-
-
-
-
-
     public function set_restrict(value:String)
     {
         if (_restrict != value)

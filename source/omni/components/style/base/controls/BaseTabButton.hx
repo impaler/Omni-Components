@@ -4,9 +4,9 @@ import omni.components.style.base.core.BaseOComponentButtonLayout;
 import omni.components.style.base.text.BaseButtonLabel;
 import omni.components.style.brush.BrushColorFill;
 import omni.components.style.base.BaseColors;
-import omni.components.gui.layout.window.TabButton.TabButtonStyle;
+import omni.components.gui.controls.TabButton.TabButtonStyle;
 import omni.components.gui.controls.Button.ButtonLabelStyle;
-import omni.components.gui.layout.window.TabButton;
+import omni.components.gui.controls.TabButton;
 import omni.utils.OStates;
 
 class BaseTabButton extends TabButtonStyle

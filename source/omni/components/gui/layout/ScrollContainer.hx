@@ -25,8 +25,8 @@ class ScrollContainer extends OContainer
     //                  Public Variables
     //***********************************************************
 
-    private var h_scrollBar_enabled:Bool = true;
-    private var v_scrollBar_enabled:Bool = true;
+	public var scrollH(get_scrollH, set_scrollH):Bool;
+	public var scrollV(get_scrollV, set_scrollV):Bool;
 
     public var hScrollBar:ScrollBar;
     public var vScrollBar:ScrollBar;
@@ -52,6 +52,8 @@ class ScrollContainer extends OContainer
     private var _mouseWheelV:Bool;
     private var _touchTolerance:Int;
     private var _hContentAlign:String;
+	private var _scrollH:Bool;
+	private var _scrollV:Bool;
 
     public var _direction:String;
 
@@ -105,6 +107,9 @@ class ScrollContainer extends OContainer
         _tweenEnabled = styleAsScrollContainer.tweenEnabled;
         _hContentAlign = styleAsScrollContainer.hContentAlign;
 
+        _scrollH = styleAsScrollContainer.scrollH;
+	    _scrollV = styleAsScrollContainer.scrollV;
+
         _rect = new Rectangle(0, 0, 0, 0);
 
         target = new Sprite();
@@ -140,11 +145,15 @@ class ScrollContainer extends OContainer
             mouseTargetDown = null;
         }
 
-        mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, comp.sprite);
+        //mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, parentComponent.sprite);
+        mouseTargetDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, contentComponent.sprite);
         mouseTargetDown.add(handleDownContent);
 
-        if (mouseWheel != null) mouseWheel.removeAll();
-            mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, contentComponent.sprite);
+        if (mouseWheel != null)
+	        mouseWheel.removeAll();
+
+	    mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, contentComponent.sprite);
+	    //mouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, parentComponent.sprite);
 
         if (mouseWheel != null)
         {
@@ -154,7 +163,6 @@ class ScrollContainer extends OContainer
 
         isValidPosition();
         drawNow();
-
 
         return comp;
     }
@@ -368,10 +376,10 @@ class ScrollContainer extends OContainer
                     _xCache = contentComponent.x;
                     _yCache = contentComponent.y;
 
-                    if (h_scrollBar_enabled && _tweenX)
+                    if (_scrollH && _tweenX)
                         contentComponent.x = Lib.current.stage.mouseX - _xOffset;
 
-                    if (v_scrollBar_enabled && _tweenY)
+                    if (_scrollV && _tweenY)
                         contentComponent.y = Lib.current.stage.mouseY - _yOffset;
                 }
                 isValidPosition();
@@ -399,7 +407,7 @@ class ScrollContainer extends OContainer
     private function handleVScrollBarMove(e:Dynamic = null):Void
     {
         _scrollBarMove = true;
-        if (v_scrollBar_enabled)
+        if (_scrollV)
         {
             contentComponent.y = -vScrollBar.value;
         }
@@ -409,7 +417,7 @@ class ScrollContainer extends OContainer
     private function handleHScrollBarMove(e:Dynamic = null):Void
     {
         _scrollBarMove = true;
-        if (h_scrollBar_enabled)
+        if (_scrollH)
         {
             contentComponent.x = -hScrollBar.value;
         }
@@ -421,7 +429,7 @@ class ScrollContainer extends OContainer
         if (!OCore.instance.disableScrolling)
         {
 
-            if (v_scrollBar_enabled)
+            if (_scrollV)
             {
                 contentComponent.y = e.event.stageY - _yOffset;
                 _scrollY = -contentComponent.y;
@@ -434,7 +442,7 @@ class ScrollContainer extends OContainer
                 vScrollBar.scrollSlider.refreshButton();
             }
 
-            if (h_scrollBar_enabled)
+            if (_scrollH)
             {
                 contentComponent.x = e.event.stageX - _xOffset;
                 _scrollX = -contentComponent.x;
@@ -479,7 +487,7 @@ class ScrollContainer extends OContainer
 
     public inline function updateScrollBarsFromChange():Void
     {
-        if (v_scrollBar_enabled)
+        if (_scrollV)
         {
             _scrollY = -contentComponent.y;
             //todo shouldnt need this as _value clamp should take care in scrollbar???
@@ -490,7 +498,7 @@ class ScrollContainer extends OContainer
             vScrollBar.refreshButton();
         }
 
-        if (h_scrollBar_enabled)
+        if (_scrollH)
         {
             _scrollX = -contentComponent.x;
             if (_scrollX < 0) _scrollX = 0;
@@ -578,13 +586,13 @@ class ScrollContainer extends OContainer
 
         if (_direction == OStates.VERTICAL)
         {
-            h_scrollBar_enabled = false;
-            v_scrollBar_enabled = true;
+            _scrollH = false;
+            _scrollV = true;
         }
         else if (_direction == OStates.HORIZONTAL)
         {
-            h_scrollBar_enabled = true;
-            v_scrollBar_enabled = false;
+            _scrollH = true;
+            _scrollV = false;
         }
 
         invalidate();
@@ -602,9 +610,9 @@ class ScrollContainer extends OContainer
         hScrollBar.pageSize = Std.int(contentComponent._width);
         hScrollBar.contentSize = Std.int(contentComponent._width);
 
-        if (h_scrollBar_enabled)
+        if (_scrollH)
         {
-            if (v_scrollBar_enabled)
+            if (_scrollV)
             {
                 _rect.width = _width - _scrollButtonSize;
                 hScrollBar.pageSize = Std.int(_rect.width);
@@ -664,7 +672,7 @@ class ScrollContainer extends OContainer
         }
         else
         {
-            if (v_scrollBar_enabled)
+            if (_scrollV)
             {
                 _rect.width = _width - _scrollButtonSize;
                 hScrollBar.pageSize = Std.int(_rect.width);
@@ -720,6 +728,36 @@ class ScrollContainer extends OContainer
         }
     }
 
+	public function get_scrollH():Bool
+	{
+		return _scrollH;
+	}
+
+	public function set_scrollH(value:Bool):Bool
+	{
+		if(_scrollH != value)
+		{
+			_scrollH = value;
+			invalidate();
+		}
+		return _scrollH;
+	}
+
+	public function get_scrollV():Bool
+	{
+		return _scrollV;
+	}
+
+	public function set_scrollV(value:Bool):Bool
+	{
+		if(_scrollV != value)
+		{
+			_scrollV = value;
+			invalidate();
+		}
+		return _scrollV;
+	}
+
     //***********************************************************
     //                  Component Style
     //***********************************************************
@@ -744,6 +782,9 @@ class ScrollContainerStyle extends OLayoutStyle
 
     public var hScrollStyle:ScrollBarStyle;
     public var vScrollStyle:ScrollBarStyle;
+
+    public var scrollH:Bool;
+    public var scrollV:Bool;
 
     public var scrollStep:Int;
     public var scrollButtonSize:Int;
