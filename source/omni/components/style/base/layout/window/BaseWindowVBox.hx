@@ -1,13 +1,9 @@
 package omni.components.style.base.layout.window;
 
 import omni.components.gui.layout.window.WindowVBox.WindowVBoxStyle;
-import omni.utils.OStates;
-import omni.components.style.base.BaseColors;
-import omni.components.gui.layout.VBox.VBoxStyle;
 import omni.components.style.brush.BrushColorFill;
-import omni.components.core.OLayout;
 import omni.utils.ColorUtils;
-import flash.geom.Rectangle;
+import omni.utils.OStates;
 
 class BaseWindowVBox extends WindowVBoxStyle
 {
@@ -28,9 +24,9 @@ class BaseWindowVBox extends WindowVBoxStyle
         defaultWidthSizeMethod = OStates.AUTO;
         defaultHeightSizeMethod = OStates.AUTO;
 
-        var bgColor = new BrushColorFill ();
-        bgColor.setColorState(OStates.ACTIVE, ColorUtils.WHITE);
-        setBackgroundBrush(bgColor);
+	    var bgColor = new BrushColorFill ();
+	    bgColor.setColorState(OStates.ACTIVE, ColorUtils.TRANSPARENT);
+	    setBackgroundBrush(bgColor);
     }
 
 }
