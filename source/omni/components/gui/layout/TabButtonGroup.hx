@@ -11,7 +11,7 @@ import omni.components.core.OToggleButtonGroup.OToggleButtonGroupStyle;
 import omni.components.core.OLayout.OLayoutStyle;
 import omni.components.gui.controls.TabButton;
 import omni.utils.signals.OSignalMouse;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignalT;
 
 class TabButtonGroup extends OToggleButtonGroup
 {
@@ -49,7 +49,7 @@ class TabButtonGroup extends OToggleButtonGroup
 
         this.sprite.addChild(layout.sprite);
         
-        onButtonChange = new OSignalType<TabButton -> Void>();
+        onButtonChange = new OSignalT<TabButton>();
 
         onMouseWheel = new OSignalMouse(OSignalMouse.MOUSE_WHEEL, this.sprite);
         onMouseWheel.add(handleMouseWheel);

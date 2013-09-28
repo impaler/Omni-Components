@@ -4,7 +4,7 @@ import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
 import omni.utils.signals.OSignalEvent;
 import omni.utils.signals.OSignalMouse;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignal;
 
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
@@ -67,7 +67,7 @@ class OCore
     //causes lag in games, better suited for apps
     public var updateAfterEvent:Bool = false;
 
-    public var onThemeChange:OSignalType<Void -> Void>;
+    public var onThemeChange:OSignal;
 
     public var defaultTheme:OTheme;
 
@@ -83,7 +83,7 @@ class OCore
 
     public function init(theme:Class<OTheme>, trackTheme:Bool = true):Void
     {
-        onThemeChange = new OSignalType();
+        onThemeChange = new OSignal();
 
         this.trackTheme = trackTheme;
         changeDefaultTheme(theme);

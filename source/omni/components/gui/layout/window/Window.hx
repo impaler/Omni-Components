@@ -1,5 +1,6 @@
 package omni.components.gui.layout.window;
 
+import omni.utils.signals.OSignalT;
 import omni.utils.UtilNumbers;
 import omni.components.gui.layout.window.WindowMiddleBG.WindowMiddleBGStyle;
 import omni.components.core.interfaces.IStyle;
@@ -19,7 +20,7 @@ import omni.components.core.OCore;
 import omni.components.core.OComponent;
 import omni.components.core.OButtonBase;
 import omni.components.core.OLayout;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignal;
 import omni.utils.signals.OSignalMouse;
 import omni.components.style.base.OBaseBackgroundStyle;
 import flash.Lib;
@@ -33,8 +34,8 @@ class Window extends OComponent
     //                  Public Variables
     //***********************************************************
 
-    public var onOpened:OSignalType<Window -> Void>;
-    public var onClosed:OSignalType<Window -> Void>;
+    public var onOpened:OSignalT<Window>;
+    public var onClosed:OSignalT<Window>;
 
     public var onStageResize:OSignalEvent;
     public var onResizeDragRender:OSignalEvent;
@@ -119,8 +120,8 @@ class Window extends OComponent
         header.buttonMode = true;
 
         onMouseDownHeader = new OSignalMouse(OSignalMouse.MOUSE_DOWN, header.sprite);
-        onOpened = new OSignalType<Window -> Void>();
-        onClosed = new OSignalType<Window -> Void>();
+        onOpened = new OSignalT<Window>();
+        onClosed = new OSignalT<Window>();
 
         if (Type.getClassName(styleAsWindow.containerDefault) == Type.getClassName(WindowTabbedContainer))
         {

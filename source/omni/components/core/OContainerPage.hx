@@ -2,12 +2,12 @@ package omni.components.core;
 
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
+import omni.components.core.OContainer;
+import omni.components.core.OComponent;
 import omni.components.gui.layout.containers.PagedContainer;
 import omni.components.gui.controls.TabButton;
-import omni.components.core.OContainer;
 import omni.components.style.base.OBaseBackgroundStyle;
-import omni.components.core.OComponent;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignalT;
 
 class OContainerPage extends OComponent
 {
@@ -16,8 +16,8 @@ class OContainerPage extends OComponent
     //                  Public Variables
     //***********************************************************
 
-    public var onClosed:OSignalType<OContainerPage -> Void>;
-    public var onOpened:OSignalType<OContainerPage -> Void>;
+    public var onClosed:OSignalT<OContainerPage>;
+    public var onOpened:OSignalT<OContainerPage>;
 
     public var title(get_title, set_title):String;
     public var _title:String;
@@ -35,8 +35,8 @@ class OContainerPage extends OComponent
     {
         super.createMembers();
 
-        onClosed = new OSignalType<OContainerPage -> Void>();
-        onOpened = new OSignalType<OContainerPage -> Void>();
+        onClosed = new OSignalT<OContainerPage>();
+        onOpened = new OSignalT<OContainerPage>();
 
         var type = styleAsContainerPageStyle.defaultContainerType;
         setContainerType(type);

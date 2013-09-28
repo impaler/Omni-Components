@@ -4,7 +4,7 @@ import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.utils.UtilNumbers;
 import omni.utils.signals.OSignalEvent;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignal;
 import omni.components.style.base.OBaseStyle;
 import omni.utils.OStates;
 import flash.events.Event;

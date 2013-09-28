@@ -1,13 +1,13 @@
 package omni.components.gui.controls;
 
-import omni.utils.signals.OSignalMouse;
-import omni.utils.signals.OSignalType;
-import omni.utils.OStates;
 import omni.components.core.OCore;
 import omni.components.core.OComponent;
 import omni.components.gui.controls.ScrollBarButton.ScrollBarButtonStyle;
 import omni.components.gui.controls.Slider.SliderBaseStyle;
 import omni.components.style.base.OBaseStyle;
+import omni.utils.signals.OSignalInt;
+import omni.utils.signals.OSignalMouse;
+import omni.utils.OStates;
 
 import flash.events.TimerEvent;
 import flash.utils.Timer;
@@ -23,7 +23,7 @@ class ScrollBar extends OComponent
 
     public var scrollSlider:ScrollSlider;
 
-    public var onChange(default, null):OSignalType<Int -> Void>;
+    public var onChange(default, null):OSignalInt;
 
     public var type(get_type, set_type):String;
     public var _type:String;
@@ -83,7 +83,7 @@ class ScrollBar extends OComponent
         if (_enableScrollButtons)
             createScrollButtons();
 
-        onChange = new OSignalType<Int -> Void>();
+        onChange = new OSignalInt();
     }
 
     override public function enableSignals():Void

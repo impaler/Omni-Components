@@ -1,17 +1,15 @@
 package omni.components.core;
 
-import omni.components.gui.controls.TabButton;
-import omni.components.gui.layout.VBox;
-import omni.components.gui.layout.HBox;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
+import omni.components.gui.layout.VBox;
+import omni.components.gui.layout.HBox;
 import omni.components.style.base.OBaseStyle;
 import omni.components.core.OLayout.OLayoutStyle;
 import omni.components.core.OToggleButton;
-import omni.utils.signals.OSignalType;
 import omni.components.core.OToggleButton;
 import omni.components.core.OComponent;
-import omni.components.style.base.OBaseBackgroundStyle;
+import omni.utils.signals.OSignalT;
 import omni.utils.OStates;
 
 class OToggleButtonGroup extends OComponent
@@ -23,7 +21,7 @@ class OToggleButtonGroup extends OComponent
 
     public var layout:OLayout;
 
-    public var onButtonChange:OSignalType<Dynamic -> Void>;
+    public var onButtonChange:OSignalT<Dynamic>;
 
     private var _target:OToggleButton;
 
@@ -50,7 +48,7 @@ class OToggleButtonGroup extends OComponent
 
         this.sprite.addChild(layout.sprite);
 
-        onButtonChange = new OSignalType<OToggleButton -> Void>();
+        onButtonChange = new OSignalT<OToggleButton>();
     }
 
     override public function destroy():Void

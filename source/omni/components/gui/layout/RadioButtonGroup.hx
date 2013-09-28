@@ -5,7 +5,7 @@ import omni.components.core.OToggleButtonGroup;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OLayout.OLayoutStyle;
 import omni.components.gui.controls.RadioButton;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignal;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OToggleButton;
 import omni.components.core.OComponent;

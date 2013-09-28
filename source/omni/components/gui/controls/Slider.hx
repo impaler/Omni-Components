@@ -1,5 +1,6 @@
 package omni.components.gui.controls;
 
+import omni.utils.signals.OSignalInt;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.OCore;
@@ -10,7 +11,7 @@ import omni.components.style.base.OBaseBackgroundStyle;
 
 import omni.utils.OStates;
 import omni.utils.UtilNumbers;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignal;
 import omni.utils.signals.OSignalEvent;
 import omni.utils.signals.OSignalMouse;
 import omni.utils.signals.OSignalMouse;
@@ -40,7 +41,7 @@ class Slider extends OComponent
     public var onMouseWheel:OSignalMouse;
     public var onMouseDown:OSignalMouse;
     public var onMouseUp:OSignalMouse;
-    public var onChange(default, null):OSignalType<Int -> Void>;
+    public var onChange:OSignalInt;
     //todo wheel broken in html5
     private var _mouseWheelTarget(default, set__mouseWheelTarget):Sprite;
 
@@ -78,7 +79,7 @@ class Slider extends OComponent
         _value = styleAs.defaultValue;
         step = styleAs.defaultStep;
 
-        onChange = new OSignalType<Int -> Void>();
+        onChange = new OSignalInt();
         onMouseWheel = new OSignalMouse (OSignalMouse.MOUSE_WHEEL, this.sprite);
         onMouseDown = new OSignalMouse (OSignalMouse.MOUSE_DOWN, this.sprite);
 	    onMouseOut = new OSignalMouse (OSignalMouse.MOUSE_OUT, this.sprite);

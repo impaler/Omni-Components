@@ -5,7 +5,7 @@ import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OContainerPage;
 import omni.components.core.OContainer;
 import omni.components.gui.controls.TabButton;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignalT;
 
 class PagedContainer extends OContainer
 {
@@ -20,7 +20,7 @@ class PagedContainer extends OContainer
 
     public var tabs:TabButtonGroup;
 
-    public var onPageChange:OSignalType<Dynamic -> Void>;
+    public var onPageChange:OSignalT<OContainerPage>;
 
     //***********************************************************
     //                  Component Overrides
@@ -33,7 +33,7 @@ class PagedContainer extends OContainer
         tabs = new TabButtonGroup();
         this.sprite.addChild(tabs.sprite);
 
-        onPageChange = new OSignalType<OContainerPage -> Void>();
+        onPageChange = new OSignalT<OContainerPage>();
 
         _scrollRectEnabled = false;
 

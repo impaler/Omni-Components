@@ -1,9 +1,10 @@
 package omni.components.gui.controls;
 
+import omni.utils.signals.OSignalT;
 import omni.components.core.interfaces.IStyle;
 import omni.components.core.interfaces.IOComponent;
 import omni.utils.signals.OSignalMouse;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignal;
 import omni.utils.OStates;
 import omni.components.gui.layout.list.List;
 import omni.components.gui.layout.list.ListItem;
@@ -27,7 +28,7 @@ class SelectList extends OComponentButton
 
     public var multipleSelections:Bool;
 
-    public var onChange:OSignalType<SelectList>;
+    public var onChange:OSignalT<SelectList>;
 
 
     override public function createMembers():Void

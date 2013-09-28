@@ -1,12 +1,9 @@
 package omni.components.core;
 
+import omni.utils.signals.OSignalT;
 import omni.utils.signals.OSignalBool;
-import omni.components.core.interfaces.IOComponent;
-import omni.components.gui.text.Label;
 import omni.utils.signals.OSignalMouse;
-import omni.utils.signals.OSignalType;
 import omni.components.gui.controls.Button;
-import omni.components.style.base.OBaseBackgroundStyle;
 import omni.utils.OStates;
 
 class OToggleButton extends Button
@@ -19,7 +16,7 @@ class OToggleButton extends Button
     public var value(get_value, set_value):Bool;
     public var _value:Bool;
 
-    public var onChange:OSignalType<Dynamic -> Void>;
+    public var onChange:OSignalT<Dynamic>;
     public var onValueChange:OSignalBool;
 
     public var group:OToggleButtonGroup;
@@ -32,7 +29,7 @@ class OToggleButton extends Button
     {
         super.createComponentMembers();
 
-        onChange = new OSignalType<OToggleButton -> Void>();
+        onChange = new OSignalT<OToggleButton>();
         onValueChange = new OSignalBool();
     }
 

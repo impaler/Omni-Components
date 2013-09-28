@@ -1,5 +1,6 @@
 package omni.components.gui.controls;
 
+import omni.utils.signals.OSignalInt;
 import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OComponent;
 import omni.components.core.OCore;
@@ -8,7 +9,7 @@ import omni.components.gui.controls.NumericStepperButton.NumericStepperButtonSty
 import omni.components.gui.text.Label;
 import omni.components.style.base.OBaseBackgroundStyle;
 import omni.utils.signals.OSignalMouse;
-import omni.utils.signals.OSignalType;
+import omni.utils.signals.OSignal;
 import omni.utils.ComponentUtils;
 
 import flash.utils.Timer;
@@ -26,7 +27,7 @@ class NumericStepper extends OComponent
     public var decrease:NumericStepperButton;
 
     public var onMouseWheel:OSignalMouse;
-    public var onChange(default, null):OSignalType<Int -> Void>;
+    public var onChange(default, null):OSignalInt;
 
     public var value(get_value, set_value):Int;
     public var max(get_max, set_max):Int;
@@ -64,7 +65,7 @@ class NumericStepper extends OComponent
         _initialButtonTimerDelay = styleAsNumericStepper.initialButtonTimerDelay;
         _timerInterval = styleAsNumericStepper.timerInterval;
 
-        onChange = new OSignalType();
+        onChange = new OSignalInt();
         onMouseWheel = new OSignalMouse(OSignalMouse.MOUSE_WHEEL, this.sprite);
 
         textBase = new Label(styleAsNumericStepper.textStyle);

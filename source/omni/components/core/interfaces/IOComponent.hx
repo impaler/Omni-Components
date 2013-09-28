@@ -1,8 +1,6 @@
 package omni.components.core.interfaces;
 
-import omni.utils.signals.OSignalType;
 import flash.display.Sprite;
-import flash.events.Event;
 
 /**
  * IComponent

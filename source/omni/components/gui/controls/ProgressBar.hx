@@ -4,7 +4,7 @@ import omni.components.core.interfaces.IOComponent;
 import omni.components.core.OComponent;
 import omni.components.core.OContainer;
 import omni.utils.signals.OSignalInt;
-import omni.utils.signals.OSignalVoid;
+import omni.utils.signals.OSignal;
 import omni.components.style.base.OBaseBackgroundStyle;
 
 import flash.events.TimerEvent;
@@ -17,7 +17,7 @@ class ProgressBar extends OComponent
     //                  Public Variables
     //***********************************************************
 
-    public var onComplete:OSignalVoid;
+    public var onComplete:OSignal;
     public var onProgress:OSignalInt;
 
     public var value(get_value, set_value):Int;
@@ -44,7 +44,7 @@ class ProgressBar extends OComponent
     {
         super.createMembers();
 
-        onComplete = new OSignalVoid();
+        onComplete = new OSignal();
         onProgress = new OSignalInt();
 
         var sty = cast(_style, ProgressBarStyle );

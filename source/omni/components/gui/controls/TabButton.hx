@@ -1,8 +1,8 @@
 package omni.components.gui.controls;
 
+import omni.utils.signals.OSignalT;
 import omni.components.core.OContainerPage;
 import omni.components.core.OToggleButton;
-import omni.utils.signals.OSignalType;
 import omni.utils.signals.OSignalMouse;
 
 class TabButton extends OToggleButton
@@ -21,7 +21,7 @@ class TabButton extends OToggleButton
     override public function createComponentMembers():Void
     {
         super.createComponentMembers();
-        onChange = new OSignalType<TabButton -> Void>();
+        onChange = new OSignalT<TabButton>();
     }
 
     override public function handleMouseDown(?e:OSignalMouse):Void

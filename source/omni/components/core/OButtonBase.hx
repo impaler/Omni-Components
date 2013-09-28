@@ -1,8 +1,8 @@
 package omni.components.core;
 
+import omni.utils.signals.OSignalT;
 import omni.components.core.OContainer.OContainerStyle;
 import omni.components.core.OCore;
-import omni.utils.signals.OSignalType;
 import omni.utils.signals.OSignalMouse;
 import omni.utils.OStates;
 
@@ -25,7 +25,7 @@ class OButtonBase extends OContainer
     public var onMouseUp:OSignalMouse;
     public var onMouseClick:OSignalMouse;
 
-    public var onClick:OSignalType<Dynamic -> Void>;
+    public var onClick:OSignalT<OButtonBase>;
 
     public var isOver:Bool = false;
     public var isDown:Bool = false;
@@ -46,7 +46,7 @@ class OButtonBase extends OContainer
         onMouseUp = OCore.instance.onStageMouseUp;
         onMouseClick = new OSignalMouse(OSignalMouse.CLICK, this.sprite);
 
-        onClick = new OSignalType<Dynamic -> Void>();
+        onClick = new OSignalT<OButtonBase>();
     }
 
     override public function enableSignals():Void
