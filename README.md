@@ -1,3 +1,10 @@
+### This codebase is no longer in development, there are some layout limitations and improvements that are required I dont have time for.
+
+#### Good news however Ian's work with https://github.com/ianharrigan/haxeui has a very similar strucutre to OmniComponents and it has got many of the improvements working I had in mind for OmniComponents. Check it out!
+
+
+
+
 OmniComponents
 =============
 
